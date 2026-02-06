@@ -30,6 +30,7 @@
         "drupal/entityqueue": "^1.10",
         "drupal/facets": "^3.0",
         "drupal/field_group": "^4.0",
+        "drupal/fontawesome": "^3.0",
         "drupal/geofield": "^10.3",
         "drupal/layout_builder_blocks": "^1.1",
         "drupal/leaflet": "^10.4",
