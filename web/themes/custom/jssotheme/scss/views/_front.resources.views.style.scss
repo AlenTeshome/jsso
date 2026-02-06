@@ -1,0 +1,50 @@
+@use '../abstracts' as *;
+
+.view-jsso-knowledge-hub {
+    .view-content {
+        display: flex;
+        flex-direction: row;
+        gap: 2em;
+
+        .res-row {
+            display: flex;
+            flex: 1 1 100%;
+
+            .res-details {
+                a {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 1em;
+                    padding: 1.5em;
+                    border-radius: 1em;
+                    background-color: var(--clr-brand-lime);
+                    transition: all 0.3s ease-in-out;
+
+                    .res-img {
+                        img {
+                            width: 100%;
+                            height: auto;
+                            object-fit: cover;
+                            border-radius: 1em;
+                        }
+                    }
+
+                    .res-title {
+                        font-size: 1.1rem;
+                        font-weight: 600;
+                        color: var(--clr-brand-forestgreen);
+                    }
+
+                    .res-subtitle {
+                        font-style: italic;
+                        font-size: .9rem;
+                    }
+
+                    .res-link {
+                        @include after-psudo('\f063');
+                    }
+                }
+            }
+        }
+    }
+}

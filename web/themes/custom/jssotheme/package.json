@@ -1,0 +1,15 @@
+{
+  "name": "jssotheme",
+  "version": "1.0.0",
+  "description": "JSSO custom theme based on Bootstrap 5.",
+  "main": "index.js",
+  "scripts": {
+    "build": "sass scss/jsso.custom.style.scss css/jsso.custom.style.css",
+    "watch": "sass scss/jsso.custom.style.scss css/jsso.custom.style.css --watch"
+  },
+  "devDependencies": {
+    "sass": "^1.70.0"
+  },
+  "author": "JSSO Team",
+  "license": "GPL-2.0-or-later"
+}

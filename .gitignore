@@ -1,0 +1,31 @@
+# Ignore configuration files that may contain sensitive information.
+/web/sites/*/settings.php
+/web/sites/*/settings.local.php
+/web/sites/*/services.yml
+/web/sites/*/development.services.yml
+
+# Ignore the vendor directory.
+/vendor/
+
+# Ignore Drupal's file directory.
+/web/sites/*/files/
+/web/sites/*/private/
+
+# Ignore simpletest directories.
+/web/sites/simpletest/
+
+# Ignore IDE files.
+.idea/
+.vscode/
+
+# Ignore OS-generated files.
+.DS_Store
+Thumbs.db
+
+# Ignore ddev-specific files if they shouldn't be shared
+# .ddev/
+# However, many teams keep .ddev for consistency. 
+# We'll leave it out of ignore for now unless it becomes an issue.
+
+# Ignore composer lock if needed, but for projects it's usually tracked.
+# composer.lock

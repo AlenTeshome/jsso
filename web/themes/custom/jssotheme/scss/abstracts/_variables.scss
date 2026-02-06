@@ -1,0 +1,88 @@
+// -----------------------------------------------------------------------------
+// This file contains all application-wide Sass variables.
+// -----------------------------------------------------------------------------
+$colors: (
+    bg: (100: hsl(180deg 33.33% 98.82%),
+        200: hsl(0deg 0% 98.04%),
+        300: hsl(0, 0%, 100%),
+        400: #f3f3f3,
+        500: hsl(0deg 0% 0% / 80%),
+    ),
+
+    // Finovate Design System Tokens
+    brand: (lime: #B4E717,
+        forestgreen: #1C4B42,
+        beige: #F4F4F1,
+    )
+);
+
+:root {
+    @each $color, $shades in $colors {
+        @each $shade, $value in $shades {
+            --clr-#{$color}-#{$shade}: #{$value};
+        }
+    }
+
+    --body-font: "Work Sans",
+    sans-serif;
+    --secondary-font: "Montserrat",
+    sans-serif;
+    --biggest-font-size: 3.625rem; // ~58px
+    --h2-font-size: 3rem; // ~48px
+    --h3-font-size: 1.75rem;
+    --normal-font-size: 1rem;
+    --small-font-size: .875rem;
+
+    // Finovate Specific Tokens
+
+    --radius-large: 40px;
+    --radius-medium: 24px;
+    --radius-pill: 50px;
+
+    @media screen and (max-width: 992px) {
+        --biggest-font-size: 2rem;
+        --h2-font-size: 1.5rem;
+        --h3-font-size: 1.25rem;
+        --normal-font-size: .938rem;
+        --small-font-size: .813rem;
+    }
+
+    --text-color: var(--clr-bg-500);
+    --text-color-light: var(--clr-bg-400);
+    --body-color: var(--clr-bg-300);
+    --drop-shadow: 0px 3px 9px 0px rgba(91, 91, 91, 0.2);
+    --color-main-grad: linear-gradient(to right, hsl(168deg, 55.56%, 7.06%) 10%,
+        hsl(171.18deg, 54.84%, 12.16%, 45%));
+    --color-reverse-grad: linear-gradient(to right, hsl(211.14deg 56.03% 27.65%) 10%,
+        hsl(211.17deg 33.62% 44.9%) 45%, hsl(211.17deg 33.62% 44.9%), hsl(211.14deg 56.03% 27.65%));
+    --footer-color-light: hsl(0deg 0% 12.94%);
+    --footer-color: hsl(0deg 0% 10.2%);
+    --footer-color-dark: hsl(0deg 0% 0%);
+
+    $sdg-colors: (
+        1: #e5243b,
+        2: #dda63a,
+        3: #4c9f38,
+        4: #c5192d,
+        5: #ff3a21,
+        6: #26bde2,
+        7: #fcc30b,
+        8: #a21942,
+        9: #fd6925,
+        10: #dd1367,
+        11: #fd9d24,
+        12: #bf8b2e,
+        13: #3f7e44,
+        14: #0a97d9,
+        15: #56c02b,
+        16: #00689d,
+        17: #19486a
+    );
+
+@each $num, $color in $sdg-colors {
+    [data="SDG #{$num}"] {
+        background-color: $color;
+    }
+}
+
+}

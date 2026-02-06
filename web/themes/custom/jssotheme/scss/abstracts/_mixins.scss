@@ -1,0 +1,672 @@
+// -----------------------------------------------------------------------------
+// This file contains all application-wide Sass mixins.
+// -----------------------------------------------------------------------------
+@mixin primary-font {
+    font-family: "Work Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: normal;
+    font-style: normal;
+}
+
+@mixin secondary-font {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+}
+
+@mixin font-awsome-font {
+    font-family: 'Font Awesome 6 Free';
+    font-size: 1rem;
+    padding: 0 .5em;
+    font-weight: 900;
+    display: inline-block;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+}
+
+@mixin font-awsome-brands {
+    font-family: 'Font Awesome 6 Brands';
+    font-size: 1rem;
+    padding: 0 .5em;
+    font-weight: 900;
+    display: inline-block;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+}
+
+
+
+@mixin grid-items($itemwidth: 290px) {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax($itemwidth, 1fr));
+    gap: 2em;
+}
+
+
+@mixin trim-text($numlines: null) {
+    @if $numlines !=null {
+        display: -webkit-box;
+        -webkit-line-clamp: $numlines;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    @else {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        display: block;
+    }
+}
+
+@mixin after-psudo($facode: null) {
+    &::after {
+        @include font-awsome-font;
+        content: $facode;
+        color: var(--clr-secondary-300);
+    }
+}
+
+@mixin before-psudo($facode: null) {
+    &::before {
+        @include font-awsome-font;
+        content: $facode;
+        color: var(--clr-secondary-300);
+    }
+}
+
+
+@mixin animate-on-scroll {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: transform 600ms cubic-bezier(0.2, 0.8, 0.2, 1), opacity 600ms ease;
+
+    &.animate {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@mixin animate-on-scroll-left {
+
+    opacity: 0;
+    transform: translateX(-100px);
+    transition: transform 600ms cubic-bezier(0.2, 0.8, 0.2, 1), opacity 600ms ease;
+
+    &.animate {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@mixin animate-on-scroll-right {
+
+    opacity: 0;
+    transform: translateX(100px);
+    transition: transform 600ms cubic-bezier(0.2, 0.8, 0.2, 1), opacity 600ms ease;
+
+    &.animate {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@mixin apply-sdg-colors($sdgnumber: null) {}
+
+@mixin list-item-title {
+    font-size: clamp(1.05rem, 5vw, .9rem);
+    line-height: clamp(1.5rem, 5vw, 1rem);
+    @include secondary-font;
+    display: flex;
+    text-decoration: none;
+    font-weight: 600;
+    letter-spacing: .5px;
+    transition: all .3s ease-in-out;
+}
+
+@mixin main-read-more-link-anchor($bgcolor: rgba(255, 255, 255, 0.2), $textcolor: var(--clr-bg-300), $hoverbgcolor: var(--clr-bg-500), $hovertextcolor: var(--bs-body-color)) {
+
+    display: inline-flex; // aligns text + circle
+    align-items: center;
+    gap: 0.75rem; // space between text and arrow circle
+    background: $bgcolor; // subtle oval background
+    padding: 0.35rem 0.35rem 0.35rem 1.35rem;
+    border-radius: 999px; // makes it oval
+    color: $textcolor;
+    font-weight: 600;
+    text-decoration: none;
+    position: relative;
+    overflow: visible;
+
+    // arrow circle
+    &::after {
+        content: "→"; // arrow symbol (can be customized)
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 38px;
+        height: 38px;
+        background: $textcolor; // white circle
+        color: $bgcolor; // arrow color
+        border-radius: 50%; // perfect circle
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+
+    // OPTIONAL: hover effect
+    &:hover {
+        background: $bgcolor;
+        transform: translateY(-2px);
+        transition: 0.2s ease;
+    }
+
+    // OPTIONAL: hover effect for the arrow circle
+    &:hover::after {
+        background: $hoverbgcolor;
+        color: $hovertextcolor;
+        transition: 0.2s ease;
+    }
+
+}
+
+@mixin read-more-link {}
+
+@mixin button-read-more-link-anchor {
+
+    display: inline-flex; // aligns text + circle
+    align-items: center;
+    gap: 0.75rem; // space between text and arrow circle
+    background: rgba(255, 255, 255, 0.2); // subtle oval background
+    padding: 0.75rem 1.75rem;
+    border-radius: 999px; // makes it oval
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+    position: relative;
+    overflow: visible;
+
+
+    // OPTIONAL: hover effect
+    &:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: translateY(-2px);
+        transition: 0.2s ease;
+    }
+
+}
+
+
+
+@mixin button-style {
+    display: inline-block;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    background-color: transparent;
+    border: 1px solid transparent;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    border-radius: 0.25rem;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+
+    &:hover {
+        transition: all 0.6s ease;
+        outline: 0;
+    }
+}
+
+@mixin gradient-button {
+    @include button-style;
+    padding: 10px 25px;
+    color: var(--clr-bg-300);
+    position: relative;
+    overflow: hidden;
+    font-size: .8rem;
+    font-weight: 600;
+    background: var(--clr-primary-300);
+    transition: all 0.6s ease-in-out;
+
+    &:hover {
+        color: var(--clr-bg-400);
+        background: var(--clr-primary-500);
+    }
+
+
+}
+
+@mixin add-curve-top-left {
+    min-height: 80px;
+    border-radius: 0 0 40px 0;
+    top: 0;
+    left: 0;
+
+    >div {
+        position: relative;
+
+        &::before {
+            position: absolute;
+            top: 0;
+            right: -40px;
+            content: "";
+            width: 40px;
+            height: 40px;
+            background: url(../../images/curve.svg)no-repeat;
+            transform: rotate(180deg);
+        }
+
+        &::after {
+            position: absolute;
+            bottom: -40px;
+            left: 0;
+            content: "";
+            width: 40px;
+            height: 40px;
+            background: url(../../images/curve.svg)no-repeat;
+            transform: rotate(180deg);
+        }
+    }
+}
+
+@mixin add-curve-top-right {
+
+    min-height: 80px;
+
+    border-radius: 0 0 0 40px;
+    top: 0;
+    right: 0;
+
+    >div {
+        position: relative;
+
+        &::before {
+            position: absolute;
+            top: 0;
+            left: -40px;
+            content: "";
+            width: 40px;
+            height: 40px;
+            background: url(../../images/curve.svg)no-repeat;
+            transform: rotate(-90deg);
+        }
+
+        &::after {
+            position: absolute;
+            bottom: -40px;
+            right: 0;
+            content: "";
+            width: 40px;
+            height: 40px;
+            background: url(../../images/curve.svg)no-repeat;
+            transform: rotate(-90deg);
+        }
+    }
+}
+
+
+@mixin add-curve-bottom-right {
+
+    min-height: 80px;
+    border-radius: 40px 0 0 0;
+    bottom: 0;
+    right: 0;
+
+    >div {
+        position: relative;
+
+        &::before {
+            position: absolute;
+            bottom: 0;
+            left: -40px;
+            content: "";
+            width: 40px;
+            height: 40px;
+            background: url(../../images/curve.svg)no-repeat;
+            transform: rotate(0deg);
+        }
+
+        &::after {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            content: "";
+            width: 40px;
+            height: 40px;
+            background: url(../../images/curve.svg)no-repeat;
+            transform: rotate(0deg);
+        }
+    }
+}
+
+
+@mixin add-curve-bottom-left {
+
+    min-height: 80px;
+    border-radius: 0 40px 0 0;
+    bottom: 0;
+    left: 0;
+
+    >div {
+        position: relative;
+
+        &::before {
+            position: absolute;
+            top: -40px;
+            left: 0px;
+            content: "";
+            width: 40px;
+            height: 40px;
+            background: url(../../images/curve.svg)no-repeat;
+            transform: rotate(90deg);
+        }
+
+        &::after {
+            position: absolute;
+            bottom: 0px;
+            right: -40px;
+            content: "";
+            width: 40px;
+            height: 40px;
+            background: url(../../images/curve.svg)no-repeat;
+            transform: rotate(90deg);
+        }
+    }
+}
+
+
+
+/******************** one Main 3 side *************************/
+
+@mixin one-by-three-side-by-side {
+
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+
+    @media (min-width: 62.5rem) {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        gap: 1.5em;
+    }
+
+    .views-row {
+        .image {
+            a {
+                width: 100%;
+            }
+        }
+
+        .list-detail {
+            display: flex;
+            flex-direction: column;
+            gap: .5em;
+
+            .list-date {
+                @include list-item-date;
+            }
+
+            .list-title {
+                @include trim-text(2);
+                @include list-item-title;
+            }
+
+            .list-link {
+                @include gradient-button;
+            }
+        }
+
+        &:first-child {
+            display: flex;
+            gap: 1em;
+            grid-row: span 3 / auto;
+            flex-direction: column;
+
+            .image {
+                display: flex;
+
+                img {
+                    width: 100%;
+                    height: auto;
+                }
+            }
+
+            .list-title {
+                font-size: clamp(1.25rem, 5vw, 0.9rem);
+                line-height: clamp(1.5rem, 5vw, 1rem);
+            }
+        }
+
+        &:nth-child(2),
+        &:nth-child(3),
+        &:nth-child(4) {
+            display: flex;
+            gap: 1em;
+            justify-content: center;
+            flex-direction: column;
+
+
+            @media (min-width: 62.5rem) {
+                flex-direction: row;
+            }
+
+            //align-items: center;
+
+            .image {
+                display: flex;
+                flex: 1 1 40%;
+
+                img {
+                    //object-fit: contain;
+                    width: 100%;
+                    height: auto;
+                }
+            }
+
+            .list-detail {
+                display: flex;
+                flex-direction: column;
+                flex: 1 1 60%;
+            }
+        }
+
+    }
+
+
+}
+
+/************************************************************/
+
+
+/******************** one Main 3 bottom *************************/
+
+@mixin one-by-three-top-and-bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+
+    @media (min-width: 62.5rem) {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5em;
+    }
+
+    .views-row {
+        .image {}
+
+        .list-detail {
+            display: flex;
+            flex-direction: column;
+            gap: .5em;
+
+            .list-date {
+                @include list-item-date;
+            }
+
+            .list-title {
+                @include trim-text(2);
+                @include list-item-title;
+            }
+
+            .list-link {
+                @include gradient-button;
+            }
+        }
+
+        &:first-child {
+
+
+
+            @media (min-width: 62.5rem) {
+                display: flex;
+                gap: 1em;
+                grid-column: span 3 / auto;
+                flex-direction: column;
+            }
+
+            .image {
+                display: flex;
+
+                img {
+                    width: 100%;
+                    height: auto;
+                }
+            }
+        }
+
+        &:nth-child(2),
+        &:nth-child(3),
+        &:nth-child(4) {
+            display: flex;
+            flex-direction: column;
+            gap: 1em;
+            grid-column: span 1 / auto;
+
+            .image {
+                display: flex;
+                flex: 1 1 40%;
+
+                img {
+                    //object-fit: contain;
+                    width: 100%;
+                    height: auto;
+                }
+            }
+
+            .list-detail {
+                display: flex;
+                flex-direction: column;
+                flex: 1 1 60%;
+            }
+        }
+
+    }
+
+
+}
+
+/************************************************************/
+
+@mixin list-item-date {
+    font-size: .85rem;
+    text-transform: uppercase;
+}
+
+@mixin page-title {
+    line-height: clamp(1.5rem, 5vw, 1rem);
+    font-size: clamp(2.25rem, 5vw, 1.1rem);
+    line-height: 1.2;
+    font-weight: bold;
+    @include secondary-font;
+    padding: 0;
+}
+
+// --- Finovate Design System Mixins ---
+
+@mixin finovate-pill {
+    display: inline-block;
+    padding: 6px 16px;
+    border: 1px solid rgba(28, 75, 66, 0.2);
+    border-radius: var(--radius-pill);
+    color: var(--clr-brand-forest);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-weight: 500;
+}
+
+@mixin finovate-card($type: 'large') {
+    background-color: #fff;
+    padding: 40px;
+
+    @if $type =='large' {
+        border-radius: var(--radius-large);
+        background-color: var(--clr-brand-beige);
+    }
+
+    @else {
+        border-radius: var(--radius-medium);
+        box-shadow: 0 4px 20px rgba(28, 75, 66, 0.05);
+    }
+}
+
+@mixin finovate-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background-color: var(--clr-brand-lime);
+    color: var(--clr-brand-forest);
+    padding: 18px 20px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    border: none;
+    cursor: pointer;
+
+    .button-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 38px;
+        height: 38px;
+        background-color: var(--clr-brand-forest);
+        color: var(--clr-brand-lime);
+        border-radius: 50%;
+        transition: transform 0.3s ease;
+    }
+
+    &:hover {
+        background-color: var(--clr-brand-forest);
+        color: var(--clr-brand-lime);
+
+        .button-icon {
+            background-color: var(--clr-brand-lime);
+            color: var(--clr-brand-forest);
+            transform: scale(1.1);
+        }
+    }
+}
+
+@mixin finovate-heading($level: 1) {
+    color: var(--clr-brand-forest);
+    font-weight: 500;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+
+    @if $level ==1 {
+        font-size: var(--biggest-font-size);
+    }
+
+    @else if $level ==2 {
+        font-size: var(--h2-font-size);
+    }
+
+    @else {
+        font-size: var(--h3-font-size);
+    }
+}

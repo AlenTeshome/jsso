@@ -1,0 +1,24 @@
+body.path-frontpage {
+    background: linear-gradient(rgb(246, 245, 242) 0%, rgb(255, 255, 255) 100%);
+
+    .no-container {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        overflow: hidden;
+        width: 100%;
+    }
+
+    .block-views {
+        h2 {
+            span {
+                border: solid 1px var(--clr-bg-400);
+                border-radius: 2rem;
+                padding: .5rem 1rem;
+                font-size: .8rem;
+                text-transform: uppercase;
+                color: var(--clr-brand-forestgreen);
+            }
+        }
+    }
+}

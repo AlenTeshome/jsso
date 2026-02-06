@@ -1,0 +1,26 @@
+/**
+ -----------------------------------------------------------------------------
+ This file contains very basic styles.
+ -----------------------------------------------------------------------------
+*/
+@use '../abstracts' as *;
+
+body {
+  margin: 0 0 0 0;
+  @include primary-font;
+  font-size: var(--normal-font-size);
+  background-color: var(--body-color);
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+
+a {
+  text-decoration: none;
+  color: var(--clr-primary-300);
+
+  &:hover {
+    color: var(--clr-secondary-300);
+    text-decoration: none;
+  }
+}

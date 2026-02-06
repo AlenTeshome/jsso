@@ -1,0 +1,57 @@
+<?php
+
+/**
+ * @file
+ * jsso-theme theme file.
+ */
+/**
+ * Implements hook_leaflet_views_feature_alter().
+ */
+function jssotheme_leaflet_views_feature_alter(array &$feature, \Drupal\views\ResultRow $row, \Drupal\leaflet_views\Plugin\views\style\LeafletMap $style) {
+  // Check if this is targeting a project map.
+  if (isset($style->view) && $style->view->id() == 'project_map') {
+    $node = $row->_entity;
+    if ($node && $node->hasField('field_status') && !$node->get('field_status')->isEmpty()) {
+      $status_id = $node->get('field_status')->target_id;
+      // 33: Ongoing / Active -> Green
+      // 32: Pipeline / Identification -> Yellow
+      switch ($status_id) {
+        case 33:
+          $feature['icon'] = [
+            'iconUrl' => 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+            'shadowUrl' => 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            'iconSize' => [25, 41],
+            'iconAnchor' => [12, 41],
+            'popupAnchor' => [1, -34],
+            'shadowSize' => [41, 41],
+          ];
+          break;
+
+        case 32:
+          $feature['icon'] = [
+            'iconUrl' => 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-yellow.png',
+            'shadowUrl' => 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            'iconSize' => [25, 41],
+            'iconAnchor' => [12, 41],
+            'popupAnchor' => [1, -34],
+            'shadowSize' => [41, 41],
+          ];
+          break;
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_leaflet_map_view_style_alter().
+ */
+function jssotheme_leaflet_map_view_style_alter(array &$map, \Drupal\leaflet_views\Plugin\views\style\LeafletMap $style) {
+  if (isset($style->view) && $style->view->id() == 'project_map') {
+    // Restrict bounds to Africa as per user request.
+    // South-West [-40, -25], North-East [40, 60]
+    $map['settings']['maxBounds'] = [
+      [-40, -25],
+      [40, 60],
+    ];
+  }
+}

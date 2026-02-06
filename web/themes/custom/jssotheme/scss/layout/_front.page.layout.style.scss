@@ -1,0 +1,18 @@
+@use '../abstracts' as *;
+
+.block-views-blockjsso-knowledge-hub-block-1 {
+    background: var(--clr-brand-forestgreen);
+
+
+    h2 {
+        span {
+            color: var(--clr-bg-300) !important;
+        }
+    }
+
+    h1.jsso-heading-title {
+        span.color-main {
+            color: var(--clr-bg-300) !important;
+        }
+    }
+}
