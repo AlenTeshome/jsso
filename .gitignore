@@ -29,3 +29,6 @@ Thumbs.db
 
 # Ignore composer lock if needed, but for projects it's usually tracked.
 # composer.lock
+db-backup.sql.gz
+web-backup.tar.gz
+web/modules/contrib/fontawesome/
