@@ -1,0 +1,26 @@
+uuid: 2fe5cc97-6a92-4361-9e3a-6fdfd8f17e8e
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: front_resource_entity_queue
+label: 'Front resource entity Queue'
+handler: simple
+handler_configuration: {  }
+entity_settings:
+  target_type: node
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      resource: resource
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+queue_settings:
+  min_size: 0
+  max_size: 0
+  act_as_queue: false
+  reverse: true

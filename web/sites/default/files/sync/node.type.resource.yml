@@ -1,0 +1,11 @@
+uuid: d9c7ffc4-65af-47e6-9d99-df81471a3196
+langcode: en
+status: true
+dependencies: {  }
+name: 'Knowledge Resource'
+type: resource
+description: 'A digital document or publication for the Knowledge Hub.'
+help: null
+new_revision: true
+preview_mode: 1
+display_submitted: true

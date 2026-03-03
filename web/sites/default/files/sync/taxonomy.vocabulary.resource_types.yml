@@ -1,0 +1,9 @@
+uuid: 5bb73c25-5b1a-4dc3-a9b6-164f4ef186e3
+langcode: en
+status: true
+dependencies: {  }
+name: 'Resource Types'
+vid: resource_types
+description: 'Categorization for documents in the Knowledge Hub.'
+weight: 0
+new_revision: false

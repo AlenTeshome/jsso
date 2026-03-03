@@ -1,0 +1,172 @@
+@use '../abstracts' as *;
+
+// ─────────────────────────────────────────────────────────────────
+// News node detail page — .page-node-type-news .newsdetail
+// Covers:
+//   • Date               (.block-field-blocknodenewsfield-date)
+//   • Callout / Intro    (.block-field-blocknodenewsfield-callout)
+//   • Main Image         (.block-field-blocknodenewsfield-media-image)
+//   • Body               (.block-field-blocknodenewsbody)
+//   • Organization       (.block-field-blocknodenewsfield-organization)
+//   • Tags               (.block-field-blocknodenewsfield-tag)
+// ─────────────────────────────────────────────────────────────────
+
+.page-node-type-news {
+
+    .view-jsso-news{
+        .view-content{
+            flex-direction: column !important;
+
+             .views-row {
+                display: flex;
+                flex: 1 1 calc(100% - 1em) !important;
+                max-width: calc(100% - 1em) !important;
+            }
+        }
+    }
+
+    .newsdetail {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+
+        // ── Date ─────────────────────────────────────────────────
+        .block-field-blocknodenewsfield-date {
+            .field--name-field-date {
+                time.datetime {
+                    display: inline-block;
+                    border: 1px solid rgba(0, 117, 168, 0.2);
+                    border-radius: var(--radius-pill);
+                    padding: 0.35rem 1.1rem;
+                    font-size: 0.8rem;
+                    text-transform: uppercase;
+                    letter-spacing: 0.06em;
+                    font-weight: 600;
+                    color: var(--clr-brand-forestgreen);
+                    background: var(--clr-brand-lime);
+                }
+            }
+        }
+
+        // ── Callout / Pull-quote ──────────────────────────────────
+        .block-field-blocknodenewsfield-callout {
+            .field--name-field-callout {
+                .field__item {
+                    position: relative;
+                    padding: 1.25rem 1.5rem 1.25rem 1.75rem;
+                    background: var(--clr-brand-lime);
+                    border-radius: var(--radius-medium);
+                    border-left: 4px solid var(--clr-brand-forestgreen);
+                    font-size: 1.05rem;
+                    font-style: italic;
+                    font-weight: 500;
+                    line-height: 1.6;
+                    color: var(--clr-brand-forestgreen);
+                }
+            }
+        }
+
+        // ── Main Image ────────────────────────────────────────────
+        .block-field-blocknodenewsfield-media-image {
+            .field--name-field-media-image {
+                .field__item {
+                    border-radius: var(--radius-medium);
+                    overflow: hidden;
+
+                    img {
+                        display: block;
+                        width: 100%;
+                        height: auto;
+                        border-radius: var(--radius-medium);
+                        object-fit: cover;
+                    }
+                }
+            }
+        }
+
+        // ── Body ──────────────────────────────────────────────────
+        .block-field-blocknodenewsbody {
+            .field--name-body {
+                .field__item {
+                    p {
+                        font-size: 1rem;
+                        line-height: 1.8;
+                        color: var(--clr-bg-500);
+                        margin-bottom: 1.1em;
+
+                        &:last-child {
+                            margin-bottom: 0;
+                        }
+                    }
+                }
+            }
+        }
+
+        // ── Shared label style ────────────────────────────────────
+        .field__label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 700;
+            color: var(--clr-brand-forestgreen);
+            margin-bottom: 0.6rem;
+            opacity: 0.7;
+        }
+
+        // ── Organization ──────────────────────────────────────────
+        .block-field-blocknodenewsfield-organization {
+            .field--name-field-organization {
+                .field__items {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.4rem;
+
+                    .field__item {
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                        font-size: 0.9rem;
+                        color: var(--clr-brand-forestgreen);
+                        font-weight: 500;
+
+                        // Bullet dot
+                        &::before {
+                            content: '';
+                            display: inline-block;
+                            width: 6px;
+                            height: 6px;
+                            border-radius: 50%;
+                            background-color: var(--clr-brand-forestgreen);
+                            flex-shrink: 0;
+                            opacity: 0.5;
+                        }
+                    }
+                }
+            }
+        }
+
+        // ── Tags ──────────────────────────────────────────────────
+        .block-field-blocknodenewsfield-tag {
+            .field--name-field-tag {
+                .field__item {
+                    display: inline-block;
+                    padding: 0.3rem 0.9rem;
+                    background-color: var(--clr-bg-400);
+                    color: var(--clr-brand-forestgreen);
+                    font-size: 0.78rem;
+                    font-weight: 600;
+                    text-transform: uppercase;
+                    letter-spacing: 0.06em;
+                    border: 1px solid rgba(0, 117, 168, 0.15);
+                    border-radius: var(--radius-pill);
+                    transition: background-color 0.2s ease, color 0.2s ease;
+
+                    &:hover {
+                        background-color: var(--clr-brand-forestgreen);
+                        color: var(--clr-brand-lime);
+                    }
+                }
+            }
+        }
+    }
+}

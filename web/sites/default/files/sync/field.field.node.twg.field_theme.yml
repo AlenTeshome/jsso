@@ -1,0 +1,24 @@
+uuid: 626f6bfe-1e45-4dd7-a46b-ddab56baef7a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_theme
+    - node.type.twg
+    - taxonomy.vocabulary.thematic_areas
+id: node.twg.field_theme
+field_name: field_theme
+entity_type: node
+bundle: twg
+label: 'Associated Theme'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      thematic_areas: thematic_areas
+field_type: entity_reference

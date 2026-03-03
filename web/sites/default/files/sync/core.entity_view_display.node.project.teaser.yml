@@ -1,0 +1,46 @@
+uuid: f22db76c-b700-47cb-955c-263d435d58c0
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.project.body
+    - field.field.node.project.field_budget
+    - field.field.node.project.field_date_range
+    - field.field.node.project.field_frameworks
+    - field.field.node.project.field_geofield
+    - field.field.node.project.field_region
+    - field.field.node.project.field_status
+    - field.field.node.project.field_theme
+    - node.type.project
+  module:
+    - text
+    - user
+id: node.project.teaser
+targetEntityType: node
+bundle: project
+mode: teaser
+content:
+  body:
+    type: text_summary_or_trimmed
+    label: hidden
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_budget: true
+  field_date_range: true
+  field_frameworks: true
+  field_geofield: true
+  field_region: true
+  field_status: true
+  field_theme: true
+  langcode: true
+  search_api_excerpt: true

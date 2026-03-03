@@ -1,0 +1,21 @@
+uuid: 2ab0f2a0-6eee-4687-a7b3-f06f04367af8
+langcode: en
+status: true
+dependencies: {  }
+name: front_page_slider_big_940_x_580
+label: 'Front Page Slider (big) (940 x 580)'
+effects:
+  442357c0-cff2-4164-a1a1-a1635566483d:
+    uuid: 442357c0-cff2-4164-a1a1-a1635566483d
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 940
+      height: 580
+      anchor: center-center
+  72a07a43-d2c4-469b-b1a0-1d622d04a329:
+    uuid: 72a07a43-d2c4-469b-b1a0-1d622d04a329
+    id: image_convert
+    weight: 2
+    data:
+      extension: webp

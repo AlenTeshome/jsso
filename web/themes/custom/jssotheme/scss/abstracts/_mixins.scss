@@ -14,7 +14,7 @@
 }
 
 @mixin font-awsome-font {
-    font-family: 'Font Awesome 6 Free';
+    font-family: 'Font Awesome 7 Pro';
     font-size: 1rem;
     padding: 0 .5em;
     font-weight: 900;
@@ -62,7 +62,8 @@
     &::after {
         @include font-awsome-font;
         content: $facode;
-        color: var(--clr-secondary-300);
+        color: transparent;
+        width: 0;
     }
 }
 
@@ -70,7 +71,8 @@
     &::before {
         @include font-awsome-font;
         content: $facode;
-        color: var(--clr-secondary-300);
+        color: transparent;
+        width: 0;
     }
 }
 
@@ -121,6 +123,35 @@
     font-weight: 600;
     letter-spacing: .5px;
     transition: all .3s ease-in-out;
+}
+
+@mixin svg-fill-with-bg($color: var(--clr-brand-lime), $bgcolor: var(--clr-brand-forestgreen), $width: 1.5rem, $height: 1.5rem) {
+    svg {
+        padding: 1rem;
+        background: $bgcolor;
+        border-radius: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: $width;
+        height: $height;
+        transform: rotate(-45deg) translate(0, 0);
+        transition: transform 0.3s ease;
+        will-change: transform;
+
+        path {
+            fill: $color;
+        }
+    }
+}
+
+@mixin svg-link-hover-style($color: var(--clr-brand-forestgreen), $bgcolor: var(--clr-brand-lime)) {
+
+    @include svg-fill-with-bg($color, $bgcolor);
+
+    svg {
+        transform: rotate(-45deg) translate(10px, 0px);
+    }
 }
 
 @mixin main-read-more-link-anchor($bgcolor: rgba(255, 255, 255, 0.2), $textcolor: var(--clr-bg-300), $hoverbgcolor: var(--clr-bg-500), $hovertextcolor: var(--bs-body-color)) {

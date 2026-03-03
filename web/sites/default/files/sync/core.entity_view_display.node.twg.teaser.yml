@@ -1,0 +1,38 @@
+uuid: 3fbd56aa-ccb0-4cf9-ac65-c9d2cc64f32d
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.twg.body
+    - field.field.node.twg.field_chair
+    - field.field.node.twg.field_members
+    - field.field.node.twg.field_theme
+    - node.type.twg
+  module:
+    - text
+    - user
+id: node.twg.teaser
+targetEntityType: node
+bundle: twg
+mode: teaser
+content:
+  body:
+    type: text_summary_or_trimmed
+    label: hidden
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_chair: true
+  field_members: true
+  field_theme: true
+  langcode: true
+  search_api_excerpt: true

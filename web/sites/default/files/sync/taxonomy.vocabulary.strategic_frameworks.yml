@@ -1,0 +1,9 @@
+uuid: fb18ef41-d59b-4984-af93-bf814aae38c7
+langcode: en
+status: true
+dependencies: {  }
+name: 'Strategic Frameworks'
+vid: strategic_frameworks
+description: 'The high-level mandates governing JSSO initiatives.'
+weight: 0
+new_revision: false

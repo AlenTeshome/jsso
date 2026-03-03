@@ -1,2 +1,8 @@
 // Pages styles index
-@forward "front.page.style";
+@forward "_front.page.style";
+@forward '_about.us.page.style';
+@forward '_videos.page.style';
+@forward '_videos.node.style';
+@forward '_albums.page.style';
+@forward '_news.node.style';
+@forward '_resource.node.style';

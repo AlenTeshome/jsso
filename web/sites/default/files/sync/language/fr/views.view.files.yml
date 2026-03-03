@@ -1,0 +1,31 @@
+display:
+  default:
+    display_title: 'Par défaut'
+    display_options:
+      fields:
+        filename:
+          label: Nom
+        filesize:
+          label: Taille
+        status:
+          label: État
+        operations:
+          label: Actions
+      filters:
+        filename:
+          expose:
+            label: 'Nom du fichier'
+        status:
+          expose:
+            label: État
+  page_2:
+    display_options:
+      fields:
+        entity_label:
+          label: Entité
+        type:
+          label: "Type d'entité"
+      arguments:
+        fid:
+          exception:
+            title: Tout

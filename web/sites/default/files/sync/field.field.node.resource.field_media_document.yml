@@ -1,0 +1,24 @@
+uuid: f046f020-39c6-4133-b817-1576e655d7c4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_media_document
+    - media.type.document
+    - node.type.resource
+id: node.resource.field_media_document
+field_name: field_media_document
+entity_type: node
+bundle: resource
+label: 'Upload Document'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      document: document
+field_type: entity_reference

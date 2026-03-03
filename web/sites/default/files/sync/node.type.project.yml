@@ -1,0 +1,11 @@
+uuid: 291c945d-afb2-452c-be1e-9ae3b0665c2e
+langcode: en
+status: true
+dependencies: {  }
+name: 'Project Profile'
+type: project
+description: 'A database entry for JSSO development initiatives, feeding the Map and Dashboard.'
+help: null
+new_revision: true
+preview_mode: 1
+display_submitted: true

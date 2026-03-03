@@ -44,4 +44,37 @@
             });
         }
     };
+
+
+
+//sticky menu Js
+
+  Drupal.behaviors.stickyMenu = {
+    attach: function (context, settings) {
+
+      // Run once per page load.
+      $(window).on('scroll', function () {
+
+        // Convert 10em to pixels (based on computed root font size)
+        const rootFont = parseFloat(getComputedStyle(document.documentElement).fontSize);
+        const triggerPoint = 10 * rootFont; // 10em in px
+
+        if ($(this).scrollTop() > triggerPoint) {
+
+          // Add your new class to .navigation
+          $('nav.navbar.navbar-expand-lg', context).addClass("sticky");
+
+        } else {
+
+          // Remove the new class
+          $('nav.navbar.navbar-expand-lg', context).removeClass("sticky");
+
+        }
+
+      });
+
+    }
+  };
+
+
 })(jQuery, Drupal);

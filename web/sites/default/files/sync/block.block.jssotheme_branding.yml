@@ -1,0 +1,25 @@
+uuid: a4ec04f9-f105-44e3-82b4-a113536bce3f
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - jssotheme
+_core:
+  default_config_hash: QhcLc7eHvd8ZMbqJUgi3eGrxoZLlleo4Dsg96H60dhg
+id: jssotheme_branding
+theme: jssotheme
+region: nav_branding
+weight: -6
+provider: null
+plugin: system_branding_block
+settings:
+  id: system_branding_block
+  label: 'Site branding'
+  label_display: '0'
+  provider: system
+  use_site_logo: true
+  use_site_name: false
+  use_site_slogan: false
+visibility: {  }

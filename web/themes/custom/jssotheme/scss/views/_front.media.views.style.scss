@@ -1,0 +1,79 @@
+@use '../abstracts' as *;
+
+.featuredmedia.view-jsso-videos {
+
+    .view-header {
+        padding: 1.5rem 0;
+    }
+
+    .view-content {
+        .views-row {
+            .video-detail {
+                a {
+                    display: flex;
+                    gap: 1.5em;
+                    height: 100%;
+
+                    .video-img {
+                        flex: 1 1 65%;
+
+                        img {
+                            width: 100%;
+                            height: auto;
+                            object-fit: cover;
+                            border-radius: 1em;
+                        }
+                    }
+
+                    .text-detail {
+                        background: var(--clr-brand-lime);
+                        padding: 1.5rem;
+                        border-radius: 1rem;
+                        flex: 1 1 35%;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: space-between;
+
+                        .video-date {
+                            time {
+                                border: solid 1px var(--clr-bg-400);
+                                border-radius: 2rem;
+                                padding: .5rem 1rem;
+                                font-size: .8rem;
+                                text-transform: uppercase;
+                                color: var(--clr-brand-forestgreen);
+                            }
+                        }
+
+                        .video-title {
+
+                            font-size: 2rem;
+                            line-height: 1.2;
+                            color: var(--clr-brand-forestgreen);
+                        }
+
+                        .video-desc {
+
+                            font-size: .9rem;
+                            font-style: italic;
+                            color: var(--clr-brand-forestgreen);
+                        }
+
+                        .content-link {
+                            display: flex;
+                            justify-content: end;
+                            @include after-psudo('\f061');
+                            @include svg-fill-with-bg;
+                        }
+                    }
+
+                    &:hover {
+                        .content-link {
+                            @include svg-link-hover-style(var(--clr-brand-forestgreen), var(--clr-brand-beige));
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

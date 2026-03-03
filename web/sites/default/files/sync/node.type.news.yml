@@ -1,0 +1,17 @@
+uuid: fd90724b-406c-413c-acc3-11d976868588
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: 'News Article'
+type: news
+description: 'Press releases, updates, and stories.'
+help: null
+new_revision: true
+preview_mode: 1
+display_submitted: false

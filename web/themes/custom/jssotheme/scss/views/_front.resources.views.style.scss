@@ -1,24 +1,52 @@
 @use '../abstracts' as *;
 
 .view-jsso-knowledge-hub {
+    .view-header {
+        display: flex;
+        justify-content: space-between;
+        padding: 1.5rem 0;
+
+        .jsso-heading-title {
+            flex: 1 1 70%;
+        }
+
+        .more-link {
+            flex: 1 1 30%;
+
+            a {
+                @include main-read-more-link-anchor(var(--clr-brand-beige), var(--clr-brand-forestgreen), var(--clr-brand-lime), var(--clr-brand-forestgreen));
+            }
+        }
+    }
+
     .view-content {
         display: flex;
         flex-direction: row;
-        gap: 2em;
+        gap: 2em 1em;
+        justify-content: space-between;
+        flex-wrap: wrap;
 
-        .res-row {
+        .views-row {
             display: flex;
-            flex: 1 1 100%;
+            flex: 1 1 calc(25% - 1em); // 4 per row
+            max-width: calc(25% - 1em);
 
             .res-details {
                 a {
                     display: flex;
                     flex-direction: column;
-                    gap: 1em;
+                    justify-content: space-between;
                     padding: 1.5em;
+                    height: 100%;
                     border-radius: 1em;
                     background-color: var(--clr-brand-lime);
                     transition: all 0.3s ease-in-out;
+
+                    .wrapper {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 1em;
+                    }
 
                     .res-img {
                         img {
@@ -41,10 +69,20 @@
                     }
 
                     .res-link {
-                        @include after-psudo('\f063');
+                        display: flex;
+                        justify-content: end;
+                        @include after-psudo('\f061');
+                        @include svg-fill-with-bg;
+                    }
+
+                    &:hover {
+                        .res-link {
+                            @include svg-link-hover-style(var(--clr-brand-forestgreen), var(--clr-brand-beige));
+                        }
                     }
                 }
             }
+
         }
     }
 }

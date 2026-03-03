@@ -1,0 +1,30 @@
+footer {
+    background: var(--clr-bg-300);
+    padding: 2rem;
+    margin-top: 2em;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+
+    #block-jssotheme-footercopyright {
+
+        border-top: 1px solid rgba(0, 0, 0, 0.08);
+        padding: .5rem;
+
+        .footer-copy {
+            display: flex;
+            flex-direction: column;
+            gap: .5em;
+            justify-content: center;
+            align-items: center;
+            padding: 1em;
+        }
+    }
+
+    .navigation.menu--footer {
+        .nav.navbar-nav {
+            display: flex;
+            flex-direction: row;
+            gap: 2rem;
+            justify-content: center;
+        }
+    }
+}

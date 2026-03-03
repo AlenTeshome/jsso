@@ -1,10 +1,38 @@
 // -----------------------------------------------------------------------------
 // Header and Navigation Styling
 // -----------------------------------------------------------------------------
+header {
+    .navbar {
+
+        &.sticky{
+            background: var(--clr-brand-forestgreen);
+        }
+
+        .container {
+            position: relative;
+            height: 100%;
+            min-height: 100px;
+            max-height: 100px;
+
+            .region.region-nav-branding {
+                position: absolute;
+                top: 0;
+                left: 0;
+
+                .block-system-branding-block {
+                    .navbar-brand {
+                        padding: 0;
+                    }
+                }
+            }
+        }
+    }
+}
+
 
 header {
     background-color: #fff;
-    padding: 0.5rem 0;
+    padding: 0;
     border-bottom: 1px solid rgba(0, 0, 0, 0.08);
     position: sticky;
     top: 0;
@@ -12,6 +40,11 @@ header {
 
     .navbar {
         padding: 0;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
     }
 
     .navbar-nav {
@@ -23,11 +56,13 @@ header {
         padding: 0;
         gap: 1.5rem;
 
+
+
         .nav-link {
-            font-size: 16px;
-            font-weight: 500;
+            font-size: 1.15rem;
+            font-weight: 600;
             line-height: 1.5;
-            color: var(--clr-brand-forestgreen) !important; // Using our primary brand color
+            color: var(--clr-bg-300) !important; // Using our primary brand color
             /* Dark Grey */
             padding: 10px 20px;
             text-decoration: none;
@@ -38,7 +73,7 @@ header {
             &:hover,
             &.active,
             &.is-active {
-                color: var(--clr-brand-forestgreen) !important; // Using our primary brand color
+                color: var(--clr-brand-lime) !important; // Using our primary brand color
                 text-decoration: none;
             }
         }
@@ -46,9 +81,9 @@ header {
 
     .navbar-brand {
         img {
-            min-height: 60px;
-            max-height: 60px;
-            width: auto;
+            min-width: 100px;
+            max-width: 100px;
+            height: auto;
         }
     }
 }

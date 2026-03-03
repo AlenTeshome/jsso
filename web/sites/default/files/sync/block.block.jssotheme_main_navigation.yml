@@ -1,0 +1,27 @@
+uuid: 3818ffc7-ddb6-466d-b08f-550a35d557f5
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.main
+  module:
+    - system
+  theme:
+    - jssotheme
+_core:
+  default_config_hash: KhxceeHl3Nqw21I5-LKO_WAxo-aRCMg_mtfjCJaSrGA
+id: jssotheme_main_navigation
+theme: jssotheme
+region: nav_main
+weight: 0
+provider: null
+plugin: 'system_menu_block:main'
+settings:
+  id: 'system_menu_block:main'
+  label: 'Main navigation'
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: true
+visibility: {  }

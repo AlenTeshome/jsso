@@ -1,0 +1,35 @@
+uuid: 120449bf-6600-412c-b9a5-f7b6b6eeb372
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: front_page_slider
+label: 'Front Page Slider'
+handler: simple
+handler_configuration: {  }
+entity_settings:
+  target_type: node
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      banner: banner
+      event: event
+      resource: resource
+      landing_page: landing_page
+      news: news
+      partner: partner
+      album: album
+      project: project
+      video: video
+      twg: twg
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: banner
+queue_settings:
+  min_size: 0
+  max_size: 0
+  act_as_queue: false
+  reverse: true

@@ -1,0 +1,9 @@
+uuid: 1fb1dd5c-e466-4546-b101-076f815d9b70
+langcode: en
+status: true
+dependencies: {  }
+name: 'Our Core Values'
+vid: our_core_values
+description: null
+weight: 0
+new_revision: false

@@ -1,0 +1,18 @@
+uuid: d44017b8-1372-4725-9472-bb97140f7fbd
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.banner
+id: node.banner.title
+field_name: title
+entity_type: node
+bundle: banner
+label: 'Internal Banner Name'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

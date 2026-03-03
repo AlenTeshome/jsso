@@ -1,0 +1,9 @@
+uuid: 2ef7433b-5e3f-48c6-b022-0e41c19bc87f
+langcode: en
+status: true
+dependencies: {  }
+name: 'Our Mission'
+vid: our_mission
+description: null
+weight: 0
+new_revision: false

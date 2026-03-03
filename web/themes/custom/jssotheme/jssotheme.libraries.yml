@@ -2,10 +2,18 @@ global-styling:
   version: 1.0
   css:
     theme:
-      https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600\u0026display=swap: { type: external, minified: true }
+      https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600&display=swap: { type: external, minified: true }
       css/jsso.custom.style.css: {}
   js:
     js/jsso.scripts.js: {}
   dependencies:
     - core/jquery
     - core/drupal
+    - jssotheme/jquery-bridge  # <--- Add this line (replace with your actual theme name)
+
+jquery-bridge:
+  version: 1.0
+  js:
+    js/jquery-bridge.js: { weight: -20, minified: false }
+  dependencies:
+    - core/jquery

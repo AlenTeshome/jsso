@@ -1,0 +1,22 @@
+uuid: 76e11491-0283-4093-9c5d-66b81f075683
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - jssotheme
+_core:
+  default_config_hash: bXsNIJB8_ygZKsDjlhPmk_Vr3kgpqe4D-_PkodiRMdE
+id: jssotheme_content
+theme: jssotheme
+region: content
+weight: -1
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: 'Main page content'
+  label_display: '0'
+  provider: system
+visibility: {  }

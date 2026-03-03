@@ -9,6 +9,10 @@ $shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.1);
 .parent-organizations {
     padding: 2rem 1rem;
 
+    .view-header {
+        padding: 1.5rem 0;
+    }
+
     // 1. The Grid Container (Targeting .view-content)
     .view-content {
         display: grid;
@@ -103,7 +107,7 @@ $shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.1);
 
             img {
                 width: 100%;
-                max-width: 240px;
+                max-width: 120px;
                 transition: all 0.3s ease;
             }
         }

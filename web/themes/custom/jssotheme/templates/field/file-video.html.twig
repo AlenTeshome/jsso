@@ -13,11 +13,11 @@
 *     source tag.
 *
 * @ingroup themeable
-*/
+*/ {{ attributes }}
 #}
 {{ attach_library('bootstrap5/file') }}
-<video {{ attributes }}>
-  {% for file in files %}
-    <source {{ file.source_attributes }} />
-  {% endfor %}
+<video autoplay loop muted playsinline class="full-width-video">
+	{% for file in files %}
+		<source {{ file.source_attributes }}/>
+	{% endfor %}
 </video>

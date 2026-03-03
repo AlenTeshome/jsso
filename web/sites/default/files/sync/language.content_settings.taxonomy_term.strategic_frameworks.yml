@@ -1,0 +1,18 @@
+uuid: 17d45124-b115-4ede-9aa3-8f820efb5578
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.strategic_frameworks
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+    bundle_settings:
+      untranslatable_fields_hide: '1'
+id: taxonomy_term.strategic_frameworks
+target_entity_type_id: taxonomy_term
+target_bundle: strategic_frameworks
+default_langcode: site_default
+language_alterable: false

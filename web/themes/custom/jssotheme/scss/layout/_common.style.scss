@@ -1,3 +1,19 @@
+body {
+    margin: 0;
+    background: linear-gradient(to bottom,
+            rgb(246, 245, 242) 0%,
+            rgb(255, 255, 255) 100%);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
+        &:not(.path-frontpage) {
+                main{
+                padding-top: 10rem;
+            }
+        }
+    }
+
+
 h1.jsso-heading-title {
     font-size: 3rem;
     width: 75%;

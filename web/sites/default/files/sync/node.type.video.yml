@@ -1,0 +1,11 @@
+uuid: 21c4aa2a-cd67-4e88-a04b-6c45b4fabb11
+langcode: en
+status: true
+dependencies: {  }
+name: Video
+type: video
+description: 'Featured YouTube videos and multimedia content.'
+help: null
+new_revision: true
+preview_mode: 1
+display_submitted: true

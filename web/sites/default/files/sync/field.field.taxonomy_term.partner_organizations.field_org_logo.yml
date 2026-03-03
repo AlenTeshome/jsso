@@ -1,0 +1,24 @@
+uuid: 19cd6d08-1c19-4ff1-924f-b6aba099d7ca
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_org_logo
+    - media.type.image
+    - taxonomy.vocabulary.partner_organizations
+id: taxonomy_term.partner_organizations.field_org_logo
+field_name: field_org_logo
+entity_type: taxonomy_term
+bundle: partner_organizations
+label: 'Organization Logo'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+field_type: entity_reference

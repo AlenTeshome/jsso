@@ -1,0 +1,102 @@
+@use '../abstracts' as *;
+
+.frontvideos.view-jsso-videos {
+
+    .view-header {
+        padding: 1.5rem 0;
+    }
+
+    .view-content {
+
+        display: flex;
+        flex-direction: row;
+        gap: 2em 1em;
+        justify-content: space-between;
+        flex-wrap: wrap;
+
+        .views-row {
+            display: flex;
+            flex: 1 1 calc(50% - 1em); // 4 per row
+            max-width: calc(50% - 1em);
+
+            .video-detail {
+
+
+
+                a {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    padding: 1.5em;
+                    height: 100%;
+                    border-radius: 1em;
+                    background-color: var(--clr-brand-forestgreen);
+                    transition: all 0.3s ease-in-out;
+
+
+                    &:hover {
+                        background-color: var(--clr-brand-lime);
+                        transform: translateY(-2px);
+
+                        .video-date {
+                            color: var(--clr-brand-forestgreen);
+                        }
+
+                        .video-title {
+                            color: var(--clr-brand-forestgreen);
+                        }
+                    }
+
+                    .wrapper {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 1em;
+                    }
+
+                    .video-img {
+                        img {
+                            width: 100%;
+                            height: auto;
+                            object-fit: cover;
+                            border-radius: 1em;
+                        }
+
+                    }
+
+                    .video-date {
+                        font-size: .9rem;
+                        text-transform: uppercase;
+                        color: var(--clr-brand-beige);
+                    }
+
+                    .video-title {
+                        font-size: 1.2rem;
+                        font-weight: 600;
+                        color: var(--clr-brand-beige);
+                    }
+
+                    .video-link {
+                        display: flex;
+                        justify-content: end;
+                        @include after-psudo('\f061');
+                        @include svg-fill-with-bg;
+                    }
+
+                    &:hover {
+                        .video-link {
+                            @include svg-link-hover-style(var(--clr-brand-forestgreen), var(--clr-brand-beige));
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .more-link {
+        padding-top: 2em;
+
+        a {
+            @include main-read-more-link-anchor(var(--clr-brand-forestgreen), var(--clr-bg-300), var(--clr-brand-lime), var(--clr-bg-500));
+        }
+    }
+}

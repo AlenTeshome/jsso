@@ -1,0 +1,9 @@
+uuid: a17c240f-0d87-4390-a866-ca5d144d510c
+langcode: en
+status: true
+dependencies: {  }
+name: 'Project Status'
+vid: project_status
+description: 'Lifecycle stages for the Project Database.'
+weight: 0
+new_revision: false

@@ -1,0 +1,22 @@
+uuid: 28dc6197-c495-4f32-aff9-70f16da52d11
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - jssotheme
+_core:
+  default_config_hash: 3Jn-GUUhrsFkTDTpFj711JbcKihpb_8-gkXWkVE6llU
+id: jssotheme_messages
+theme: jssotheme
+region: content
+weight: -7
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: Messages
+  label_display: '0'
+  provider: system
+visibility: {  }

@@ -1,0 +1,21 @@
+uuid: 4f22127d-c149-449a-9467-a9f3be1e8173
+langcode: en
+status: true
+dependencies: {  }
+name: team_member_style_160x160
+label: 'Team member style 160x160'
+effects:
+  d6f77e16-d1e0-4988-b599-1c009321df6a:
+    uuid: d6f77e16-d1e0-4988-b599-1c009321df6a
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 320
+      height: 320
+      anchor: center-center
+  36b15b0d-678a-4bca-bd74-f0c07fda4f1e:
+    uuid: 36b15b0d-678a-4bca-bd74-f0c07fda4f1e
+    id: image_convert
+    weight: 2
+    data:
+      extension: webp

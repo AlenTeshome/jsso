@@ -1,0 +1,11 @@
+uuid: dd0942f0-1534-441e-b797-29b95ac18449
+langcode: en
+status: true
+dependencies: {  }
+name: Banner
+type: banner
+description: 'Featured content for the homepage hero carousel.'
+help: null
+new_revision: true
+preview_mode: 0
+display_submitted: false

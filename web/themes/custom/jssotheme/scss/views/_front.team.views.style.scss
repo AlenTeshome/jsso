@@ -1,0 +1,105 @@
+@use '../abstracts' as *;
+
+.view-jsso-team {
+
+    .view-header {
+        display: flex;
+        justify-content: space-between;
+        padding: 1.5rem 0;
+
+        .jsso-heading-title {
+            flex: 1 1 70%;
+        }
+
+        .more-link {
+            flex: 1 1 30%;
+
+            a {
+                @include main-read-more-link-anchor(var(--clr-brand-forestgreen), var(--clr-bg-300), var(--clr-brand-lime), var(--clr-bg-500));
+            }
+        }
+    }
+
+    .view-content {
+        display: flex;
+        flex-direction: row;
+        gap: 2em 1em;
+        justify-content: space-between;
+        flex-wrap: wrap;
+
+        .views-row {
+            display: flex;
+            flex: 1 1 calc(25% - 1em); // 4 per row
+            max-width: calc(25% - 1em);
+
+            .team-member-details {
+                width: 100%;
+
+                a {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 1em;
+                    padding: 1.5em;
+                    border-radius: 1em;
+                    height: 100%;
+                    background-color: var(--clr-bg-300);
+                    transition: all 0.3s ease-in-out;
+                    justify-content: center;
+                    align-items: center;
+
+                    .img {
+                        img {
+                            width: 160px;
+                            height: 160px;
+                            object-fit: cover;
+                            border-radius: 100%;
+                        }
+                    }
+
+                    .separator {
+                        border-top: solid 1px var(--clr-brand-beige);
+                        margin: 1em 0;
+                        width: 100%;
+                    }
+
+                    .detail {
+                        display: flex;
+                        justify-content: space-between;
+                        width: 100%;
+
+                        .text-detail {
+                            display: flex;
+                            flex-direction: column;
+                            gap: .5rem;
+                        }
+                    }
+
+                    .name {
+                        font-size: 1.1rem;
+                        font-weight: 600;
+                        color: var(--clr-brand-forestgreen);
+                    }
+
+                    .position {
+                        font-style: italic;
+                        font-size: .9rem;
+                    }
+
+                    .team-link {
+                        @include after-psudo('\f061');
+                        @include svg-fill-with-bg(var(--clr-brand-forestgreen), var(--clr-brand-beige));
+                    }
+
+                    &:hover {
+                        background: var(--clr-brand-lime);
+
+                        .team-link {
+                            @include svg-link-hover-style(var(--clr-brand-lime), var(--clr-brand-forestgreen));
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+}

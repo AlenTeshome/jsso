@@ -1,0 +1,16 @@
+display:
+  default:
+    display_title: 'Par défaut'
+    display_options:
+      fields:
+        comment_bulk_form:
+          action_title: Action
+        operations:
+          label: Actions
+  page_unapproved:
+    display_options:
+      fields:
+        comment_bulk_form:
+          action_title: Action
+        operations:
+          label: Actions

@@ -1,0 +1,8 @@
+uuid: f4f12558-a792-463e-ae38-bed02d8ad395
+langcode: en
+status: true
+dependencies: {  }
+id: jsso_short_date_format
+label: 'Jsso Short Date Format'
+locked: false
+pattern: 'd M, Y'

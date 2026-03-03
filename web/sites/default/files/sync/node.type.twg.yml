@@ -1,0 +1,11 @@
+uuid: d188a2ce-8d4a-4e7f-b466-4511297c9216
+langcode: en
+status: true
+dependencies: {  }
+name: 'Working Group'
+type: twg
+description: 'A collaborative space for thematic experts.'
+help: null
+new_revision: true
+preview_mode: 1
+display_submitted: true

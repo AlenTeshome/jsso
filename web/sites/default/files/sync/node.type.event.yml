@@ -1,0 +1,11 @@
+uuid: 1b26d2e8-e89f-4d6a-aab1-397186d8ee71
+langcode: en
+status: true
+dependencies: {  }
+name: Event
+type: event
+description: 'Upcoming summits, webinars, and meetings.'
+help: null
+new_revision: true
+preview_mode: 1
+display_submitted: true

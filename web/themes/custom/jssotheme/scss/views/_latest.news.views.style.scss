@@ -1,29 +1,45 @@
 @use '../abstracts' as *;
 
 .view-jsso-news {
+
+    .view-header {
+        padding: 1.5rem 0;
+    }
+
     .view-content {
 
         display: flex;
         flex-direction: row;
-        gap: 2em;
+        gap: 2em 1em;
+        justify-content: space-between;
+        flex-wrap: wrap;
 
-        .newslist.views-row {
+        .views-row {
             display: flex;
-            flex: 1 1 100%;
+            flex: 1 1 calc(33% - 1em); // 4 per row
+            max-width: calc(33% - 1em);
 
             .news-detail {
                 a {
                     display: flex;
                     flex-direction: column;
-                    gap: 1em;
+                    justify-content: space-between;
                     padding: 1.5em;
+                    height: 100%;
                     border-radius: 1em;
                     background-color: var(--clr-bg-300);
                     transition: all 0.3s ease-in-out;
 
+
                     &:hover {
                         background-color: var(--clr-brand-lime);
                         transform: translateY(-2px);
+                    }
+
+                    .wrapper {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 1em;
                     }
 
                     .news-image {
@@ -48,7 +64,16 @@
                     }
 
                     .news-link {
-                        @include after-psudo('\f063');
+                        display: flex;
+                        justify-content: end;
+                        @include after-psudo('\f061');
+                        @include svg-fill-with-bg;
+                    }
+
+                    &:hover {
+                        .news-link {
+                            @include svg-link-hover-style(var(--clr-brand-forestgreen), var(--clr-brand-beige));
+                        }
                     }
                 }
             }
@@ -56,6 +81,8 @@
     }
 
     .more-link {
+        padding-top: 2em;
+
         a {
             @include main-read-more-link-anchor(var(--clr-brand-forestgreen), var(--clr-bg-300), var(--clr-brand-lime), var(--clr-bg-500));
         }
