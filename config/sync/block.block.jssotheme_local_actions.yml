@@ -1,0 +1,20 @@
+uuid: 11eed77d-a6b6-4895-b247-f8634e9253e4
+langcode: en
+status: true
+dependencies:
+  theme:
+    - jssotheme
+_core:
+  default_config_hash: OOaNIWAL_-X-XLV7SQWr7cknAR4LzBPe_ujIkG3vs58
+id: jssotheme_local_actions
+theme: jssotheme
+region: content
+weight: -2
+provider: null
+plugin: local_actions_block
+settings:
+  id: local_actions_block
+  label: 'Primary admin actions'
+  label_display: '0'
+  provider: core
+visibility: {  }

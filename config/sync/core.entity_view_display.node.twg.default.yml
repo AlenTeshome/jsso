@@ -1,0 +1,36 @@
+uuid: 036f3fe6-1a07-4960-871e-6da119ea0609
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.twg.body
+    - field.field.node.twg.field_chair
+    - field.field.node.twg.field_members
+    - field.field.node.twg.field_theme
+    - node.type.twg
+  module:
+    - text
+    - user
+id: node.twg.default
+targetEntityType: node
+bundle: twg
+mode: default
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_chair: true
+  field_members: true
+  field_theme: true
+  langcode: true
+  search_api_excerpt: true

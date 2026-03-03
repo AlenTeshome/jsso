@@ -1,0 +1,26 @@
+uuid: 7630da28-597a-4652-a49b-e830f416b009
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: front_page_featured_team
+label: 'Front Page Featured Team'
+handler: simple
+handler_configuration: {  }
+entity_settings:
+  target_type: node
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      team_member: team_member
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+queue_settings:
+  min_size: 0
+  max_size: 0
+  act_as_queue: false
+  reverse: false

@@ -1,0 +1,21 @@
+uuid: ca7f0566-1b28-4d59-a10a-53e25576c174
+langcode: en
+status: true
+dependencies: {  }
+name: news_list_style_350_x_290
+label: 'News List Style (350 x 290)'
+effects:
+  b07f5b8b-f86f-4e86-9b80-6a9ca2b03460:
+    uuid: b07f5b8b-f86f-4e86-9b80-6a9ca2b03460
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 350
+      height: 288
+      anchor: center-center
+  5daa81af-fc3f-4ae1-93e3-38d4e48699a1:
+    uuid: 5daa81af-fc3f-4ae1-93e3-38d4e48699a1
+    id: image_convert
+    weight: 2
+    data:
+      extension: webp

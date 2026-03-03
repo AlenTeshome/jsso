@@ -1,0 +1,29 @@
+uuid: df4b44c5-a27e-4f8a-a2b7-cb9a756521ed
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_theme
+    - node.type.album
+    - taxonomy.vocabulary.thematic_areas
+id: node.album.field_theme
+field_name: field_theme
+entity_type: node
+bundle: album
+label: 'Sector / Theme'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      thematic_areas: thematic_areas
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

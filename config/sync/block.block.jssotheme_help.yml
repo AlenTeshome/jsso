@@ -1,0 +1,22 @@
+uuid: c94ec465-3a84-4b29-9a4f-59b4b90ad136
+langcode: en
+status: true
+dependencies:
+  module:
+    - help
+  theme:
+    - jssotheme
+_core:
+  default_config_hash: eE6ZFD7roqrB2hCcvmW7Ka-Y93i8RyrgvV1RcDlfH-I
+id: jssotheme_help
+theme: jssotheme
+region: content
+weight: -3
+provider: null
+plugin: help_block
+settings:
+  id: help_block
+  label: Help
+  label_display: '0'
+  provider: help
+visibility: {  }

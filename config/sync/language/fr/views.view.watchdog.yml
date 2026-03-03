@@ -1,0 +1,20 @@
+display:
+  default:
+    display_title: 'Par défaut'
+    display_options:
+      fields:
+        nothing:
+          admin_label: Icône
+        type:
+          label: Type
+        timestamp:
+          label: Date
+        link:
+          label: Actions
+      exposed_form:
+        options:
+          reset_button_label: Réinitialiser
+      filters:
+        type:
+          expose:
+            label: Type

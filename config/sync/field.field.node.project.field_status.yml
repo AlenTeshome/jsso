@@ -1,0 +1,24 @@
+uuid: 00214145-196c-482a-aa23-b622f9ba6c4d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_status
+    - node.type.project
+    - taxonomy.vocabulary.project_status
+id: node.project.field_status
+field_name: field_status
+entity_type: node
+bundle: project
+label: 'Implementation Status'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      project_status: project_status
+field_type: entity_reference

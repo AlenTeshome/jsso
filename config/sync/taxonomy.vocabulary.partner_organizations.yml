@@ -1,0 +1,9 @@
+uuid: d3bf89ba-0204-490e-b21d-b1f7fd40527a
+langcode: en
+status: true
+dependencies: {  }
+name: 'Partner Organizations'
+vid: partner_organizations
+description: 'The three core institutional partners: AfDB, AUC, and UNECA.'
+weight: 0
+new_revision: false

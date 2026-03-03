@@ -1,0 +1,11 @@
+uuid: 4b363b58-5e4b-4fbe-b4c9-2401d8ce0f8c
+langcode: en
+status: true
+dependencies: {  }
+name: 'Partner Organization'
+type: partner
+description: 'Profiles of RECs, Agencies, and Donors.'
+help: null
+new_revision: true
+preview_mode: 1
+display_submitted: true

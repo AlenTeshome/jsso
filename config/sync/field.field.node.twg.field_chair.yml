@@ -1,0 +1,21 @@
+uuid: 142d0117-84fd-4d05-91b2-f41fa96cf56b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_chair
+    - node.type.twg
+id: node.twg.field_chair
+field_name: field_chair
+entity_type: node
+bundle: twg
+label: 'Group Chair'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:user'
+  handler_settings: {  }
+field_type: entity_reference

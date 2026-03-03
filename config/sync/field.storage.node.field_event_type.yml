@@ -1,0 +1,33 @@
+uuid: ea388df0-2588-426e-9a18-885b55918a5c
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.field_event_type
+field_name: field_event_type
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: conference
+      label: Conference
+    -
+      value: meeting
+      label: Meeting
+    -
+      value: webinar
+      label: Webinar
+    -
+      value: launch
+      label: Launch
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

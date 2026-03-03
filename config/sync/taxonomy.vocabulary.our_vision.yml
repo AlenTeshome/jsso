@@ -1,0 +1,9 @@
+uuid: 61992fce-e421-47fb-8c9b-dce54603e49c
+langcode: en
+status: true
+dependencies: {  }
+name: 'Our Vision'
+vid: our_vision
+description: null
+weight: 0
+new_revision: false

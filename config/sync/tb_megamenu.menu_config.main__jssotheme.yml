@@ -1,0 +1,13 @@
+uuid: 08c7e7cb-8c86-490c-bb54-615402fcbb36
+langcode: en
+status: true
+dependencies:
+  theme:
+    - jssotheme
+  menu:
+    - main
+id: main__jssotheme
+menu: main
+theme: jssotheme
+block_config: '{"animation":"none","duration":400,"delay":200,"style":"","auto-arrow":"1","always-show-submenu":"1","number-columns":1}'
+menu_config: '{"standard.front_page":{"rows_content":[],"submenu_config":{"width":"","class":"","group":"0"},"item_config":{"class":"","xicon":"","caption":"","alignsub":"","group":"0","hidewcol":"0","hidesub":"0","label":""}},"menu_link_content:4bbc778f-7ee9-4a47-a6dc-ecccf9bfba6d":{"rows_content":[],"submenu_config":{"width":"","class":"","group":"0"},"item_config":{"class":"","xicon":"","caption":"","alignsub":"","group":"0","hidewcol":"0","hidesub":"0","label":""}},"menu_link_content:00b14a8e-4f0c-43d5-a4bc-0b2e8a98dccc":{"rows_content":[],"submenu_config":{"width":"","class":"","group":"0"},"item_config":{"class":"","xicon":"","caption":"","alignsub":"","group":"0","hidewcol":"0","hidesub":"0","label":""}},"menu_link_content:3dbd2ed7-4eb9-41ac-936f-67cfc4457b00":{"rows_content":[],"submenu_config":{"width":"","class":"","group":"0"},"item_config":{"class":"","xicon":"","caption":"","alignsub":"","group":"0","hidewcol":"0","hidesub":"0","label":""}},"menu_link_content:6f8f8f50-13d0-40f4-9117-01bd6a844d56":{"rows_content":[],"submenu_config":{"width":"","class":"","group":"0"},"item_config":{"class":"","xicon":"","caption":"","alignsub":"","group":"0","hidewcol":"0","hidesub":"0","label":""}},"menu_link_content:1887ace4-f8da-4efe-b523-4ada60aebe64":{"rows_content":[[{"col_content":[{"plugin_id":"views_view:views.jsso_albums.page_1","type":"menu_item","tb_item_config":[],"weight":"-49"},{"plugin_id":"views_view:views.jsso_videos.page_1","type":"menu_item","tb_item_config":[],"weight":"1"}],"col_config":{"width":"12","class":"","hidewcol":"0","showblocktitle":"1"}}]],"submenu_config":{"width":"","class":"","group":"0"},"item_config":{"class":"","xicon":"","caption":"","alignsub":"","group":"0","hidewcol":"0","hidesub":"0","label":""}},"views_view:views.jsso_albums.page_1":{"rows_content":[],"submenu_config":{"width":"","class":"","group":"0"},"item_config":{"class":"","xicon":"","caption":"","alignsub":"","group":"0","hidewcol":"0","hidesub":"0","label":""}},"views_view:views.jsso_videos.page_1":{"rows_content":[],"submenu_config":{"width":"","class":"","group":"0"},"item_config":{"class":"","xicon":"","caption":"","alignsub":"","group":"0","hidewcol":"0","hidesub":"0","label":""}}}'

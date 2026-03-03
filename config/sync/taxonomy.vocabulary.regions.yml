@@ -1,0 +1,9 @@
+uuid: 4b58f9e1-8fbf-467d-b438-7a11f274efaa
+langcode: en
+status: true
+dependencies: {  }
+name: 'Regions (RECs)'
+vid: regions
+description: 'Regional Economic Communities for geographic filtering.'
+weight: 0
+new_revision: false

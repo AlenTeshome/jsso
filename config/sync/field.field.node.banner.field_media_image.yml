@@ -1,0 +1,24 @@
+uuid: 9ea97ee6-db86-4cfe-a31b-62086393a8e3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_media_image
+    - media.type.image
+    - node.type.banner
+id: node.banner.field_media_image
+field_name: field_media_image
+entity_type: node
+bundle: banner
+label: 'Banner Image'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+field_type: entity_reference

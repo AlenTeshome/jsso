@@ -1,0 +1,12 @@
+display:
+  default:
+    display_title: 'Par défaut'
+    display_options:
+      fields:
+        title:
+          label: Titre
+      exposed_form:
+        options:
+          reset_button_label: Réinitialiser
+  attachment_1:
+    display_title: 'Élément joint'

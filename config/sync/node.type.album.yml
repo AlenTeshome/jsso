@@ -1,0 +1,17 @@
+uuid: 5d5441c5-b9de-4395-a301-a6ce2c8c7d5e
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: 'Photo Album'
+type: album
+description: 'Collections of photos from JSSO events and missions.'
+help: null
+new_revision: true
+preview_mode: 0
+display_submitted: false

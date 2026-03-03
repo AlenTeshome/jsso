@@ -1,0 +1,27 @@
+uuid: 88791fe9-d15f-4a66-b59f-17f98d4812a3
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: featured_multimedia_queue
+label: 'Featured Multimedia Queue'
+handler: simple
+handler_configuration: {  }
+entity_settings:
+  target_type: node
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      album: album
+      video: video
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: album
+queue_settings:
+  min_size: 0
+  max_size: 0
+  act_as_queue: false
+  reverse: true

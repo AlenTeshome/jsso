@@ -1,0 +1,21 @@
+uuid: 96061bf8-573d-4c35-91d4-0a76ad7b8b61
+langcode: en
+status: true
+dependencies: {  }
+name: publication_cover
+label: 'Publication Cover'
+effects:
+  f7cae886-4cde-4d5f-90a6-68a1df706f94:
+    uuid: f7cae886-4cde-4d5f-90a6-68a1df706f94
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 280
+      height: 375
+      anchor: center-center
+  f5037943-98fb-4bfb-8aa8-00eeae7906d8:
+    uuid: f5037943-98fb-4bfb-8aa8-00eeae7906d8
+    id: image_convert
+    weight: 2
+    data:
+      extension: webp

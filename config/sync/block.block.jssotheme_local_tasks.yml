@@ -1,0 +1,22 @@
+uuid: 1b4ae6b7-4e34-429a-a6fa-fecc026fe510
+langcode: en
+status: true
+dependencies:
+  theme:
+    - jssotheme
+_core:
+  default_config_hash: 8qMJFYCHiEQOWHzlM4FZGMT2OjPE97UakNMIv4EgfyY
+id: jssotheme_local_tasks
+theme: jssotheme
+region: content
+weight: -4
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: Tabs
+  label_display: '0'
+  provider: core
+  primary: true
+  secondary: true
+visibility: {  }

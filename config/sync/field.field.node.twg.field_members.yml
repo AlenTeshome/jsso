@@ -1,0 +1,21 @@
+uuid: 1c443b3b-7316-4dd9-ad9d-755830390cc9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_members
+    - node.type.twg
+id: node.twg.field_members
+field_name: field_members
+entity_type: node
+bundle: twg
+label: 'Group Members'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:user'
+  handler_settings: {  }
+field_type: entity_reference

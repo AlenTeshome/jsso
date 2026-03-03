@@ -1,0 +1,23 @@
+uuid: 89a17e32-abba-486b-9b8a-b9778efc5e21
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.our_mission
+  module:
+    - text
+id: taxonomy_term.our_mission.default
+targetEntityType: taxonomy_term
+bundle: our_mission
+mode: default
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  langcode: true
+  search_api_excerpt: true

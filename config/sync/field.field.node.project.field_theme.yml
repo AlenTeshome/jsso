@@ -1,0 +1,24 @@
+uuid: 6dda5edd-c3a3-410b-9f9c-cde59dee235b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_theme
+    - node.type.project
+    - taxonomy.vocabulary.thematic_areas
+id: node.project.field_theme
+field_name: field_theme
+entity_type: node
+bundle: project
+label: 'Sector / Theme'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      thematic_areas: thematic_areas
+field_type: entity_reference

@@ -1,0 +1,24 @@
+uuid: c08e5fe6-791f-4d65-970d-807831d41122
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_frameworks
+    - node.type.resource
+    - taxonomy.vocabulary.strategic_frameworks
+id: node.resource.field_frameworks
+field_name: field_frameworks
+entity_type: node
+bundle: resource
+label: 'Strategic Alignment'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      strategic_frameworks: strategic_frameworks
+field_type: entity_reference

@@ -1,0 +1,34 @@
+uuid: 0ab7da87-e28d-4be1-8974-9d587c69ace0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.partner.body
+    - field.field.node.partner.field_media_image
+    - field.field.node.partner.field_website
+    - node.type.partner
+  module:
+    - text
+    - user
+id: node.partner.default
+targetEntityType: node
+bundle: partner
+mode: default
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_media_image: true
+  field_website: true
+  langcode: true
+  search_api_excerpt: true

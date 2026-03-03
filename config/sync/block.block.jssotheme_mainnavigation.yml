@@ -1,0 +1,20 @@
+uuid: c46f3b44-a342-464e-bf49-aba99474ae5d
+langcode: en
+status: true
+dependencies:
+  module:
+    - tb_megamenu
+  theme:
+    - jssotheme
+id: jssotheme_mainnavigation
+theme: jssotheme
+region: nav_main
+weight: 0
+provider: null
+plugin: 'tb_megamenu_menu_block:main'
+settings:
+  id: 'tb_megamenu_menu_block:main'
+  label: 'Main navigation'
+  label_display: '0'
+  provider: tb_megamenu
+visibility: {  }

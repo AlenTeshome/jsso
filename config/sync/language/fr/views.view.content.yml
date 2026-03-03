@@ -1,0 +1,29 @@
+label: Contenu
+display:
+  default:
+    display_title: 'Par défaut'
+    display_options:
+      title: Contenu
+      fields:
+        title:
+          label: Titre
+        status:
+          label: État
+        operations:
+          label: Actions
+      exposed_form:
+        options:
+          reset_button_label: Réinitialiser
+      filters:
+        title:
+          expose:
+            label: Titre
+        status:
+          expose:
+            label: État
+  page_1:
+    display_options:
+      menu:
+        title: Contenu
+      tab_options:
+        title: Contenu

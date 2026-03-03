@@ -1,0 +1,9 @@
+uuid: 8f0c03cc-ccd6-46a8-a3ea-d9913c2d2db6
+langcode: en
+status: true
+dependencies: {  }
+name: 'Thematic Areas'
+vid: thematic_areas
+description: 'Sectors of intervention for filtering Knowledge Hub and Projects.'
+weight: 0
+new_revision: false

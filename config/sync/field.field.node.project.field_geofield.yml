@@ -1,0 +1,21 @@
+uuid: 2e36e229-01fc-4968-ba47-4c249e6aaf99
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_geofield
+    - node.type.project
+  module:
+    - geofield
+id: node.project.field_geofield
+field_name: field_geofield
+entity_type: node
+bundle: project
+label: 'Project Location'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: geofield
