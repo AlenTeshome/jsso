@@ -5,7 +5,7 @@ dependencies:
   module:
     - node
 id: front_banner_queue
-label: 'Front banner Queue'
+label: 'Front Video Banner Queue'
 handler: simple
 handler_configuration: {  }
 entity_settings:
@@ -13,7 +13,7 @@ entity_settings:
   handler: 'default:node'
   handler_settings:
     target_bundles:
-      banner: banner
+      video_banner: video_banner
     sort:
       field: _none
       direction: ASC

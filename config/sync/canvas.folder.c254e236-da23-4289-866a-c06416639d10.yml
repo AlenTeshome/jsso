@@ -1,0 +1,31 @@
+uuid: c254e236-da23-4289-866a-c06416639d10
+langcode: en
+status: true
+dependencies: {  }
+name: 'Lists (Views)'
+configEntityTypeId: component
+weight: 0
+items:
+  - block.views_block.comments_recent-block_1
+  - block.views_block.content_recent-block_1
+  - block.views_block.front_banner_video-block_1
+  - block.views_block.front_page_banner_slider-block_1
+  - block.views_block.jsso_albums-block_1
+  - block.views_block.jsso_albums-block_2
+  - block.views_block.jsso_events-block_1
+  - block.views_block.jsso_knowledge_hub-block_1
+  - block.views_block.jsso_knowledge_hub-block_2
+  - block.views_block.jsso_news-block_1
+  - block.views_block.jsso_parent_organizations-block_1
+  - block.views_block.jsso_partners-block_1
+  - block.views_block.jsso_team-block_1
+  - block.views_block.jsso_videos-block_1
+  - block.views_block.jsso_videos-block_2
+  - block.views_block.jsso_videos-block_3
+  - block.views_block.our_mission-block_1
+  - block.views_block.our_mission-block_2
+  - block.views_block.our_mission-block_3
+  - block.views_block.project_map-block_1
+  - block.views_block.recent_pages-block_recent_pages
+  - block.views_block.who_s_online-who_s_online_block
+  - block.views_block.who_we_are-block_1

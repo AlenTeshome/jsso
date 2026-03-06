@@ -1,0 +1,22 @@
+uuid: 3f8d4c02-3845-49bd-a8bd-7d697b8d770e
+langcode: en
+status: true
+dependencies:
+  module:
+    - tb_megamenu
+active_version: e4ba81f76f68664a
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'tb_megamenu_menu_block:main'
+        label: 'Main navigation'
+        label_display: '0'
+        provider: tb_megamenu
+    fallback_metadata:
+      slot_definitions: null
+label: 'Main navigation'
+id: block.tb_megamenu_menu_block.main
+provider: tb_megamenu
+source: block
+source_local_id: 'tb_megamenu_menu_block:main'

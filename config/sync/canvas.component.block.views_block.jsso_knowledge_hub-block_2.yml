@@ -1,0 +1,26 @@
+uuid: c82cfdd9-6f3e-4a4e-a701-8dc4d9ebb152
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.jsso_knowledge_hub
+  module:
+    - views
+active_version: d336ba75152b7145
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'views_block:jsso_knowledge_hub-block_2'
+        label: 'Knowledge Hub: Lates Resources Block'
+        label_display: '0'
+        provider: views
+        views_label: ''
+        items_per_page: null
+    fallback_metadata:
+      slot_definitions: null
+label: 'Knowledge Hub: Lates Resources Block'
+id: block.views_block.jsso_knowledge_hub-block_2
+provider: views
+source: block
+source_local_id: 'views_block:jsso_knowledge_hub-block_2'

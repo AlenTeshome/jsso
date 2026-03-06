@@ -1,0 +1,27 @@
+uuid: 92dbba00-d3c7-422e-aec4-61f58c9e6b87
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_video_file
+    - node.type.video_banner
+  module:
+    - file
+id: node.video_banner.field_video_file
+field_name: field_video_file
+entity_type: node
+bundle: video_banner
+label: 'Video file'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:file'
+  handler_settings: {  }
+  file_directory: 'video/[date:custom:Y]-[date:custom:m]'
+  file_extensions: 'mp4 mov avi mkv wmv flv webm mpeg mpg m4v 3gp 3g2 mts m2ts ts vob ogv rm rmvb asf divx f4v h264 h265 hevc mp2 mpe mpv amv mxf roq nsv drc gifv'
+  max_filesize: ''
+  description_field: false
+field_type: file

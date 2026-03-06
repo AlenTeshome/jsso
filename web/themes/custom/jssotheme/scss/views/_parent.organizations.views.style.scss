@@ -6,7 +6,7 @@ $card-bg: #ffffff;
 $shadow-sm: 0 5px 20px rgba(0, 0, 0, 0.05);
 $shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.1);
 
-.parent-organizations {
+.parent-organizations-list.view-jsso-parent-organizations {
     padding: 2rem 1rem;
 
     .view-header {
@@ -131,6 +131,61 @@ $shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.1);
 
             p {
                 margin: 0; // Remove default Drupal p margins
+            }
+        }
+    }
+}
+
+.parent-organizations-logo.view-jsso-parent-organizations {
+    position: absolute;
+    bottom: 0;
+    right: 50px;
+    z-index: 5;
+
+
+    .view-content {
+        display: flex;
+        gap: 2rem;
+        justify-content: end;
+
+        .org-svg-logo-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            &:nth-child(1) {
+                svg {
+                    width: 150px;
+                    height: 120px;
+                }
+            }
+
+            &:nth-child(2) {
+                svg {
+                    width: 200px;
+                    height: 120px;
+                }
+            }
+
+            &:nth-child(3) {
+                svg {
+                    width: 200px;
+                    height: 120px;
+                }
+            }
+
+            .svg-logo {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                svg {
+
+                    path,
+                    polygon {
+                        fill: var(--clr-bg-300) !important;
+                    }
+                }
             }
         }
     }

@@ -1,21 +1,14 @@
 @use '../abstracts' as *;
 
 .view-jsso-knowledge-hub {
-    .view-header {
-        display: flex;
-        justify-content: space-between;
-        padding: 1.5rem 0;
 
-        .jsso-heading-title {
-            flex: 1 1 70%;
-        }
 
-        .more-link {
-            flex: 1 1 30%;
+    .more-link {
+        flex: 1 1 30%;
+        margin-top: 1rem;
 
-            a {
-                @include main-read-more-link-anchor(var(--clr-brand-beige), var(--clr-brand-forestgreen), var(--clr-brand-lime), var(--clr-brand-forestgreen));
-            }
+        a {
+            @include main-read-more-link-anchor(var(--clr-bg-300), var(--clr-brand-forestgreen), var(--clr-brand-lime), var(--clr-brand-forestgreen));
         }
     }
 
@@ -28,8 +21,8 @@
 
         .views-row {
             display: flex;
-            flex: 1 1 calc(25% - 1em); // 4 per row
-            max-width: calc(25% - 1em);
+            flex: 1 1 calc(20% - 1em); // 4 per row
+            max-width: calc(20% - 1em);
 
             .res-details {
                 a {
@@ -38,7 +31,6 @@
                     justify-content: space-between;
                     padding: 1.5em;
                     height: 100%;
-                    border-radius: 1em;
                     background-color: var(--clr-brand-lime);
                     transition: all 0.3s ease-in-out;
 
@@ -53,7 +45,6 @@
                             width: 100%;
                             height: auto;
                             object-fit: cover;
-                            border-radius: 1em;
                         }
                     }
 
@@ -68,6 +59,16 @@
                         font-size: .9rem;
                     }
 
+                    .res-type {
+                        font-size: .85rem;
+                        font-weight: 500;
+                        text-transform: uppercase;
+                        color: var(--clr-brand-forestgreen);
+                        background: var(--clr-brand-beige);
+                        padding: 0.2rem 0.5rem;
+                        width: fit-content;
+                    }
+
                     .res-link {
                         display: flex;
                         justify-content: end;
@@ -76,6 +77,9 @@
                     }
 
                     &:hover {
+
+                        background-color: var(--clr-bg-300);
+
                         .res-link {
                             @include svg-link-hover-style(var(--clr-brand-forestgreen), var(--clr-brand-beige));
                         }

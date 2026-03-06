@@ -1,0 +1,22 @@
+uuid: fc5c1d1f-d942-454b-9284-8fc7d1cfcc35
+langcode: en
+status: true
+dependencies:
+  module:
+    - language
+active_version: f5d6e33d3300553f
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'language_block:language_interface'
+        label: 'Language switcher'
+        label_display: '0'
+        provider: language
+    fallback_metadata:
+      slot_definitions: null
+label: 'Language switcher'
+id: block.language_block.language_interface
+provider: language
+source: block
+source_local_id: 'language_block:language_interface'

@@ -4,12 +4,17 @@ status: true
 dependencies:
   config:
     - entityqueue.entity_queue.front_banner_queue
-    - field.storage.node.field_banner_video
+    - field.storage.node.body
+    - field.storage.node.field_banner_links
     - field.storage.node.field_subtitle
-    - node.type.banner
+    - field.storage.node.field_video_file
+    - node.type.video_banner
   module:
     - entityqueue
+    - file
+    - link
     - node
+    - text
     - user
 id: front_banner_video
 label: 'Front Banner Video'
@@ -25,18 +30,142 @@ display:
     display_plugin: default
     position: 0
     display_options:
-      title: 'What is new'
+      title: ''
       fields:
-        field_banner_video:
-          id: field_banner_video
-          table: node__field_banner_video
-          field: field_banner_video
+        field_video_file:
+          id: field_video_file
+          table: node__field_video_file
+          field: field_video_file
           relationship: none
           group_type: group
           admin_label: ''
           plugin_id: field
           label: ''
           exclude: false
+          alter:
+            alter_text: true
+            text: "<video \r\n  autoplay \r\n  muted \r\n  loop \r\n  playsinline \r\n  preload=\"auto\" \r\n  class=\"hero-video\">\r\n  <source src=\"{{ field_video_file }}\" type=\"video/mp4\">\r\n  Your browser does not support the video tag.\r\n</video>"
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: file_url_plain
+          settings: {  }
+          group_column: ''
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        body:
+          id: body
+          table: node__body
+          field: body
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: ''
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 300
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: true
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: text_default
+          settings: {  }
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        field_banner_links:
+          id: field_banner_links
+          table: node__field_banner_links
+          field: field_banner_links
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: ''
+          exclude: true
           alter:
             alter_text: false
             text: ''
@@ -69,25 +198,29 @@ display:
           element_label_type: ''
           element_label_class: ''
           element_label_colon: false
-          element_wrapper_type: div
-          element_wrapper_class: banner-video
-          element_default_classes: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
           empty: ''
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          click_sort_column: target_id
-          type: entity_reference_entity_view
+          click_sort_column: uri
+          type: link
           settings:
-            view_mode: default
-          group_column: target_id
+            trim_length: null
+            url_only: false
+            url_plain: false
+            rel: '0'
+            target: '0'
+          group_column: ''
           group_columns: {  }
           group_rows: true
-          delta_limit: 0
+          delta_limit: 2
           delta_offset: 0
           delta_reversed: false
           delta_first_last: false
-          multi_type: separator
+          multi_type: ul
           separator: ', '
           field_api_classes: false
         field_subtitle:
@@ -167,7 +300,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: "<div class=\"subtitle\">{{ field_subtitle }}</div>\r\n<div class=\"maintitle\">{{ title }}</div>"
+            text: "<div class=\"maintitle\">{{ title }}</div>\r\n<div class=\"subtitle\">{{ field_subtitle }}</div>\r\n<div class=\"desc\">{{ body }}</div>\r\n<div class=\"links\">{{ field_banner_links }} </div>"
             make_link: false
             path: ''
             absolute: false
@@ -273,11 +406,44 @@ display:
           id: type
           table: node_field_data
           field: type
+          relationship: none
+          group_type: group
+          admin_label: ''
           entity_type: node
           entity_field: type
           plugin_id: bundle
+          operator: in
           value:
-            banner: banner
+            video_banner: video_banner
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
         langcode:
           id: langcode
           table: node_field_data
@@ -365,8 +531,10 @@ display:
         - user.permissions
       tags:
         - 'config:entityqueue.entity_queue.front_banner_queue'
-        - 'config:field.storage.node.field_banner_video'
+        - 'config:field.storage.node.body'
+        - 'config:field.storage.node.field_banner_links'
         - 'config:field.storage.node.field_subtitle'
+        - 'config:field.storage.node.field_video_file'
   block_1:
     id: block_1
     display_title: 'Banner Video Block'
@@ -384,5 +552,7 @@ display:
         - user.permissions
       tags:
         - 'config:entityqueue.entity_queue.front_banner_queue'
-        - 'config:field.storage.node.field_banner_video'
+        - 'config:field.storage.node.body'
+        - 'config:field.storage.node.field_banner_links'
         - 'config:field.storage.node.field_subtitle'
+        - 'config:field.storage.node.field_video_file'

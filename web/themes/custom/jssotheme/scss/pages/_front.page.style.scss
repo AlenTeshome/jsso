@@ -8,6 +8,11 @@ body.path-frontpage {
         }
     }
 
+    .frontresourcessection {
+        background: var(--clr-brand-bluebeige);
+        padding: 2rem 0;
+    }
+
 
     .node__content {
         display: flex;
@@ -29,7 +34,7 @@ body.path-frontpage {
 
     .block-views {
         h2 {
-            padding: 2rem;
+            padding: 2rem 0;
 
             span {
                 font-size: 1.8rem;

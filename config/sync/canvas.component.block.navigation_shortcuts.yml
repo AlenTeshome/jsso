@@ -1,0 +1,22 @@
+uuid: 0a277fc0-9c4f-4b93-9a4c-6c915159a28c
+langcode: en
+status: false
+dependencies:
+  module:
+    - navigation
+active_version: 254e306b1d8355bb
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: navigation_shortcuts
+        label: 'Navigation Shortcuts'
+        label_display: '0'
+        provider: navigation
+    fallback_metadata:
+      slot_definitions: null
+label: 'Navigation Shortcuts'
+id: block.navigation_shortcuts
+provider: navigation
+source: block
+source_local_id: navigation_shortcuts

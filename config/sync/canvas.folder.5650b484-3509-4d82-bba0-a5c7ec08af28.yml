@@ -1,0 +1,9 @@
+uuid: 5650b484-3509-4d82-bba0-a5c7ec08af28
+langcode: en
+status: true
+dependencies: {  }
+name: 'Content block'
+configEntityTypeId: component
+weight: 0
+items:
+  - block.block_content.4bf9812b-4af1-4d2d-972c-f87931262441

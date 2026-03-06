@@ -1,0 +1,26 @@
+uuid: 422893f9-77af-4c81-a3c8-a76efc8f50db
+langcode: en
+status: false
+dependencies:
+  config:
+    - views.view.who_s_online
+  module:
+    - views
+active_version: bba7af698493544b
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'views_block:who_s_online-who_s_online_block'
+        label: "Who's online"
+        label_display: '0'
+        provider: views
+        views_label: ''
+        items_per_page: null
+    fallback_metadata:
+      slot_definitions: null
+label: "Who's online"
+id: block.views_block.who_s_online-who_s_online_block
+provider: views
+source: block
+source_local_id: 'views_block:who_s_online-who_s_online_block'

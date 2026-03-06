@@ -1,0 +1,26 @@
+uuid: a19d857b-8cfe-4047-83e6-b13d542c4e2a
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.jsso_videos
+  module:
+    - views
+active_version: 7f52c4b4d4beef82
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'views_block:jsso_videos-block_1'
+        label: 'Video Library: Videos media Block'
+        label_display: '0'
+        provider: views
+        views_label: ''
+        items_per_page: null
+    fallback_metadata:
+      slot_definitions: null
+label: 'Video Library: Videos media Block'
+id: block.views_block.jsso_videos-block_1
+provider: views
+source: block
+source_local_id: 'views_block:jsso_videos-block_1'

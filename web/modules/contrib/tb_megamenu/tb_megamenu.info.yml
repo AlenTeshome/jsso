@@ -6,6 +6,6 @@ package: Menu
 configure: entity.tb_megamenu.collection
 
 # Information added by Drupal.org packaging script on 2025-08-28
-version: '8.x-1.10'
+version: '3.0.0-alpha5'
 project: 'tb_megamenu'
-datestamp: 1756399720
+datestamp: 1756397700

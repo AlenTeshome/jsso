@@ -1,0 +1,26 @@
+uuid: 081dbc14-7bbd-45ef-b4d9-2aaf5572575b
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.front_page_banner_slider
+  module:
+    - views
+active_version: 3c4266ca13e47b40
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'views_block:front_page_banner_slider-block_1'
+        label: 'Front Page banner Slider: Front Page banner Slider Block'
+        label_display: '0'
+        provider: views
+        views_label: ''
+        items_per_page: null
+    fallback_metadata:
+      slot_definitions: null
+label: 'Front Page banner Slider: Front Page banner Slider Block'
+id: block.views_block.front_page_banner_slider-block_1
+provider: views
+source: block
+source_local_id: 'views_block:front_page_banner_slider-block_1'

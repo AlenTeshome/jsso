@@ -2,27 +2,37 @@
  * @file
  * Custom overrides for Better Megamenu.
  */
-.sticky{
-        // 1st Level Menu Items
-    .nav>li {
 
-        >a,
-        >span.nolink {
-            color: var(--clr-bg-300, #0075a8) !important;
+nav.navbar.navbar-expand-lg {
 
-            &:hover,
-            &:focus,
-            &.active,
-            &.active-trail {
-                color: var(--clr-brand-lime, #f4fafc) !important;
+    ul.tbm-nav.level-0 {
+        li.tbm-item.level-1 {
+            border: none;
+
+            a.tbm-link {
+                color: var(--clr-bg-300, #ffffff);
+                font-size: 1.1rem;
+
+                &:hover,
+                &:focus,
+                &.active,
+                &.active-trail {
+                    color: var(--clr-brand-lime, #f4fafc);
+                    background: none;
+                }
             }
+
+            .tbm-submenu-toggle {
+                color: var(--clr-bg-300, #ffffff);
+                background: none;
+            }
+
         }
-
-
     }
+
 }
 
-.tb-megamenu {
+.tbm.tbm-main {
     background: none !important;
     border: none !important;
 

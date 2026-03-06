@@ -1,0 +1,25 @@
+uuid: c6becf34-8e6f-4c04-93ee-80ec10becba5
+langcode: en
+status: false
+dependencies:
+  content:
+    - 'block_content:basic:4bf9812b-4af1-4d2d-972c-f87931262441'
+  module:
+    - block_content
+active_version: 54bcfbc32a4bfeea
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'block_content:4bf9812b-4af1-4d2d-972c-f87931262441'
+        label: 'Footer Copyright'
+        label_display: '0'
+        provider: block_content
+        view_mode: full
+    fallback_metadata:
+      slot_definitions: null
+label: 'Footer Copyright'
+id: block.block_content.4bf9812b-4af1-4d2d-972c-f87931262441
+provider: block_content
+source: block
+source_local_id: 'block_content:4bf9812b-4af1-4d2d-972c-f87931262441'

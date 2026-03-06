@@ -1,0 +1,26 @@
+uuid: ab17c03f-635f-4cf8-b7e3-f88d7a5b95eb
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.jsso_albums
+  module:
+    - views
+active_version: b639dc02ecb24ead
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'views_block:jsso_albums-block_2'
+        label: 'Photo Albums: Latest Albums Media Block 1'
+        label_display: '0'
+        provider: views
+        views_label: ''
+        items_per_page: null
+    fallback_metadata:
+      slot_definitions: null
+label: 'Photo Albums: Latest Albums Media Block 1'
+id: block.views_block.jsso_albums-block_2
+provider: views
+source: block
+source_local_id: 'views_block:jsso_albums-block_2'

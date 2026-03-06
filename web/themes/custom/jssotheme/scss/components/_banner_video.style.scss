@@ -1,3 +1,5 @@
+@use '../abstracts' as *;
+
 .banner-video-row {
     position: relative;
     width: 100%;
@@ -44,13 +46,12 @@
         position: absolute;
         top: 50%;
         left: 8%;
-        transform: translateY(-50%);
+        transform: translateY(-25%);
         z-index: 3;
         width: 100%;
         max-width: 700px;
         padding: 0 15px;
         color: #ffffff;
-        pointer-events: none;
 
         @media (max-width: 768px) {
             left: 5%;
@@ -73,7 +74,7 @@
         }
 
         .maintitle {
-            font-size: 4rem;
+            font-size: clamp(2rem, 8vw, 3rem);
             font-weight: 800;
             line-height: 1.1;
             margin-bottom: 1.5rem;
@@ -87,6 +88,36 @@
 
             @media (max-width: 768px) {
                 font-size: 2.25rem;
+            }
+        }
+
+        .links {
+            ul {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                display: flex;
+                gap: 1rem;
+
+                li {
+                    padding: 0;
+                    margin: 0;
+
+                    a {
+                        min-width: 200px;
+                        display: inline-flex;
+                        justify-content: center;
+                        align-items: center;
+
+                        &:first-child {
+                            @include main-read-more-link-anchor(var(--clr-brand-forestgreen), var(--clr-bg-300), var(--clr-brand-lime), var(--clr-bg-500));
+                        }
+
+                        &:last-child {
+                            @include main-read-more-link-anchor(var(--clr-brand-forestgreen), var(--clr-bg-300), var(--clr-brand-lime), var(--clr-bg-500));
+                        }
+                    }
+                }
             }
         }
     }

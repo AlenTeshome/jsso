@@ -1,5 +1,4 @@
 // Modern Corporate Split Hero Carousel (Refined)
-$slider-height: 600px;
 $brand-primary: #0075a8;
 $brand-accent: #ffd700;
 $text-dark: #1a1a1a;
@@ -7,8 +6,7 @@ $text-muted: #555;
 $bg-clean: #ffffff;
 
 .hero-carousel {
-    height: $slider-height !important;
-    background-color: $bg-clean;
+    height: 500px !important;
     position: relative;
     overflow: hidden;
 
@@ -18,9 +16,8 @@ $bg-clean: #ffffff;
     }
 
     .carousel-item.slider-row {
-        height: $slider-height !important;
+        height: 500px !important;
         display: block; // Reset flex as we use row/col
-        background-color: $bg-clean;
         overflow: hidden;
         width: 100% !important;
 
@@ -36,45 +33,34 @@ $bg-clean: #ffffff;
                 display: flex;
                 align-items: center;
                 overflow: hidden;
+                gap: 2rem;
             }
         }
 
         // Image Section (65% width) - NO ZOOM
         .slide-image {
-            position: absolute;
-            right: 0;
-            top: 0;
-            width: 65%;
-            height: 100%;
+            position: relative;
+            flex: 1 1 50%;
             z-index: 1;
             overflow: hidden;
-            clip-path: polygon(15% 0, 100% 0, 100% 100%, 0% 100%);
+            //clip-path: polygon(15% 0, 100% 0, 100% 100%, 0% 100%);
 
             img {
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
                 transition: none; // Remove all zoom/transitions as requested
-                filter: brightness(0.95);
+                // filter: brightness(0.95);
             }
 
-            &::after {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: linear-gradient(90deg, rgba($bg-clean, 0.4) 0%, rgba(0, 0, 0, 0) 40%);
-            }
         }
 
         // Content Section
         .carousel-caption {
             position: relative;
             z-index: 10;
-            width: 50%;
-            padding: 4rem 10% 8rem 8%; // Extra bottom padding for navigation
+            flex: 1 1 50%;
+            padding: 2rem; // Extra bottom padding for navigation
             text-align: left;
             left: 0;
             right: auto;
@@ -218,7 +204,7 @@ $bg-clean: #ffffff;
         justify-content: flex-end;
         padding-right: 8%;
         margin: 0;
-        bottom: 30px;
+        bottom: 100px;
         z-index: 30;
 
         [data-bs-target] {

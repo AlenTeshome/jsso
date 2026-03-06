@@ -3,13 +3,22 @@ langcode: en
 status: true
 dependencies:
   config:
+    - dashboard.dashboard.welcome
     - filter.format.basic_html
   module:
+    - captcha
+    - coffee
     - comment
+    - contextual
+    - dashboard
     - file
     - filter
     - fontawesome
+    - honeypot
+    - klaro
     - media
+    - navigation
+    - node
     - search
     - shortcut
     - system
@@ -20,13 +29,23 @@ label: 'Authenticated user'
 weight: 1
 is_admin: false
 permissions:
+  - 'access administration pages'
+  - 'access coffee'
   - 'access comments'
   - 'access content'
+  - 'access contextual links'
   - 'access fontawesome additional settings'
+  - 'access navigation'
   - 'access shortcuts'
+  - 'bypass honeypot protection'
   - 'delete own files'
   - 'post comments'
   - 'search content'
+  - 'skip CAPTCHA'
   - 'skip comment approval'
+  - 'use klaro'
   - 'use text format basic_html'
   - 'view media'
+  - 'view own unpublished content'
+  - 'view the administration theme'
+  - 'view welcome dashboard'

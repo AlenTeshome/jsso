@@ -19,5 +19,6 @@ regions:
   sidebar_first: 'Sidebar first'
   sidebar_second: 'Sidebar second'
   footer: Footer
+  hidden_blocks: 'Hidden Blocks for Mega Menu'
 libraries-override:
   bootstrap5/global-styling: false

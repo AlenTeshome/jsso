@@ -9,7 +9,6 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\tb_megamenu\Entity\MegaMenuConfig;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Component\Serialization\Json;
-use Drupal\system\Entity\Menu;
 
 /**
  * Form handler for adding MegaMenuConfig entities.
@@ -21,21 +20,21 @@ class MegaMenuAdd extends EntityForm {
    *
    * @var \Drupal\Core\Config\ConfigFactoryInterface
    */
-  protected $config;
+  protected ConfigFactoryInterface $config;
 
   /**
    * The theme handler service.
    *
    * @var \Drupal\Core\Extension\ThemeHandlerInterface
    */
-  protected $themeHandler;
+  protected ThemeHandlerInterface $themeHandler;
 
   /**
    * Constructs a MegaMenuAdd object.
    *
-* @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    *   The configuration factory service.
-* @param \Drupal\Core\Extension\ThemeHandlerInterface $theme_handler
+   * @param \Drupal\Core\Extension\ThemeHandlerInterface $theme_handler
    *   The theme handler service.
    */
   public function __construct(ConfigFactoryInterface $config_factory, ThemeHandlerInterface $theme_handler) {
@@ -46,7 +45,7 @@ class MegaMenuAdd extends EntityForm {
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container) {
+  public static function create(ContainerInterface $container): MegaMenuAdd|static {
     return new static(
       $container->get('config.factory'),
       $container->get('theme_handler')
@@ -56,13 +55,19 @@ class MegaMenuAdd extends EntityForm {
   /**
    * {@inheritdoc}
    */
-  public function form(array $form, FormStateInterface $form_state) {
+  public function form(array $form, FormStateInterface $form_state): array {
+    /** @var \Drupal\system\Entity\Menu $menuStorage */
+    $menuStorage = $this->entityTypeManager->getStorage('menu');
     $form = parent::form($form, $form_state);
+    $menu_list = array_map(
+      function ($menu) {
+        return $menu->label();
+      },
+      $menuStorage->loadMultiple()
+    );
 
-    $menus = array_map(function ($menu) {
-      return $menu->label();
-    }, Menu::loadMultiple());
-    asort($menus);
+    $menus = $menu_list;
+    asort($menu_list);
 
     $info = $this->themeHandler->listInfo();
     $themes = [];
@@ -113,7 +118,7 @@ class MegaMenuAdd extends EntityForm {
    *
    * @see \Drupal\Core\Form\FormBase::validateForm()
    */
-  public function validateForm(array &$form, FormStateInterface $form_state) {
+  public function validateForm(array &$form, FormStateInterface $form_state): void {
     parent::validateForm($form, $form_state);
 
     if (MegaMenuConfig::loadMenu($form_state->getValue('menu'), $form_state->getValue('theme')) !== NULL) {
@@ -129,7 +134,7 @@ class MegaMenuAdd extends EntityForm {
    *
    * @see \Drupal\Core\Entity\EntityForm::submitForm()
    */
-  public function submitForm(array &$form, FormStateInterface $form_state) {
+  public function submitForm(array &$form, FormStateInterface $form_state): void {
     $id = $form_state->getValue('menu') . '__' . $form_state->getValue('theme');
     $form_state->setValue('id', $id);
 
@@ -138,20 +143,26 @@ class MegaMenuAdd extends EntityForm {
 
   /**
    * {@inheritdoc}
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function save(array $form, FormStateInterface $form_state) {
+  public function save(array $form, FormStateInterface $form_state): void {
     $megamenu = $this->entity;
     $status = $megamenu->save();
 
-    if ($status) {
-      $this->messenger()->addStatus($this->t('Created the %label Mega Menu, edit it to configure.', [
-        '%label' => $megamenu->menu,
-      ]));
-    }
-    else {
-      $this->messenger()->addStatus($this->t('The %label Example was not saved.', [
-        '%label' => $megamenu->menu,
-      ]));
+    if (isset($megamenu->menu)) {
+      if ($status) {
+        $this->messenger()
+          ->addStatus($this->t('Created the %label Mega Menu, edit it to configure.', [
+            '%label' => $megamenu->menu,
+          ]));
+      }
+      else {
+        $this->messenger()
+          ->addStatus($this->t('The %label Example was not saved.', [
+            '%label' => $megamenu->menu,
+          ]));
+      }
     }
 
     $form_state->setRedirect('entity.tb_megamenu.edit_form', ['tb_megamenu' => $megamenu->id()]);
@@ -160,11 +171,17 @@ class MegaMenuAdd extends EntityForm {
   /**
    * Helper function to check whether an Example configuration entity exists.
    */
-  public function exist($id) {
-    $entity = $this->entityQuery->get('example')
-      ->condition('id', $id)
-      ->execute();
-    return (bool) $entity;
+  public function exist($id): bool {
+    if (isset($this->entityQuery)) {
+      $entity = $this->entityQuery->get('example')
+        ->condition('id', $id)
+        ->execute();
+
+      return (bool) $entity;
+    }
+    else {
+      return FALSE;
+    }
   }
 
 }

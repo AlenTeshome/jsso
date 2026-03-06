@@ -5,10 +5,10 @@ dependencies:
   config:
     - core.entity_view_mode.media.media_library
     - field.field.media.image.field_media_image
-    - image.style.news_list_style_350_x_290
+    - image.style.media_library_square_thumbnail
     - media.type.image
   module:
-    - colorbox
+    - svg_image
 _core:
   default_config_hash: ILLWu5KFvbsX6J7sh2Itd4w8-lBBRhR_H8ZrmQiN2yo
 id: media.image.media_library
@@ -17,18 +17,19 @@ bundle: image
 mode: media_library
 content:
   thumbnail:
-    type: colorbox
-    label: hidden
+    type: image
+    label: above
     settings:
-      colorbox_image_style: ''
-      colorbox_gallery: post
-      colorbox_gallery_custom: ''
-      colorbox_caption: auto
-      colorbox_caption_custom: ''
-      colorbox_node_style: news_list_style_350_x_290
-      colorbox_node_style_first: news_list_style_350_x_290
+      image_link: ''
+      image_style: media_library_square_thumbnail
+      image_loading:
+        attribute: lazy
+      svg_attributes:
+        width: null
+        height: null
+      svg_render_as_image: true
     third_party_settings: {  }
-    weight: 0
+    weight: 1
     region: content
 hidden:
   created: true

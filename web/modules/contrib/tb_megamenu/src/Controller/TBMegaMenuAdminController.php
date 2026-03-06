@@ -2,6 +2,7 @@
 
 namespace Drupal\tb_megamenu\Controller;
 
+use Drupal\Core\Access\CsrfTokenGenerator;
 use Drupal\Core\Config\Entity\ConfigEntityInterface;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Menu\MenuTreeParameters;
@@ -25,14 +26,28 @@ class TBMegaMenuAdminController extends ControllerBase {
    *
    * @var \Drupal\Core\Menu\MenuLinkTreeInterface
    */
-  protected $menuTree;
+  protected MenuLinkTreeInterface $menuTree;
 
   /**
    * The renderer service.
    *
    * @var \Drupal\Core\Render\RendererInterface
    */
-  protected $renderer;
+  protected RendererInterface $renderer;
+
+  /**
+   * The menu builder service.
+   *
+   * @var \Drupal\tb_megamenu\TBMegaMenuBuilderInterface
+   */
+  private TBMegaMenuBuilderInterface $menuBuilder;
+
+  /**
+   * The CSRF Token Generator.
+   *
+   * @var \Drupal\Core\Access\CsrfTokenGenerator
+   */
+  protected CsrfTokenGenerator $csrfTokenGenerator;
 
   /**
    * Constructs a TBMegaMenuAdminController object.
@@ -43,20 +58,25 @@ class TBMegaMenuAdminController extends ControllerBase {
    *   The renderer service.
    * @param \Drupal\tb_megamenu\TBMegaMenuBuilderInterface $menu_builder
    *   The menu builder service.
+   * @param \Drupal\Core\Access\CsrfTokenGenerator $csrfTokenGenerator
+   *   The CSRF Token Generator service.
    */
-  public function __construct(MenuLinkTreeInterface $menu_tree, RendererInterface $renderer, private readonly TBMegaMenuBuilderInterface $menuBuilder) {
+  public function __construct(MenuLinkTreeInterface $menu_tree, RendererInterface $renderer, TBMegaMenuBuilderInterface $menu_builder, CsrfTokenGenerator $csrfTokenGenerator) {
     $this->menuTree = $menu_tree;
     $this->renderer = $renderer;
+    $this->menuBuilder = $menu_builder;
+    $this->csrfTokenGenerator = $csrfTokenGenerator;
   }
 
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container) {
+  public static function create(ContainerInterface $container): TBMegaMenuAdminController|static {
     return new static(
       $container->get('menu.link_tree'),
       $container->get('renderer'),
-      $container->get('tb_megamenu.menu_builder')
+      $container->get('tb_megamenu.menu_builder'),
+      $container->get('csrf_token'),
     );
   }
 
@@ -70,13 +90,20 @@ class TBMegaMenuAdminController extends ControllerBase {
    *
    * @return \Symfony\Component\HttpFoundation\Response
    *   A string response with either a success/error message or just data.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   * @throws \Exception
    */
-  public function saveConfiguration(Request $request) {
+  public function saveConfiguration(Request $request): Response {
     $data = NULL;
     $action = '';
     $result = 'Invalid TB Megamenu Ajax request!';
     $format = NULL;
 
+    // Check to see if the method, getContentTypeFormat(), exists.
+    // This check allows this branch to be backwards compatible with D8/9.
+    // Previously, the getContentTypeFormat() method only exists in D10 due to
+    // updated symfony versioning and getContentType() only existed in D8/9.
     if (method_exists($request, 'getContentTypeFormat')) {
       $format = $request->getContentTypeFormat();
     }
@@ -121,8 +148,10 @@ class TBMegaMenuAdminController extends ControllerBase {
    *
    * @return array
    *   The message and status code indicating the result of the load attempt.
+   *
+   * @throws \Exception
    */
-  public function loadMenuConfig(array $data) {
+  public function loadMenuConfig(array $data): array {
     $menu_name = self::getMenuName($data);
     $theme = self::getTheme($data);
     $code = 200;
@@ -132,7 +161,7 @@ class TBMegaMenuAdminController extends ControllerBase {
       $renderable_array = $this->menuBuilder->renderBlock($menu_name, $theme);
       $result = $this->renderer
         ->render($renderable_array)
-        ->__toString();
+        ->jsonSerialize();
     }
     // Display an error if the config can't be loaded.
     else {
@@ -154,8 +183,10 @@ class TBMegaMenuAdminController extends ControllerBase {
    *
    * @return array
    *   The message and status code indicating the result of the save attempt.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function saveMenuConfig(array $data) {
+  public function saveMenuConfig(array $data): array {
     $menu_config = self::getMenuConfig($data);
     $block_config = self::getBlockConfig($data);
     $menu_name = self::getMenuName($data);
@@ -208,19 +239,19 @@ class TBMegaMenuAdminController extends ControllerBase {
    *
    * @param string $event
    *   The event that triggered the error.
-   * @param string $menu_name
+   * @param string|null $menu_name
    *   The machine name for the current menu.
-   * @param string $theme
+   * @param string|null $theme
    *   The machine name for the current theme.
-   * @param array $block_config
+   * @param array|null $block_config
    *   The configuration for the current block.
-   * @param array $menu_config
+   * @param array|null $menu_config
    *   The configuration for the current menu.
    *
    * @return string
    *   An error message displayed to the user.
    */
-  public function saveError(string $event, string $menu_name = NULL, string $theme = NULL, array $block_config = NULL, array $menu_config = NULL) {
+  public function saveError(string $event, ?string $menu_name = NULL, ?string $theme = NULL, ?array $block_config = NULL, ?array $menu_config = NULL): string {
     $msg = $this->t("TB MegaMenu error:");
 
     switch ($event) {
@@ -259,8 +290,10 @@ class TBMegaMenuAdminController extends ControllerBase {
    *
    * @return array
    *   The message and status code indicating the result of the load attempt.
+   *
+   * @throws \Exception
    */
-  public function loadMenuBlock(array $data) {
+  public function loadMenuBlock(array $data): array {
     $block_id = $data['block_id'] ?? NULL;
     $id = $data['id'] ?? NULL;
     $showblocktitle = $data['showblocktitle'] ?? NULL;
@@ -276,7 +309,7 @@ class TBMegaMenuAdminController extends ControllerBase {
       ];
       $content = $this->renderer
         ->render($render)
-        ->__toString();
+        ->jsonSerialize();
       $result = Json::encode(['content' => $content, 'id' => $id]);
     }
     // Display an error if the block can't be loaded.
@@ -300,7 +333,7 @@ class TBMegaMenuAdminController extends ControllerBase {
    * @return mixed
    *   A string or null.
    */
-  public function getMenuName(array $data) {
+  public function getMenuName(array $data): mixed {
     return $data['menu_name'] ?? NULL;
   }
 
@@ -311,9 +344,9 @@ class TBMegaMenuAdminController extends ControllerBase {
    *   A decoded JSON object used to load the configuration.
    *
    * @return mixed
-   *   An string or null.
+   *   A string or null.
    */
-  public function getTheme(array $data) {
+  public function getTheme(array $data): mixed {
     return $data['theme'] ?? NULL;
   }
 
@@ -326,7 +359,7 @@ class TBMegaMenuAdminController extends ControllerBase {
    * @return mixed
    *   An array or null.
    */
-  public function getMenuConfig(array $data) {
+  public function getMenuConfig(array $data): mixed {
     return $data['menu_config'] ?? NULL;
   }
 
@@ -339,36 +372,39 @@ class TBMegaMenuAdminController extends ControllerBase {
    * @return mixed
    *   An array or null.
    */
-  public function getBlockConfig(array $data) {
+  public function getBlockConfig(array $data): mixed {
     return $data['block_config'] ?? NULL;
   }
 
   /**
    * This is a menu page. To edit Mega Menu.
+   *
+   * @param \Drupal\Core\Config\Entity\ConfigEntityInterface $tb_megamenu
+   *   The config entity interface.
+   * @param \Symfony\Component\HttpFoundation\Request $request
+   *   The request service.
+   *
+   * @return array
+   *   Returns an array of mega menu config.
    */
-  public function configMegaMenu(ConfigEntityInterface $tb_megamenu, Request $request) {
-    $page = [];
-    // Add font-awesome library.
-    $page['#attached']['library'][] = 'tb_megamenu/form.font-awesome';
-    // Add chosen library.
-    $page['#attached']['library'][] = 'tb_megamenu/form.chosen';
+  public function configMegaMenu(ConfigEntityInterface $tb_megamenu, Request $request): array {
     // Add a custom library.
     $page['#attached']['library'][] = 'tb_megamenu/form.configure-megamenu';
-
-    $menu_name = !empty($tb_megamenu) ? $tb_megamenu->menu : '';
+    $menu_name = !empty($tb_megamenu->menu) ? $tb_megamenu->menu : '';
     $url = Url::fromRoute('tb_megamenu.admin.save', ['tb_megamenu' => $menu_name]);
-    $csrf_token = \Drupal::csrfToken()->get($url->getInternalPath());
-    $url->setOptions(['absolute' => TRUE, 'query' => ['token' => $csrf_token]]);
+    $csrf_token = $this->csrfTokenGenerator->get($url->getInternalPath());
+    $url->setOptions(['absolute' => FALSE, 'query' => ['token' => $csrf_token]]);
     $abs_url_config = $url->toString();
-
     $page['#attached']['drupalSettings']['TBMegaMenu']['saveConfigURL'] = $abs_url_config;
-    if (!empty($tb_megamenu)) {
+
+    if (!empty($tb_megamenu->menu) && !empty($tb_megamenu->theme)) {
       $page['tb_megamenu'] = [
         '#theme' => 'tb_megamenu_backend',
         '#menu_name' => $tb_megamenu->menu,
         '#block_theme' => $tb_megamenu->theme,
       ];
     }
+
     return $page;
   }
 

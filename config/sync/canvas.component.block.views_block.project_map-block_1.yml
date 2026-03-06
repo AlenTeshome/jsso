@@ -1,0 +1,26 @@
+uuid: 6ed5e8dd-3661-4d63-a1ee-4cea47611f15
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.project_map
+  module:
+    - views
+active_version: d800f35a820d51ac
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'views_block:project_map-block_1'
+        label: 'Project Tracking Map'
+        label_display: '0'
+        provider: views
+        views_label: ''
+        items_per_page: null
+    fallback_metadata:
+      slot_definitions: null
+label: 'Project Tracking Map'
+id: block.views_block.project_map-block_1
+provider: views
+source: block
+source_local_id: 'views_block:project_map-block_1'

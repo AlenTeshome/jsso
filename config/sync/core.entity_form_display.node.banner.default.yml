@@ -100,6 +100,10 @@ content:
     third_party_settings: {  }
 hidden:
   promote: true
+  publish_on: true
+  publish_state: true
   sticky: true
   translation: true
   uid: true
+  unpublish_on: true
+  unpublish_state: true

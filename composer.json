@@ -10,6 +10,11 @@
     },
     "repositories": [
         {
+            "name": "asset-packagist",
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        },
+        {
             "type": "composer",
             "url": "https://packages.drupal.org/8"
         }
@@ -22,6 +27,7 @@
         "drupal/bootstrap_layout_builder": "^2.2",
         "drupal/bootstrap_styles": "^1.2",
         "drupal/charts": "^5.1",
+        "drupal/cms": "^2.0",
         "drupal/colorbox": "^2.2",
         "drupal/core-composer-scaffold": "^11.3",
         "drupal/core-project-message": "^11.3",
@@ -45,7 +51,7 @@
         "drupal/smart_date": "^4.2",
         "drupal/svg_formatter": "^2.0",
         "drupal/svg_image": "^3.2",
-        "drupal/tb_megamenu": "^1.10",
+        "drupal/tb_megamenu": "^3.0@alpha",
         "drupal/token": "^1.17",
         "drupal/views_bootstrap": "^5.5@RC",
         "drupal/views_bulk_operations": "^4.4",
@@ -54,18 +60,19 @@
     "conflict": {
         "drupal/drupal": "*"
     },
-    "minimum-stability": "stable",
+    "minimum-stability": "beta",
     "prefer-stable": true,
     "config": {
         "allow-plugins": {
             "composer/installers": true,
-            "drupal/core-composer-scaffold": true,
-            "drupal/core-recipe-unpack": true,
-            "drupal/core-project-message": true,
-            "phpstan/extension-installer": true,
             "dealerdirect/phpcodesniffer-composer-installer": true,
+            "drupal/core-composer-scaffold": true,
+            "drupal/core-project-message": true,
+            "drupal/core-recipe-unpack": true,
+            "drupal/core-vendor-hardening": true,
             "php-http/discovery": true,
-            "php-tuf/composer-integration": true
+            "php-tuf/composer-integration": true,
+            "phpstan/extension-installer": true
         },
         "sort-packages": true
     },

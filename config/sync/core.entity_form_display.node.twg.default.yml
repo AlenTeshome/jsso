@@ -60,6 +60,11 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  translation:
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
     weight: 5
@@ -70,9 +75,18 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  url_redirects:
+    weight: 50
+    region: content
+    settings: {  }
+    third_party_settings: {  }
 hidden:
   field_chair: true
   field_members: true
   field_theme: true
   promote: true
+  publish_on: true
+  publish_state: true
   sticky: true
+  unpublish_on: true
+  unpublish_state: true

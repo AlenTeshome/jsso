@@ -1,0 +1,22 @@
+uuid: c0db2ecb-1a7e-40a0-a887-589b832916fd
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - gin
+_core:
+  default_config_hash: 3Jn-GUUhrsFkTDTpFj711JbcKihpb_8-gkXWkVE6llU
+id: gin_messages
+theme: gin
+region: content
+weight: -6
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: Messages
+  label_display: '0'
+  provider: system
+visibility: {  }

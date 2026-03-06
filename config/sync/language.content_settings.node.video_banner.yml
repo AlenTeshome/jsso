@@ -1,0 +1,16 @@
+uuid: 0a0f1470-54f7-4899-8391-473c277fff41
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.video_banner
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+id: node.video_banner
+target_entity_type_id: node
+target_bundle: video_banner
+default_langcode: site_default
+language_alterable: true

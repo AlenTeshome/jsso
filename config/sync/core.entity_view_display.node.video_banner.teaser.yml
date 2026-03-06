@@ -1,0 +1,38 @@
+uuid: f3b5c031-733b-47e9-a6e3-d2409c9c3b40
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.video_banner.body
+    - field.field.node.video_banner.field_banner_links
+    - field.field.node.video_banner.field_subtitle
+    - field.field.node.video_banner.field_video_file
+    - node.type.video_banner
+  module:
+    - text
+    - user
+id: node.video_banner.teaser
+targetEntityType: node
+bundle: video_banner
+mode: teaser
+content:
+  body:
+    type: text_summary_or_trimmed
+    label: hidden
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_banner_links: true
+  field_subtitle: true
+  field_video_file: true
+  langcode: true
+  search_api_excerpt: true

@@ -1,0 +1,17 @@
+uuid: 4d3fa7be-a280-4dcb-ad9b-b51fedab158b
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: 'Video Banner'
+type: video_banner
+description: null
+help: null
+new_revision: true
+preview_mode: 0
+display_submitted: false

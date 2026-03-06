@@ -1,0 +1,22 @@
+uuid: 755b2e3d-6be0-443b-9a55-7a0224dcbab0
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - mercury
+_core:
+  default_config_hash: 3Jn-GUUhrsFkTDTpFj711JbcKihpb_8-gkXWkVE6llU
+id: mercury_messages
+theme: mercury
+region: content
+weight: -6
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: Messages
+  label_display: '0'
+  provider: system
+visibility: {  }

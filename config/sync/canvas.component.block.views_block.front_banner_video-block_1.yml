@@ -1,0 +1,26 @@
+uuid: 024150ab-e7e7-4a80-8034-6bb41cd6660e
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.front_banner_video
+  module:
+    - views
+active_version: e92c20364d98008e
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'views_block:front_banner_video-block_1'
+        label: 'Front Banner Video: Banner Video Block'
+        label_display: '0'
+        provider: views
+        views_label: ''
+        items_per_page: null
+    fallback_metadata:
+      slot_definitions: null
+label: 'Front Banner Video: Banner Video Block'
+id: block.views_block.front_banner_video-block_1
+provider: views
+source: block
+source_local_id: 'views_block:front_banner_video-block_1'

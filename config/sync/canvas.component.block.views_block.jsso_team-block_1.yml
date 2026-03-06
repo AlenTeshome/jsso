@@ -1,0 +1,26 @@
+uuid: 299aaf8f-ccb8-4cfa-b3b9-88b19685c782
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.jsso_team
+  module:
+    - views
+active_version: c8b6146146d12a1a
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'views_block:jsso_team-block_1'
+        label: 'Jsso Team: Featured Our Team Block'
+        label_display: '0'
+        provider: views
+        views_label: ''
+        items_per_page: null
+    fallback_metadata:
+      slot_definitions: null
+label: 'Jsso Team: Featured Our Team Block'
+id: block.views_block.jsso_team-block_1
+provider: views
+source: block
+source_local_id: 'views_block:jsso_team-block_1'

@@ -6,12 +6,12 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
 
-        &:not(.path-frontpage) {
-                main{
-                padding-top: 10rem;
-            }
+    &.user-logged-in {
+        nav.navbar {
+            padding-top: 3rem;
         }
     }
+}
 
 
 h1.jsso-heading-title {
