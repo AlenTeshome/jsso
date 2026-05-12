@@ -1,109 +1,216 @@
-/**
+@use '../abstracts' as *;
+
+/*
  * @file
- * Custom overrides for Better Megamenu.
+ * Custom overrides for Better Megamenu and Navigation behavior.
  */
 
+nav.navbar {
+    // 1. Default State: Transparent on load
+    background-color: transparent;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+
+    // Variables for default state (hover)
+    --nav-hover-bg-color: var(--clr-brand-jsso-secondary);
+    --nav-hover-link-color: var(--clr-bg-300);
+    --nav-submenu-bg-color: var(--clr-brand-jsso-secondary);
+
+    // Link styling basics
+    .tbm-link,
+    .nav-link,
+    a {
+        transition: color 0.3s ease-in-out;
+    }
+
+    // On hover over the navbar
+    &:hover,
+    &.is-megamenu-active {
+        // Change background of main navigation
+        background-color: var(--nav-hover-bg-color) !important;
+
+        // Change colors for all links on first level and second level
+        .tbm-link,
+        .tbm-submenu-toggle,
+        .tbm-submenu a,
+        .nav-link {
+            color: var(--nav-hover-link-color) !important;
+
+            // Ensure underline color matches
+            &::after {
+                background: var(--nav-hover-link-color) !important;
+            }
+        }
+
+        // Target specific internal blocks/views that might override link colors
+        .tbm-submenu {
+
+            .resource-name,
+            .resource-desc {
+                color: var(--nav-hover-link-color) !important;
+            }
+        }
+    }
+
+    // Ensure dropdown navigation background is also updated correctly
+    .tbm-submenu {
+        background-color: var(--nav-submenu-bg-color) !important;
+        transition: background-color 0.3s ease-in-out;
+
+        // When dropdown is visible, links should match the expected color
+        a,
+        .nav-link,
+        .tbm-link {
+            color: var(--nav-hover-link-color) !important;
+        }
+    }
+
+    // 2. Highlighted State
+    &.nav-highlight {
+        // Background white on load
+        background-color: var(--clr-bg-300) !important;
+
+        // Override variables for the hover state when highlight is active
+        --nav-hover-bg-color: var(--clr-bg-300);
+        --nav-hover-link-color: var(--clr-brand-jsso-secondary);
+        --nav-submenu-bg-color: var(--clr-bg-300);
+
+        // Apply colors immediately so they appear correctly on load and persist on hover
+        .tbm-link,
+        .tbm-submenu-toggle {
+            color: var(--nav-hover-link-color) !important;
+
+            &::after {
+                background: var(--nav-hover-link-color) !important;
+            }
+        }
+
+        .tbm-submenu a,
+        .tbm-submenu .nav-link,
+        .tbm-submenu .resource-name,
+        .tbm-submenu .resource-desc {
+            color: var(--nav-hover-link-color) !important;
+        }
+    }
+}
+
+// ---------------------------------------------------------
+// Mega Menu Full Width Structural Logic
+// ---------------------------------------------------------
+@media (min-width: 992px) {
+
+    // Break the relative positioning chain so submenu can be full width
+    .navbar {
+
+        .container,
+        .region-nav-main,
+        #block-jssotheme-mainnavigation,
+        .tbm-main,
+        .tbm-collapse,
+        .tbm-nav {
+            position: static !important;
+        }
+    }
+
+    .tbm-item.level-1 {
+        position: static !important;
+
+        .tbm-submenu {
+            position: absolute !important;
+            left: 0 !important;
+            right: 0 !important;
+            width: 100vw !important;
+            top: 100%;
+            border: none;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+
+            .tbm-row {
+                max-width: 1320px; // Match main container width
+                margin-left: auto !important;
+                margin-right: auto !important;
+                padding: 30px 15px;
+                display: block;
+            }
+        }
+    }
+}
+
+// ---------------------------------------------------------
+// Top Level Link Underline Animation Base
+// ---------------------------------------------------------
 nav.navbar.navbar-expand-lg {
+    &.sticky {
+        ul.tbm-nav.level-0 {
+            li.tbm-item.level-1 {
+
+                a.tbm-link {
+                    color: var(--clr-brand-jsso-secondary);
+                }
+            }
+        }
+
+    }
 
     ul.tbm-nav.level-0 {
         li.tbm-item.level-1 {
             border: none;
 
             a.tbm-link {
-                color: var(--clr-bg-300, #ffffff);
-                font-size: 1.1rem;
+                font-size: 1.15rem;
+                font-weight: 500;
+                letter-spacing: -0.025rem;
+                position: relative;
+                background: none;
+                color: var(--clr-bg-300);
 
-                &:hover,
-                &:focus,
-                &.active,
-                &.active-trail {
-                    color: var(--clr-brand-lime, #f4fafc);
-                    background: none;
+                &::after {
+                    content: "";
+                    display: block;
+                    position: absolute;
+                    bottom: .5rem;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    height: 2px;
+                    width: 0;
+                    transition: width 0.3s ease;
+                }
+
+                &:hover::after,
+                &:focus::after,
+                &.active::after,
+                &.active-trail::after {
+                    width: 70%;
+                }
+
+                &:hover::before {
+                    content: '';
+                    position: absolute;
+                    width: 100%;
+                    height: 3rem;
+                    top: 100%;
+                    left: 0;
                 }
             }
 
             .tbm-submenu-toggle {
-                color: var(--clr-bg-300, #ffffff);
                 background: none;
+                border: none;
             }
-
         }
     }
-
 }
 
+// Base TBM Overrides
 .tbm.tbm-main {
     background: none !important;
     border: none !important;
 
-    // 1st Level Menu Items
-    .nav>li {
-
-        >a,
-        >span.nolink {
-            background: none !important;
-            border: none !important;
-            box-shadow: none !important;
-            color: var(--clr-brand-blue, #0075a8);
-            padding: 10px 20px;
-            font-weight: 600;
-            text-transform: none;
-            transition: color 0.3s ease;
-
-            &:hover,
-            &:focus,
-            &.active,
-            &.active-trail {
-                background: none !important;
-                color: var(--clr-brand-lime, #0075a8);
-            }
-        }
-
-        // Caret adjustment
-        .caret {
-            display: none !important;
-        }
-    }
-
-    // Megamenu / Dropdown Container
-    .dropdown-menu,
-    .tb-megamenu-submenu {
-        background-color: #ffffff !important;
-        border: 1px solid rgba(0, 0, 0, 0.05) !important;
-        border-radius: 0 !important;
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1) !important;
-        padding: 1.5rem !important;
-        margin-top: 0 !important;
-
-        // Remove default gradients
-        background-image: none !important;
-
-        .mega-nav {
-            >li {
-                >a {
-                    background: none !important;
-                    color: #333 !important;
-                    padding: 8px 15px !important;
-                    font-weight: 500;
-
-                    &:hover {
-                        background-color: #f8f9fa !important;
-                        color: var(--clr-brand-blue, #0075a8) !important;
-                    }
-                }
-            }
-        }
-    }
-
-    // Handle columns inside megamenu
-    .mega-dropdown-inner {
+    .nav>li>a,
+    .nav>li>span.nolink {
         background: none !important;
-    }
-
-    // Mobile adjustments (if necessary)
-    &.tb-megamenu-mobile {
-        .nav-collapse {
-            background-color: #ffffff !important;
-        }
+        border: none !important;
+        box-shadow: none !important;
+        padding: 10px 20px;
+        font-weight: 600;
+        text-transform: none;
     }
 }

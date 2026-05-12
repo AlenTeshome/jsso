@@ -1,30 +1,15 @@
 uuid: 0766403a-3737-47b0-8c4a-ab9a9208e1e4
 langcode: en
-status: true
-dependencies:
-  config:
-    - field.field.media.image.field_media_image
-    - field.field.media.svg_image.field_media_svg_image
-    - image.style.canvas_parametrized_width
-    - media.type.image
-    - media.type.svg_image
-  module:
-    - file
-    - media
-    - media_library
-    - options
-  theme:
-    - mercury
+status: false
+dependencies: {  }
 _core:
   default_config_hash: rGRCrJ3jhSWUBhV5M3owzbdD60YAzl2I7WDzMSfAf-A
-label: Section
-id: sdc.mercury.section
-source: sdc
-source_local_id: 'mercury:section'
-provider: mercury
-active_version: a917d5c9be8f2830
+active_version: fallback
 versioned_properties:
   active:
+    settings:
+      last_active_version: a917d5c9be8f2830
+  a917d5c9be8f2830:
     settings:
       prop_field_definitions:
         width:
@@ -304,3 +289,8 @@ versioned_properties:
           title: Grid
         footer_slot:
           title: Footer
+label: Section
+id: sdc.mercury.section
+provider: mercury
+source: sdc
+source_local_id: 'mercury:section'

@@ -1,0 +1,181 @@
+@use '../abstracts' as *;
+
+.view-jsso-events {
+
+    &.all-events,
+    &.event-list {
+        .view-content {
+            @media screen and (min-width: 1024px) {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .views-row {
+                a {
+                    padding: 0 0 1.5rem 0 !important;
+                }
+
+                .event-detail {
+
+                    .event-dates {
+                        padding: 0 1.5rem;
+                    }
+
+                    .event-title {
+                        padding: 0 1.5rem 1.5rem;
+                        font-size: 1rem;
+                        @include trim-text(2);
+                    }
+
+                    .event-location {
+                        padding: 0 1.5rem;
+                    }
+                }
+            }
+        }
+    }
+
+    &.featured-event {
+
+        .view-content {
+            .views-row {
+                flex: 1 1 100%;
+                max-width: 100%;
+
+                .event-detail {
+                    a {
+                        flex-direction: row;
+                        gap: 2em;
+
+                        .event-image {
+                            flex: 1 1 40%;
+                        }
+
+                        .event-details {
+                            flex: 1 1 60%;
+                            display: flex;
+                            flex-direction: column;
+                            gap: 1em;
+                            justify-content: center;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+    .view-content {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2em 1em;
+
+        .views-row {
+            display: flex;
+
+            @media screen and (max-width: 768px) {
+                flex: 1 1 100%;
+                max-width: 100%;
+            }
+
+            .event-detail {
+                width: 100%;
+                position: relative;
+
+                a {
+                    display: flex;
+                    flex-direction: column;
+                    padding: 1.5em;
+                    height: 100%;
+                    background-color: var(--clr-bg-300);
+                    transition: all 0.3s ease-in-out;
+                    text-decoration: none;
+
+                    &:hover {
+                        background-color: var(--clr-brand-jsso-bluebeige);
+                        transform: translateY(-4px);
+
+                        .event-title {
+                            color: var(--clr-brand-jsso-primary);
+                        }
+                    }
+
+                    .event-image {
+                        margin-bottom: 1.25rem;
+                        overflow: hidden;
+
+                        img {
+                            width: 100%;
+                            object-fit: cover;
+                            transition: transform 0.5s ease;
+                        }
+                    }
+
+                    &:hover .event-image img {
+                        transform: scale(1.05);
+                    }
+
+                    .event-type {
+                        position: absolute;
+                        top: 1.5em;
+                        right: 1.5em;
+                        background-color: var(--clr-brand-jsso-beige);
+                        padding: 0.2rem 0.5rem;
+                        font-size: 0.8rem;
+                        font-weight: 700;
+                        text-transform: uppercase;
+                        color: var(--clr-brand-jsso-accents);
+                        letter-spacing: 1px;
+                    }
+
+                    .event-title {
+                        font-size: 1.3rem;
+                        font-weight: 500;
+                        color: var(--clr-brand-jsso-secondary);
+                        margin-bottom: 1rem;
+                        line-height: 1.4;
+                    }
+
+                    .event-dates {
+                        font-size: 0.95rem;
+                        color: var(--text-color);
+                        font-weight: 600;
+                        margin-bottom: 0.5rem;
+                        display: flex;
+                        align-items: center;
+                        gap: 0.5rem;
+
+                        // Add icon if needed later
+                        &::before {
+                            content: "\f133";
+                            font-family: "Font Awesome 6 Free";
+                            font-weight: 900;
+                            display: none;
+                        }
+                    }
+
+                    .event-location {
+                        font-size: 0.9rem;
+                        display: flex;
+                        align-items: center;
+                        gap: 0.5rem;
+
+                        &::before {
+                            content: "\f3c5";
+                            font-family: "Font Awesome 6 Free";
+                            font-weight: 900;
+                            display: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .more-link {
+        padding-top: 3em;
+
+        a {
+            @include investflow-button;
+        }
+    }
+}

@@ -10,7 +10,6 @@ dependencies:
     - media.type.svg_image
     - media.type.video
     - node.type.article
-    - node.type.page
     - taxonomy.vocabulary.tags
     - workflows.workflow.basic_editorial
   module:
@@ -51,7 +50,6 @@ permissions:
   - 'create canvas_page'
   - 'create document media'
   - 'create image media'
-  - 'create page content'
   - 'create remote_video media'
   - 'create svg_image media'
   - 'create terms in tags'
@@ -59,7 +57,6 @@ permissions:
   - 'create video media'
   - 'delete any document media'
   - 'delete any image media'
-  - 'delete any page content'
   - 'delete any remote_video media'
   - 'delete any svg_image media'
   - 'delete any video media'
@@ -67,17 +64,13 @@ permissions:
   - 'delete canvas_page'
   - 'delete own article content'
   - 'delete own files'
-  - 'delete own page content'
-  - 'delete page revisions'
   - 'edit any image media'
-  - 'edit any page content'
   - 'edit any remote_video media'
   - 'edit any svg_image media'
   - 'edit any video media'
   - 'edit canvas_page'
   - 'edit own article content'
   - 'edit own comments'
-  - 'edit own page content'
   - 'edit terms in tags'
   - 'revert all revisions'
   - 'schedule publishing of nodes'

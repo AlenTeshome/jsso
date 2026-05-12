@@ -1,0 +1,9 @@
+uuid: 4c29b577-8e06-49b7-ae83-965a3a582e7c
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - canvas
+id: global
+label: 'Global brand kit'

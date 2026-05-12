@@ -4,12 +4,14 @@ namespace Drupal\Tests\eca\Kernel\Model;
 
 use Drupal\node\Entity\Node;
 use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Model test for entity basics.
  */
 #[Group('eca')]
 #[Group('eca_model')]
+#[RunTestsInSeparateProcesses]
 class EntityBasicsTest extends Base {
 
   /**
@@ -21,6 +23,7 @@ class EntityBasicsTest extends Base {
     'eca_content',
     'eca_user',
     'eca_test_model_entity_basics',
+    'modeler_api',
   ];
 
   /**

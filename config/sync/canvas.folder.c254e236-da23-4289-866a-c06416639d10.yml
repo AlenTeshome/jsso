@@ -6,26 +6,54 @@ name: 'Lists (Views)'
 configEntityTypeId: component
 weight: 0
 items:
+  - block.views_block.about_us_page_blocks-block_1
+  - block.views_block.about_us_page_blocks-block_2
+  - block.views_block.about_us_page_blocks-block_3
+  - block.views_block.about_us_page_blocks-block_4
+  - block.views_block.about_us_page_blocks-block_5
   - block.views_block.comments_recent-block_1
   - block.views_block.content_recent-block_1
+  - block.views_block.focus-block_1
+  - block.views_block.focus-block_2
   - block.views_block.front_banner_video-block_1
   - block.views_block.front_page_banner_slider-block_1
+  - block.views_block.get_in_touch-block_1
+  - block.views_block.interactive_portals_tools-block_1
+  - block.views_block.interactive_portals_tools-block_2
   - block.views_block.jsso_albums-block_1
   - block.views_block.jsso_albums-block_2
+  - block.views_block.jsso_events-all_events_block_2
   - block.views_block.jsso_events-block_1
+  - block.views_block.jsso_events-block_2
+  - block.views_block.jsso_events-block_3
+  - block.views_block.jsso_events-block_4
+  - block.views_block.jsso_events-block_5
+  - block.views_block.jsso_events-current_and_upcoming_events_block_4
+  - block.views_block.jsso_events-past_events_block_3
   - block.views_block.jsso_knowledge_hub-block_1
   - block.views_block.jsso_knowledge_hub-block_2
   - block.views_block.jsso_news-block_1
+  - block.views_block.jsso_news-block_2
   - block.views_block.jsso_parent_organizations-block_1
+  - block.views_block.jsso_parent_organizations-block_2
+  - block.views_block.jsso_parent_organizations-block_3
   - block.views_block.jsso_partners-block_1
   - block.views_block.jsso_team-block_1
   - block.views_block.jsso_videos-block_1
   - block.views_block.jsso_videos-block_2
   - block.views_block.jsso_videos-block_3
+  - block.views_block.leadership-block_1
   - block.views_block.our_mission-block_1
   - block.views_block.our_mission-block_2
   - block.views_block.our_mission-block_3
+  - block.views_block.our_mission-block_4
+  - block.views_block.our_mission-block_5
+  - block.views_block.our_mission-block_6
+  - block.views_block.page_hero_image-block_1
+  - block.views_block.page_hero_image-block_2
+  - block.views_block.page_hero_image-block_3
   - block.views_block.project_map-block_1
   - block.views_block.recent_pages-block_recent_pages
   - block.views_block.who_s_online-who_s_online_block
   - block.views_block.who_we_are-block_1
+  - block.views_block.who_we_are-block_2

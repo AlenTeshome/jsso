@@ -1,21 +1,15 @@
 uuid: a23b3623-901f-4341-abc6-9d5eef51b11a
 langcode: en
-status: true
-dependencies:
-  module:
-    - options
-  theme:
-    - mercury
+status: false
+dependencies: {  }
 _core:
   default_config_hash: XGYT2I0gKw5WkZHzWtxHnXLiXBTIHuevif1xgxgt_-0
-label: Navbar
-id: sdc.mercury.navbar
-source: sdc
-source_local_id: 'mercury:navbar'
-provider: mercury
-active_version: 3149f199d66bbc29
+active_version: fallback
 versioned_properties:
   active:
+    settings:
+      last_active_version: 3149f199d66bbc29
+  3149f199d66bbc29:
     settings:
       prop_field_definitions:
         menu_align:
@@ -37,3 +31,8 @@ versioned_properties:
           title: 'Navigation menu'
         links:
           title: CTAs
+label: Navbar
+id: sdc.mercury.navbar
+provider: mercury
+source: sdc
+source_local_id: 'mercury:navbar'

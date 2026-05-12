@@ -1,4 +1,4 @@
-uuid: 76e11491-0283-4093-9c5d-66b81f075683
+uuid: 7e738e86-8d4c-433e-bfb2-6a9d58f6a1d0
 langcode: en
 status: true
 dependencies:
@@ -11,7 +11,7 @@ _core:
 id: jssotheme_content
 theme: jssotheme
 region: content
-weight: 0
+weight: -3
 provider: null
 plugin: system_main_block
 settings:

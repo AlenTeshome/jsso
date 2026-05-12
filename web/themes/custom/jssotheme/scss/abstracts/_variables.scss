@@ -2,18 +2,21 @@
 // This file contains all application-wide Sass variables.
 // -----------------------------------------------------------------------------
 $colors: (
-    bg: (100: hsl(180deg 33.33% 98.82%),
-        200: hsl(0deg 0% 98.04%),
+    bg: (100: hsl(180, 6%, 84%),
+        200: hsl(0, 3%, 69%),
         300: hsl(0, 0%, 100%),
-        400: #f3f3f3,
-        500: hsl(0deg 0% 0% / 80%),
+        400: #535151,
+        500: hsla(0, 3%, 23%, 0.8),
     ),
 
-    // Finovate Design System Tokens
-    brand: (lime: #a3e8ff,
-        forestgreen: #0075a8,
-        beige: #F4F4F1,
-        bluebeige: #f0f2f9,
+    // JSSO Design System Tokens
+    brand: (jsso-primary: #0964fc,
+        jsso-secondary: #0a1642,
+        jsso-text: #5c6e94,
+        jsso-beige: #F4F4F1,
+        jsso-bluebeige: #f0f2f9,
+        jsso-lime: #a3e8ff,
+        jsso-accents: #4276fb,
     )
 );
 

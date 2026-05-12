@@ -4,11 +4,17 @@ status: true
 dependencies:
   config:
     - field.field.node.event.body
-    - field.field.node.event.field_date_range
+    - field.field.node.event.field_date
+    - field.field.node.event.field_end_date
     - field.field.node.event.field_event_type
+    - field.field.node.event.field_frameworks
     - field.field.node.event.field_location_text
+    - field.field.node.event.field_media_image
+    - field.field.node.event.field_organization
+    - field.field.node.event.field_related_focus_area
     - node.type.event
   module:
+    - datetime
     - text
     - user
 id: node.event.default
@@ -23,13 +29,62 @@ content:
     third_party_settings: {  }
     weight: 101
     region: content
+  field_date:
+    type: datetime_default
+    label: visually_hidden
+    settings:
+      timezone_override: Africa/Addis_Ababa
+      format_type: jsso_short_date_format
+    third_party_settings: {  }
+    weight: 104
+    region: content
+  field_end_date:
+    type: datetime_default
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 105
+    region: content
+  field_frameworks:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 107
+    region: content
+  field_media_image:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 102
+    region: content
+  field_organization:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 103
+    region: content
+  field_related_focus_area:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 106
+    region: content
   links:
     settings: {  }
     third_party_settings: {  }
     weight: 100
     region: content
 hidden:
-  field_date_range: true
   field_event_type: true
   field_location_text: true
   langcode: true

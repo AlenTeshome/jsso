@@ -1,8 +1,6 @@
-import {
-  isSupportedPreviewModulePath,
-  toViteFsUrl,
-} from '@drupal-canvas/vite-compat/runtime';
+import { isSupportedPreviewModulePath, toViteFsUrl } from './preview-runtime';
 
+import type { Spec } from '@json-render/core';
 import type { DiscoveryResult, DiscoveryWarning } from './discovery-client';
 
 export type PreviewIneligibilityReason =
@@ -11,58 +9,71 @@ export type PreviewIneligibilityReason =
 
 export interface PreviewManifestComponent {
   id: string;
-  kind: 'named' | 'index';
   name: string;
+  label: string;
   relativeDirectory: string;
+  projectRelativeDirectory: string;
   metadataPath: string;
-  jsEntryPath: string | null;
-  cssEntryPath: string | null;
+  js: {
+    entryPath: string | null;
+    url: string | null;
+  };
+  css: {
+    entryPath: string | null;
+    url: string | null;
+  };
   previewable: boolean;
   ineligibilityReason: PreviewIneligibilityReason | null;
-  moduleUrl: string | null;
-  cssUrl: string | null;
   exampleProps: Record<string, unknown>;
+  mocks: PreviewManifestComponentMock[];
+}
+
+export interface PreviewManifestComponentMock {
+  id: string;
+  label: string;
+  sourcePath: string;
+  spec: Spec;
+}
+
+export interface PreviewWarning {
+  code:
+    | DiscoveryWarning['code']
+    | 'invalid_mock_json'
+    | 'invalid_mock_spec_file'
+    | 'invalid_mock_spec_entry';
+  message: string;
+  path?: string;
 }
 
 export interface PreviewManifest {
-  scanRoot: string;
+  componentRoot: string;
   components: PreviewManifestComponent[];
-  warnings: DiscoveryWarning[];
+  warnings: PreviewWarning[];
   globalCssUrl: string | null;
 }
 
-export interface PreviewComponentRenderRequest {
+/** Parent tells the preview iframe to refetch discovery/manifest without remounting (e.g. after page JSON save). */
+export interface WorkbenchDiscoveryRefresh {
   source: 'canvas-workbench-parent';
-  type: 'preview:render';
-  payload: {
-    mode: 'component';
-    componentId: string;
-    moduleUrl: string;
-    cssUrl: string | null;
-    globalCssUrl: string | null;
-    props: Record<string, unknown>;
-  };
+  type: 'workbench:discovery-refresh';
 }
 
-export interface PreviewPageRenderRequest {
+export interface PreviewRenderRequest {
   source: 'canvas-workbench-parent';
   type: 'preview:render';
   payload: {
-    mode: 'page';
-    pageSlug: string;
-    pageSpecUrl: string;
-    globalCssUrl: string | null;
-    components: Array<{
+    renderId: string;
+    renderType: 'component' | 'page';
+    spec: Spec;
+    registrySources: Array<{
       name: string;
       jsEntryUrl: string;
-      cssEntryUrl: string | null;
     }>;
+    cssUrls: string[];
+    /** Workbench shell path (pathname + search) so the preview iframe MemoryRouter stays aligned. */
+    shellPath?: string;
   };
 }
-
-export type PreviewRenderRequest =
-  | PreviewComponentRenderRequest
-  | PreviewPageRenderRequest;
 
 export interface PreviewFrameReady {
   source: 'canvas-workbench-frame';
@@ -73,7 +84,7 @@ export interface PreviewFrameRendered {
   source: 'canvas-workbench-frame';
   type: 'preview:rendered';
   payload: {
-    kind: 'component' | 'page';
+    type: 'component' | 'page';
     renderId: string;
   };
 }
@@ -87,49 +98,95 @@ export interface PreviewFrameError {
   };
 }
 
+/** Iframe navigated internally; parent shell should match this path (SPA). */
+export interface PreviewShellSync {
+  source: 'canvas-workbench-frame';
+  type: 'preview:shell-sync';
+  payload: {
+    path: string;
+  };
+}
+
 export type PreviewFrameEvent =
   | PreviewFrameReady
   | PreviewFrameRendered
-  | PreviewFrameError;
+  | PreviewFrameError
+  | PreviewShellSync;
 
 export function toPreviewManifestComponent(component: {
   id: string;
-  kind: 'named' | 'index';
   name: string;
   relativeDirectory: string;
+  projectRelativeDirectory: string;
   metadataPath: string;
   jsEntryPath: string | null;
   cssEntryPath: string | null;
 }): PreviewManifestComponent {
   if (!component.jsEntryPath) {
     return {
-      ...component,
+      id: component.id,
+      name: component.name,
+      label: component.name,
+      relativeDirectory: component.relativeDirectory,
+      projectRelativeDirectory: component.projectRelativeDirectory,
+      metadataPath: component.metadataPath,
+      js: {
+        entryPath: component.jsEntryPath,
+        url: null,
+      },
+      css: {
+        entryPath: component.cssEntryPath,
+        url: null,
+      },
       previewable: false,
       ineligibilityReason: 'missing_js_entry',
-      moduleUrl: null,
-      cssUrl: null,
       exampleProps: {},
+      mocks: [],
     };
   }
 
   if (!isSupportedPreviewModulePath(component.jsEntryPath)) {
     return {
-      ...component,
+      id: component.id,
+      name: component.name,
+      label: component.name,
+      relativeDirectory: component.relativeDirectory,
+      projectRelativeDirectory: component.projectRelativeDirectory,
+      metadataPath: component.metadataPath,
+      js: {
+        entryPath: component.jsEntryPath,
+        url: null,
+      },
+      css: {
+        entryPath: component.cssEntryPath,
+        url: null,
+      },
       previewable: false,
       ineligibilityReason: 'unsupported_js_extension',
-      moduleUrl: null,
-      cssUrl: null,
       exampleProps: {},
+      mocks: [],
     };
   }
 
   return {
-    ...component,
+    id: component.id,
+    name: component.name,
+    label: component.name,
+    relativeDirectory: component.relativeDirectory,
+    projectRelativeDirectory: component.projectRelativeDirectory,
+    metadataPath: component.metadataPath,
+    js: {
+      entryPath: component.jsEntryPath,
+      url: toViteFsUrl(component.jsEntryPath),
+    },
+    css: {
+      entryPath: component.cssEntryPath,
+      url: component.cssEntryPath ? toViteFsUrl(component.cssEntryPath) : null,
+    },
     previewable: true,
     ineligibilityReason: null,
-    moduleUrl: toViteFsUrl(component.jsEntryPath),
-    cssUrl: component.cssEntryPath ? toViteFsUrl(component.cssEntryPath) : null,
     exampleProps: {},
+    mocks: [],
   };
 }
 
@@ -137,7 +194,7 @@ export function buildPreviewManifest(
   discoveryResult: DiscoveryResult,
 ): PreviewManifest {
   return {
-    scanRoot: discoveryResult.scanRoot,
+    componentRoot: discoveryResult.componentRoot,
     components: discoveryResult.components.map(toPreviewManifestComponent),
     warnings: discoveryResult.warnings,
     globalCssUrl: null,
@@ -146,6 +203,16 @@ export function buildPreviewManifest(
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null;
+}
+
+export function isWorkbenchDiscoveryRefreshMessage(
+  value: unknown,
+): value is WorkbenchDiscoveryRefresh {
+  return (
+    isRecord(value) &&
+    value.source === 'canvas-workbench-parent' &&
+    value.type === 'workbench:discovery-refresh'
+  );
 }
 
 export function isPreviewRenderRequest(
@@ -166,38 +233,30 @@ export function isPreviewRenderRequest(
     return false;
   }
 
-  if (value.payload.mode === 'component') {
-    const { componentId, moduleUrl, cssUrl, globalCssUrl, props } =
-      value.payload;
-    return (
-      typeof componentId === 'string' &&
-      typeof moduleUrl === 'string' &&
-      (typeof cssUrl === 'string' || cssUrl === null) &&
-      (typeof globalCssUrl === 'string' || globalCssUrl === null) &&
-      typeof props === 'object' &&
-      props !== null
-    );
+  const { renderId, renderType, spec, registrySources, cssUrls, shellPath } =
+    value.payload;
+  if (
+    shellPath !== undefined &&
+    (typeof shellPath !== 'string' || shellPath.length === 0)
+  ) {
+    return false;
   }
-
-  if (value.payload.mode === 'page') {
-    const { pageSlug, pageSpecUrl, globalCssUrl, components } = value.payload;
-    return (
-      typeof pageSlug === 'string' &&
-      typeof pageSpecUrl === 'string' &&
-      (typeof globalCssUrl === 'string' || globalCssUrl === null) &&
-      Array.isArray(components) &&
-      components.every(
-        (component) =>
-          isRecord(component) &&
-          typeof component.name === 'string' &&
-          typeof component.jsEntryUrl === 'string' &&
-          (typeof component.cssEntryUrl === 'string' ||
-            component.cssEntryUrl === null),
-      )
-    );
-  }
-
-  return false;
+  return (
+    typeof renderId === 'string' &&
+    (renderType === 'component' || renderType === 'page') &&
+    isRecord(spec) &&
+    typeof spec.root === 'string' &&
+    isRecord(spec.elements) &&
+    Array.isArray(registrySources) &&
+    registrySources.every(
+      (source) =>
+        isRecord(source) &&
+        typeof source.name === 'string' &&
+        typeof source.jsEntryUrl === 'string',
+    ) &&
+    Array.isArray(cssUrls) &&
+    cssUrls.every((url) => typeof url === 'string')
+  );
 }
 
 export function isPreviewFrameEvent(
@@ -214,7 +273,7 @@ export function isPreviewFrameEvent(
   if (value.type === 'preview:rendered') {
     return (
       isRecord(value.payload) &&
-      (value.payload.kind === 'component' || value.payload.kind === 'page') &&
+      (value.payload.type === 'component' || value.payload.type === 'page') &&
       typeof value.payload.renderId === 'string'
     );
   }
@@ -226,6 +285,10 @@ export function isPreviewFrameEvent(
         value.payload.renderId === null) &&
       typeof value.payload.message === 'string'
     );
+  }
+
+  if (value.type === 'preview:shell-sync') {
+    return isRecord(value.payload) && typeof value.payload.path === 'string';
   }
 
   return false;

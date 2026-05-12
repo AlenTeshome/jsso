@@ -9,16 +9,18 @@ use Drupal\eca\Token\TokenInterface;
 use Drupal\language\Entity\ConfigurableLanguage;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
-use Drupal\Tests\eca\ContentTypeCreationTrait;
+use Drupal\Tests\node\Traits\ContentTypeCreationTrait;
 use Drupal\user\Entity\User;
 use Drupal\views\Entity\View;
 use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Kernel tests for the "eca_views" submodule.
  */
 #[Group('eca')]
 #[Group('eca_views')]
+#[RunTestsInSeparateProcesses]
 class ViewsQueryTest extends KernelTestBase {
 
   use ContentTypeCreationTrait;
@@ -39,6 +41,7 @@ class ViewsQueryTest extends KernelTestBase {
     'views',
     'eca',
     'eca_views',
+    'modeler_api',
   ];
 
   /**

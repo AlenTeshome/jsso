@@ -1,0 +1,29 @@
+uuid: 3461484f-c47b-421a-9d3b-441fa12ab045
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_org_logo
+    - media.type.image
+    - taxonomy.vocabulary.knowledge_resources
+id: taxonomy_term.knowledge_resources.field_org_logo
+field_name: field_org_logo
+entity_type: taxonomy_term
+bundle: knowledge_resources
+label: 'Resource Image'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

@@ -1,0 +1,32 @@
+uuid: e11039c3-9278-45a5-92f9-8096e4e2df84
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.jsso_parent_organizations
+  module:
+    - node
+    - views
+  theme:
+    - jssotheme
+id: jssotheme_views_block__jsso_parent_organizations_block_2
+theme: jssotheme
+region: header
+weight: -5
+provider: null
+plugin: 'views_block:jsso_parent_organizations-block_2'
+settings:
+  id: 'views_block:jsso_parent_organizations-block_2'
+  label: ''
+  label_display: '0'
+  provider: views
+  views_label: ''
+  items_per_page: null
+visibility:
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+    bundles:
+      landing_page: landing_page

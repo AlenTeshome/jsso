@@ -1,0 +1,26 @@
+uuid: 7b531f21-8e2f-45a5-860f-85b59d65a75a
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.jsso_events
+  module:
+    - views
+active_version: 88d8f15097dfc6f5
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'views_block:jsso_events-block_3'
+        label: 'JSSO Events: Featured Event Block 3'
+        label_display: '0'
+        provider: views
+        views_label: ''
+        items_per_page: null
+    fallback_metadata:
+      slot_definitions: null
+label: 'JSSO Events: Featured Event Block 3'
+id: block.views_block.jsso_events-block_3
+provider: views
+source: block
+source_local_id: 'views_block:jsso_events-block_3'

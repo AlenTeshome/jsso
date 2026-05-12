@@ -1,5 +1,6 @@
 // eslint-disable-next-line func-names
 (function ($, Drupal, drupalSettings, Sortable) {
+  // cspell:ignore whitelist
   Drupal.behaviors.tagifyAutocomplete = {
     attach: function attach(context) {
       // See: https://github.com/yairEO/tagify#ajax-whitelist.
@@ -299,6 +300,11 @@
           pasteAsTags: false,
         });
 
+        // Prevent BEF from autosubmitting when typing in Tagify.
+        if (tagify.DOM.input) {
+          tagify.DOM.input.setAttribute('data-bef-auto-submit-exclude', '1');
+        }
+
         let controller;
 
         // Avoid creating tag when 'Create referenced entities if they don't
@@ -554,6 +560,51 @@
         if (!tagify.settings.dropdown.enabled) {
           document.addEventListener('click', handleClickEvent);
         }
+
+        // For GET forms (BEF exposed filters), keep the URL clean by replacing
+        // the JSON-valued tagify input with individual hidden inputs per entity
+        // ID. We remove the name immediately (so the JSON never submits) and
+        // keep the hidden inputs in sync via Tagify's change event.
+        //
+        // Note: we check the DOM .method property (not a CSS attribute selector)
+        // because Drupal exposed-filter forms often omit the method attribute
+        // and rely on the HTML default (GET). The attribute selector
+        // [method="get"] would not match those forms.
+        //
+        // We re-evaluate the form reference inside syncHiddenInputs via the
+        // Tagify DOM scope so that AJAX page updates do not leave hidden inputs
+        // orphaned in a detached form element.
+        const formEl = input.closest('form');
+        const inputName = input.name;
+        if (formEl && formEl.method.toLowerCase() === 'get' && inputName) {
+          input.removeAttribute('name');
+
+          const syncHiddenInputs = () => {
+            const currentForm = tagify.DOM.scope.closest('form');
+            if (!currentForm) {
+              return;
+            }
+            currentForm
+              .querySelectorAll(
+                `input[data-tagify-field="${CSS.escape(inputName)}"]`,
+              )
+              .forEach((el) => el.remove());
+            tagify.value
+              .filter((tag) => tag.entity_id != null)
+              .forEach((tag) => {
+                const hidden = document.createElement('input');
+                hidden.type = 'hidden';
+                hidden.name = `${inputName}[]`;
+                hidden.dataset.tagifyField = inputName;
+                hidden.value = tag.entity_id;
+                currentForm.appendChild(hidden);
+              });
+          };
+
+          tagify.on('change', syncHiddenInputs);
+          // Initial sync covers pre-selected tags restored from URL params.
+          syncHiddenInputs();
+        }
       });
     },
   };
@@ -579,7 +630,12 @@
          * @return {int} - The number of selected tags.
          */
         function countSelectedTags() {
-          const tagsElement = document.querySelector(`.${identifier}`);
+          const tagsElement = identifier
+            ? document.querySelector(`.${identifier}`)
+            : null;
+          if (!tagsElement) {
+            return 0;
+          }
           const tagElements = tagsElement.querySelectorAll('.tagify__tag');
           return tagElements.length;
         }
@@ -717,7 +773,10 @@
         let hasHierarchy = false;
 
         [...this.options].forEach((option) => {
-          if (!option.value || !option.text) {
+          // Skip empty values and the Views/BEF 'All' sentinel (used for the
+          // "- Any -" no-filter option). Its leading dash would falsely set
+          // hasHierarchy=true and silence the entire dropdown.
+          if (!option.value || option.value === 'All' || !option.text) {
             return;
           }
 
@@ -847,35 +906,21 @@
 
           // Grouping suggestions by their parent category
           const parentsOfTerms = suggestionsList.reduce((acc, suggestion) => {
-            const parent = suggestion.parent || ''; // Default to empty if no parent
-
+            const parent = suggestion.parent || '';
             if (!acc[parent]) acc[parent] = [suggestion];
             else acc[parent].push(suggestion);
-
             return acc;
           }, {});
 
           // Function to generate HTML for terms within a parent group
+          const parentNamesWithChildren = new Set();
+          Object.keys(parentsOfTerms).forEach((key) => {
+            if (key) parentNamesWithChildren.add(key);
+          });
+
           const getTermsSuggestionsHTML = (parentTerms) =>
             parentTerms
               .map((suggestion) => {
-                if (
-                  typeof suggestion === 'string' ||
-                  typeof suggestion === 'number'
-                ) {
-                  suggestion = { value: suggestion };
-                }
-
-                // Map the value properly and escape HTML
-                const value = tagify.dropdown.getMappedValue.call(
-                  tagify,
-                  suggestion,
-                );
-                suggestion.label =
-                  value && typeof value === 'string'
-                    ? escapeHTML(value)
-                    : value;
-
                 return tagify.settings.templates.dropdownItem.apply(tagify, [
                   suggestion,
                 ]);
@@ -886,20 +931,49 @@
           return Object.entries(parentsOfTerms)
             .map(([parentName, childName]) => {
               if (parentName) {
+                const parentSuggestion = suggestionsList.find(
+                  (s) => s.label === parentName && !s.parent,
+                );
+
+                const isParentSelectionEnabled = parseInt(
+                  select.dataset.parentSelection,
+                  10,
+                );
+                let parentHeaderHTML = '';
+
+                if (parentSuggestion && isParentSelectionEnabled) {
+                  parentHeaderHTML = `<div class="tagify__dropdown__item tagify__dropdown__item--parent" ${
+                    tagify.getAttributes
+                      ? tagify.getAttributes(parentSuggestion)
+                      : ''
+                  } tabindex="0" role="option">
+                    <div class="tagify__dropdown__item-highlighted dropdown_group">${parentName}</div>
+                  </div>`;
+                } else {
+                  parentHeaderHTML = `<span class="dropdown_group">${parentName}</span>`;
+                }
+
                 return `<div class="tagify__dropdown__itemsGroup" data-title="${parentName}">
-          <span class="dropdown_group">${parentName}</span>
+          ${parentHeaderHTML}
           ${getTermsSuggestionsHTML(childName)}
         </div>`;
               }
-              return !hasHierarchy ? getTermsSuggestionsHTML(childName) : '';
+
+              const filteredChildName = childName.filter(
+                (item) => !parentNamesWithChildren.has(item.label),
+              );
+
+              return getTermsSuggestionsHTML(filteredChildName);
             })
             .join('');
         };
 
         // Remove tagify--select class to keep Tagify styles.
-        if (select.dataset.mode) {
+        if (select.dataset.mode && identifier) {
           const tagsElement = document.querySelector(`.${identifier}`);
-          tagsElement.classList.remove('tagify--select');
+          if (tagsElement) {
+            tagsElement.classList.remove('tagify--select');
+          }
         }
 
         /**
@@ -934,6 +1008,15 @@
           if (!value) return;
           const option = select.querySelector(`option[value="${value}"]`);
           if (option) {
+            // In 'select' mode Tagify fires 'add' before 'remove', so the
+            // outgoing tag's option is still selected when 'change' fires.
+            // Deselect everything first so the underlying <select> is in sync
+            // before the change event triggers a form submission.
+            if (mode === 'select') {
+              [...select.options].forEach((opt) => {
+                opt.selected = false;
+              });
+            }
             select.removeChild(option);
             select.appendChild(option);
             option.selected = true;

@@ -1,0 +1,23 @@
+uuid: 4369dfa0-4c84-44c2-9931-1e4ae847f16e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_show_image_on_page
+    - node.type.focus
+id: node.focus.field_show_image_on_page
+field_name: field_show_image_on_page
+entity_type: node
+bundle: focus
+label: 'Show Image On Page'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: false
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

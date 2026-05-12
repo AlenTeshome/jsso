@@ -6,15 +6,17 @@ use Drupal\KernelTests\KernelTestBase;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\node\Entity\Node;
-use Drupal\Tests\eca\ContentTypeCreationTrait;
+use Drupal\Tests\node\Traits\ContentTypeCreationTrait;
 use Drupal\user\Entity\User;
 use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Kernel tests for the "eca_entity_field_value_empty" action plugin.
  */
 #[Group('eca')]
 #[Group('eca_content')]
+#[RunTestsInSeparateProcesses]
 class EntityFieldValueEmptyTest extends KernelTestBase {
 
   use ContentTypeCreationTrait;
@@ -34,6 +36,7 @@ class EntityFieldValueEmptyTest extends KernelTestBase {
     'node',
     'eca',
     'eca_content',
+    'modeler_api',
   ];
 
   /**

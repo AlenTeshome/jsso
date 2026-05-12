@@ -1,0 +1,21 @@
+uuid: 43690b88-9c5b-4230-b2f2-3a269b630067
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.layout_builder__layout
+    - node.type.focus
+  module:
+    - layout_builder
+id: node.focus.layout_builder__layout
+field_name: layout_builder__layout
+entity_type: node
+bundle: focus
+label: Layout
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: layout_section

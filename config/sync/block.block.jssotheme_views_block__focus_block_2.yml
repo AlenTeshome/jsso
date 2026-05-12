@@ -1,0 +1,24 @@
+uuid: dfdc507d-7f84-418c-b302-5cc8e4190bdb
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.focus
+  module:
+    - views
+  theme:
+    - jssotheme
+id: jssotheme_views_block__focus_block_2
+theme: jssotheme
+region: hidden_blocks
+weight: 0
+provider: null
+plugin: 'views_block:focus-block_2'
+settings:
+  id: 'views_block:focus-block_2'
+  label: ''
+  label_display: '0'
+  provider: views
+  views_label: ''
+  items_per_page: null
+visibility: {  }

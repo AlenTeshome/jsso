@@ -1,0 +1,26 @@
+uuid: efdd6dc4-1485-4f21-9849-08ab05543d77
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.jsso_parent_organizations
+  module:
+    - views
+active_version: 9ee7a0fe50b72b75
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'views_block:jsso_parent_organizations-block_2'
+        label: 'JSSO Parent Organizations: Partners SVG logo Block'
+        label_display: '0'
+        provider: views
+        views_label: ''
+        items_per_page: null
+    fallback_metadata:
+      slot_definitions: null
+label: 'JSSO Parent Organizations: Partners SVG logo Block'
+id: block.views_block.jsso_parent_organizations-block_2
+provider: views
+source: block
+source_local_id: 'views_block:jsso_parent_organizations-block_2'

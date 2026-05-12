@@ -1,0 +1,26 @@
+uuid: daeee22f-f95e-4bee-9a4e-5d8575838ec4
+langcode: en
+status: true
+dependencies:
+  config:
+    - webform.webform.newsletter_subscription
+  module:
+    - webform
+  theme:
+    - jssotheme
+id: jssotheme_webform
+theme: jssotheme
+region: footer_top
+weight: -8
+provider: null
+plugin: webform_block
+settings:
+  id: webform_block
+  label: Webform
+  label_display: '0'
+  provider: webform
+  webform_id: newsletter_subscription
+  default_data: ''
+  redirect: false
+  lazy: false
+visibility: {  }

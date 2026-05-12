@@ -3,10 +3,13 @@ import type { CodeComponentSerialized } from '@drupal-canvas/ui/types/CodeCompon
 export type DiscoveryWarningCode =
   | 'missing_js_entry'
   | 'duplicate_definition'
-  | 'conflicting_metadata';
+  | 'conflicting_metadata'
+  | 'duplicate_machine_name';
 
 export interface DiscoveryOptions {
-  scanRoot?: string;
+  componentRoot?: string;
+  pagesRoot?: string;
+  projectRoot?: string;
 }
 
 export interface DiscoveryWarning {
@@ -21,6 +24,7 @@ export interface DiscoveredComponent {
   name: string;
   directory: string;
   relativeDirectory: string;
+  projectRelativeDirectory: string;
   metadataPath: string;
   jsEntryPath: string | null;
   cssEntryPath: string | null;
@@ -29,12 +33,14 @@ export interface DiscoveredComponent {
 export interface DiscoveredPage {
   name: string;
   slug: string;
+  uuid: string | null;
   path: string;
   relativePath: string;
 }
 
 export interface DiscoveryResult {
-  scanRoot: string;
+  componentRoot: string;
+  projectRoot: string;
   components: DiscoveredComponent[];
   pages: DiscoveredPage[];
   warnings: DiscoveryWarning[];
@@ -51,4 +57,13 @@ export interface ComponentMetadata extends Pick<
   props: {
     properties: CodeComponentSerialized['props'];
   };
+}
+
+export interface CanvasConfig {
+  aliasBaseDir: string;
+  outputDir: string;
+  componentDir: string;
+  pagesDir: string;
+  deprecatedComponentDir: string;
+  globalCssPath: string;
 }

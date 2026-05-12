@@ -7,15 +7,17 @@ use Drupal\eca_content\Event\ContentEntityCreate;
 use Drupal\eca_content\Event\ContentEntityEvents;
 use Drupal\eca_content\Event\ContentEntityValidate;
 use Drupal\node\Entity\Node;
-use Drupal\Tests\eca\ContentTypeCreationTrait;
+use Drupal\Tests\node\Traits\ContentTypeCreationTrait;
 use Drupal\user\Entity\User;
 use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Kernel tests for the "eca_content_validation_error" action plugin.
  */
 #[Group('eca')]
 #[Group('eca_content')]
+#[RunTestsInSeparateProcesses]
 class SetValidationErrorTest extends KernelTestBase {
 
   use ContentTypeCreationTrait;
@@ -34,6 +36,7 @@ class SetValidationErrorTest extends KernelTestBase {
     'node',
     'eca',
     'eca_content',
+    'modeler_api',
   ];
 
   /**
@@ -53,7 +56,7 @@ class SetValidationErrorTest extends KernelTestBase {
   /**
    * Tests validating a node and check its violations.
    */
-  public function testViolations() {
+  public function testViolations(): void {
 
     /** @var \Drupal\Core\Action\ActionManager $action_manager */
     $action_manager = \Drupal::service('plugin.manager.action');
@@ -93,7 +96,7 @@ class SetValidationErrorTest extends KernelTestBase {
   /**
    * Tests validating a node but use another event.
    */
-  public function testNoViolations() {
+  public function testNoViolations(): void {
 
     /** @var \Drupal\Core\Action\ActionManager $action_manager */
     $action_manager = \Drupal::service('plugin.manager.action');

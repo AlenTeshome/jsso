@@ -1,0 +1,26 @@
+uuid: c4f27eca-51d4-4595-978a-a29ff6d2db76
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.about_us_page_blocks
+  module:
+    - views
+active_version: 23622fb6f861dc51
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'views_block:about_us_page_blocks-block_1'
+        label: 'About us page Blocks: Vision, members and governing Block'
+        label_display: '0'
+        provider: views
+        views_label: ''
+        items_per_page: null
+    fallback_metadata:
+      slot_definitions: null
+label: 'About us page Blocks: Vision, members and governing Block'
+id: block.views_block.about_us_page_blocks-block_1
+provider: views
+source: block
+source_local_id: 'views_block:about_us_page_blocks-block_1'

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\canvas;
 
+use Drupal\canvas\Entity\ComponentTreeConfigEntityBase;
 use Drupal\canvas\Plugin\Canvas\ComponentSource\GeneratedFieldExplicitInputUxComponentSourceBase;
 use Drupal\canvas\Plugin\DataType\ComponentInputs;
 use Drupal\canvas\PropExpressions\Component\ComponentPropExpression;
@@ -230,7 +231,7 @@ class CanvasConfigUpdater {
   }
 
   public function unsetComponentCategoryProperty(Component $component): bool {
-    if (!is_null($component->get('category'))) {
+    if (!\is_null($component->get('category'))) {
       $component->set('category', NULL);
       $deprecations_triggered = &$this->triggeredDeprecations['3549726'][$component->id()];
       if ($this->deprecationsEnabled && !$deprecations_triggered) {
@@ -274,7 +275,7 @@ class CanvasConfigUpdater {
     $active_version_updated = FALSE;
     foreach ($settings['prop_field_definitions'] as $prop_name => &$prop_field_definition) {
       if (!isset($prop_field_definition['required'])) {
-        $prop_field_definition['required'] = in_array($prop_name, $required_props, TRUE);
+        $prop_field_definition['required'] = \in_array($prop_name, $required_props, TRUE);
         $active_version_updated = TRUE;
         $updated_versions[] = $component->getActiveVersion();
       }
@@ -312,7 +313,7 @@ class CanvasConfigUpdater {
       \assert(\array_key_exists('prop_field_definitions', $settings));
       foreach ($settings['prop_field_definitions'] as $prop_name => &$prop_field_definition) {
         if (!isset($prop_field_definition['required'])) {
-          $prop_field_definition['required'] = in_array($prop_name, $required_props, TRUE);
+          $prop_field_definition['required'] = \in_array($prop_name, $required_props, TRUE);
           $past_version_updated = TRUE;
           $updated_versions[] = $version;
         }
@@ -535,7 +536,7 @@ class CanvasConfigUpdater {
     // If new props appeared, or they didn't have a proper definition match,
     // this is not the right time to include them.
     $settings['prop_field_definitions'] = array_filter($settings['prop_field_definitions'], function ($value) {
-      return is_array($value);
+      return \is_array($value);
     });
     $component->setSettings($settings);
 
@@ -727,6 +728,93 @@ class CanvasConfigUpdater {
     }
 
     return $active_version_updated || $past_version_updated;
+  }
+
+  /**
+   * Checks if a code-defined component tree contains >=1 JSON blob `inputs`.
+   *
+   * @return bool
+   */
+  public function needsConfigEntityWithComponentTreeInputsAsArrays(ComponentTreeEntityInterface|FieldConfig $entity): bool {
+    if (!$entity instanceof ConfigEntityInterface) {
+      throw new \LogicException('This update path applies only to config-defined component trees.');
+    }
+    if ($entity instanceof FieldConfig && $entity->getType() !== ComponentTreeItem::PLUGIN_ID) {
+      return FALSE;
+    }
+    $config_defined_component_tree = match (TRUE) {
+      $entity instanceof ComponentTreeEntityInterface => $entity->get('component_tree') ?? [],
+      $entity instanceof FieldConfig => $entity->get('default_value') ?? [],
+    };
+
+    // If >=1 component instance in this config-defined component tree has a
+    // JSON blob `inputs`, it needs updating.
+    $has_inputs_json_blob = \array_reduce(
+      $config_defined_component_tree,
+      fn (bool $carry, array $component_instance) => $carry || (\array_key_exists('inputs', $component_instance) && \is_string($component_instance['inputs'])),
+      FALSE,
+    );
+    if (!$has_inputs_json_blob) {
+      return FALSE;
+    }
+    $deprecations_triggered = &$this->triggeredDeprecations['3582478'][\sprintf('%s:%s', $entity->getEntityTypeId(), $entity->id())];
+    if ($this->deprecationsEnabled && !$deprecations_triggered) {
+      $deprecations_triggered = TRUE;
+      // phpcs:ignore
+      @trigger_error(\sprintf('%s with ID %s has a config-defined component tree with JSON-encoded input values - this is deprecated in canvas:1.4.0 and will be removed in canvas:2.0.0. See https://www.drupal.org/node/3586291', $entity->getEntityType()->getLabel(), $entity->id()), E_USER_DEPRECATED);
+    }
+    return $has_inputs_json_blob;
+  }
+
+  /**
+   * Checks if a config-defined component tree uses non-UUID sequence keys.
+   *
+   * TRICKY: unlike for needsConfigEntityWithComponentTreeInputsAsArrays(), this
+   * does NOT target FieldConfig config entities. Because its `default_value` is
+   * always zero-indexed, just like FieldItemList.
+   *
+   * @return bool
+   *
+   * @see ::needsConfigEntityWithComponentTreeInputsAsArrays()
+   * @see \canvas_post_update_0016_component_tree_field_default_value_inputs()
+   */
+  public function needsConfigEntityWithComponentTreeSequenceKeysUpdate(ComponentTreeEntityInterface $entity): bool {
+    \assert($entity instanceof ConfigEntityInterface);
+    $component_tree = $entity->get('component_tree') ?? [];
+    if (empty($component_tree)) {
+      return FALSE;
+    }
+    foreach ($component_tree as $key => $component_instance) {
+      \assert(\array_key_exists('uuid', $component_instance));
+      if ($key !== $component_instance['uuid']) {
+        $deprecations_triggered = &$this->triggeredDeprecations['3582464'][\sprintf('%s:%s', $entity->getEntityTypeId(), $entity->id())];
+        if ($this->deprecationsEnabled && !$deprecations_triggered) {
+          $deprecations_triggered = TRUE;
+          // phpcs:ignore
+          @trigger_error(\sprintf('%s with ID %s has a config-defined component tree with non-UUID sequence keys — this is deprecated in canvas:1.4.0 and will be removed in canvas:2.0.0. See https://www.drupal.org/node/3586291', $entity->getEntityType()->getLabel(), $entity->id()), E_USER_DEPRECATED);
+        }
+        return TRUE;
+      }
+    }
+    return FALSE;
+  }
+
+  public function updateConfigEntityWithComponentTreeInputsAsArrays(ComponentTreeEntityInterface|FieldConfig $entity): bool {
+    if (!$entity instanceof ConfigEntityInterface) {
+      throw new \LogicException('This update path applies only to config-defined component trees.');
+    }
+    if (!$this->needsConfigEntityWithComponentTreeInputsAsArrays($entity)) {
+      return FALSE;
+    }
+    if ($entity instanceof ComponentTreeEntityInterface) {
+      // ::setComponentTree() automatically calls
+      // ::componentTreeInstancesInputsMustBeArrays().
+      $entity->setComponentTree($entity->get('component_tree'));
+      return TRUE;
+    }
+    // For FieldConfig entities, explicitly convert.
+    $entity->set('default_value', ComponentTreeConfigEntityBase::componentTreeInstancesInputsMustBeArrays($entity->get('default_value')));
+    return TRUE;
   }
 
 }

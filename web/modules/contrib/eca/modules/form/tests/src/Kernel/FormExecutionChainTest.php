@@ -6,6 +6,7 @@ use Drupal\Core\Form\FormState;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\eca\Entity\Eca;
 use Drupal\user\Entity\User;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use PHPUnit\Framework\Attributes\Group;
@@ -15,6 +16,7 @@ use PHPUnit\Framework\Attributes\Group;
  */
 #[Group('eca')]
 #[Group('eca_form')]
+#[RunTestsInSeparateProcesses]
 class FormExecutionChainTest extends KernelTestBase {
 
   /**
@@ -29,6 +31,7 @@ class FormExecutionChainTest extends KernelTestBase {
     'field',
     'eca',
     'eca_form',
+    'modeler_api',
   ];
 
   /**

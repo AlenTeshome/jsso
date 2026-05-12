@@ -39,19 +39,22 @@ final class PluginHooks {
   }
 
   /**
-   * @todo Remove when https://www.drupal.org/i/3573730 is released.
+   * @todo Remove when Drupal 11.4 is released.
    */
   #[Hook(
     'menu_links_discovered_alter',
     order: new OrderAfter(['navigation']),
   )]
   public function alterDiscoveredMenuLinks(array &$definitions): void {
-    // @see \Drupal\navigation\NavigationContentLinks::addMenuLinks()
-    foreach ($definitions as $id => $definition) {
-      if (isset($definition['parent']) && $definition['parent'] === 'navigation.create') {
+    $disable = [
+      'navigation.create.user',
+      'navigation.content.media_type.image',
+      'navigation.content.media_type.document',
+    ];
+    foreach ($disable as $id) {
+      if (isset($definitions[$id])) {
         $definitions[$id]['enabled'] = FALSE;
       }
     }
-    $definitions['navigation.create']['enabled'] = FALSE;
   }
 }

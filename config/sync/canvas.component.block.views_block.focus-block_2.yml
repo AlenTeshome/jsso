@@ -1,0 +1,26 @@
+uuid: 5f945a9c-0cb7-460d-86ac-c59151154860
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.focus
+  module:
+    - views
+active_version: 44152b8e4495ae71
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'views_block:focus-block_2'
+        label: 'Focus: Focus Mega menu Block'
+        label_display: '0'
+        provider: views
+        views_label: ''
+        items_per_page: null
+    fallback_metadata:
+      slot_definitions: null
+label: 'Focus: Focus Mega menu Block'
+id: block.views_block.focus-block_2
+provider: views
+source: block
+source_local_id: 'views_block:focus-block_2'

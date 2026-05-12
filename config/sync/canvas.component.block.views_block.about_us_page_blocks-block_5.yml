@@ -1,0 +1,26 @@
+uuid: 9a62301f-2bf2-4ecc-895b-8f5341d45dce
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.about_us_page_blocks
+  module:
+    - views
+active_version: 6a1d41983e682748
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'views_block:about_us_page_blocks-block_5'
+        label: 'About us page Blocks: Get In touch Block'
+        label_display: '0'
+        provider: views
+        views_label: ''
+        items_per_page: null
+    fallback_metadata:
+      slot_definitions: null
+label: 'About us page Blocks: Get In touch Block'
+id: block.views_block.about_us_page_blocks-block_5
+provider: views
+source: block
+source_local_id: 'views_block:about_us_page_blocks-block_5'

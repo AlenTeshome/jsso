@@ -8,16 +8,18 @@ use Drupal\language\Entity\ConfigurableLanguage;
 use Drupal\language\Entity\ContentLanguageSettings;
 use Drupal\language\Plugin\LanguageNegotiation\LanguageNegotiationUrl;
 use Drupal\node\Entity\Node;
-use Drupal\Tests\eca\ContentTypeCreationTrait;
+use Drupal\Tests\node\Traits\ContentTypeCreationTrait;
 use Drupal\user\Entity\User;
 use Drupal\user\Plugin\LanguageNegotiation\LanguageNegotiationUser;
 use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Kernel tests for the "eca_token_load_entity" action plugin.
  */
 #[Group('eca')]
 #[Group('eca_content')]
+#[RunTestsInSeparateProcesses]
 class LoadEntityTest extends KernelTestBase {
 
   use ContentTypeCreationTrait;
@@ -37,6 +39,7 @@ class LoadEntityTest extends KernelTestBase {
     'node',
     'eca',
     'eca_content',
+    'modeler_api',
     'language',
     'content_translation',
   ];

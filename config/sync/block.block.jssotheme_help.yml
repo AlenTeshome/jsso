@@ -1,4 +1,4 @@
-uuid: c94ec465-3a84-4b29-9a4f-59b4b90ad136
+uuid: 21be9647-1b1b-4501-a345-8855b8edfc66
 langcode: en
 status: true
 dependencies:
@@ -11,7 +11,7 @@ _core:
 id: jssotheme_help
 theme: jssotheme
 region: content
-weight: -3
+weight: -5
 provider: null
 plugin: help_block
 settings:

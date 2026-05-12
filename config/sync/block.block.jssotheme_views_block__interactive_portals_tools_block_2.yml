@@ -1,0 +1,24 @@
+uuid: b77391ad-8888-4caa-a503-e8a76799687b
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.interactive_portals_tools
+  module:
+    - views
+  theme:
+    - jssotheme
+id: jssotheme_views_block__interactive_portals_tools_block_2
+theme: jssotheme
+region: hidden_blocks
+weight: 0
+provider: null
+plugin: 'views_block:interactive_portals_tools-block_2'
+settings:
+  id: 'views_block:interactive_portals_tools-block_2'
+  label: ''
+  label_display: visible
+  provider: views
+  views_label: ''
+  items_per_page: null
+visibility: {  }

@@ -6,12 +6,19 @@ dependencies:
     - field.storage.taxonomy_term.field_svg_icon
     - taxonomy.vocabulary.partner_organizations
   module:
+    - content_translation
     - file
+third_party_settings:
+  content_translation:
+    translation_sync:
+      target_id: target_id
+      display: display
+      description: description
 id: taxonomy_term.partner_organizations.field_svg_icon
 field_name: field_svg_icon
 entity_type: taxonomy_term
 bundle: partner_organizations
-label: 'SVG Icon'
+label: 'SVG logo'
 description: 'Upload the vector icon for the organization.'
 required: false
 translatable: true

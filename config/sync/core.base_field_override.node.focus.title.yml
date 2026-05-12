@@ -1,0 +1,18 @@
+uuid: 80dd6cfd-28af-4135-a83e-f50856863e9a
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.focus
+id: node.focus.title
+field_name: title
+entity_type: node
+bundle: focus
+label: 'Focus Title'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

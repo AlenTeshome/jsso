@@ -1,0 +1,27 @@
+uuid: 23fa1232-346f-4d1e-847a-326606c0f2af
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: about_us_page_blocks
+label: 'About us page blocks'
+handler: simple
+handler_configuration: {  }
+entity_settings:
+  target_type: node
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      banner: banner
+      page: page
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: banner
+queue_settings:
+  min_size: 0
+  max_size: 0
+  act_as_queue: false
+  reverse: false

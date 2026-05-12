@@ -1,0 +1,231 @@
+@use '../abstracts' as *;
+
+// ---------------------------------------------------------
+// Get in Touch Component
+// ---------------------------------------------------------
+
+.getintouch {
+    padding: 6rem 0;
+    background: var(--clr-brand-jsso-bluebeige);
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: -10%;
+        right: -5%;
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(circle, var(--clr-brand-jsso-lime) 0%, transparent 70%);
+        opacity: 0.1;
+        z-index: 0;
+        pointer-events: none;
+    }
+
+    .container {
+        position: relative;
+        z-index: 1;
+    }
+
+    // Left Column: Contact Information
+    .getintouchinfo {
+        padding-right: 3rem;
+
+        @media (max-width: 991px) {
+            padding-right: 0;
+            margin-bottom: 4rem;
+        }
+
+
+        .view-get-in-touch {
+            .view-header {
+                display: block;
+                font-size: 2.25rem;
+                font-weight: 800;
+                color: var(--clr-brand-jsso-primary);
+                padding: 1.5rem 0 2.5rem;
+                line-height: 1.2;
+                max-width: 500px;
+            }
+
+            .view-content {
+                display: flex;
+                flex-direction: column;
+                gap: 3rem;
+            }
+
+
+
+            .address-row {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+                position: relative;
+
+
+                .address-type {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    position: relative;
+                    gap: 1rem;
+                    font-weight: 700;
+                    color: var(--clr-brand-jsso-secondary);
+
+                    &::before {
+                        @include font-awsome-font;
+                        font-size: 1.25rem;
+                        padding: 0;
+                        color: transparent;
+                        width: 0;
+                    }
+
+                    // Icon Mapping based on text content (handled via classes in Drupal or pseudo-mapping here)
+                    &[class*="address"]::before {
+                        content: "\f3c5";
+                    }
+
+                    &[class*="email"]::before {
+                        content: "\f0e0";
+                    }
+
+                    &[class*="phone"]::before {
+                        content: "\f095";
+                    }
+                }
+
+                .address-text {
+                    padding: 0 1rem;
+                    flex-grow: 1;
+
+                    p {
+                        margin: 0;
+                        font-size: 1.1rem;
+                        color: var(--clr-bg-500);
+                        font-weight: 500;
+                        line-height: 1.6;
+                        @include secondary-font;
+                    }
+                }
+
+                .edit-link {
+                    position: absolute;
+                    top: 1rem;
+                    right: 1rem;
+
+                    a {
+                        @include button-read-more-link-anchor;
+                        font-size: 0.7rem;
+                        padding: 0.2rem 0.6rem;
+                    }
+                }
+            }
+        }
+    }
+
+    // Right Column: Webform
+    .getintouchform {
+        .block-webform-block {
+            background: white;
+            padding: 3rem;
+
+            @media (max-width: 576px) {
+                padding: 2rem 1.5rem;
+            }
+        }
+
+        .webform-submission-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+
+            .form-item {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+                margin-bottom: 0;
+
+                label {
+                    font-weight: 600;
+                    font-size: 0.9rem;
+                    color: var(--clr-brand-jsso-secondary);
+                    @include secondary-font;
+                }
+
+                input,
+                textarea {
+                    width: 100%;
+                    padding: 1rem 1.25rem;
+                    border: 1px solid rgba(0, 0, 0, 0.1);
+                    background: var(--clr-brand-jsso-bluebeige);
+                    transition: all 0.3s ease;
+                    font-size: 1rem;
+                    border-radius: 0;
+
+                    &::placeholder {
+                        color: rgba(0, 0, 0, 0.3);
+                    }
+
+                    &:focus {
+                        outline: none;
+                        border-color: var(--clr-brand-jsso-primary);
+                        background: var(--clr-bg-300);
+                        box-shadow: 0 0 0 4px rgba(0, 117, 168, 0.05);
+                    }
+                }
+            }
+
+            // Grid Layout Adjustments
+            .form-item-first-name {
+                grid-column: 1 / span 1;
+            }
+
+            .form-item-last-name {
+                grid-column: 2 / span 1;
+            }
+
+            .form-item-email-address {
+                grid-column: 1 / span 2;
+            }
+
+            .form-item-message {
+                grid-column: 1 / span 2;
+            }
+
+            .form-actions {
+                grid-column: 1 / span 2;
+            }
+
+            @media (max-width: 576px) {
+                grid-template-columns: 1fr;
+
+                .form-item-first-name,
+                .form-item-last-name {
+                    grid-column: 1 / span 1;
+                }
+            }
+
+            .form-actions {
+                margin-top: 1rem;
+
+                .button {
+                    @include finovate-button;
+                    color: var(--clr-brand-jsso-lime);
+                    background-color: var(--clr-brand-jsso-primary);
+                    width: 100%;
+                    justify-content: center;
+                    font-size: 1.1rem;
+                    text-transform: uppercase;
+                    letter-spacing: 0.05em;
+
+                    &:hover {
+                        color: var(--clr-brand-jsso-primary);
+                        background-color: var(--clr-brand-jsso-lime);
+                    }
+                }
+            }
+        }
+    }
+}

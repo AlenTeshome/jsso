@@ -1,0 +1,206 @@
+@use '../abstracts' as *;
+
+// ---------------------------------------------------------
+// Focus Area Node Styles
+// ---------------------------------------------------------
+
+.page-node-type-focus {
+
+    // Main Content Section (col-md-8)
+    .maincontent {
+
+        // Callout Section
+        .block-field-blocknodefocusfield-callout {
+            margin-bottom: 2.5rem;
+
+            .field--name-field-callout {
+                font-size: clamp(1.4rem, 4vw, 1.85rem);
+                line-height: 1.4;
+                font-weight: 700;
+                color: var(--clr-brand-jsso-secondary);
+                @include secondary-font;
+                border-left: 6px solid var(--clr-brand-jsso-primary);
+                padding: 0.5rem 0 0.5rem 2rem;
+                position: relative;
+                font-style: italic;
+                background: linear-gradient(to right, var(--clr-brand-jsso-bluebeige), transparent);
+                //border-radius: 0 0.5rem 0.5rem 0;
+            }
+        }
+
+        // Featured Image
+        .block-field-blocknodefocusfield-featured-image {
+            margin-bottom: 3rem;
+            //border-radius: 1.5rem;
+            overflow: hidden;
+            //box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            //border: 1px solid rgba(0, 0, 0, 0.05);
+
+            img {
+                width: 100%;
+                height: auto;
+                display: block;
+                transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+
+                &:hover {
+                    transform: scale(1.03);
+                }
+            }
+        }
+
+        // Body Content
+        .block-field-blocknodefocusbody {
+            .field--name-body {
+                font-size: 1.15rem;
+                line-height: 1.8;
+                color: var(--clr-bg-500);
+                @include primary-font;
+
+                p {
+                    margin-bottom: 1.8rem;
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+
+                // Enhance any links in body
+                a {
+                    color: var(--clr-brand-jsso-primary);
+                    text-decoration: underline;
+                    text-underline-offset: 4px;
+                    font-weight: 600;
+                    transition: all 0.3s ease;
+
+                    &:hover {
+                        color: var(--clr-brand-jsso-secondary);
+                        text-decoration: none;
+                    }
+                }
+            }
+        }
+    }
+
+    // Sidebar Content (col-md-4)
+    .col-md-4.maincontent {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+
+        // Generic Sidebar Block Styling
+        .block-layout-builder {
+            background: white;
+            padding: 2.25rem;
+            //border-radius: 1.25rem;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+            height: fit-content;
+
+            .field__label {
+                font-size: 1rem;
+                font-weight: 500;
+                margin-bottom: 1.5rem;
+                color: var(--clr-brand-jsso-secondary);
+                @include secondary-font;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+
+                &::after {
+                    content: "";
+                    flex-grow: 1;
+                    height: 2px;
+                    background: var(--clr-brand-jsso-lime);
+                    //border-radius: 2px;
+                }
+            }
+
+            .field__items {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .field__item {
+                font-size: 1rem;
+                @include primary-font;
+                color: var(--clr-bg-500);
+            }
+        }
+
+        // Strategic Frameworks (Pill style)
+        .block-field-blocknodefocusfield-frameworks {
+            .field__items {
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 0.75rem;
+            }
+
+            .field__item {
+                background: var(--clr-brand-jsso-bluebeige);
+                color: var(--clr-brand-jsso-primary);
+                padding: 0.5rem 1.25rem;
+                //border-radius: 50px;
+                font-weight: 600;
+                font-size: 0.875rem;
+                border: 1px solid rgba(28, 75, 66, 0.05);
+                transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+
+                &:hover {
+                    background: var(--clr-brand-jsso-primary);
+                    color: white;
+                    transform: translateY(-3px);
+                    box-shadow: 0 5px 15px rgba(28, 75, 66, 0.2);
+                }
+            }
+        }
+
+        // Related Focus Areas (List style with icons)
+        .block-field-blocknodefocusfield-related-focus-area {
+            .field__item {
+                position: relative;
+                padding-left: 1.75rem;
+                line-height: 1.4;
+                font-weight: 500;
+                transition: all 0.3s ease;
+
+                &::before {
+                    content: "\f061"; // fa-arrow-right
+                    @include font-awsome-font;
+                    position: absolute;
+                    left: 0;
+                    top: 0.2rem;
+                    font-size: 0.85rem;
+                    color: var(--clr-brand-jsso-primary);
+                    transition: transform 0.3s ease;
+                }
+
+                &:hover {
+                    color: var(--clr-brand-jsso-primary);
+                    transform: translateX(5px);
+
+                    &::before {
+                        transform: scale(1.2);
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Mobile specific tweaks
+@media (max-width: 991px) {
+    .page-node-type-focus {
+        .maincontent {
+            margin-bottom: 3rem;
+        }
+
+        .col-md-4.maincontent {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+        }
+    }
+}

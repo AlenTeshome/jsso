@@ -18,6 +18,7 @@ use Drupal\Core\Url;
 use Drupal\trash\TrashManagerInterface;
 use Drupal\trash\TrashViewBuilder;
 use Drupal\user\EntityOwnerInterface;
+use Drupal\views\Views;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -132,9 +133,15 @@ class TrashController extends ControllerBase implements ContainerInjectionInterf
    */
   protected function renderView(EntityTypeInterface $entity_type): array {
     // Check if a saved view with this ID already exists.
-    if ($view = views_embed_view('trash_' . $entity_type->id())) {
+    $view_name = 'trash_' . $entity_type->id();
+    if (Views::getView($view_name)) {
       return [
-        'view' => $view,
+        'view' => [
+          '#type' => 'view',
+          '#name' => $view_name,
+          '#display_id' => 'default',
+          '#arguments' => [],
+        ],
       ];
     }
 

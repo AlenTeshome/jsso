@@ -54,14 +54,14 @@ $shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.1);
         &:hover {
             transform: translateY(-10px);
             box-shadow: $shadow-hover;
-            border-bottom-color: var(--clr-brand-lime);
+            border-bottom-color: var(--clr-brand-jsso-lime);
 
             // Animate the icon inside on hover
             >svg {
                 transform: scale(1.1);
 
                 path {
-                    fill: var(--clr-brand-forestgreen);
+                    fill: var(--clr-brand-jsso-primary);
                 }
             }
 
@@ -91,7 +91,7 @@ $shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.1);
                 display: block; // Fix SVG spacing issues
 
                 path {
-                    fill: var(--clr-brand-forestgreen); // Default gray
+                    fill: var(--clr-brand-jsso-primary); // Default gray
                 }
 
             }
@@ -120,7 +120,7 @@ $shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.1);
             text-transform: capitalize;
             letter-spacing: -0.5px;
             line-height: 1.3;
-            color: var(--clr-brand-forestgreen);
+            color: var(--clr-brand-jsso-primary);
         }
 
         // 6. The Description (Targeting .org-desc)
@@ -145,7 +145,7 @@ $shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.1);
 
     .view-content {
         display: flex;
-        gap: 2rem;
+        gap: 3rem;
         justify-content: end;
 
         .org-svg-logo-row {
@@ -155,21 +155,21 @@ $shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.1);
 
             &:nth-child(1) {
                 svg {
-                    width: 150px;
+                    width: 100px;
                     height: 120px;
                 }
             }
 
             &:nth-child(2) {
                 svg {
-                    width: 200px;
+                    width: 120px;
                     height: 120px;
                 }
             }
 
             &:nth-child(3) {
                 svg {
-                    width: 200px;
+                    width: 140px;
                     height: 120px;
                 }
             }

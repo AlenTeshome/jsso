@@ -1,0 +1,99 @@
+@use '../abstracts' as *;
+
+.block-views-blockuneca-news-block-1 {
+  h2 span {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+    color: var(--clr-brand-jsso-secondary);
+    @include secondary-font;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0 2.25rem 0 0;
+
+    &::after {
+      content: "";
+      flex-grow: 1;
+      height: 2px;
+      background: var(--clr-brand-jsso-lime);
+    }
+  }
+}
+
+.uneca-news-feed {
+  .view-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .feed-item {
+    display: flex;
+    flex-direction: column;
+    padding: 1.25rem;
+    background-color: #ffffff;
+    //border-radius: 8px;
+    //border-left: 4px solid var(--clr-brand-jsso-primary, #0056b3);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.3s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      border-left-color: var(--clr-brand-jsso-secondary, #ffc107);
+
+      .feed-title a {
+        color: var(--clr-brand-jsso-primary, #0056b3);
+      }
+    }
+  }
+
+  .feed-date {
+    margin-bottom: 0.5rem;
+
+    .datetime {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #6c757d;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      display: flex;
+      align-items: center;
+
+      /* &::before {
+        content: '';
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        background-color: var(--clr-brand-jsso-secondary, #ffc107);
+        border-radius: 50%;
+        margin-right: 0.5rem;
+      }*/
+    }
+  }
+
+  .feed-title {
+    a {
+      font-size: 1.125rem;
+      font-weight: 600;
+      line-height: 1.4;
+      color: var(--clr-brand-jsso-secondary);
+      text-decoration: none;
+      transition: color 0.2s ease;
+
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+
+      &:focus {
+        outline: none;
+        color: var(--clr-brand-jsso-primary, #0056b3);
+        text-decoration: underline;
+      }
+    }
+  }
+}

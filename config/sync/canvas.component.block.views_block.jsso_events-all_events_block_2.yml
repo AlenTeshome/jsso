@@ -1,0 +1,26 @@
+uuid: db9c5c9f-576e-47b0-a666-c31877523e63
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.jsso_events
+  module:
+    - views
+active_version: 4c59d241654a7b7b
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'views_block:jsso_events-all_events_block_2'
+        label: 'JSSO Events: All Events Block'
+        label_display: '0'
+        provider: views
+        views_label: ''
+        items_per_page: null
+    fallback_metadata:
+      slot_definitions: null
+label: 'JSSO Events: All Events Block'
+id: block.views_block.jsso_events-all_events_block_2
+provider: views
+source: block
+source_local_id: 'views_block:jsso_events-all_events_block_2'

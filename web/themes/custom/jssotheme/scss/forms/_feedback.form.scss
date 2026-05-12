@@ -1,0 +1,62 @@
+@use '../abstracts' as *;
+
+form.webform-submission-feedback-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    fieldset,
+    .form-type-textarea {
+
+        legend span,
+        >label {
+            font-size: 1.35rem;
+            font-weight: normal;
+            color: var(--clr-brand-jsso-secondary, #333);
+            padding: 1rem 0;
+        }
+
+
+        .form-textarea-wrapper {
+            textarea {
+                border-radius: 0;
+                background: var(--clr-brand-jsso-bluebeige);
+            }
+        }
+
+        .webform-options-display-one-column {
+            display: flex;
+            gap: 2rem;
+            padding: 1rem 0;
+        }
+    }
+
+    .form-actions.webform-actions {
+        input {
+            border-radius: 0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--clr-brand-jsso-primary);
+            color: rgb(255, 255, 255);
+            font-weight: 600;
+            line-height: 1.25em;
+            letter-spacing: -0.02em;
+            transform-style: preserve-3d;
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 15px;
+            cursor: pointer;
+            padding: 10px 24px;
+            text-decoration: none;
+            transition: 0.3s;
+            border-width: initial;
+            border-style: none;
+            border-color: initial;
+            border-image: initial;
+            overflow: hidden;
+
+            &:hover {
+                background-color: var(--clr-brand-jsso-secondary);
+            }
+        }
+    }
+}

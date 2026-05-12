@@ -6,5 +6,4 @@ name: Forms
 configEntityTypeId: component
 weight: 0
 items:
-  - block.search_form_block
   - block.user_login_block

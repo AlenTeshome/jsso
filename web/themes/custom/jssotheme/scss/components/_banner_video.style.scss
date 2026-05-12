@@ -110,11 +110,11 @@
                         align-items: center;
 
                         &:first-child {
-                            @include main-read-more-link-anchor(var(--clr-brand-forestgreen), var(--clr-bg-300), var(--clr-brand-lime), var(--clr-bg-500));
+                            @include investflow-button;
                         }
 
                         &:last-child {
-                            @include main-read-more-link-anchor(var(--clr-brand-forestgreen), var(--clr-bg-300), var(--clr-brand-lime), var(--clr-bg-500));
+                            @include investflow-button;
                         }
                     }
                 }

@@ -1,0 +1,26 @@
+uuid: f92560a5-8ecb-418f-b18c-adafccd26efb
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.about_us_page_blocks
+  module:
+    - views
+active_version: df36c6a739bccc18
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'views_block:about_us_page_blocks-block_4'
+        label: 'About us page Blocks: Technical donora partners regional Block'
+        label_display: '0'
+        provider: views
+        views_label: ''
+        items_per_page: null
+    fallback_metadata:
+      slot_definitions: null
+label: 'About us page Blocks: Technical donora partners regional Block'
+id: block.views_block.about_us_page_blocks-block_4
+provider: views
+source: block
+source_local_id: 'views_block:about_us_page_blocks-block_4'

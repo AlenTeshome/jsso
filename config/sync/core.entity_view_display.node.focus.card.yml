@@ -1,0 +1,46 @@
+uuid: 2a4fa445-f65e-4138-bca8-f11addf47eaa
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.card
+    - field.field.node.focus.body
+    - field.field.node.focus.field_callout
+    - field.field.node.focus.field_featured_image
+    - field.field.node.focus.field_frameworks
+    - field.field.node.focus.field_related_focus_area
+    - field.field.node.focus.field_show_image_on_page
+    - field.field.node.focus.field_subtitle
+    - field.field.node.focus.layout_builder__layout
+    - node.type.focus
+  module:
+    - user
+id: node.focus.card
+targetEntityType: node
+bundle: focus
+mode: card
+content:
+  field_featured_image:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: 16_9_medium
+      link: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  body: true
+  field_callout: true
+  field_frameworks: true
+  field_related_focus_area: true
+  field_show_image_on_page: true
+  field_subtitle: true
+  langcode: true
+  layout_builder__layout: true
+  search_api_excerpt: true

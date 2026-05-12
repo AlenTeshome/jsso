@@ -1,0 +1,25 @@
+uuid: dfff9863-b178-434f-b332-dcdf31be90ab
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.feedback
+  module:
+    - system
+  theme:
+    - jssotheme
+id: jssotheme_feedback
+theme: jssotheme
+region: footer
+weight: 0
+provider: null
+plugin: 'system_menu_block:feedback'
+settings:
+  id: 'system_menu_block:feedback'
+  label: Feedback
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: null
+  expand_all_items: false
+visibility: {  }

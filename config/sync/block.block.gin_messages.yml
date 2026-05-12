@@ -1,4 +1,4 @@
-uuid: c0db2ecb-1a7e-40a0-a887-589b832916fd
+uuid: a366b500-6480-4d37-8ef4-e3d77cea92a0
 langcode: en
 status: true
 dependencies:
@@ -7,16 +7,16 @@ dependencies:
   theme:
     - gin
 _core:
-  default_config_hash: 3Jn-GUUhrsFkTDTpFj711JbcKihpb_8-gkXWkVE6llU
+  default_config_hash: WvPhI8OwllG0gE69-F8qL3ai3nd5SbYD6JpmEuZcyok
 id: gin_messages
 theme: gin
-region: content
-weight: -6
+region: highlighted
+weight: 0
 provider: null
 plugin: system_messages_block
 settings:
   id: system_messages_block
-  label: Messages
+  label: 'Status messages'
   label_display: '0'
   provider: system
 visibility: {  }

@@ -8,16 +8,18 @@ use Drupal\language\Entity\ConfigurableLanguage;
 use Drupal\language\Entity\ContentLanguageSettings;
 use Drupal\language\Plugin\LanguageNegotiation\LanguageNegotiationUrl;
 use Drupal\node\Entity\Node;
-use Drupal\Tests\eca\ContentTypeCreationTrait;
+use Drupal\Tests\node\Traits\ContentTypeCreationTrait;
 use Drupal\user\Entity\User;
 use Drupal\user\Plugin\LanguageNegotiation\LanguageNegotiationUser;
 use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Kernel tests for the "eca_entity_exists" condition plugin.
  */
 #[Group('eca')]
 #[Group('eca_content')]
+#[RunTestsInSeparateProcesses]
 class EntityExistsTest extends KernelTestBase {
 
   use ContentTypeCreationTrait;
@@ -37,6 +39,7 @@ class EntityExistsTest extends KernelTestBase {
     'node',
     'eca',
     'eca_content',
+    'modeler_api',
     'language',
     'content_translation',
   ];
@@ -74,7 +77,7 @@ class EntityExistsTest extends KernelTestBase {
   /**
    * Tests EntityExists.
    */
-  public function testEntityExists() {
+  public function testEntityExists(): void {
     // Create the Article content type with revisioning and translation enabled.
     $this->createContentType([
       'type' => 'article',

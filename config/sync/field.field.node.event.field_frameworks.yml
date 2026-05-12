@@ -1,0 +1,29 @@
+uuid: c7624c84-81d6-45b2-848a-94f17b07e2e5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_frameworks
+    - node.type.event
+    - taxonomy.vocabulary.strategic_frameworks
+id: node.event.field_frameworks
+field_name: field_frameworks
+entity_type: node
+bundle: event
+label: 'Strategic Frameworks'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      strategic_frameworks: strategic_frameworks
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

@@ -6,15 +6,17 @@ use Drupal\KernelTests\KernelTestBase;
 use Drupal\eca\Plugin\DataType\DataTransferObject;
 use Drupal\node\Entity\Node;
 use Drupal\node\Entity\NodeType;
-use Drupal\Tests\eca\ContentTypeCreationTrait;
+use Drupal\Tests\node\Traits\ContentTypeCreationTrait;
 use Drupal\user\Entity\User;
 use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Kernel tests for data transfer objects.
  */
 #[Group('eca')]
 #[Group('eca_core')]
+#[RunTestsInSeparateProcesses]
 class DataTransferObjectTest extends KernelTestBase {
 
   use ContentTypeCreationTrait;
@@ -31,6 +33,7 @@ class DataTransferObjectTest extends KernelTestBase {
     'node',
     'eca',
     'eca_test_array',
+    'modeler_api',
   ];
 
   /**

@@ -69,9 +69,12 @@ class TrashUniqueFieldTest extends BrowserTestBase {
   public function testRestoreWithUniqueFieldConflict(): void {
     $this->drupalLogin($this->adminUser);
 
-    // Create an entity with a unique code.
+    // Create an entity with a unique code. We're intentionally setting an empty
+    // value for the required field in order to check that only unique field
+    // violations are taken into account.
     $entity1 = TrashTestEntity::create([
       'label' => 'Entity 1',
+      'required_field' => '',
       'unique_code' => 'UNIQUE-CODE-123',
     ]);
     $entity1->save();
@@ -82,6 +85,7 @@ class TrashUniqueFieldTest extends BrowserTestBase {
     // Create another entity with the same unique code.
     $entity2 = TrashTestEntity::create([
       'label' => 'Entity 2',
+      'required_field' => '',
       'unique_code' => 'UNIQUE-CODE-123',
     ]);
     $entity2->save();

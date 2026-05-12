@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Drupal\canvas\Plugin\Canvas\ComponentSource;
 
 use Drupal\canvas\ComponentDoesNotMeetRequirementsException;
-use Drupal\canvas\ComponentMetadataRequirementsChecker;
 use Drupal\canvas\ComponentSource\ComponentCandidatesDiscoveryInterface;
 use Drupal\canvas\Entity\Component;
 use Drupal\canvas\Entity\JavaScriptComponent;
@@ -56,7 +55,7 @@ final class JsComponentDiscovery implements ComponentCandidatesDiscoveryInterfac
       fn (JavaScriptComponent $js_component): bool =>
         // Any code component that has once been exposed, must continue to be
         // discovered, even if its `status` changes to FALSE.
-        in_array($config_prefix . $js_component->id(), $already_exposed_js_components, TRUE)
+        \in_array($config_prefix . $js_component->id(), $already_exposed_js_components, TRUE)
         // Before exposing a JavaScriptComponent as a Canvas Component for the
         // first time it must be flagged as being added to Canvas's component
         // library.
@@ -73,19 +72,15 @@ final class JsComponentDiscovery implements ComponentCandidatesDiscoveryInterfac
     $js_component = $this->discover()[$source_specific_id];
 
     try {
-      $ephemeral_sdc_component = self::buildEphemeralSdcPluginInstance($js_component);
+      // Trip up early on InvalidComponentException; the entity-level
+      // checkRequirements() handles everything else.
+      self::buildEphemeralSdcPluginInstance($js_component);
     }
     catch (InvalidComponentException $e) {
       throw new ComponentDoesNotMeetRequirementsException([$e->getMessage()]);
     }
 
-    ComponentMetadataRequirementsChecker::check(
-      $source_specific_id,
-      $ephemeral_sdc_component->metadata,
-      $js_component->getRequiredProps(),
-      // @see \Drupal\Core\Config\ConfigBase::validateKeys()
-      forbidden_key_characters: ['.' => '_'],
-    );
+    $js_component->checkRequirements();
   }
 
   /**

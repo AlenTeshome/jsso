@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Drupal\drupal_cms_helper\Drush\Commands;
 
-use Composer\InstalledVersions;
-use Drupal\Component\Serialization\Json;
-use Drupal\Core\Recipe\Recipe;
 use Drupal\drupal_cms_helper\SiteExporter;
 use Drush\Commands\AutowireTrait;
 use Drush\Style\DrushStyle;
@@ -15,8 +12,6 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\Finder\Finder;
 
 /**
  * @api
@@ -42,70 +37,47 @@ final class SiteExportCommand extends Command {
 
   #[\Override]
   protected function configure(): void {
-    $this->addOption('destination', NULL, InputOption::VALUE_REQUIRED, 'The destination directory where the site should be exported. Defaults to the location where Composer installs recipes.');
-    $this->addOption('base', NULL, InputOption::VALUE_REQUIRED, 'The path of a recipe to use as a base for the export.');
+    $this->addOption(
+      'destination',
+      NULL,
+      InputOption::VALUE_REQUIRED,
+      'The directory where the site should be exported.',
+      $this->exporter->getRecipePath('drupal/site_export'),
+    );
+    $this->addOption(
+      'overwrite',
+      NULL,
+      InputOption::VALUE_NONE,
+      'Whether to overwrite the destination directory if it already exists.',
+    );
+
+    $base = $this->exporter->getRecipePath('drupal/drupal_cms_site_template_base');
+    $this->addOption(
+      'base',
+      NULL,
+      InputOption::VALUE_REQUIRED,
+      'The path of a recipe to use as a base for the export.',
+      $base && is_dir($base) ? $base : NULL,
+    );
   }
 
   #[\Override]
   protected function execute(InputInterface $input, OutputInterface $output): int {
     $io = new DrushStyle($input, $output);
-    $destination = $input->getOption('destination') ?? $this->findDestination();
-    if (is_dir($destination)) {
+
+    $destination = $input->getOption('destination');
+    if (empty($destination)) {
+      $io->error('No destination was given, and a default location could not be determined.');
+      return self::FAILURE;
+    }
+    elseif (is_dir($destination) && empty($input->getOption('overwrite'))) {
       $io->error("The destination directory $destination already exists.");
       return self::FAILURE;
     }
-
-    $base = $input->getOption('base');
-    if ($base) {
-      $finder = Finder::create()
-        ->in($base)
-        ->files()
-        ->ignoreVCS(TRUE)
-        ->ignoreDotFiles(FALSE)
-        ->notPath('content');
-
-      $file_system = new Filesystem();
-      $file_system->mirror($base, $destination, $finder, [
-        'override' => TRUE,
-        'delete' => TRUE,
-      ]);
-      $io->write("Copied $base to $destination.");
-
-      // Rename any `*.example` files to remove the `.example` suffix, so that
-      // the files will actually be used.
-      $finder = Finder::create()
-        ->in($destination)
-        ->files()
-        ->ignoreDotFiles(FALSE)
-        ->name(['*.example', '.*.example']);
-
-      foreach ($finder as $file) {
-        $path = $file->getPathname();
-        $file_system->rename($path, substr($path, 0, -8));
-      }
-    }
-    $this->exporter->export($destination);
+    $this->exporter->export($destination, $input->getOption('base'));
 
     $io->success("Recipe created at $destination");
     return self::SUCCESS;
-  }
-
-  private function findDestination(): string {
-    ['install_path' => $project_root] = InstalledVersions::getRootPackage();
-    // There's no need to use the realpath() method of FileSystemInterface; its
-    // purpose is to handle stream wrappers, which are irrelevant here.
-    $project_root = realpath($project_root);
-    $data = file_get_contents($project_root . DIRECTORY_SEPARATOR . 'composer.json');
-    $data = Json::decode($data);
-
-    $installer_paths = $data['extra']['installer-paths'] ?? [];
-    foreach ($installer_paths as $path => $criteria) {
-      if (in_array('type:' . Recipe::COMPOSER_PROJECT_TYPE, $criteria, TRUE)) {
-        $path = ltrim($path, '.' . DIRECTORY_SEPARATOR);
-        return str_replace('{$name}', 'site_export', $project_root . DIRECTORY_SEPARATOR . $path);
-      }
-    }
-    throw new \RuntimeException('Could not determine where Composer installs recipes.');
   }
 
 }

@@ -10,16 +10,18 @@ use Drupal\language\Entity\ConfigurableLanguage;
 use Drupal\language\Entity\ContentLanguageSettings;
 use Drupal\language\Plugin\LanguageNegotiation\LanguageNegotiationUrl;
 use Drupal\node\Entity\Node;
-use Drupal\Tests\eca\ContentTypeCreationTrait;
+use Drupal\Tests\node\Traits\ContentTypeCreationTrait;
 use Drupal\user\Entity\User;
 use Drupal\user\Plugin\LanguageNegotiation\LanguageNegotiationUser;
 use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Kernel tests for the "eca_token_load_entity_ref_ref" action plugin.
  */
 #[Group('eca')]
 #[Group('eca_content')]
+#[RunTestsInSeparateProcesses]
 class LoadEntityRefTest extends KernelTestBase {
 
   use ContentTypeCreationTrait;
@@ -37,9 +39,9 @@ class LoadEntityRefTest extends KernelTestBase {
     'filter',
     'text',
     'node',
-    'token',
     'eca',
     'eca_content',
+    'modeler_api',
     'language',
     'content_translation',
   ];
@@ -77,7 +79,7 @@ class LoadEntityRefTest extends KernelTestBase {
   /**
    * Tests LoadEntityRef.
    */
-  public function testLoadEntityRef() {
+  public function testLoadEntityRef(): void {
     // Create the Article content type with revisioning and translation enabled.
     $this->createContentType([
       'type' => 'article',
@@ -210,15 +212,6 @@ class LoadEntityRefTest extends KernelTestBase {
     $action->execute($node);
     $this->assertTrue($token_services->hasTokenData('mynode'), 'Token must be defined.');
     $this->assertSame($referenced->id(), $token_services->getTokenData('mynode')->id());
-
-    $token_services->addTokenData('node', $node);
-    /** @var \Drupal\eca_content\Plugin\Action\LoadEntity $action */
-    $action = $action_manager->createInstance('eca_token_load_entity_ref', [
-      'field_name_entity_ref' => '[node:field_node_ref_mn]',
-    ] + $defaults);
-    $action->execute($node);
-    $this->assertTrue($token_services->hasTokenData('mynode'), 'Token must be defined.');
-    $this->assertSame($referenced_by_token->id(), $token_services->getTokenData('mynode')->id());
 
     /** @var \Drupal\eca_content\Plugin\Action\LoadEntity $action */
     $action = $action_manager->createInstance('eca_token_load_entity_ref', [

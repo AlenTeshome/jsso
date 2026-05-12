@@ -1,0 +1,26 @@
+uuid: 77d58863-08f1-4aab-8c8c-6f20495054dd
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.jsso_events
+  module:
+    - views
+active_version: b180c68b2056dc3a
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'views_block:jsso_events-current_and_upcoming_events_block_4'
+        label: 'JSSO Events: Current &amp; Upcoming Events Block'
+        label_display: '0'
+        provider: views
+        views_label: ''
+        items_per_page: null
+    fallback_metadata:
+      slot_definitions: null
+label: 'JSSO Events: Current &amp; Upcoming Events Block'
+id: block.views_block.jsso_events-current_and_upcoming_events_block_4
+provider: views
+source: block
+source_local_id: 'views_block:jsso_events-current_and_upcoming_events_block_4'

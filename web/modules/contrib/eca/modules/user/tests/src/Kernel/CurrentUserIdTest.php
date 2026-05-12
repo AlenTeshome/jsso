@@ -5,12 +5,14 @@ namespace Drupal\Tests\eca_user\Kernel;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\user\Entity\User;
 use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Kernel tests for the "eca_current_user_id" condition plugin.
  */
 #[Group('eca')]
 #[Group('eca_user')]
+#[RunTestsInSeparateProcesses]
 class CurrentUserIdTest extends KernelTestBase {
 
   /**
@@ -22,6 +24,7 @@ class CurrentUserIdTest extends KernelTestBase {
     'field',
     'eca',
     'eca_user',
+    'modeler_api',
   ];
 
   /**

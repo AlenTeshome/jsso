@@ -1,0 +1,26 @@
+uuid: 36ca5254-8e28-450a-82c8-8e9408971d65
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.who_we_are
+  module:
+    - views
+active_version: 7a37d59e087997eb
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'views_block:who_we_are-block_2'
+        label: 'Who We Are: About us Mission and Vision Block'
+        label_display: '0'
+        provider: views
+        views_label: ''
+        items_per_page: null
+    fallback_metadata:
+      slot_definitions: null
+label: 'Who We Are: About us Mission and Vision Block'
+id: block.views_block.who_we_are-block_2
+provider: views
+source: block
+source_local_id: 'views_block:who_we_are-block_2'

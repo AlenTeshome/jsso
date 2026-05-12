@@ -1,19 +1,15 @@
 uuid: 9e895677-f7a2-456b-bf4d-dcab3c15c2fe
 langcode: en
-status: true
-dependencies:
-  theme:
-    - mercury
+status: false
+dependencies: {  }
 _core:
   default_config_hash: K9O7_fh4A3gKPx_UU2qn0vosz3ckrpdOlruhW5ZfLI8
-label: Footer
-id: sdc.mercury.footer
-source: sdc
-source_local_id: 'mercury:footer'
-provider: mercury
-active_version: d696cea1796b650e
+active_version: fallback
 versioned_properties:
   active:
+    settings:
+      last_active_version: d696cea1796b650e
+  d696cea1796b650e:
     settings:
       prop_field_definitions:
         align:
@@ -36,3 +32,8 @@ versioned_properties:
           title: 'Utility links'
         footer_utility_last:
           title: 'Copyright text'
+label: Footer
+id: sdc.mercury.footer
+provider: mercury
+source: sdc
+source_local_id: 'mercury:footer'

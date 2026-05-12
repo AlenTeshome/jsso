@@ -9,7 +9,6 @@ dependencies:
     - filter
     - klaro
     - media
-    - search
     - system
 _core:
   default_config_hash: xLG41YbRo2NP-0SgRNTkMzLEuaeibanGXgUTbdIcIIg
@@ -20,7 +19,6 @@ is_admin: false
 permissions:
   - 'access comments'
   - 'access content'
-  - 'search content'
   - 'use klaro'
   - 'use text format restricted_html'
   - 'view media'

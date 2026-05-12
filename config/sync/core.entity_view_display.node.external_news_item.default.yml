@@ -1,0 +1,56 @@
+uuid: be622709-1bba-4ffd-90dd-fcf946cc7979
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.external_news_item.feeds_item
+    - field.field.node.external_news_item.field_callout
+    - field.field.node.external_news_item.field_date
+    - field.field.node.external_news_item.field_website
+    - node.type.external_news_item
+  module:
+    - datetime
+    - link
+    - user
+id: node.external_news_item.default
+targetEntityType: node
+bundle: external_news_item
+mode: default
+content:
+  field_callout:
+    type: basic_string
+    label: visually_hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 102
+    region: content
+  field_date:
+    type: datetime_default
+    label: visually_hidden
+    settings:
+      timezone_override: Africa/Addis_Ababa
+      format_type: jsso_short_date_format
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  field_website:
+    type: link
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 103
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  feeds_item: true
+  langcode: true
+  search_api_excerpt: true

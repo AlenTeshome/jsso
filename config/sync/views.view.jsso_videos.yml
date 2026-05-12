@@ -443,7 +443,7 @@ display:
     display_plugin: block
     position: null
     display_options:
-      title: ''
+      title: 'Featured Media'
       fields:
         field_media_video:
           id: field_media_video
@@ -896,18 +896,7 @@ display:
           limit_queue: featured_multimedia_queue
       css_class: featuredmedia
       display_description: ''
-      header:
-        area_text_custom:
-          id: area_text_custom
-          table: views
-          field: area_text_custom
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: text_custom
-          empty: false
-          content: '<h1 class="jsso-heading-title"><span class="color-main">Stories That Speak  </span><span class="color-accent"> for Themselves.</span></h1>'
-          tokenize: false
+      header: {  }
       rendering_language: '***LANGUAGE_language_interface***'
       display_extenders: {  }
       display_title: 'Featured Video'
@@ -1043,7 +1032,7 @@ display:
         type: normal
         title: Videos
         description: ''
-        weight: 1
+        weight: -48
         expanded: false
         menu_name: main
         parent: 'menu_link_content:1887ace4-f8da-4efe-b523-4ada60aebe64'

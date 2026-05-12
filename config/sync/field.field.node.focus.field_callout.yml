@@ -1,0 +1,19 @@
+uuid: 16b1157d-f160-46f2-a4e9-38fe2a540bd8
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_callout
+    - node.type.focus
+id: node.focus.field_callout
+field_name: field_callout
+entity_type: node
+bundle: focus
+label: Callout
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

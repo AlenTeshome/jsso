@@ -100,6 +100,11 @@ class TrashEntityHooks {
       $query->addMetaData('trash', $this->trashManager->getTrashContext());
     }
 
+    // Skip altering queries if the context has been manually set to ignore.
+    if ($query->getMetaData('trash') === 'ignore') {
+      return;
+    }
+
     // If the entity query conjunction is 'OR', we need to wrap the original
     // condition group as the first condition of a new AND condition group,
     // otherwise the query would always return all non-deleted entities.

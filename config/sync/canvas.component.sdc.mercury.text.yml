@@ -1,24 +1,15 @@
 uuid: 93b16e0f-914f-40b2-817b-f50963eefa77
 langcode: en
-status: true
-dependencies:
-  config:
-    - filter.format.canvas_html_block
-  module:
-    - options
-    - text
-  theme:
-    - mercury
+status: false
+dependencies: {  }
 _core:
   default_config_hash: EAf62V8PTI1RUyxz4x0pV7XcvG8bLUzVCoOpOzDUcI0
-label: Text
-id: sdc.mercury.text
-source: sdc
-source_local_id: 'mercury:text'
-provider: mercury
-active_version: 16c79c28a4108f9b
+active_version: fallback
 versioned_properties:
   active:
+    settings:
+      last_active_version: 16c79c28a4108f9b
+  16c79c28a4108f9b:
     settings:
       prop_field_definitions:
         text:
@@ -58,3 +49,8 @@ versioned_properties:
           expression: ℹ︎list_string␟value
     fallback_metadata:
       slot_definitions: {  }
+label: Text
+id: sdc.mercury.text
+provider: mercury
+source: sdc
+source_local_id: 'mercury:text'

@@ -13,7 +13,7 @@ use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
 use Drupal\user\Entity\User;
 use PHPUnit\Framework\Attributes\Group;
-use Prophecy\PhpUnit\ProphecyTrait;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Kernel tests for the "eca_route" submodule.
@@ -23,9 +23,8 @@ use Prophecy\PhpUnit\ProphecyTrait;
  */
 #[Group('eca')]
 #[Group('eca_misc')]
+#[RunTestsInSeparateProcesses]
 class RouteTest extends KernelTestBase {
-
-  use ProphecyTrait;
 
   /**
    * {@inheritdoc}
@@ -38,6 +37,7 @@ class RouteTest extends KernelTestBase {
     'user',
     'eca',
     'eca_misc',
+    'modeler_api',
   ];
 
   /**
@@ -100,10 +100,9 @@ class RouteTest extends KernelTestBase {
    */
   public function testRouteConditions(): void {
     $route = 'user.login';
-    /** @var \Drupal\Core\Routing\RouteMatchInterface|\Prophecy\Prophecy\ObjectProphecy $route_matcher */
-    $route_matcher = $this->prophesize(RouteMatchInterface::class);
-    $route_matcher->getRouteName()->willReturn($route);
-    \Drupal::getContainer()->set('current_route_match', $route_matcher->reveal());
+    $route_matcher = $this->createStub(RouteMatchInterface::class);
+    $route_matcher->method('getRouteName')->willReturn($route);
+    \Drupal::getContainer()->set('current_route_match', $route_matcher);
 
     $config = [
       'route' => $route,
@@ -127,12 +126,11 @@ class RouteTest extends KernelTestBase {
   public function testRouteParameters(): void {
     $route = 'entity.node.canonical';
 
-    /** @var \Drupal\Core\Routing\RouteMatchInterface|\Prophecy\Prophecy\ObjectProphecy $route_matcher */
-    $route_matcher = $this->prophesize(RouteMatchInterface::class);
-    $route_matcher->getRouteName()->willReturn($route);
-    $route_matcher->getParameter('node')->willReturn($this->node);
-    $route_matcher->getRawParameter('node')->willReturn($this->node->id());
-    \Drupal::getContainer()->set('current_route_match', $route_matcher->reveal());
+    $route_matcher = $this->createStub(RouteMatchInterface::class);
+    $route_matcher->method('getRouteName')->willReturn($route);
+    $route_matcher->method('getParameter')->willReturn($this->node);
+    $route_matcher->method('getRawParameter')->willReturn($this->node->id());
+    \Drupal::getContainer()->set('current_route_match', $route_matcher);
 
     $config = [
       'token_name' => 'mynode',

@@ -221,7 +221,7 @@ class TagifySelectWidget extends OptionsWidgetBase {
 
     $empty_value = $element['#empty_value'] ?? NULL;
 
-    if (!$element['#multiple'] && !isset($element['#options'][$empty_value])) {
+    if (!$element['#multiple'] && (!$empty_value || !isset($element['#options'][$empty_value]))) {
       // Add an empty option to single select elements. Key 0 should be
       // reserved option to empty values.
       $element['#options'] = ['_none' => ''] + $element['#options'];

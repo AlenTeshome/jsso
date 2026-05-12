@@ -1,0 +1,16 @@
+uuid: 1e5115a7-9a65-40bd-a687-b6d408fe33d6
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.knowledge_resources
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+id: taxonomy_term.knowledge_resources
+target_entity_type_id: taxonomy_term
+target_bundle: knowledge_resources
+default_langcode: site_default
+language_alterable: true

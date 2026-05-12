@@ -9,15 +9,17 @@ use Drupal\language\Entity\ContentLanguageSettings;
 use Drupal\language\Plugin\LanguageNegotiation\LanguageNegotiationUrl;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
-use Drupal\Tests\eca\ContentTypeCreationTrait;
+use Drupal\Tests\node\Traits\ContentTypeCreationTrait;
 use Drupal\user\Plugin\LanguageNegotiation\LanguageNegotiationUser;
 use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Kernel tests for the "eca_content.service.entity_loader" service.
  */
 #[Group('eca')]
 #[Group('eca_content')]
+#[RunTestsInSeparateProcesses]
 class EntityLoaderTest extends KernelTestBase {
 
   use ContentTypeCreationTrait;
@@ -37,6 +39,7 @@ class EntityLoaderTest extends KernelTestBase {
     'node',
     'eca',
     'eca_content',
+    'modeler_api',
     'language',
     'content_translation',
   ];
@@ -73,7 +76,7 @@ class EntityLoaderTest extends KernelTestBase {
   /**
    * Tests EntityLoader.
    */
-  public function testEntityLoader() {
+  public function testEntityLoader(): void {
     // Create the Article content type with revisioning and translation enabled.
     $this->createContentType([
       'type' => 'article',

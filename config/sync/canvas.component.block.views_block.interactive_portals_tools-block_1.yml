@@ -1,0 +1,26 @@
+uuid: 0b8ecb3f-df91-4422-b31d-4e955e0908f7
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.interactive_portals_tools
+  module:
+    - views
+active_version: 840f992da8027215
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'views_block:interactive_portals_tools-block_1'
+        label: 'Interactive portals &amp; tools: Interactive portals &amp; tools Block'
+        label_display: '0'
+        provider: views
+        views_label: ''
+        items_per_page: null
+    fallback_metadata:
+      slot_definitions: null
+label: 'Interactive portals &amp; tools: Interactive portals &amp; tools Block'
+id: block.views_block.interactive_portals_tools-block_1
+provider: views
+source: block
+source_local_id: 'views_block:interactive_portals_tools-block_1'

@@ -12,7 +12,7 @@ effects:
   b442b7c1-227b-422c-8dad-beae9cf4b700:
     uuid: b442b7c1-227b-422c-8dad-beae9cf4b700
     id: focal_point_scale_and_crop
-    weight: 1
+    weight: -9
     data:
       width: 450
       height: 600
@@ -20,6 +20,14 @@ effects:
   bdd5bd8e-4cd7-4a1f-9c9f-b95cbe9c7138:
     uuid: bdd5bd8e-4cd7-4a1f-9c9f-b95cbe9c7138
     id: image_convert_avif
-    weight: 2
+    weight: -8
     data:
       extension: webp
+  f1671c9e-4007-4056-b4b5-8cf2548a4fea:
+    uuid: f1671c9e-4007-4056-b4b5-8cf2548a4fea
+    id: image_scale_and_crop
+    weight: -10
+    data:
+      width: 450
+      height: 600
+      anchor: center-center

@@ -1,0 +1,26 @@
+uuid: 3226b8ae-9149-42c1-a869-9dbb2f483443
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.interactive_portals_tools
+  module:
+    - views
+active_version: d2609e25df338073
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'views_block:interactive_portals_tools-block_2'
+        label: 'Interactive portals &amp; tools: Mega menu Interactive portals &amp; tools Block 2'
+        label_display: '0'
+        provider: views
+        views_label: ''
+        items_per_page: null
+    fallback_metadata:
+      slot_definitions: null
+label: 'Interactive portals &amp; tools: Mega menu Interactive portals &amp; tools Block 2'
+id: block.views_block.interactive_portals_tools-block_2
+provider: views
+source: block
+source_local_id: 'views_block:interactive_portals_tools-block_2'

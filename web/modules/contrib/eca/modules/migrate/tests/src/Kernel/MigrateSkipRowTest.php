@@ -10,6 +10,7 @@ use Drupal\KernelTests\KernelTestBase;
 use Drupal\migrate\MigrateSkipRowException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Kernel tests for the MigrateSkipRow action plugin.
@@ -17,6 +18,7 @@ use PHPUnit\Framework\Attributes\Group;
 #[Group('eca_migrate')]
 #[Group('eca')]
 #[CoversClass(MigrateSkipRow::class)]
+#[RunTestsInSeparateProcesses]
 class MigrateSkipRowTest extends KernelTestBase {
 
   /**
@@ -28,6 +30,7 @@ class MigrateSkipRowTest extends KernelTestBase {
     'eca',
     'migrate',
     'eca_migrate',
+    'modeler_api',
   ];
 
   /**
@@ -52,7 +55,7 @@ class MigrateSkipRowTest extends KernelTestBase {
   /**
    * Tests that the action plugin is discoverable.
    */
-  public function testPluginDiscovery() {
+  public function testPluginDiscovery(): void {
     $this->assertTrue($this->actionManager->hasDefinition($this->pluginId));
 
     $definition = $this->actionManager->getDefinition($this->pluginId);
@@ -62,7 +65,7 @@ class MigrateSkipRowTest extends KernelTestBase {
   /**
    * Tests that the action throws MigrateSkipRowException.
    */
-  public function testActionThrowsException() {
+  public function testActionThrowsException(): void {
     /** @var \Drupal\eca_migrate\Plugin\Action\MigrateSkipRow $action */
     $action = $this->actionManager->createInstance($this->pluginId, [
       'message' => 'Test skip message',
@@ -96,7 +99,7 @@ class MigrateSkipRowTest extends KernelTestBase {
   /**
    * Tests that handleExceptions returns TRUE.
    */
-  public function testHandleExceptions() {
+  public function testHandleExceptions(): void {
     /** @var \Drupal\eca_migrate\Plugin\Action\MigrateSkipRow $action */
     $action = $this->actionManager->createInstance($this->pluginId);
 
@@ -106,7 +109,7 @@ class MigrateSkipRowTest extends KernelTestBase {
   /**
    * Tests default configuration.
    */
-  public function testDefaultConfiguration() {
+  public function testDefaultConfiguration(): void {
     /** @var \Drupal\eca_migrate\Plugin\Action\MigrateSkipRow $action */
     $action = $this->actionManager->createInstance($this->pluginId);
 
@@ -118,12 +121,12 @@ class MigrateSkipRowTest extends KernelTestBase {
   /**
    * Tests configuration form building.
    */
-  public function testConfigurationForm() {
+  public function testConfigurationForm(): void {
     /** @var \Drupal\eca_migrate\Plugin\Action\MigrateSkipRow $action */
     $action = $this->actionManager->createInstance($this->pluginId);
 
     $form = [];
-    $form_state = $this->createMock(FormStateInterface::class);
+    $form_state = $this->createStub(FormStateInterface::class);
 
     $form = $action->buildConfigurationForm($form, $form_state);
 
@@ -137,11 +140,11 @@ class MigrateSkipRowTest extends KernelTestBase {
   /**
    * Tests action access.
    */
-  public function testAccess() {
+  public function testAccess(): void {
     /** @var \Drupal\eca_migrate\Plugin\Action\MigrateSkipRow $action */
     $action = $this->actionManager->createInstance($this->pluginId);
 
-    $account = $this->createMock(AccountInterface::class);
+    $account = $this->createStub(AccountInterface::class);
 
     $this->assertTrue($action->access(NULL, $account));
   }

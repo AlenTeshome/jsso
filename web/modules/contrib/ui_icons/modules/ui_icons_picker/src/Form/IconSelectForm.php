@@ -238,6 +238,7 @@ final class IconSelectForm extends FormBase {
       '#ajax' => [
         'callback' => [$this, 'selectIconAjax'],
         'event' => 'click',
+        'disable-refocus' => TRUE,
       ],
       '#attributes' => [
         'class' => [
@@ -499,6 +500,7 @@ final class IconSelectForm extends FormBase {
    */
   private function getIconPackManager(): IconPackManagerInterface {
     if (!isset($this->pluginManagerIconPack)) {
+      // @phpcs:ignore DrupalPractice.Objects.GlobalDrupal.GlobalDrupal
       $this->pluginManagerIconPack = \Drupal::service('plugin.manager.icon_pack');
     }
 
@@ -513,6 +515,7 @@ final class IconSelectForm extends FormBase {
    */
   private function getIconSearch(): IconSearch {
     if (!isset($this->iconSearch)) {
+      // @phpcs:ignore DrupalPractice.Objects.GlobalDrupal.GlobalDrupal
       $this->iconSearch = \Drupal::service('ui_icons.search');
     }
 

@@ -1,0 +1,19 @@
+uuid: 4ff80a7b-d144-4d19-ac5d-e96d69c8ceaf
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_callout
+    - node.type.landing_page
+id: node.landing_page.field_callout
+field_name: field_callout
+entity_type: node
+bundle: landing_page
+label: Callout
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

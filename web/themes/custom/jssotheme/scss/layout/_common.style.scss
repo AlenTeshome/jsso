@@ -1,14 +1,28 @@
+@use '../abstracts' as *;
+
 body {
     margin: 0;
-    background: linear-gradient(to bottom,
-            rgb(246, 245, 242) 0%,
-            rgb(255, 255, 255) 100%);
-    background-repeat: no-repeat;
-    background-attachment: fixed;
+    background: var(--clr-bg-300);
+
+    main {
+        padding-top: 10rem;
+    }
 
     &.user-logged-in {
         nav.navbar {
             padding-top: 3rem;
+        }
+    }
+}
+
+.block-views {
+    h2 {
+        padding: 2rem 0 0;
+
+        span {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--clr-brand-jsso-secondary);
         }
     }
 }
@@ -20,11 +34,11 @@ h1.jsso-heading-title {
     padding-bottom: 1rem;
 
     .color-main {
-        color: var(--clr-brand-forestgreen);
+        color: var(--clr-brand-jsso-primary);
     }
 
     .color-accent {
-        color: var(--clr-brand-lime);
+        color: var(--clr-brand-jsso-lime);
     }
 }
 
@@ -33,5 +47,11 @@ h1.jsso-heading-title {
         font-size: 2rem;
         width: 100%;
         padding-bottom: 1rem;
+    }
+}
+
+.edit-link {
+    a {
+        @include button-read-more-link-anchor;
     }
 }

@@ -1,0 +1,16 @@
+uuid: 46f64b14-6a74-46df-baf3-947726f37beb
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.jsso_address
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+id: taxonomy_term.jsso_address
+target_entity_type_id: taxonomy_term
+target_bundle: jsso_address
+default_langcode: site_default
+language_alterable: true

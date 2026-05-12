@@ -1,0 +1,23 @@
+uuid: f5ddb01b-4f42-4470-a483-e05e266e9cfc
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:3ff5d220-ede5-4010-9745-c084784ea38b'
+  module:
+    - block_content
+  theme:
+    - jssotheme
+id: jssotheme_jssofootersection
+theme: jssotheme
+region: footer_top
+weight: -10
+provider: null
+plugin: 'block_content:3ff5d220-ede5-4010-9745-c084784ea38b'
+settings:
+  id: 'block_content:3ff5d220-ede5-4010-9745-c084784ea38b'
+  label: 'JSSO Footer Section'
+  label_display: '0'
+  provider: block_content
+  view_mode: full
+visibility: {  }

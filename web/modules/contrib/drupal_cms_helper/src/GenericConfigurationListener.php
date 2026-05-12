@@ -43,7 +43,7 @@ final class GenericConfigurationListener implements ContainerInjectionInterface 
       }
       // @todo Remove when https://www.drupal.org/i/1503146 is released.
       if ($name === 'system.site' && $this->convertFrontPagePathToAlias) {
-        $data['page']['front'] = '/' . $this->aliasManager->getAliasByPath($data['page']['front'], $data['langcode'] ?? NULL);
+        $data['page']['front'] = '/' . ltrim($this->aliasManager->getAliasByPath($data['page']['front'], $data['langcode'] ?? NULL), '/');
       }
       $storage->write($name, $data);
     }

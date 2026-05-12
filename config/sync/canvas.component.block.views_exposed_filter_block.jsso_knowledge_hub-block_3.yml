@@ -1,0 +1,25 @@
+uuid: f7d899c1-583b-41c1-9188-2104d72a8cf4
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.jsso_knowledge_hub
+  module:
+    - views
+active_version: 14e96230c76be092
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'views_exposed_filter_block:jsso_knowledge_hub-block_3'
+        label: 'Exposed form: jsso_knowledge_hub-block_3'
+        label_display: '0'
+        provider: views
+        views_label: ''
+    fallback_metadata:
+      slot_definitions: null
+label: 'Exposed form: jsso_knowledge_hub-block_3'
+id: block.views_exposed_filter_block.jsso_knowledge_hub-block_3
+provider: views
+source: block
+source_local_id: 'views_exposed_filter_block:jsso_knowledge_hub-block_3'

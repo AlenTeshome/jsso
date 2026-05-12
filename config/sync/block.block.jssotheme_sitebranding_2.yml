@@ -1,0 +1,23 @@
+uuid: b6b0e37f-6b26-402d-8c05-6e10ab50b1e4
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - jssotheme
+id: jssotheme_sitebranding_2
+theme: jssotheme
+region: footer_top
+weight: -11
+provider: null
+plugin: system_branding_block
+settings:
+  id: system_branding_block
+  label: 'Site branding'
+  label_display: '0'
+  provider: system
+  use_site_logo: true
+  use_site_name: false
+  use_site_slogan: false
+visibility: {  }

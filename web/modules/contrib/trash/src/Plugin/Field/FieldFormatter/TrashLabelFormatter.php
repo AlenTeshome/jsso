@@ -70,11 +70,8 @@ class TrashLabelFormatter extends StringFormatter {
     $value = parent::viewValue($item);
 
     if ($this->getSetting('show_entity_id')) {
-      $value['#context']['value'] = (string) $this->t('@entity_label (@entity_id)', [
-        // @phpstan-ignore-next-line property.notFound
-        '@entity_label' => $item->value,
-        '@entity_id' => $item->getEntity()->id(),
-      ]);
+      // @phpstan-ignore-next-line property.notFound
+      $value['#context']['value'] = $item->value . ' (' . $item->getEntity()->id() . ')';
     }
 
     return $value;

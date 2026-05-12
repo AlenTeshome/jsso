@@ -1,232 +1,203 @@
 @use '../abstracts' as *;
 
-// ─────────────────────────────────────────────────────────────────
-// Resource node detail page — .page-node-type-resource .mainresource
-// Covers:
-//   • Date                (.block-field-blocknoderesourcefield-date)
-//   • Sub-title           (.block-field-blocknoderesourcefield-sub-title)
-//   • Document Type       (.block-field-blocknoderesourcefield-resource-type)
-//   • Document Cover      (.block-field-blocknoderesourcefield-document-cover)
-//   • Download link       (.block-field-blocknoderesourcefield-media-document)
-//   • Organization        (.block-field-blocknoderesourcefield-organization)
-//   • Sector / Theme      (.block-field-blocknoderesourcefield-theme)
-//   • Strategic Alignment (.block-field-blocknoderesourcefield-frameworks)
-// ─────────────────────────────────────────────────────────────────
-
 .page-node-type-resource {
 
-    .view-jsso-knowledge-hub{
-        .view-content{
-            flex-direction: column !important;
+    // ── Document Cover Image ────────────────────────────────────────────
+    .field--name-field-document-cover {
+        margin-bottom: 2rem;
 
-             .views-row {
-                display: flex;
-                flex: 1 1 calc(100% - 1em) !important;
-                max-width: calc(100% - 1em) !important;
+        .field__item {
+            display: block;
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+            &:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+            }
+
+            img {
+                display: block;
+                width: 100%;
+                height: auto;
+                border: 1px solid rgba(0, 0, 0, 0.05);
             }
         }
     }
 
-    .mainresource {
-        display: flex;
-        flex-direction: column;
-        gap: 1.5rem;
+    // ── Download Document Button ────────────────────────────────────────
+    .field--name-field-media-document {
+        margin-bottom: 2.5rem;
 
-        // ── Date ─────────────────────────────────────────────────
-        .block-field-blocknoderesourcefield-date {
-            .field--name-field-date {
-                time.datetime {
-                    display: inline-block;
-                    border: 1px solid rgba(0, 117, 168, 0.2);
-                    border-radius: var(--radius-pill);
-                    padding: 0.35rem 1.1rem;
-                    font-size: 0.8rem;
-                    text-transform: uppercase;
-                    letter-spacing: 0.06em;
-                    font-weight: 600;
-                    color: var(--clr-brand-forestgreen);
-                    background: var(--clr-brand-lime);
-                }
-            }
-        }
+        .field__item {
+            .file {
+                display: block;
+                width: 100%;
+                background-image: none;
+                padding: 0;
 
-        // ── Sub-title ─────────────────────────────────────────────
-        .block-field-blocknoderesourcefield-sub-title {
-            .field--name-field-sub-title {
-                .field__item {
-                    font-size: 1.05rem;
-                    font-weight: 600;
-                    color: var(--clr-brand-forestgreen);
-                    opacity: 0.75;
-                    font-style: italic;
-                }
-            }
-        }
-
-        // ── Document Type badge ───────────────────────────────────
-        .block-field-blocknoderesourcefield-resource-type {
-            .field--name-field-resource-type {
-                .field__item {
-                    display: inline-block;
-                    padding: 0.3rem 0.9rem;
-                    background-color: var(--clr-brand-forestgreen);
-                    color: var(--clr-brand-lime);
-                    font-size: 0.75rem;
-                    font-weight: 700;
-                    text-transform: uppercase;
-                    letter-spacing: 0.08em;
-                    border-radius: var(--radius-pill);
-                }
-            }
-        }
-
-        // ── Document Cover image ──────────────────────────────────
-        .block-field-blocknoderesourcefield-document-cover {
-            .field--name-field-document-cover {
-                border-radius: var(--radius-medium);
-                overflow: hidden;
-                display: inline-block;
-                box-shadow: 0 8px 28px rgba(0, 117, 168, 0.15);
-                transition: transform 0.3s ease, box-shadow 0.3s ease;
-
-                &:hover {
-                    transform: translateY(-3px);
-                    box-shadow: 0 14px 36px rgba(0, 117, 168, 0.22);
-                }
-
-                img {
-                    display: block;
+                a {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    max-width: 280px;
                     width: 100%;
-                    height: auto;
-                    object-fit: cover;
-                    border-radius: var(--radius-medium);
-                }
-            }
-        }
+                    padding: 1rem 1.5rem;
+                    background-color: var(--clr-brand-jsso-primary);
+                    color: transparent; // Hide original text
+                    text-decoration: none;
+                    font-weight: 600;
+                    font-size: 0; // Hide original text
+                    border-radius: 4px;
+                    transition: all 0.3s ease;
+                    text-align: center;
+                    @include primary-font;
 
-        // ── Download link ─────────────────────────────────────────
-        .block-field-blocknoderesourcefield-media-document {
-            .field--name-field-media-document {
-                .field__item {
-                    .media--type-document {
-                        .field--name-field-media-document {
-                            .field__item {
-                                .file {
-                                    a {
-                                        @include main-read-more-link-anchor(var(--clr-brand-forestgreen),
-                                            var(--clr-brand-lime),
-                                            var(--clr-brand-lime),
-                                            var(--clr-brand-forestgreen));
-                                        font-size: 0.9rem;
-                                    }
-                                }
-                            }
-                        }
+                    // Add an icon using pseudoelement
+                    @include before-psudo('\f019');
+
+                    /*  &::before {
+                        content: "\f019"; // FontAwesome download icon fallback
+                        font-family: "Font Awesome 5 Free", "Font Awesome 6 Free", sans-serif;
+                        font-weight: 900;
+                        margin-right: 0.75rem;
+                        font-size: 1.1rem; // Ensure icon has size since parent is 0
+                        color: #ffffff;
+                    }*/
+
+                    // Insert "Download" text
+                    &::after {
+                        content: "Download";
+                        font-size: 1.1rem;
+                        color: #ffffff;
+                    }
+
+                    &:hover {
+                        background-color: var(--clr-brand-jsso-secondary);
+                        transform: translateY(-2px);
+                        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
                     }
                 }
             }
         }
+    }
 
-        // ── Shared label style ────────────────────────────────────
-        .field__label {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
+    // ── Document Type Badge ─────────────────────────────────────────────
+    .field--name-field-resource-type {
+        margin-bottom: 2rem;
+
+        .field__item {
+            display: inline-block;
+            padding: 0.4rem 1.25rem;
+            background-color: rgba(0, 0, 0, 0.05);
+            color: var(--clr-brand-jsso-primary);
+            font-size: 0.85rem;
             font-weight: 700;
-            color: var(--clr-brand-forestgreen);
-            margin-bottom: 0.6rem;
-            opacity: 0.7;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            //border-radius: 50px; // Pill shape
+            border-left: 3px solid var(--clr-brand-jsso-primary);
+        }
+    }
+
+    // ── Metadata Fields (Organization, Theme, Frameworks) ──────────────
+    .field--name-field-organization,
+    .field--name-field-theme,
+    .field--name-field-frameworks {
+        margin-bottom: 1.5rem;
+        padding-bottom: 1.5rem;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+
+        &:last-child {
+            border-bottom: none;
         }
 
-        // ── Organization ──────────────────────────────────────────
-        .block-field-blocknoderesourcefield-organization {
-            .field--name-field-organization {
-                .field__items {
-                    display: flex;
-                    flex-direction: column;
-                    gap: 0.4rem;
-
-                    .field__item {
-                        display: inline-flex;
-                        align-items: center;
-                        gap: 0.5rem;
-                        font-size: 0.9rem;
-                        color: var(--clr-brand-forestgreen);
-                        font-weight: 500;
-
-                        &::before {
-                            content: '';
-                            display: inline-block;
-                            width: 6px;
-                            height: 6px;
-                            border-radius: 50%;
-                            background-color: var(--clr-brand-forestgreen);
-                            flex-shrink: 0;
-                            opacity: 0.5;
-                        }
-                    }
-                }
-            }
+        .field__label {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--clr-brand-jsso-secondary);
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            @include secondary-font;
         }
 
-        // ── Sector / Theme pills ──────────────────────────────────
-        .block-field-blocknoderesourcefield-theme {
-            .field--name-field-theme {
-                .field__items {
-                    display: flex;
-                    flex-wrap: wrap;
-                    gap: 0.5rem;
-
-                    .field__item {
-                        display: inline-block;
-                        padding: 0.3rem 0.9rem;
-                        background-color: var(--clr-bg-400);
-                        color: var(--clr-brand-forestgreen);
-                        font-size: 0.78rem;
-                        font-weight: 600;
-                        text-transform: uppercase;
-                        letter-spacing: 0.06em;
-                        border: 1px solid rgba(0, 117, 168, 0.15);
-                        border-radius: var(--radius-pill);
-                        transition: background-color 0.2s ease, color 0.2s ease;
-
-                        &:hover {
-                            background-color: var(--clr-brand-forestgreen);
-                            color: var(--clr-brand-lime);
-                        }
-                    }
-                }
-            }
+        .field__items {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
         }
 
-        // ── Strategic Alignment pills ─────────────────────────────
-        .block-field-blocknoderesourcefield-frameworks {
-            .field--name-field-frameworks {
-                .field__items {
-                    display: flex;
-                    flex-wrap: wrap;
-                    gap: 0.5rem;
+        .field__item {
+            font-size: 1rem;
+            color: var(--clr-bg-500);
+            line-height: 1.4;
+            font-weight: 500;
+        }
+    }
 
-                    .field__item {
-                        display: inline-block;
-                        padding: 0.3rem 0.9rem;
-                        background-color: var(--clr-brand-lime);
-                        color: var(--clr-brand-forestgreen);
-                        font-size: 0.78rem;
-                        font-weight: 600;
-                        text-transform: uppercase;
-                        letter-spacing: 0.06em;
-                        border: 1px solid rgba(0, 117, 168, 0.2);
-                        border-radius: var(--radius-pill);
-                        transition: background-color 0.2s ease, color 0.2s ease;
+    // Tag-like styling for Themes and Frameworks
+    .field--name-field-theme,
+    .field--name-field-frameworks {
+        .field__items {
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
 
-                        &:hover {
-                            background-color: var(--clr-brand-forestgreen);
-                            color: var(--clr-brand-lime);
-                        }
-                    }
-                }
+        .field__item {
+            font-size: 0.85rem;
+            background: rgba(0, 0, 0, 0.03);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 0.35rem 0.85rem;
+            border-radius: 4px;
+            color: var(--clr-bg-500);
+            transition: all 0.2s ease;
+
+            &:hover {
+                background: var(--clr-brand-jsso-primary);
+                border-color: var(--clr-brand-jsso-primary);
+                color: #ffffff;
             }
+        }
+    }
+
+    // ── Right Column Fields (Subtitle & Date) ──────────────────────────
+    .field--name-field-sub-title {
+        margin-bottom: 1.5rem;
+
+        .field__item {
+            font-size: clamp(1.25rem, 3vw, 1.75rem);
+            font-weight: 400;
+            color: var(--clr-brand-jsso-secondary);
+            font-style: italic;
+            line-height: 1.4;
+            @include primary-font;
+        }
+    }
+
+    .field--name-field-date {
+        margin-bottom: 2.5rem;
+
+        time.datetime {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--clr-brand-jsso-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+
+            /* &::before {
+                content: "";
+                display: block;
+                width: 32px;
+                height: 2px;
+                background-color: var(--clr-brand-jsso-primary);
+            }*/
         }
     }
 }

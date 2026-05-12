@@ -19,11 +19,11 @@
             font-family: var(--secondary-font);
 
             .color-main {
-                color: var(--clr-brand-forestgreen);
+                color: var(--clr-brand-jsso-primary);
             }
 
             .color-accent {
-                color: var(--clr-brand-lime);
+                color: var(--clr-brand-jsso-lime);
             }
         }
     }
@@ -54,7 +54,7 @@
                         justify-content: center;
                         gap: 1.25em;
                         padding: 2rem;
-                        background: var(--clr-brand-lime);
+                        background: var(--clr-brand-jsso-lime);
 
                         .video-date {
                             time {
@@ -62,7 +62,7 @@
                                 padding: .4rem 1rem;
                                 font-size: .8rem;
                                 text-transform: uppercase;
-                                color: var(--clr-brand-forestgreen);
+                                color: var(--clr-brand-jsso-primary);
                             }
                         }
 
@@ -70,13 +70,13 @@
                             font-size: var(--h3-font-size);
                             font-weight: 700;
                             line-height: 1.2;
-                            color: var(--clr-brand-forestgreen);
+                            color: var(--clr-brand-jsso-primary);
                         }
 
                         .video-desc {
                             font-size: .95rem;
                             font-style: italic;
-                            color: var(--clr-brand-forestgreen);
+                            color: var(--clr-brand-jsso-primary);
                             opacity: .85;
                         }
 
@@ -90,7 +90,7 @@
 
                     &:hover {
                         .content-link {
-                            @include svg-link-hover-style(var(--clr-brand-forestgreen), var(--clr-brand-beige));
+                            @include svg-link-hover-style(var(--clr-brand-jsso-primary), var(--clr-brand-jsso-beige));
                         }
                     }
                 }
@@ -124,24 +124,24 @@
                     justify-content: space-between;
                     padding: 1.5em;
                     height: 100%;
-                    background-color: var(--clr-brand-forestgreen);
+                    background-color: var(--clr-brand-jsso-primary);
                     text-decoration: none;
                     transition: all 0.3s ease-in-out;
 
                     &:hover {
-                        background-color: var(--clr-brand-lime);
+                        background-color: var(--clr-brand-jsso-lime);
                         transform: translateY(-3px);
 
                         .video-date {
-                            color: var(--clr-brand-forestgreen);
+                            color: var(--clr-brand-jsso-primary);
                         }
 
                         .video-title {
-                            color: var(--clr-brand-forestgreen);
+                            color: var(--clr-brand-jsso-primary);
                         }
 
                         .video-link {
-                            @include svg-link-hover-style(var(--clr-brand-forestgreen), var(--clr-brand-beige));
+                            @include svg-link-hover-style(var(--clr-brand-jsso-primary), var(--clr-brand-jsso-beige));
                         }
                     }
 
@@ -158,7 +158,7 @@
                         font-size: .8rem;
                         text-transform: uppercase;
                         letter-spacing: .05em;
-                        color: var(--clr-brand-beige);
+                        color: var(--clr-brand-jsso-beige);
                         transition: color 0.3s ease-in-out;
                     }
 
@@ -167,7 +167,7 @@
                         font-size: 1.1rem;
                         font-weight: 600;
                         line-height: 1.35;
-                        color: var(--clr-brand-beige);
+                        color: var(--clr-brand-jsso-beige);
                         transition: color 0.3s ease-in-out;
                     }
 
@@ -215,13 +215,13 @@
                 }
 
                 a {
-                    color: var(--clr-brand-forestgreen);
+                    color: var(--clr-brand-jsso-primary);
                     background: var(--clr-bg-400);
                     text-decoration: none;
 
                     &:hover {
-                        background: var(--clr-brand-forestgreen);
-                        color: var(--clr-brand-lime);
+                        background: var(--clr-brand-jsso-primary);
+                        color: var(--clr-brand-jsso-lime);
                     }
                 }
 
@@ -229,8 +229,8 @@
 
                     a,
                     span {
-                        background: var(--clr-brand-forestgreen);
-                        color: var(--clr-brand-lime);
+                        background: var(--clr-brand-jsso-primary);
+                        color: var(--clr-brand-jsso-lime);
                         font-weight: 700;
                     }
                 }
@@ -240,13 +240,13 @@
                 &--next,
                 &--last {
                     a {
-                        background: var(--clr-brand-lime);
-                        color: var(--clr-brand-forestgreen);
+                        background: var(--clr-brand-jsso-lime);
+                        color: var(--clr-brand-jsso-primary);
                         font-weight: 600;
 
                         &:hover {
-                            background: var(--clr-brand-forestgreen);
-                            color: var(--clr-brand-lime);
+                            background: var(--clr-brand-jsso-primary);
+                            color: var(--clr-brand-jsso-lime);
                         }
                     }
                 }
@@ -258,7 +258,7 @@
     .view-empty {
         padding: 3em 0;
         text-align: center;
-        color: var(--clr-brand-forestgreen);
+        color: var(--clr-brand-jsso-primary);
         font-size: 1.1rem;
         opacity: .7;
     }

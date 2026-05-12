@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\canvas\Kernel\Config;
 
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Drupal\canvas\PropSource\PropSource;
 use Drupal\Core\Entity\Entity\EntityViewMode;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
@@ -12,7 +14,7 @@ use Drupal\canvas\Entity\ContentTemplate;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\Tests\canvas\Traits\BetterConfigDependencyManagerTrait;
-use Drupal\Tests\canvas\Traits\DataProviderWithCoreSpecificComponentActiveVersionTrait;
+use Drupal\Tests\canvas\Traits\DataProviderWithComponentTreeTrait;
 use Drupal\Tests\canvas\Traits\ContribStrictConfigSchemaTestTrait;
 use Drupal\Tests\canvas\Traits\CreateTestJsComponentTrait;
 use Drupal\Tests\canvas\Traits\GenerateComponentConfigTrait;
@@ -20,15 +22,17 @@ use Drupal\Tests\node\Traits\ContentTypeCreationTrait;
 use Drupal\TestTools\Random;
 use Drupal\canvas_test_validation\Plugin\Canvas\ComponentSource\InvalidSlots;
 use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
+use PHPUnit\Framework\Attributes\TestWith;
 
 /**
- * @group canvas
+ * Tests Content Template Validation.
  */
 #[RunTestsInSeparateProcesses]
+#[Group('canvas')]
 final class ContentTemplateValidationTest extends BetterConfigEntityValidationTestBase {
 
   use BetterConfigDependencyManagerTrait;
-  use DataProviderWithCoreSpecificComponentActiveVersionTrait;
+  use DataProviderWithComponentTreeTrait;
   use ContentTypeCreationTrait;
   use ContribStrictConfigSchemaTestTrait;
   use CreateTestJsComponentTrait;
@@ -125,6 +129,10 @@ final class ContentTemplateValidationTest extends BetterConfigEntityValidationTe
             'text' => [
               'sourceType' => PropSource::EntityField->value,
               'expression' => 'ℹ︎␜entity:node:alpha␝title␞␟value',
+            ],
+            'href' => [
+              'sourceType' => PropSource::HostEntityUrl->value,
+              'absolute' => TRUE,
             ],
           ],
         ],
@@ -232,22 +240,23 @@ final class ContentTemplateValidationTest extends BetterConfigEntityValidationTe
   }
 
   /**
-   * @dataProvider providerInvalidComponentTree
-   */
-  public function testInvalidComponentTree(array $component_tree, array $expected_messages): void {
-    self::addMissingBlockComponentVersions($component_tree);
+ * Tests invalid component tree.
+ */
+  #[DataProvider('providerComponentTree')]
+  public function testComponentTree(array $component_tree, array $expected_messages): void {
+    $component_tree = self::populateActiveComponentVersionPlaceholders($component_tree);
     \assert($this->entity instanceof ContentTemplate);
     $this->entity->setComponentTree($component_tree);
     $this->assertValidationErrors($expected_messages);
   }
 
-  public static function providerInvalidComponentTree(): \Generator {
-    yield "missing `component_tree` property" => [
+  public static function providerComponentTree(): \Generator {
+    yield "VALID: missing `component_tree` property" => [
       'component_tree' => [],
       'expected_messages' => [],
     ];
 
-    yield "no EntityFieldPropSource, so no structured data from the content entity" => [
+    yield "VALID: no EntityFieldPropSource, so no structured data from the content entity" => [
       'component_tree' => [
         [
           'uuid' => '19ff9a18-54a2-422a-bf68-49d65a5d53ac',
@@ -259,7 +268,7 @@ final class ContentTemplateValidationTest extends BetterConfigEntityValidationTe
       'expected_messages' => [],
     ];
 
-    yield "using disallowed Block-sourced Components" => [
+    yield "INVALID: using disallowed Block-sourced Components" => [
       'component_tree' => [
         [
           'uuid' => '19ff9a18-54a2-422a-bf68-49d65a5d53ac',
@@ -311,7 +320,7 @@ final class ContentTemplateValidationTest extends BetterConfigEntityValidationTe
       ],
     ];
 
-    yield "using AdaptedPropSource" => [
+    yield "INVALID: using AdaptedPropSource" => [
       'component_tree' => [
         [
           'uuid' => '90804335-d16d-4799-9e80-ddb11692530a',
@@ -351,7 +360,7 @@ final class ContentTemplateValidationTest extends BetterConfigEntityValidationTe
       ],
     ];
 
-    yield "not a uuid" => [
+    yield "INVALID: not a uuid" => [
       'component_tree' => [
         [
           'uuid' => 'garry-sensible-jeans',
@@ -381,7 +390,7 @@ final class ContentTemplateValidationTest extends BetterConfigEntityValidationTe
       ],
     ];
 
-    yield "invalid parent" => [
+    yield "INVALID: invalid parent" => [
       'component_tree' => [
         [
           'uuid' => 'fa9ff0a8-e23a-492a-ab14-5460611fa2c1',
@@ -413,7 +422,7 @@ final class ContentTemplateValidationTest extends BetterConfigEntityValidationTe
       ],
     ];
 
-    yield "invalid slot" => [
+    yield "INVALID: invalid slot (integer sequence keys as the client might send — prove the specified keys are respected)" => [
       'component_tree' => [
         [
           'uuid' => 'fa9ff0a8-e23a-492a-ab14-5460611fa2c1',
@@ -445,7 +454,39 @@ final class ContentTemplateValidationTest extends BetterConfigEntityValidationTe
       ],
     ];
 
-    yield "invalid label" => [
+    yield "INVALID: invalid slot (deterministic sequence keys as the server generates — prove the specified keys are respected)" => [
+      'component_tree' => [
+        'fa9ff0a8-e23a-492a-ab14-5460611fa2c1' => [
+          'uuid' => 'fa9ff0a8-e23a-492a-ab14-5460611fa2c1',
+          'component_id' => 'sdc.canvas_test_sdc.props-slots',
+          'component_version' => '85a5c0c7dd53e0bb',
+          'inputs' => [
+            'heading' => [
+              'sourceType' => PropSource::EntityField->value,
+              'expression' => 'ℹ︎␜entity:node:article␝title␞␟value',
+            ],
+          ],
+        ],
+        'e303dd88-9409-4dc7-8a8b-a31602884a94' => [
+          'uuid' => 'e303dd88-9409-4dc7-8a8b-a31602884a94',
+          'slot' => 'banana',
+          'parent_uuid' => 'fa9ff0a8-e23a-492a-ab14-5460611fa2c1',
+          'component_id' => 'sdc.canvas_test_sdc.props-slots',
+          'component_version' => '85a5c0c7dd53e0bb',
+          'inputs' => [
+            'heading' => [
+              'sourceType' => PropSource::EntityField->value,
+              'expression' => 'ℹ︎␜entity:node:article␝title␞␟value',
+            ],
+          ],
+        ],
+      ],
+      'expected_messages' => [
+        'component_tree.e303dd88-9409-4dc7-8a8b-a31602884a94.slot' => 'Invalid component subtree. This component subtree contains an invalid slot name for component <em class="placeholder">sdc.canvas_test_sdc.props-slots</em>: <em class="placeholder">banana</em>. Valid slot names are: <em class="placeholder">the_body, the_footer, the_colophon</em>.',
+      ],
+    ];
+
+    yield "INVALID: invalid label" => [
       'component_tree' => [
         [
           'uuid' => 'e303dd88-9409-4dc7-8a8b-a31602884a94',
@@ -465,7 +506,7 @@ final class ContentTemplateValidationTest extends BetterConfigEntityValidationTe
       ],
     ];
 
-    yield "invalid version" => [
+    yield "INVALID: invalid version" => [
       'component_tree' => [
         [
           'uuid' => 'fa9ff0a8-e23a-492a-ab14-5460611fa2c1',
@@ -556,14 +597,6 @@ final class ContentTemplateValidationTest extends BetterConfigEntityValidationTe
     ]);
   }
 
-  public function testInvalidContentEntityTypeViewMode(): void {
-    $this->entity->set('content_entity_type_view_mode', 'nope');
-    $this->assertValidationErrors([
-      '' => "The 'content_entity_type_view_mode' property cannot be changed.",
-      'content_entity_type_view_mode' => "The 'core.entity_view_mode.node.nope' config does not exist.",
-    ]);
-  }
-
   public function testExposedSlotMustBeEmpty(): void {
     \assert($this->entity instanceof ContentTemplate);
 
@@ -650,8 +683,9 @@ final class ContentTemplateValidationTest extends BetterConfigEntityValidationTe
   }
 
   /**
-   * @dataProvider providerInvalidExposedSlot
-   */
+ * Tests invalid exposed slot.
+ */
+  #[DataProvider('providerInvalidExposedSlot')]
   public function testInvalidExposedSlot(array $exposed_slots, array $expected_errors): void {
     $this->entity->set('exposed_slots', $exposed_slots);
     $this->assertValidationErrors($expected_errors);
@@ -668,7 +702,7 @@ final class ContentTemplateValidationTest extends BetterConfigEntityValidationTe
     ])->save();
 
     $tree = $this->entity->get('component_tree');
-    \assert(is_array($tree));
+    \assert(\is_array($tree));
     $tree[] = [
       'uuid' => '1870f74a-2611-4864-8fc0-639f0d125d7f',
       'component_id' => InvalidSlots::PLUGIN_ID . '.' . InvalidSlots::PLUGIN_ID,
@@ -705,6 +739,25 @@ final class ContentTemplateValidationTest extends BetterConfigEntityValidationTe
     $this->assertValidationErrors([
       'exposed_slots.footer_for_you' => 'Exposed slots are only allowed in the <em class="placeholder">full</em> view mode.',
     ]);
+  }
+
+  #[TestWith([
+    'full',
+    [],
+  ])]
+  #[TestWith([
+    'teaser',
+    [],
+  ])]
+  #[TestWith([
+    'nope',
+    ['content_entity_type_view_mode' => "The 'core.entity_view_mode.node.nope' config does not exist."],
+  ])]
+  public function testContentEntityTypeViewMode(string $view_mode, array $expected_validation_errors): void {
+    $this->entity = $this->entity->createDuplicate();
+    $this->entity->set('content_entity_type_view_mode', $view_mode);
+    $this->entity->set('id', "node.alpha.$view_mode");
+    $this->assertValidationErrors($expected_validation_errors);
   }
 
 }

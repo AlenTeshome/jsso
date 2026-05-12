@@ -8,7 +8,9 @@ use Drupal\eca\PluginManager\Condition;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
 use Drupal\user\Entity\User;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * The compare field value test.
@@ -18,6 +20,7 @@ use PHPUnit\Framework\Attributes\Group;
  */
 #[Group('eca')]
 #[Group('eca_content')]
+#[RunTestsInSeparateProcesses]
 class CompareFieldValueTest extends KernelTestBase {
 
   /**
@@ -34,6 +37,7 @@ class CompareFieldValueTest extends KernelTestBase {
     'node',
     'eca',
     'eca_content',
+    'modeler_api',
   ];
 
   /**
@@ -74,11 +78,10 @@ class CompareFieldValueTest extends KernelTestBase {
   /**
    * Tests single string field comparison.
    *
-   * @dataProvider fieldValueDataProvider
-   *
    * @throws \Drupal\Component\Plugin\Exception\PluginException
    * @throws \Drupal\Component\Plugin\Exception\ContextException
    */
+  #[DataProvider('fieldValueDataProvider')]
   public function testNodeTitle(string $field_value, string $operator, string $message): void {
     $config = [
       'expected_value' => $field_value,

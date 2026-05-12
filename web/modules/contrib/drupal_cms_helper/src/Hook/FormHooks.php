@@ -114,10 +114,16 @@ final class FormHooks {
       return;
     }
 
-    // Hide everything in the form.
+    // Hide everything in the form except the Custom display settings.
     foreach (Element::children($form) as $key) {
-      $form[$key]['#access'] = FALSE;
+      if ($key !== 'modes') {
+        $form[$key]['#access'] = FALSE;
+      }
+      else {
+        $form['modes']['#weight'] = 10;
+      }
     }
+    
     // If the user has permission to edit the content template, show them a
     // button where they can do that. Otherwise, just show them a message.
     if ($this->currentUser->hasPermission('administer content templates')) {

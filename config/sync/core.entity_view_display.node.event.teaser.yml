@@ -5,9 +5,14 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.event.body
-    - field.field.node.event.field_date_range
+    - field.field.node.event.field_date
+    - field.field.node.event.field_end_date
     - field.field.node.event.field_event_type
+    - field.field.node.event.field_frameworks
     - field.field.node.event.field_location_text
+    - field.field.node.event.field_media_image
+    - field.field.node.event.field_organization
+    - field.field.node.event.field_related_focus_area
     - node.type.event
   module:
     - text
@@ -31,8 +36,13 @@ content:
     weight: 100
     region: content
 hidden:
-  field_date_range: true
+  field_date: true
+  field_end_date: true
   field_event_type: true
+  field_frameworks: true
   field_location_text: true
+  field_media_image: true
+  field_organization: true
+  field_related_focus_area: true
   langcode: true
   search_api_excerpt: true

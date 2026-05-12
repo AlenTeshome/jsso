@@ -33,6 +33,8 @@ final class ContentLoader implements \IteratorAggregate, ContainerInjectionInter
     // This is an internal entity type used by Search API to assist in indexing
     // and has no business being exported.
     'search_api_task',
+    // It is highly unlikely that anyone wants to export emails.
+    'easy_email',
   ];
 
   public function __construct(

@@ -82,5 +82,5 @@ config:
     ?canvas.component.block.events_block:
       disable: []
 extra:
-  recipe_installer_kit:
-    finish_url: '/admin/dashboard/welcome'
+  drupal_cms_installer:
+    creator: Drupal CMS

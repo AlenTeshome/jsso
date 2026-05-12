@@ -1,0 +1,26 @@
+uuid: 8d91e781-28bf-4d33-98a3-e0ffb6e5cac9
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.focus
+  module:
+    - views
+active_version: bbf7c7d60b949808
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'views_block:focus-block_1'
+        label: 'Focus: Focus page Block'
+        label_display: '0'
+        provider: views
+        views_label: ''
+        items_per_page: null
+    fallback_metadata:
+      slot_definitions: null
+label: 'Focus: Focus page Block'
+id: block.views_block.focus-block_1
+provider: views
+source: block
+source_local_id: 'views_block:focus-block_1'

@@ -17,6 +17,7 @@ install:
   - canvas_ai
   # This theme MUST be installed or Canvas breaks in strange ways.
   - canvas_stark
+  - easy_encryption_admin
   - menu_link_content
 recipes:
   - core/recipes/content_editor_role
@@ -94,6 +95,8 @@ config:
     ai_agents: '*'
     canvas_ai: '*'
   actions:
+    ai.settings:
+      ensureEasyEncryptionSetup: ~
     ai_agents.settings:
       simpleConfigUpdate:
         agent_settings:

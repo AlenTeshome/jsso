@@ -13,9 +13,10 @@ use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
-use Drupal\Tests\eca\ContentTypeCreationTrait;
+use Drupal\Tests\node\Traits\ContentTypeCreationTrait;
 use Drupal\user\Entity\User;
 use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,6 +31,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
  */
 #[Group('eca')]
 #[Group('eca_content')]
+#[RunTestsInSeparateProcesses]
 class ContentExecutionChainTest extends KernelTestBase {
 
   use ContentTypeCreationTrait;
@@ -49,6 +51,7 @@ class ContentExecutionChainTest extends KernelTestBase {
     'node',
     'eca',
     'eca_content',
+    'modeler_api',
   ];
 
   /**
@@ -78,7 +81,7 @@ class ContentExecutionChainTest extends KernelTestBase {
   /**
    * Tests execution chains using plugins of eca_content.
    */
-  public function testExecutionChain() {
+  public function testExecutionChain(): void {
     /** @var \Drupal\Core\Session\AccountSwitcherInterface $account_switcher */
     $account_switcher = \Drupal::service('account_switcher');
 
@@ -314,7 +317,7 @@ class ContentExecutionChainTest extends KernelTestBase {
   /**
    * Tests an execution chain of multiple saving operations.
    */
-  public function testEntitySaving() {
+  public function testEntitySaving(): void {
     /** @var \Drupal\Core\Session\AccountSwitcherInterface $account_switcher */
     $account_switcher = \Drupal::service('account_switcher');
     $account_switcher->switchTo(User::load(1));

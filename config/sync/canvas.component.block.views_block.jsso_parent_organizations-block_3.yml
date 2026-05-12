@@ -1,0 +1,26 @@
+uuid: 2045e7d6-bded-4757-af44-18fb9d16f097
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.jsso_parent_organizations
+  module:
+    - views
+active_version: a2de910c57314f5f
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'views_block:jsso_parent_organizations-block_3'
+        label: 'JSSO Parent Organizations: Small JSSO Parent Organizations Block'
+        label_display: '0'
+        provider: views
+        views_label: ''
+        items_per_page: null
+    fallback_metadata:
+      slot_definitions: null
+label: 'JSSO Parent Organizations: Small JSSO Parent Organizations Block'
+id: block.views_block.jsso_parent_organizations-block_3
+provider: views
+source: block
+source_local_id: 'views_block:jsso_parent_organizations-block_3'

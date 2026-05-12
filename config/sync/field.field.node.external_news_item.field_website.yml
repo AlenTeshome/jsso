@@ -1,0 +1,23 @@
+uuid: 214aef65-09e1-45f3-b1c3-88565caa7228
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_website
+    - node.type.external_news_item
+  module:
+    - link
+id: node.external_news_item.field_website
+field_name: field_website
+entity_type: node
+bundle: external_news_item
+label: 'Source URL'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  title: 0
+  link_type: 17
+field_type: link

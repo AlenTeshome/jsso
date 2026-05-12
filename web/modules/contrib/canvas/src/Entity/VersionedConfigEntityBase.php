@@ -52,7 +52,6 @@ abstract class VersionedConfigEntityBase extends ConfigEntityBase implements Ver
 
   public function loadVersion(string $version): static {
     if ($version !== $this->loadedVersion) {
-      \assert(isset($this->versioned_properties));
       $this->assertVersionExists($version);
       $this->loadedVersion = $version;
     }
@@ -68,7 +67,6 @@ abstract class VersionedConfigEntityBase extends ConfigEntityBase implements Ver
    * @return void
    */
   protected function assertVersionExists(string $version): void {
-    \assert(isset($this->versioned_properties));
     if ($version !== $this->active_version && !\array_key_exists($version, $this->versioned_properties)) {
       throw new \OutOfRangeException(\sprintf('The requested version `%s` is not available. Available versions: %s.',
         (string) $version,
@@ -88,7 +86,6 @@ abstract class VersionedConfigEntityBase extends ConfigEntityBase implements Ver
       return $this;
     }
     // Reverse chronological order: new versions appear at the top.
-    \assert(isset($this->versioned_properties));
     $this->versioned_properties = [
       // At the top: the new version, with empty settings by default.
       self::ACTIVE_VERSION => [],
@@ -219,7 +216,7 @@ abstract class VersionedConfigEntityBase extends ConfigEntityBase implements Ver
         // Not all plugin configuration key-value pairs may be needed in the
         // versioned property.
         if ($plugin_instance instanceof VersionedConfigurationSubsetSingleLazyPluginCollection) {
-          \assert(is_array($value));
+          \assert(\is_array($value));
           $value = array_diff_key($value, array_flip($plugin_instance->omittedKeys));
         }
       }

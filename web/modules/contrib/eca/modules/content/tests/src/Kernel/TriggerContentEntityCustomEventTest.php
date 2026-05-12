@@ -8,15 +8,17 @@ use Drupal\eca_content\Event\ContentEntityEvents;
 use Drupal\eca_content\Event\ContentEntityPreSave;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
-use Drupal\Tests\eca\ContentTypeCreationTrait;
+use Drupal\Tests\node\Traits\ContentTypeCreationTrait;
 use Drupal\user\Entity\User;
 use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Kernel tests for the "eca_trigger_content_entity_custom_event" action plugin.
  */
 #[Group('eca')]
 #[Group('eca_content')]
+#[RunTestsInSeparateProcesses]
 class TriggerContentEntityCustomEventTest extends KernelTestBase {
 
   use ContentTypeCreationTrait;
@@ -36,6 +38,7 @@ class TriggerContentEntityCustomEventTest extends KernelTestBase {
     'node',
     'eca',
     'eca_content',
+    'modeler_api',
   ];
 
   /**
@@ -74,7 +77,7 @@ class TriggerContentEntityCustomEventTest extends KernelTestBase {
   /**
    * Tests triggering an entity-aware custom event.
    */
-  public function testTriggerAction() {
+  public function testTriggerAction(): void {
     /** @var \Drupal\Core\Action\ActionManager $action_manager */
     $action_manager = \Drupal::service('plugin.manager.action');
     /** @var \Drupal\eca\Token\TokenInterface $token_services */

@@ -109,6 +109,15 @@ class TrashTestEntity extends ContentEntityBase {
       ->setDisplayConfigurable('form', TRUE)
       ->setRequired(FALSE);
 
+    $fields['required_field'] = BaseFieldDefinition::create('string')
+      ->setLabel(new TranslatableMarkup('Required field'))
+      ->setDescription(new TranslatableMarkup('A required field for testing validation filtering during restore.'))
+      ->setRequired(TRUE)
+      ->setSetting('max_length', 255)
+      ->setDefaultValue('required!')
+      ->setDisplayConfigurable('view', TRUE)
+      ->setDisplayConfigurable('form', TRUE);
+
     $fields['unique_code'] = BaseFieldDefinition::create('string')
       ->setLabel(new TranslatableMarkup('Unique code'))
       ->setDescription(new TranslatableMarkup('A unique code for testing unique field constraints.'))

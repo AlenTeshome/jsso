@@ -1,0 +1,46 @@
+uuid: 75d199f0-151c-4cb8-a30e-82240de04a7a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.knowledge_resources.field_org_logo
+    - field.field.taxonomy_term.knowledge_resources.field_related_link
+    - taxonomy.vocabulary.knowledge_resources
+  module:
+    - link
+    - text
+id: taxonomy_term.knowledge_resources.default
+targetEntityType: taxonomy_term
+bundle: knowledge_resources
+mode: default
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_org_logo:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_related_link:
+    type: link
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  langcode: true
+  search_api_excerpt: true

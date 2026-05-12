@@ -2,10 +2,12 @@
 // Header and Navigation Styling
 // -----------------------------------------------------------------------------
 header {
+
+
     .navbar {
 
         &.sticky {
-            background: var(--clr-brand-forestgreen);
+            background: var(--clr-bg-300);
         }
 
         .container {
@@ -15,13 +17,14 @@ header {
             max-height: 100px;
 
             .region.region-nav-branding {
-                position: absolute;
-                top: 0;
-                left: 0;
+                position: relative;
+                padding-top: 29px;
 
                 .block-system-branding-block {
                     .navbar-brand {
                         padding: 0;
+                        position: relative;
+                        z-index: 1001;
                     }
                 }
             }
@@ -31,11 +34,10 @@ header {
 
 
 header {
-    background-color: #fff;
     padding: 0;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
     position: relative;
     z-index: 10;
+    //min-height: 90px;
 
     .navbar {
         padding: 0;
@@ -72,7 +74,7 @@ header {
             &:hover,
             &.active,
             &.is-active {
-                color: var(--clr-brand-lime) !important; // Using our primary brand color
+                color: var(--clr-brand-jsso-lime) !important; // Using our primary brand color
                 text-decoration: none;
             }
         }

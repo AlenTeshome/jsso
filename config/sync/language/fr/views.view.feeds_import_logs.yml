@@ -1,0 +1,43 @@
+display:
+  default:
+    display_title: Principal
+    display_options:
+      fields:
+        import_id:
+          label: 'Identifiant (ID)'
+          separator: ', '
+        start:
+          separator: ', '
+        end:
+          separator: ', '
+        uid:
+          label: Utilisateur
+          separator: ', '
+        sources_value:
+          label: Sources
+          separator: ', '
+      pager:
+        options:
+          tags:
+            next: ››
+            previous: ‹‹
+          expose:
+            items_per_page_label: 'Éléments par page'
+            items_per_page_options_all_label: '- Tout -'
+            offset_label: Décalage
+      exposed_form:
+        options:
+          submit_button: Appliquer
+          reset_button_label: Réinitialiser
+          exposed_sorts_label: 'Trier par'
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+      arguments:
+        feed:
+          exception:
+            title: Tout
+  page_1:
+    display_title: Page
+    display_options:
+      menu:
+        title: "Vue d'ensemble"

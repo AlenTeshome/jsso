@@ -1,0 +1,36 @@
+uuid: 9ec3ee10-bac7-4790-bc41-58179d9b6e4a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.partner_organizations.field_org_logo
+    - field.field.taxonomy_term.partner_organizations.field_subtitle
+    - field.field.taxonomy_term.partner_organizations.field_svg_icon
+    - taxonomy.vocabulary.partner_organizations
+  module:
+    - text
+id: taxonomy_term.partner_organizations.default
+targetEntityType: taxonomy_term
+bundle: partner_organizations
+mode: default
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_subtitle:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  field_org_logo: true
+  field_svg_icon: true
+  langcode: true
+  search_api_excerpt: true

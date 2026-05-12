@@ -1,0 +1,536 @@
+langcode: en
+status: open
+dependencies:
+  enforced:
+    module:
+      - webform
+open: null
+close: null
+weight: 0
+uid: 1
+template: false
+archive: false
+id: jsso_commitment_form
+title: 'JSSO Commitment/Action/Implementation/Initiative'
+description: 'JSSO Commitment Form'
+category: ''
+elements: |
+  wizard_page_1:
+    '#type': webform_wizard_page
+    '#title': 'Strategy and guiding principles'
+    intro_text:
+      '#type': processed_text
+      '#text': |
+        <p>JSSO Platform is the innovative knowledge management tool that systematizes reporting mechanisms and follow-up processes by member states and key partners on their implementation of the Agenda 2063 and SDGs at the global, regional, country, and local levels.</p><p>It provides a uniform, decentralized storage of key data and documentation including reports, lessons learned, best practices, case studies, and an effective search-engine for tailor-made information searches.</p><p>Commitments have to be aligned with the Agenda 2063 and SDGs and need to apply the guiding principles.</p><p>All commitments need to be entered on the online engagement platform of JSSO at <a href="http://www.jssoafrica.org/">http://www.jssoafrica.org/</a>. To register a commitment or initiative, sign up on the engagement platform. Once you have activated your account via the notification email and are logged in, you can start the commitment process.</p><p>To facilitate the preparation and review of the commitment or initiative within your entity, this offline version of the commitment can be used. Any changes to the commitment or action need to be entered online. If you have any question, check out our FAQs or contact us at <a href="mailto:info@jssoafrica.org">info@jssoafrica.org</a></p>
+      '#format': full_html
+    introduction_text:
+      '#type': processed_text
+      '#text': 'Before you start the commitment process, please read our guiding principles to ensure that your commitment/initiative aligns with the goals and the approach of the JSSO.'
+      '#format': basic_html
+    jsso_confirmation:
+      '#type': checkboxes
+      '#title': 'JSSO'
+      '#options':
+        'I confirm that I have read and understood the JSSO and that my organization agrees to support it.': 'I confirm that I have read and understood the JSSO and that my organization agrees to support it.'
+      '#required': true
+    guiding_principles_confirmation:
+      '#type': checkboxes
+      '#title': 'Guiding principles'
+      '#options':
+        'I confirm that I have read and understood the Guiding Principles of the Joint Secretariat and that my organization agrees to apply them throughout this commitment/initiative': 'I confirm that I have read and understood the Guiding Principles of the Joint Secretariat and that my organization agrees to apply them throughout this commitment/initiative'
+      '#required': true
+  wizard_page_2:
+    '#type': webform_wizard_page
+    '#title': 'Basic information'
+    full_title:
+      '#type': textfield
+      '#title': 'The full title of commitment/initiative'
+      '#description': 'Enter the full title of your commitment/initiative. This is the official title that appears above the final published commitment. Do not enter organization/entity names or the names of people.'
+      '#required': true
+      '#maxlength': 140
+    short_title:
+      '#type': textfield
+      '#title': 'Short title of commitment/initiative'
+      '#description': 'Please give your commitment/ commitment to a short title. Avoid using jargon and acronyms. Do not enter organization/entity names or the names of people.'
+      '#required': true
+      '#maxlength': 50
+    entity_name:
+      '#type': textfield
+      '#title': 'Entity/organization name'
+      '#description': 'Individual entities or multi-stakeholder-based partnerships can enter Commitments/initiatives. If your commitment/initiative involves a partnership of multiple entities, please enter the name of the lead entity. This is the entity responsible for submitting this commitment. If your entity’s name does not appear on this list, please enter it in full into the text box.'
+      '#required': true
+    entity_description:
+      '#type': textarea
+      '#title': 'Entity/organization description'
+      '#description': 'Provide a short overview of your organization: who you are, what you stand for, where you work and how you operate.'
+      '#required': true
+      '#maxlength': 500
+    entity_logo:
+      '#type': managed_file
+      '#title': 'Entity/organization logo'
+      '#description': 'Please upload a high-resolution version of the entity’s official logo. By adding this logo, you agree that it may be displayed on the JSSO Platform and as part of communications material related to your commitment/initiative.'
+      '#file_extensions': 'gif jpg jpeg png'
+    entity_acronym:
+      '#type': textfield
+      '#title': 'Entity/organization acronym'
+      '#description': 'If this entity is commonly known by an acronym, please select it from the list. Otherwise, please select Not Applicable.'
+      '#required': true
+    contribution_type:
+      '#type': radios
+      '#title': 'How does your entity contribute to the commitment?'
+      '#description': "This indicates how you intended to or are achieving your commitment/initiative. What is:\n<br>\nTechnical assistance, expertise, and implementation: Technical assistance, expertise and implementation refer to on-the-ground efforts in support of the implementation of the Agenda 2063 and SDGs. This can include creating and expanding partnerships at country and regional levels, scaling up and increasing investment programmes, and contributions to knowledge development, peer learning and capacity building. See an example of this type of commitment/initiative.\n<br>\nPolicy, advocacy and convening power: Policy, advocacy and convening power refers to efforts to accelerate implementation of the Agenda 2063 and SDGs at the center of the debate on local, national, regional and global development. This includes raising awareness on existing partnerships and programmes, advocating for high-level policy commitments and action, and promoting and enabling knowledge sharing and peer learning. See an example of this type of commitment/initiative.\n<br>\nFinancial and/or in-kind contribution: Financial and in-kind contributions involve mobilizing resources in support of the implementation of the Agenda 2063 and SDGs. This includes any resources committed to expanding and enabling multi-stakeholder partnerships, programming, knowledge development, capacity building and peer learning. See an example of this type of commitment/initiative."
+      '#options':
+        'Technical assistance, expertise and implementation': 'Technical assistance, expertise and implementation'
+        'Policy, advocacy and convening power': 'Policy, advocacy and convening power'
+        'Financial and/or in-kind contribution': 'Financial and/or in-kind contribution'
+    entity_type:
+      '#type': select
+      '#title': 'Entity Type'
+      '#options':
+        'Government or intergovernmental entity': 'Government or intergovernmental entity'
+        'Private sector': 'Private sector'
+        'Civil society, non-governmental, non-profit organization': 'Civil society, non-governmental, non-profit organization'
+        'United Nations system entity': 'United Nations system entity'
+        'Other local, regional or multilateral organizations': 'Other local, regional or multilateral organizations'
+        'Foundation or philanthropic organization': 'Foundation or philanthropic organization'
+        'Social partner': 'Social partner'
+        'Parliamentarian or political organization': 'Parliamentarian or political organization'
+        'Academic institution or scientific community': 'Academic institution or scientific community'
+        'Media': 'Media'
+        'Partnerships': 'Partnerships'
+        'Other': 'Other'
+      '#required': true
+  wizard_page_3:
+    '#type': webform_wizard_page
+    '#title': 'Partners'
+    partners_intro:
+      '#type': processed_text
+      '#text': 'We highly encourage commitments based on partnerships of two or more entities. Please list all organizations, entities, and stakeholder networks that are involved in this initiative and indicate how they contribute to the commitment.'
+      '#format': basic_html
+    partners_group:
+      '#type': webform_custom_composite
+      '#title': 'Partners'
+      '#multiple': true
+      '#element':
+        partner_name:
+          '#type': textfield
+          '#title': 'Name of the partner entity/organization'
+          '#description': 'If your partner’s entity name does not appear on this list, please enter it in full into the text box.'
+          '#required': true
+        focal_name:
+          '#type': textfield
+          '#title': 'Full name'
+          '#description': 'Please provide the name, job title, and email address of the person responsible for managing this commitment/initiative in your partner entity/organization. This information will not be published.'
+        job_title:
+          '#type': textfield
+          '#title': 'Job title'
+        email:
+          '#type': email
+          '#title': 'Email'
+        acronym:
+          '#type': textfield
+          '#title': 'Entity/organization acronym'
+          '#description': 'If an acronym commonly knows this entity, please select it from the list. Otherwise, please select ''Not Applicable’.'
+          '#required': true
+        website:
+          '#type': url
+          '#title': 'Partner entity/organization website'
+          '#description': 'If your partner has a webpage containing more information about this commitment/initiative, please provide the URL (starting with http:// or https://).'
+        contribution_type:
+          '#type': radios
+          '#title': 'How does this partner contribute to the commitment/initiative?'
+          '#description': "This indicates how you intended to achieve your commitment.\nWhat is:\n<br>\n<strong>Technical assistance, expertise, and implementation:</strong>\nTechnical assistance, expertise, and implementation refer to on-the-ground efforts in support of the implementation of the Agenda 2063 and SDGs. This can include creating and expanding partnerships at country and regional levels, scaling up, and increasing investment programmes, and contributions to knowledge development, peer learning, and capacity building. See an example of this type of commitment/initiative.\n<br>\n<strong>Policy, advocacy and convening power:</strong>\nPolicy, advocacy and convening power refers to efforts to accelerate implementation of the Agenda 2063 and SDGs at the center of the debate on local, national, regional, and global development. This includes raising awareness on existing partnerships and programmes, advocating for high-level policy commitments and action, and promoting and enabling knowledge sharing and peer learning. See an example of this type of commitment/initiative.\n<br>\n<strong>Financial and/or in-kind contribution:</strong>\nFinancial and in-kind contributions involve mobilizing resources to support the implementation of the Agenda 2063 and the SDGs. This includes any resources committed to expanding and enabling multi-stakeholder partnerships, programming, knowledge development, capacity building, and peer learning. See an example of this type of commitment/initiative."
+          '#options':
+            'Technical assistance, expertise, and implementation': 'Technical assistance, expertise, and implementation'
+            'Policy, advocacy, and convening power': 'Policy, advocacy, and convening power'
+            'Financial and/or in-kind contribution': 'Financial and/or in-kind contribution'
+          '#required': true
+        entity_type:
+          '#type': select
+          '#title': 'Entity Type'
+          '#options':
+            'Government or intergovernmental entity': 'Government or intergovernmental entity'
+            'Private sector': 'Private sector'
+            'Civil society, non-governmental, non-profit organization': 'Civil society, non-governmental, non-profit organization'
+            'United Nations system entity': 'United Nations system entity'
+            'Other local, regional, or multilateral organizations': 'Other local, regional, or multilateral organizations'
+            'Foundation or philanthropic organization': 'Foundation or philanthropic organization'
+            'Social partner': 'Social partner'
+            'Parliamentarian or political organization': 'Parliamentarian or political organization'
+            'Academic institution or scientific community': 'Academic institution or scientific community'
+            'Media': 'Media'
+            'Partnerships': 'Partnerships'
+            'Other': 'Other'
+          '#required': true
+  wizard_page_4:
+    '#type': webform_wizard_page
+    '#title': 'Links to Transformative Commitments'
+    transformative_commitments_intro:
+      '#type': processed_text
+      '#text': 'If this commitment is part of an overarching transformative commitment by your entity or one of your partners on Agenda 2063 and SDGs, please select that transformative commitment from the list below.'
+      '#format': basic_html
+    transformative_commitment:
+      '#type': select
+      '#title': 'Enter commitment, or not applicable'
+      '#description': 'If your commitment/initiative is not part of an overarching transformative commitment or if the overarching transformative commitment has not yet been published on the JSSO digital platform, please select Not Applicable.'
+      '#options':
+        'Not Applicable': 'Not Applicable'
+        'Sustainable Urban Development for Social Inclusion and Ending Poverty': 'Sustainable Urban Development for Social Inclusion and Ending Poverty'
+        'Sustainable and Inclusive Urban Prosperity and Opportunities for All': 'Sustainable and Inclusive Urban Prosperity and Opportunities for All'
+        'Environmentally Sustainable and Resilient Urban Development': 'Environmentally Sustainable and Resilient Urban Development'
+      '#required': true
+  wizard_page_5:
+    '#type': webform_wizard_page
+    '#title': 'Geographic scope'
+    geographic_focus:
+      '#type': radios
+      '#title': 'Does your commitment/initiative have a specific geographic focus?'
+      '#options':
+        'Yes': 'Yes'
+        'No': 'No'
+      '#required': true
+    geographic_region:
+      '#type': textfield
+      '#title': 'Region'
+      '#description': 'Please enter all regions targeted by this commitment/initiative. Enter regions and countries.'
+      '#states':
+        visible:
+          ':input[name="geographic_focus"]':
+            value: 'Yes'
+  wizard_page_6:
+    '#type': webform_wizard_page
+    '#title': 'Thematic Areas'
+    thematic_areas_intro:
+      '#type': processed_text
+      '#text': 'To stimulate country-level action, scale up existing efforts, and increase impact, the platform focuses on evidence-based, locally owned interventions aligned with national development priorities. These interventions are focused on key thematic areas.'
+      '#format': basic_html
+    thematic_areas:
+      '#type': checkboxes
+      '#title': 'Thematic Areas'
+      '#options':
+        'Social Cohesion and Equity - Livable Cities': 'Social Cohesion and Equity - Livable Cities'
+        'Spatial Development': 'Spatial Development'
+        'Urban Ecology and Environment': 'Urban Ecology and Environment'
+        'Urban Economy': 'Urban Economy'
+        'Urban Frameworks': 'Urban Frameworks'
+        'Urban Housing and Basic Services': 'Urban Housing and Basic Services'
+        'Others': 'Others (Please select only if your commitment/initiative has no relevance to any of the themes above. Specify the area of relevance of your commitment in the textbox.)'
+      '#required': true
+    thematic_areas_others:
+      '#type': textfield
+      '#title': 'Specify other thematic area'
+      '#states':
+        visible:
+          ':input[name="thematic_areas[Others]"]':
+            checked: true
+  wizard_page_7:
+    '#type': webform_wizard_page
+    '#title': 'Strategic elements'
+    strategic_elements_intro:
+      '#type': processed_text
+      '#text': 'Please select the Four Cardinal Points of the JSSO to which your commitment contributes.'
+      '#format': basic_html
+    cardinal_points:
+      '#type': checkboxes
+      '#title': 'Four Cardinal Points'
+      '#options':
+        'Unlock Africa’s Capital Power': 'Unlock Africa’s Capital Power'
+        'Rebuild Africa’s Financial Sovereignty': 'Rebuild Africa’s Financial Sovereignty'
+        'Turn Demographics into a Dividend': 'Turn Demographics into a Dividend'
+        'Build Resilient Infrastructure and Competitive Value Chains': 'Build Resilient Infrastructure and Competitive Value Chains'
+      '#required': true
+  wizard_page_8:
+    '#type': webform_wizard_page
+    '#title': 'Details about the commitment'
+    commitment_details_intro:
+      '#type': processed_text
+      '#text': 'Commitments can include initiatives focused on, but not limited to, the following areas: policies and regulations, capacity-building, advocacy, awareness-raising, funding, outreach and communication, and research. Please note that commitment is not a proposal. Register only concrete commitments in the form of ongoing or confirmed upcoming initiatives and partnerships. Ongoing initiatives can be included if they are implemented for at least 1 year. Please note that a meeting or an event does not constitute a commitment, although these can be included as a deliverable.'
+      '#format': basic_html
+    summary:
+      '#type': textarea
+      '#title': 'Summary of commitment'
+      '#description': 'Enter a simple and concise summary of your commitment. This summary is your elevator pitch and will display prominently on the JSSO digital platform, so avoid jargon and acronyms and use language that is clear to everyone. Details to include: The overall and immediate objective of the commitment; The time period of the commitment; If applicable – the target group characteristics and the total number of people directly supported by this commitment; The geographic scope of this commitment: region(s) and country/countries; The lead entity and the main source of financing.'
+      '#required': true
+    description:
+      '#type': textarea
+      '#title': 'Description of commitment'
+      '#description': 'Be SMART in describing your commitment: include Specific, Measurable, Achievable, Resource-based goals, with Time-bound deliverables. Be as concise as possible and as detailed, as necessary. Please include the following information: How the commitment is carried out; What type of support is provided; How the commitment is governed; How the commitment intends to contribute to the Agenda 2063 and SDGs.'
+    people_benefiting:
+      '#type': webform_custom_composite
+      '#title': 'Total number of people benefiting directly from this commitment'
+      '#description': 'Please enter the total number of people directly affected by this commitment. If the total number is unknown or not applicable, please select Not Applicable.'
+      '#multiple': false
+      '#element':
+        total:
+          '#type': textfield
+          '#title': 'Total'
+        total_women:
+          '#type': textfield
+          '#title': 'Total Women'
+        total_men:
+          '#type': textfield
+          '#title': 'Total Men'
+    start_date:
+      '#type': date
+      '#title': 'Start date'
+      '#description': 'Please enter the start date (day/month/year) of the commitment.'
+      '#required': true
+    completion_date:
+      '#type': date
+      '#title': 'Date of completion'
+      '#description': 'Please enter the completion date (day/month/year) of the commitment.'
+      '#required': true
+  wizard_page_9:
+    '#type': webform_wizard_page
+    '#title': 'Agenda 2063 and Sustainable Development Goals'
+    sdgs:
+      '#type': checkboxes
+      '#title': 'Sustainable Development Goals'
+      '#description': 'Please select up to four Sustainable Development Goals to which your commitment contributes.'
+      '#options':
+        '1. No Poverty': '1. No Poverty'
+        '2. Zero Hunger': '2. Zero Hunger'
+        '3. Good health and well-being': '3. Good health and well-being'
+        '4. Quality Education': '4. Quality Education'
+        '5. Gender Equality': '5. Gender Equality'
+        '6. Clean Water and Sanitation': '6. Clean Water and Sanitation'
+        '7. Affordable and Clean Energy': '7. Affordable and Clean Energy'
+        '8. Decent Work and Economic Growth': '8. Decent Work and Economic Growth'
+        '9. Industry, Innovation, and Infrastructure': '9. Industry, Innovation, and Infrastructure'
+        '10. Reduced Inequalities': '10. Reduced Inequalities'
+        '11. Sustainable Cities and Communities': '11. Sustainable Cities and Communities'
+        '12. Responsible Consumption and Production': '12. Responsible Consumption and Production'
+        '13. Climate Action': '13. Climate Action'
+        '14. Life Below Water': '14. Life Below Water'
+        '15. Life On Land': '15. Life On Land'
+        '16. Peace, Justice, and Strong Institutions': '16. Peace, Justice, and Strong Institutions'
+      '#required': true
+    agenda_2063:
+      '#type': checkboxes
+      '#title': 'Agenda 2063 Aspirations/moonshots'
+      '#description': 'Please select up to four Agenda 2063 Aspirations/moonshots to which your commitment contributes.'
+      '#options':
+        '1. A prosperous Africa based on inclusive growth and sustainable development': '1. A prosperous Africa based on inclusive growth and sustainable development'
+        '2. An integrated continent, politically united and based on the ideals of Pan-Africanism and the vision of Africa’s Renaissance': '2. An integrated continent, politically united and based on the ideals of Pan-Africanism and the vision of Africa’s Renaissance'
+        '3. An Africa of good governance, democracy, respect for human rights, justice, and the rule of law': '3. An Africa of good governance, democracy, respect for human rights, justice, and the rule of law'
+        '4. A peaceful and secure Africa': '4. A peaceful and secure Africa'
+        '5. An Africa with a strong cultural identity, common heritage, shared values, and ethics': '5. An Africa with a strong cultural identity, common heritage, shared values, and ethics'
+        '6. An Africa, whose development is people-driven, relying on the potential of African people, especially its women and youth, and caring for children': '6. An Africa, whose development is people-driven, relying on the potential of African people, especially its women and youth, and caring for children'
+        '7. Africa as a strong, united, resilient, and influential global player and partner': '7. Africa as a strong, united, resilient, and influential global player and partner'
+      '#required': true
+  wizard_page_10:
+    '#type': webform_wizard_page
+    '#title': 'Deliverables'
+    deliverables_intro:
+      '#type': processed_text
+      '#text': 'Please add at least one, up to five, tangible deliverables, including the final deliverable, and select the Agenda 2063 and SDG to which this deliverable contributes.'
+      '#format': basic_html
+    deliverables_group:
+      '#type': webform_custom_composite
+      '#title': 'Deliverables'
+      '#multiple': true
+      '#element':
+        deliverable_type:
+          '#type': select
+          '#title': 'Standardized deliverable'
+          '#options':
+            'Knowledge sharing or advocacy tactics on Agenda 2063 and SDGs carried out, including events, campaigns, and media items': 'Knowledge sharing or advocacy tactics on Agenda 2063 and SDGs carried out, including events, campaigns, and media items'
+            'Agenda 2063 and SDGs Stakeholders supported through technical assistance, capacity-building, or peer learning': 'Agenda 2063 and SDGs Stakeholders supported through technical assistance, capacity-building, or peer learning'
+            'Knowledge products on the Agenda 2063 and SDGs developed': 'Knowledge products on the Agenda 2063 and SDGs developed'
+            'National strategies for the Agenda 2063 and SDGs supported in their development or implementation': 'National strategies for the Agenda 2063 and SDGs supported in their development or implementation'
+            'Amount of United States dollars committed to partnerships in support of Agenda 2063 and SDGs implementation': 'Amount of United States dollars committed to partnerships in support of Agenda 2063 and SDGs implementation'
+          '#required': true
+        countries:
+          '#type': textfield
+          '#title': 'Countries for selected standardized deliverable'
+          '#description': 'Example: Rwanda. Enter the name of country/countries only if you selected the standardized deliverable "National strategies for Agenda 2063 and SDGs supported in their development or operationalization."'
+        target_value:
+          '#type': textfield
+          '#title': 'Enter target value for deliverable'
+          '#description': 'Example: “500” for “number of people trained."'
+        description:
+          '#type': textarea
+          '#title': 'Description of deliverable'
+        month:
+          '#type': select
+          '#title': 'Month'
+          '#options':
+            '1': '1'
+            '2': '2'
+            '3': '3'
+            '4': '4'
+            '5': '5'
+            '6': '6'
+            '7': '7'
+            '8': '8'
+            '9': '9'
+            '10': '10'
+            '11': '11'
+            '12': '12'
+        year:
+          '#type': select
+          '#title': 'Year'
+          '#options':
+            '2024': '2024'
+            '2025': '2025'
+            '2026': '2026'
+            '2027': '2027'
+            '2028': '2028'
+        agenda_2063_link:
+          '#type': textfield
+          '#title': 'Agenda 2063 aspirations/moonshots to which this deliverable contributes'
+  wizard_page_11:
+    '#type': webform_wizard_page
+    '#title': 'Resources'
+    resources_intro:
+      '#type': processed_text
+      '#text': 'Please specify at least one, and up to four, resources that are devoted to this commitment.'
+      '#format': basic_html
+    resources_group:
+      '#type': webform_custom_composite
+      '#title': 'Resources'
+      '#multiple': true
+      '#element':
+        resource_type:
+          '#type': select
+          '#title': 'Resource type'
+          '#options':
+            'Financing': 'Financing'
+            'In-kind': 'In-kind'
+            'Technical Assistance/Support': 'Technical Assistance/Support'
+            'Other': 'Other'
+        amount_usd:
+          '#type': number
+          '#title': 'Amount in US Dollar'
+          '#description': '(Please note that this will show publicly). Enter information only if resource type Financing is selected.'
+        description:
+          '#type': textarea
+          '#title': 'Description'
+    estimated_total_value:
+      '#type': textfield
+      '#title': 'Estimated total value of the commitment in US Dollar'
+      '#description': 'Please enter the estimated total value of the commitment in the United States Dollar (USD). If the value is in another currency, please convert it to USD using the UN Operational Rates of Exchange. Please use the description field to justify the estimated total value. If the total value is unknown or cannot be determined at this time, please select Not Applicable. (Please note that this will show publicly).'
+    project_budget_description:
+      '#type': textarea
+      '#title': 'Description of project budget'
+      '#description': '(This will not show publicly).'
+  wizard_page_12:
+    '#type': webform_wizard_page
+    '#title': 'Supporting materials'
+    website:
+      '#type': url
+      '#title': 'Website'
+      '#description': 'If you have a webpage containing more information about this commitment, please provide the URL (starting with http:// or https://).'
+    social_media:
+      '#type': textfield
+      '#title': 'Social media'
+      '#description': 'If you have a social media presence related to your commitment, please share all relevant URLs.'
+    documents:
+      '#type': managed_file
+      '#title': 'Documents'
+      '#description': '(upload up to three documents in .doc or .pdf format) If your commitment has any further supporting documents – such as project documents, brochures, reports or briefings – please upload them here. These documents are for the reference of the JSSO digital platform team and will not be published on the website.'
+      '#multiple': true
+      '#file_extensions': 'doc docx pdf'
+    images:
+      '#type': managed_file
+      '#title': 'Images'
+      '#description': '(upload up to three in .jpg or .png format) Upload up to three high-resolution images related to your commitment. By submitting, you are affirming that you own the rights to these images, and you agree that they may be published on the JSSO digital platform and shared on social media channels in relation to your commitment.'
+      '#multiple': true
+      '#file_extensions': 'jpg jpeg png'
+  wizard_page_13:
+    '#type': webform_wizard_page
+    '#title': 'Contact information'
+    focal_point:
+      '#type': webform_custom_composite
+      '#title': 'Focal point of lead entity'
+      '#description': 'The focal point is the person responsible for the commitment at the operational level and should be contacted with inquiries. Please note that contact information will only be available to registered users.'
+      '#multiple': false
+      '#element':
+        title:
+          '#type': textfield
+          '#title': 'Title'
+        first_name:
+          '#type': textfield
+          '#title': 'First name'
+        last_name:
+          '#type': textfield
+          '#title': 'Last name'
+        job_title:
+          '#type': textfield
+          '#title': 'Job title'
+        organization:
+          '#type': textfield
+          '#title': 'Organization/entity'
+        location:
+          '#type': textfield
+          '#title': 'Location (country)'
+        email:
+          '#type': email
+          '#title': 'Email'
+        telephone:
+          '#type': textfield
+          '#title': 'Telephone'
+        website:
+          '#type': url
+          '#title': 'Website'
+    alternative_focal_point:
+      '#type': webform_custom_composite
+      '#title': 'Alternative focal point'
+      '#description': 'Please enter the contact information of an alternative focal point for this commitment.'
+      '#multiple': false
+      '#element':
+        title:
+          '#type': textfield
+          '#title': 'Title'
+        first_name:
+          '#type': textfield
+          '#title': 'First name'
+        last_name:
+          '#type': textfield
+          '#title': 'Last name'
+        job_title:
+          '#type': textfield
+          '#title': 'Job title'
+        organization:
+          '#type': textfield
+          '#title': 'Organization/entity'
+        location:
+          '#type': textfield
+          '#title': 'Location (country)'
+        email:
+          '#type': email
+          '#title': 'Email'
+        telephone:
+          '#type': textfield
+          '#title': 'Telephone'
+        website:
+          '#type': url
+          '#title': 'Website'
+  wizard_page_14:
+    '#type': webform_wizard_page
+    '#title': 'Permissions'
+    permissions_intro:
+      '#type': processed_text
+      '#text': 'All commitments will be evaluated before being accepted as a contribution to the JSSO digital platform and published on the website. You may receive feedback from Platform admins on the contents of your commitment. You can respond to comments and make changes by going to “Commitments” on your user panel. Once approved by the JSSO digital platform, commitment and regular progress updates will be publicly available online. Once a commitment to publish on this website is accepted, your organization or entity will become a partner in the JSSO digital platform. You also agree to provide updates on progress and impact when requested.'
+      '#format': basic_html
+    permission_1:
+      '#type': checkbox
+      '#title': 'I grant JSSO digital platform permission to make the information and images I have provided publicly available, both on this website and in related communications materials. (This excludes fields which specifically state that the information will not be made public).'
+    permission_2:
+      '#type': checkbox
+      '#title': 'I confirm that my organization wishes to become a JSSO digital platform partner and grant permission for our logo and information to be displayed publicly on this website and in related communication materials.'
+settings:
+  page: true
+  wizard_progress_bar: true
+  wizard_progress_pages: true
+  wizard_progress_percentage: true
+  wizard_progress_link: true
+  wizard_title_display: 'none'
+  wizard_preview_link: false
+  wizard_complete: true
+  wizard_start_label: ''
+  wizard_preview_button_label: ''
+  wizard_next_button_label: ''
+  wizard_prev_button_label: ''
+  wizard_complete_button_label: ''
+  ajax: false

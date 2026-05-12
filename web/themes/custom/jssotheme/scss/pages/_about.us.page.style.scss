@@ -1,274 +1,161 @@
 @use '../abstracts' as *;
 
-
-
-.ourmission.view-our-mission {
-    .view-content {
-        display: flex;
-        flex-direction: row;
-        gap: 2em 1em;
-        justify-content: space-between;
-        flex-wrap: wrap;
-
-        .mission-row.views-row {
-
-            display: flex;
-            flex: 1 1 calc(25% - 1em); // 4 per row
-            max-width: calc(25% - 1em);
-
-            &:nth-child(1) {
-                .mission-icon {
-                    display: flex;
-                    justify-content: end;
-                    @include after-psudo('\f530');
-                    @include svg-fill-with-bg;
-                }
-            }
-
-            &:nth-child(2) {
-                .mission-icon {
-                    display: flex;
-                    justify-content: end;
-                    @include after-psudo('\f537');
-                    @include svg-fill-with-bg;
-                }
-            }
-
-            &:nth-child(3) {
-                .mission-icon {
-                    display: flex;
-                    justify-content: end;
-                    @include after-psudo('\e4bf');
-                    @include svg-fill-with-bg;
-                }
-            }
-
-            &:nth-child(4) {
-                .mission-icon {
-                    display: flex;
-                    justify-content: end;
-                    @include after-psudo('\e4e9');
-                    @include svg-fill-with-bg;
-                }
-            }
-
-            .mission-detail {
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-                gap: 1em;
-                align-items: center;
-                padding: 1.5em;
-                height: 100%;
-                border-radius: 1em;
-                background-color: var(--clr-brand-beige);
-                transition: all 0.3s ease-in-out;
-
-
-
-                .mission-title {
-                    font-size: 1rem;
-                    font-weight: 600;
-                    color: var(--clr-brand-forestgreen);
-                }
-
-                .mission-icon {
-                    svg {
-                        transform: rotate(0deg) translate(0, 0);
-                    }
-                }
-
-                .mission-desc {
-                    font-size: .9rem;
-                    text-align: center;
-                }
-            }
-        }
-    }
+body:has(.view-about-us-page-blocks) {
+    background: var(--clr-brand-jsso-bluebeige);
 }
 
-.core-values.view-our-mission {
-    .view-content {
-
-        display: flex;
-        flex-direction: row;
-        gap: 2em 1em;
-        justify-content: space-between;
-        flex-wrap: wrap;
-
-        .core-values-row.views-row {
-
-            display: flex;
-            flex: 1 1 calc(25% - 1em); // 4 per row
-            max-width: calc(25% - 1em);
-
-            &:nth-child(1) {
-                .mission-icon {
-                    display: flex;
-                    justify-content: end;
-                    @include after-psudo('\f530');
-                    @include svg-fill-with-bg;
-                }
-            }
-
-            &:nth-child(2) {
-                .mission-icon {
-                    display: flex;
-                    justify-content: end;
-                    @include after-psudo('\f537');
-                    @include svg-fill-with-bg;
-                }
-            }
-
-            &:nth-child(3) {
-                .mission-icon {
-                    display: flex;
-                    justify-content: end;
-                    @include after-psudo('\e4bf');
-                    @include svg-fill-with-bg;
-                }
-            }
-
-            &:nth-child(4) {
-                .mission-icon {
-                    display: flex;
-                    justify-content: end;
-                    @include after-psudo('\e4e9');
-                    @include svg-fill-with-bg;
-                }
-            }
-
-            .core-values-detail {
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-                gap: 1em;
-                align-items: center;
-                padding: 1.5em;
-                height: 100%;
-                border-radius: 1em;
-                background-color: var(--clr-brand-beige);
-                transition: all 0.3s ease-in-out;
-
-
-
-                .core-values-title {
-                    font-size: 1rem;
-                    font-weight: 600;
-                    color: var(--clr-brand-forestgreen);
-                }
-
-                .mission-icon {
-                    svg {
-                        transform: rotate(0deg) translate(0, 0);
-                    }
-                }
-
-                .core-values-desc {
-                    font-size: .9rem;
-                    text-align: center;
-                }
-            }
-        }
-    }
-}
-
-
-.our-vision.view-id-our_mission {
-
-    .view-header {
-        padding: 1.5rem 2rem;
-        font-size: 1.5rem;
-        font-style: italic;
-        text-align: center;
-    }
-
+.view-about-us-page-blocks {
 
     .view-content {
-
-        display: flex;
-        flex-direction: row;
-        gap: 2em 1em;
-        justify-content: space-between;
-        flex-wrap: wrap;
-
         .views-row {
-            display: flex;
-            flex: 1 1 calc(33% - 1em); // 4 per row
-            max-width: calc(33% - 1em);
+            padding: 2rem;
+            @include focus-row-hover-effect;
 
-            .vision-detail {
+            .about-detail {
+                height: 100%;
+            }
 
+            a {
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
-                padding: 1.5em;
-                width: 100%;
                 height: 100%;
-                border-radius: 1em;
-                background-color: var(--clr-bg-300);
-                transition: all 0.3s ease-in-out;
-
+                color: var(--clr-brand-jsso-secondary);
 
                 &:hover {
-                    background-color: var(--clr-brand-lime);
-                    transform: translateY(-2px);
+                    color: var(--clr-brand-jsso-primary);
                 }
+            }
 
-                .wrapper {
-                    display: flex;
-                    justify-content: space-between;
-                }
+            .title {
+                font-size: 1.5rem;
+                font-weight: 600;
+                line-height: 1.2;
+                padding-bottom: 1rem;
+            }
 
-                .number {
-                    padding: .5em;
-                    border-radius: 100%;
-                    background: var(--clr-brand-forestgreen);
-                    color: var(--clr-brand-lime);
-                    font-size: 2rem;
-                    width: 60px;
-                    height: 60px;
-                    display: flex;
-                    line-height: 1;
-                    align-items: center;
-                    justify-content: center;
-                }
+            .subtitle {
+                font-size: 1.2rem;
+                line-height: 1.3;
+                color: var(--clr-bg-400);
+                padding-bottom: 1rem;
+            }
 
-                .visoin-icon {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
+            .callout {
+                font-size: 1rem;
+                line-height: 1.2;
+                color: var(--text-color);
+                padding-bottom: 1.5rem;
+            }
 
-                    img {
-                        width: 60px;
-                        height: auto;
-                        object-fit: cover;
-                        border-radius: 1em;
-                    }
-                }
-
-
-                .vision-title {
-                    text-align: center;
-                    font-size: 1.2rem;
-                    font-weight: 600;
-                    color: var(--clr-brand-forestgreen);
-                }
-
-                .vision-desc {
-                    font-size: .9rem;
-                    text-align: center;
-                }
-
+            .view-link {
+                display: flex;
+                line-height: 1.2;
+                justify-content: end;
             }
         }
     }
 
-    .more-link {
-        padding-top: 2em;
+    &.firstblock {
+        .view-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem; // You can adjust the gap here
 
-        a {
-            @include main-read-more-link-anchor(var(--clr-brand-forestgreen), var(--clr-bg-300), var(--clr-brand-lime), var(--clr-bg-500));
+            @media screen and (min-width: 992px) {
+                grid-template-columns: repeat(2, 1fr);
+
+                .views-row {
+                    &:nth-child(3) {
+                        // Makes the first item span across both columns (100%)
+                        grid-column: span 2;
+                    }
+
+                    // The 2nd and 3rd items will naturally take 1 column each (50%)
+                    &:nth-child(1),
+                    &:nth-child(2) {
+                        grid-column: span 1;
+                    }
+                }
+            }
+        }
+    }
+
+    &.leadership {
+        .view-content {
+            display: flex;
+
+            .views-row .wrapper a {
+                display: flex;
+                flex-direction: row;
+                gap: 2rem;
+
+                .image {
+                    flex: 1 1 35%;
+                }
+
+                .about-details {
+                    flex: 1 1 65%;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 1rem;
+                }
+            }
+        }
+
+    }
+
+
+    &.belowleadership {
+        margin-top: 2rem;
+
+        .view-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem; // You can adjust the gap here
+
+            @media screen and (min-width: 992px) {
+                grid-template-columns: repeat(2, 1fr);
+
+                .views-row {
+                    &:nth-child(1) {
+                        // Makes the first item span across both columns (100%)
+                        grid-column: span 2;
+                    }
+
+                    // The 2nd and 3rd items will naturally take 1 column each (50%)
+                    &:nth-child(2),
+                    &:nth-child(3),
+                    &:nth-child(4),
+                    &:nth-child(5) {
+                        grid-column: span 1;
+                    }
+                }
+            }
+        }
+    }
+
+
+    &.collaborate {
+        .view-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem; // You can adjust the gap here
+
+            @media screen and (min-width: 992px) {
+                grid-template-columns: repeat(2, 1fr);
+
+                .views-row {
+
+                    // The 2nd and 3rd items will naturally take 1 column each (50%)
+                    &:nth-child(1),
+                    &:nth-child(2),
+                    &:nth-child(3),
+                    &:nth-child(4) {
+                        grid-column: span 1;
+                    }
+                }
+            }
         }
     }
 }

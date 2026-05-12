@@ -258,6 +258,13 @@ class LeafletMap extends StylePluginBase implements ContainerFactoryPluginInterf
   /**
    * {@inheritdoc}
    */
+  public static function defaultSettings() {
+    return self::getDefaultSettings();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function init(ViewExecutable $view, DisplayPluginBase $display, ?array &$options = NULL) {
     parent::init($view, $display, $options);
 
@@ -859,8 +866,11 @@ class LeafletMap extends StylePluginBase implements ContainerFactoryPluginInterf
     // Collect bubbleable metadata when doing early rendering.
     $build_for_bubbleable_metadata = [];
 
-    // Always render the map, otherwise ...
-    $leaflet_map_style = !isset($this->options['leaflet_map']) ? $this->options['map'] : $this->options['leaflet_map'];
+    $default_settings = self::defaultSettings();
+
+    // Set the Leaflet Map style options.
+    $leaflet_map_options = $this->getLeafletMaps();
+    $leaflet_map_style = array_key_exists($this->options['leaflet_map'], $leaflet_map_options) ? $this->options['leaflet_map'] : $default_settings["leaflet_map"];
     $map = leaflet_map_get_info($leaflet_map_style);
 
     // Set Map additional map Settings.
@@ -881,6 +891,9 @@ class LeafletMap extends StylePluginBase implements ContainerFactoryPluginInterf
         '#markup' => '<div class="geofield-map-warning">' . $this->t("The Geofield field has not been correctly set for this View. <br>Add at least one Geofield to the View and set it as Data Source in the Geofield Google Map View Display Settings.") . "</div>",
         '#attached' => [
           'library' => ['leaflet/general'],
+        ],
+        '#cache' => [
+          'contexts' => ['user.permissions'],
         ],
       ];
     }
@@ -1264,10 +1277,7 @@ class LeafletMap extends StylePluginBase implements ContainerFactoryPluginInterf
       case '#rendered_view_fields':
         // Normal rendering via view/row fields
         // (with labels options, formatters, classes, etc.).
-        $render_row = [
-          "markup" => $this->view->rowPlugin->render($result),
-        ];
-        // Render popup content, ensuring backward compatibility
+        $render_row = $this->view->rowPlugin->render($result);
         $popup_content = $this->renderer->renderInIsolation($render_row);
         break;
 
@@ -1688,7 +1698,8 @@ class LeafletMap extends StylePluginBase implements ContainerFactoryPluginInterf
     $options['weight'] = ['default' => NULL];
 
     $leaflet_map_default_settings = [];
-    foreach (self::getDefaultSettings() as $k => $setting) {
+    $default_settings = self::getDefaultSettings();
+    foreach ($default_settings as $k => $setting) {
       $leaflet_map_default_settings[$k] = ['default' => $setting];
     }
     return $options + $leaflet_map_default_settings;

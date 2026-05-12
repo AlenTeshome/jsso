@@ -8,13 +8,14 @@ use Drupal\KernelTests\KernelTestBase;
 use Drupal\migrate\Row;
 use Drupal\user\Entity\User;
 use PHPUnit\Framework\Attributes\Group;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Kernel tests for the "eca_migrate" event plugin.
  */
 #[Group('eca')]
 #[Group('eca_migrate')]
+#[RunTestsInSeparateProcesses]
 class EcaMigrateEventTest extends KernelTestBase {
 
   /**
@@ -23,9 +24,9 @@ class EcaMigrateEventTest extends KernelTestBase {
   protected Event $eventManager;
 
   /**
-   * A process row or a mock.
+   * A process row stub.
    */
-  protected Row|MockObject $row;
+  protected Row $row;
 
   /**
    * {@inheritdoc}
@@ -36,6 +37,7 @@ class EcaMigrateEventTest extends KernelTestBase {
     'user',
     'eca',
     'eca_migrate',
+    'modeler_api',
   ];
 
   /**
@@ -44,9 +46,7 @@ class EcaMigrateEventTest extends KernelTestBase {
   public function setUp(): void {
     parent::setUp();
     $this->eventManager = \Drupal::service('plugin.manager.eca.event');
-    $this->row = $this->getMockBuilder('Drupal\migrate\Row')
-      ->disableOriginalConstructor()
-      ->getMock();
+    $this->row = $this->createStub(Row::class);
   }
 
   /**

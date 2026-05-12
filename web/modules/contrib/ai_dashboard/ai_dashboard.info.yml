@@ -7,7 +7,7 @@ dependencies:
   - dashboard:dashboard
   - project_browser:project_browser
 
-# Information added by Drupal.org packaging script on 2026-02-16
-version: '1.0.2'
+# Information added by Drupal.org packaging script on 2026-03-05
+version: '1.0.3'
 project: 'ai_dashboard'
-datestamp: 1771237847
+datestamp: 1772714207

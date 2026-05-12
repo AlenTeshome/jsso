@@ -36,15 +36,19 @@
 
             &:hover {
                 transform: translateY(-5px);
-                background: var(--clr-brand-lime);
+                background: var(--clr-brand-jsso-lime);
 
                 .resource-image img {
                     transform: scale(1.08);
                 }
 
-                .resource-links {
-                    color: var(--clr-brand-lime);
+                .resource-name {
+                    color: var(--clr-brand-jsso-lime);
                 }
+            }
+
+            .resource-details {
+                position: relative;
             }
 
             .resource-image {
@@ -71,10 +75,14 @@
             }
 
             .resource-name {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
                 padding: 1rem 1.25rem 0.5rem;
                 font-size: 1.1rem;
                 font-weight: 700;
-                color: var(--clr-text-main);
+                color: var(--clr-bg-300);
                 line-height: 1.3;
                 z-index: 2;
                 min-height: 4.5rem;
@@ -140,7 +148,7 @@
                 padding: 0.5rem;
                 font-size: 1.1rem;
                 font-weight: 700;
-                color: var(--clr-text-main);
+                color: var(--clr-bg-300);
                 line-height: 1.3;
                 z-index: 2;
             }
@@ -148,7 +156,7 @@
             .resource-desc {
                 padding: 0.5rem;
                 font-size: .9rem;
-                color: var(--clr-text-main);
+                color: var(--clr-bg-100);
                 line-height: 1.3;
                 z-index: 2;
             }

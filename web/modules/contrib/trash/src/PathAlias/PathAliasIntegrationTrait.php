@@ -7,11 +7,33 @@ namespace Drupal\trash\PathAlias;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\FieldableEntityInterface;
 use Drupal\path\Plugin\Field\FieldType\PathFieldItemList;
+use Drupal\pathauto\PathautoFieldItemList;
+use Drupal\pathauto\PathautoState;
 
 /**
  * Provides path alias integration for trash handlers.
  */
 trait PathAliasIntegrationTrait {
+
+  /**
+   * Whether path aliases should be handled for the given entity.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   The entity to check.
+   *
+   * @return bool
+   *   TRUE if path aliases should be handled, FALSE otherwise.
+   */
+  protected function shouldHandlePathAliases(EntityInterface $entity): bool {
+    if ($entity->getEntityTypeId() === 'path_alias' || !$this->trashManager->isEntityTypeEnabled('path_alias')) {
+      return FALSE;
+    }
+
+    // Only entity types with a "canonical" or "edit-form" link template may
+    // support path aliases.
+    $entity_type = $entity->getEntityType();
+    return $entity_type->hasLinkTemplate('canonical') || $entity_type->hasLinkTemplate('edit-form');
+  }
 
   /**
    * Automatically deletes associated path aliases when entity is trashed.
@@ -20,14 +42,7 @@ trait PathAliasIntegrationTrait {
    *   The entity being trashed.
    */
   protected function deleteAssociatedPathAliases(EntityInterface $entity): void {
-    // Skip path_alias entities themselves - this is only for entities that
-    // reference them.
-    if ($entity->getEntityTypeId() === 'path_alias') {
-      return;
-    }
-
-    // Check if the path_alias entity type is trash-enabled.
-    if (!$this->trashManager->isEntityTypeEnabled('path_alias')) {
+    if (!$this->shouldHandlePathAliases($entity)) {
       return;
     }
 
@@ -49,14 +64,7 @@ trait PathAliasIntegrationTrait {
    *   The timestamp when the entity was deleted.
    */
   protected function restoreAssociatedPathAliases(EntityInterface $entity, int|string $deleted_timestamp): void {
-    // Skip path_alias entities themselves - this is only for entities that
-    // reference them.
-    if ($entity->getEntityTypeId() === 'path_alias') {
-      return;
-    }
-
-    // Check if the path_alias entity type is trash-enabled.
-    if (!$this->trashManager->isEntityTypeEnabled('path_alias')) {
+    if (!$this->shouldHandlePathAliases($entity)) {
       return;
     }
 
@@ -73,6 +81,25 @@ trait PathAliasIntegrationTrait {
         return $storage->loadMultiple($ids);
       });
       $storage->restoreFromTrash($path_aliases);
+    }
+  }
+
+  /**
+   * Ensure that pathauto doesn't act during trash operations.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   The entity being trashed or restored.
+   */
+  protected function skipPathauto(EntityInterface $entity): void {
+    if (!$this->shouldHandlePathAliases($entity)) {
+      return;
+    }
+
+    assert($entity instanceof FieldableEntityInterface);
+    foreach ($entity->getFields() as $field) {
+      if ($field instanceof PathautoFieldItemList) {
+        $field->first()->set('pathauto', PathautoState::SKIP);
+      }
     }
   }
 

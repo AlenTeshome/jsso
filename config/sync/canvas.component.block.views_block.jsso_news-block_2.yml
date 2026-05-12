@@ -1,0 +1,26 @@
+uuid: a835dc22-b4fb-4862-a707-7448b59c28c2
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.jsso_news
+  module:
+    - views
+active_version: 42139cbaa281f35a
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'views_block:jsso_news-block_2'
+        label: 'JSSO News: All News List Block'
+        label_display: '0'
+        provider: views
+        views_label: ''
+        items_per_page: null
+    fallback_metadata:
+      slot_definitions: null
+label: 'JSSO News: All News List Block'
+id: block.views_block.jsso_news-block_2
+provider: views
+source: block
+source_local_id: 'views_block:jsso_news-block_2'

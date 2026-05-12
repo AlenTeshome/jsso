@@ -5,6 +5,7 @@
 
 // eslint-disable-next-line func-names
 (function ($, Drupal, once) {
+  // cspell:ignore whitelist
   Drupal.facets = Drupal.facets || {};
 
   // eslint-disable-next-line func-names
@@ -162,7 +163,9 @@
           const value = e.detail?.data?.value;
           if (!value) return;
           e.preventDefault();
-          $widget.trigger('facets_filter', [value]);
+          if ($widgetLinks.filter(`[href="${value}"]`).length > 0) {
+            $widget.trigger('facets_filter', [value]);
+          }
         });
 
         /**

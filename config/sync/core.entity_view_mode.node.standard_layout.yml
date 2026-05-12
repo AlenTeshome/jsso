@@ -1,0 +1,11 @@
+uuid: 4622c597-f753-4dee-a9c2-2ba39094eefe
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.standard_layout
+label: 'Standard Layout'
+description: null
+targetEntityType: node
+cache: true

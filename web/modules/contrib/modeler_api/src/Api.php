@@ -15,13 +15,18 @@ use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Menu\MenuLinkManagerInterface;
 use Drupal\Core\Routing\RouteProviderInterface;
+use Drupal\Core\Session\AccountProxy;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\Url;
+use Drupal\Core\Utility\Token as BaseToken;
 use Drupal\modeler_api\Form\Settings;
 use Drupal\modeler_api\Plugin\ModelerApiModelOwner\ModelOwnerInterface;
 use Drupal\modeler_api\Plugin\ModelerApiModeler\ModelerInterface;
+use Drupal\modeler_api\Plugin\ContextPluginManager;
+use Drupal\modeler_api\Plugin\DependencyPluginManager;
 use Drupal\modeler_api\Plugin\ModelerPluginManager;
 use Drupal\modeler_api\Plugin\ModelOwnerPluginManager;
+use Drupal\modeler_api\Plugin\TemplateTokenPluginManager;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
 use Symfony\Component\Routing\Route;
 
@@ -30,7 +35,6 @@ use Symfony\Component\Routing\Route;
  */
 class Api {
 
-  use EntityOriginalTrait;
   use StringTranslationTrait;
 
   /**
@@ -50,15 +54,15 @@ class Api {
     return \Drupal::service('modeler_api.service');
   }
 
-  public const COMPONENT_TYPE_START = 1;
-  public const COMPONENT_TYPE_SUBPROCESS = 2;
-  public const COMPONENT_TYPE_SWIMLANE = 3;
-  public const COMPONENT_TYPE_ELEMENT = 4;
-  public const COMPONENT_TYPE_LINK = 5;
-  public const COMPONENT_TYPE_GATEWAY = 6;
-  public const COMPONENT_TYPE_ANNOTATION = 7;
+  public const int COMPONENT_TYPE_START = 1;
+  public const int COMPONENT_TYPE_SUBPROCESS = 2;
+  public const int COMPONENT_TYPE_SWIMLANE = 3;
+  public const int COMPONENT_TYPE_ELEMENT = 4;
+  public const int COMPONENT_TYPE_LINK = 5;
+  public const int COMPONENT_TYPE_GATEWAY = 6;
+  public const int COMPONENT_TYPE_ANNOTATION = 7;
 
-  public const AVAILABLE_COMPONENT_TYPES = [
+  public const array AVAILABLE_COMPONENT_TYPES = [
     self::COMPONENT_TYPE_START,
     self::COMPONENT_TYPE_SUBPROCESS,
     self::COMPONENT_TYPE_SWIMLANE,
@@ -69,18 +73,80 @@ class Api {
   ];
 
   /**
+   * Maps component type constants to their YAML key names.
+   */
+  public const array COMPONENT_TYPE_NAMES = [
+    self::COMPONENT_TYPE_START => 'start',
+    self::COMPONENT_TYPE_SUBPROCESS => 'subprocess',
+    self::COMPONENT_TYPE_SWIMLANE => 'swimlane',
+    self::COMPONENT_TYPE_ELEMENT => 'element',
+    self::COMPONENT_TYPE_LINK => 'link',
+    self::COMPONENT_TYPE_GATEWAY => 'gateway',
+    self::COMPONENT_TYPE_ANNOTATION => 'annotation',
+  ];
+
+  /**
    * Constructs the modeler API plugin manager.
    */
   public function __construct(
+    protected AccountProxy $currentUser,
     protected ModelOwnerPluginManager $modelOwnerPluginManager,
     protected ModelerPluginManager $modelerPluginManager,
     protected ConfigFactoryInterface $configFactory,
     protected ManagedStorage $configStorage,
     protected FileSystemInterface $fileSystem,
-    protected EntityTypeManagerInterface $entityTypeManager,
-    protected RouteProviderInterface $routeProvider,
     protected MenuLinkManagerInterface $menuLinkManager,
+    protected ContextPluginManager $contextPluginManager,
+    protected DependencyPluginManager $dependencyPluginManager,
+    protected TemplateTokenPluginManager $templateTokenPluginManager,
+    protected ContextListBuilder $contextListBuilder,
+    protected DependencyListBuilder $dependencyListBuilder,
+    protected TemplateTokenListBuilder $templateTokenListBuilder,
+    protected \Closure $entityTypeManagerFactory,
+    protected \Closure $routeProviderFactory,
+    protected \Closure $tokenFactory,
+    protected ?\Closure $tokenTreeBuilderFactory = NULL,
   ) {}
+
+  /**
+   * Get the entity type manager service.
+   *
+   * @return \Drupal\Core\Entity\EntityTypeManagerInterface
+   *   The entity type manager service.
+   */
+  protected function getEntityTypeManager(): EntityTypeManagerInterface {
+    return ($this->entityTypeManagerFactory)();
+  }
+
+  /**
+   * Get the route provider service.
+   *
+   * @return \Drupal\Core\Routing\RouteProviderInterface
+   *   The route provider service.
+   */
+  protected function getRouteProvider(): RouteProviderInterface {
+    return ($this->routeProviderFactory)();
+  }
+
+  /**
+   * Get the token service.
+   *
+   * @return \Drupal\Core\Utility\Token
+   *   The token service.
+   */
+  protected function getTokenService(): BaseToken {
+    return ($this->tokenFactory)();
+  }
+
+  /**
+   * Get the token tree builder.
+   *
+   * @return mixed|null
+   *   The token tree builder if available.
+   */
+  protected function getTokenTreeBuilder(): mixed {
+    return is_callable($this->tokenTreeBuilderFactory) ? ($this->tokenTreeBuilderFactory)() : NULL;
+  }
 
   /**
    * Get the modeler if there's only one available, except the fallback.
@@ -252,14 +318,39 @@ class Api {
       $build = $modeler->edit($owner, $model->id() ?? 'placeholder', $data, $model->isNew(), $readOnly);
     }
     // Add settings.
-    $settings = [];
+    $settings = [
+      'metadata' => [
+        'version' => $owner->getVersion($model),
+        'label' => $owner->getLabel($model),
+        'documentation' => $owner->getDocumentation($model),
+        'storage' => $owner->getStorage($model),
+        'executable' => $owner->getStatus($model),
+        'template' => $owner->getTemplate($model),
+        'tags' => $owner->getTags($model),
+        'changelog' => $owner->getChangelog($model),
+      ],
+      'component_labels' => $owner->componentLabels(),
+      'component_labels_plural' => $owner->componentLabelsPlural(),
+      'model_constraints' => $this->prepareModelConstraints($owner),
+      'permissions' => ModelerApiPermissions::userPermissionsForModeler($this->currentUser, $owner->getPluginId()),
+      'favorite_components' => $owner->favoriteOwnerComponents(),
+      'global_tokens_url' => Url::fromRoute('modeler_api.global_tokens')->toString(),
+      'template_tokens_url' => Url::fromRoute('modeler_api.template_tokens', [
+        'owner_id' => $owner->getPluginId(),
+      ])->toString(),
+      'contexts' => $this->contextListBuilder->getList($owner->getPluginId()),
+      'dependencies' => $this->dependencyListBuilder->getList($owner->getPluginId()),
+      'readOnly' => $readOnly,
+      'isNew' => $model->isNew(),
+    ];
+    $modelType = $owner->configEntityTypeId();
     if ($owner->configEntityBasePath() !== NULL) {
       $settings += [
-        'save_url' => Url::fromRoute('entity.' . $owner->configEntityTypeId() . '.save', [
+        'save_url' => Url::fromRoute('entity.' . $modelType . '.save', [
           'modeler_id' => $modeler->getPluginId(),
         ])->toString(),
         'token_url' => Url::fromRoute('system.csrftoken')->toString(),
-        'collection_url' => Url::fromRoute('entity.' . $owner->configEntityTypeId() . '.collection')->toString(),
+        'collection_url' => Url::fromRoute('entity.' . $modelType . '.collection')->toString(),
       ];
     }
     else {
@@ -268,9 +359,27 @@ class Api {
       ];
     }
     $settings['mode'] = 'edit';
-    $settings['config_url'] = Url::fromRoute('entity.' . $owner->configEntityTypeId() . '.config', [
+    $settings['config_url'] = Url::fromRoute('entity.' . $modelType . '.config', [
       'modeler_id' => $modeler->getPluginId(),
     ])->toString();
+    if ($owner->supportsReplayData()) {
+      $settings['replay_url'] = Url::fromRoute('entity.' . $modelType . '.replay', [
+        'modeler_id' => $modeler->getPluginId(),
+      ])->toString();
+    }
+    if ($owner->supportsTesting()) {
+      $settings['test_url'] = Url::fromRoute('entity.' . $modelType . '.test', [
+        'modeler_id' => $modeler->getPluginId(),
+      ])->toString();
+    }
+    if (!$model->isNew() && $owner->isExportable($model)) {
+      $settings['export_url'] = Url::fromRoute('entity.' . $modelType . '.export', [
+        $modelType => $model->id(),
+      ])->toString();
+      $settings['export_recipe_url'] = Url::fromRoute('entity.' . $modelType . '.export_recipe', [
+        $modelType => $model->id(),
+      ])->toString();
+    }
     $build['#attached']['drupalSettings']['modeler_api'] = $settings;
     $build['#title'] = $this->t(':type Model: :label', [':type' => $owner->label(), ':label' => $model->label()]);
     $build['config_form'] = [
@@ -335,11 +444,11 @@ class Api {
     }
 
     if ($model !== NULL) {
-      $this->setOriginal($model, clone $model);
+      $model->setOriginal(clone $model);
       $owner->resetComponents($model);
     }
     else {
-      $storage = $this->entityTypeManager->getStorage($owner->configEntityTypeId());
+      $storage = $this->getEntityTypeManager()->getStorage($owner->configEntityTypeId());
       if ($dry_run) {
         /** @var \Drupal\Core\Config\Entity\ConfigEntityInterface|null $model */
         $model = $storage->create(['id' => $modelId]);
@@ -348,7 +457,7 @@ class Api {
         /** @var \Drupal\Core\Config\Entity\ConfigEntityInterface|null $model */
         $model = $storage->load($modelId);
         if ($model) {
-          $this->setOriginal($model, clone $model);
+          $model->setOriginal(clone $model);
           $owner->resetComponents($model);
         }
         else {
@@ -359,6 +468,9 @@ class Api {
     }
     if ($owner->supportsStatus()) {
       $owner->setStatus($model, $modeler->getStatus());
+    }
+    if ($owner->supportsTemplate()) {
+      $owner->setTemplate($model, $modeler->getTemplate());
     }
     $owner
       ->setModelerId($model, $modeler_id)
@@ -371,6 +483,10 @@ class Api {
     $annotations = [];
     $colors = [];
     $swimlanes = [];
+    $componentTypeCounts = [];
+    // Track successor counts per component for successor constraints.
+    // Key: component type, Value: array of successor counts per component.
+    $successorCountsByType = [];
     foreach ($modeler->readComponents() as $component) {
       if ($color = $component->getColor()) {
         $colors[$component->getId()] = $color;
@@ -394,6 +510,14 @@ class Api {
         $annotations[] = $component;
         continue;
       }
+      // Count components by type for cardinality constraint validation.
+      $type = $component->getType();
+      $componentTypeCounts[$type] = ($componentTypeCounts[$type] ?? 0) + 1;
+      $successorCountsByType[$type][] = [
+        'id' => $component->getId(),
+        'label' => $component->getLabel(),
+        'count' => count($component->getSuccessors()),
+      ];
       if ($errors = $component->validate()) {
         $this->errors = array_merge($this->errors, $errors);
       }
@@ -401,6 +525,8 @@ class Api {
         $this->errors[] = 'A component can not be added.';
       }
     }
+    // Validate model-level cardinality constraints.
+    $this->validateModelConstraints($owner, $componentTypeCounts, $successorCountsByType);
     $owner->setAnnotations($model, $annotations);
     $owner->setColors($model, $colors);
     $owner->setSwimlanes($model, $swimlanes);
@@ -413,6 +539,106 @@ class Api {
     }
     $this->errors = array_unique($this->errors);
     return NULL;
+  }
+
+  /**
+   * Prepares model constraints for the frontend.
+   *
+   * Translates integer component type keys to string names that the
+   * frontend understands (e.g., 'start', 'element', 'gateway').
+   *
+   * @param \Drupal\modeler_api\Plugin\ModelerApiModelOwner\ModelOwnerInterface $owner
+   *   The model owner.
+   *
+   * @return array<string, array{min?: int, max?: int}>
+   *   Constraints keyed by component type name string.
+   */
+  protected function prepareModelConstraints(ModelOwnerInterface $owner): array {
+    $constraints = $owner->modelConstraints();
+    if (empty($constraints)) {
+      return [];
+    }
+    $result = [];
+    foreach ($constraints as $type => $constraint) {
+      $typeName = self::COMPONENT_TYPE_NAMES[$type] ?? NULL;
+      if ($typeName !== NULL) {
+        $result[$typeName] = $constraint;
+      }
+    }
+    return $result;
+  }
+
+  /**
+   * Validates model-level cardinality constraints.
+   *
+   * Checks the component counts per type and per-component successor counts
+   * against the constraints declared by the model owner.
+   *
+   * @param \Drupal\modeler_api\Plugin\ModelerApiModelOwner\ModelOwnerInterface $owner
+   *   The model owner.
+   * @param array<int, int> $componentTypeCounts
+   *   Component counts keyed by component type constant.
+   * @param array<int, array<int, array{id: string, label: string, count: int}>> $successorCountsByType
+   *   Per-type list of component successor info.
+   */
+  protected function validateModelConstraints(ModelOwnerInterface $owner, array $componentTypeCounts, array $successorCountsByType): void {
+    $constraints = $owner->modelConstraints();
+    if (empty($constraints)) {
+      return;
+    }
+    $labels = $owner->componentLabels();
+    $labelsPlural = $owner->componentLabelsPlural();
+    foreach ($constraints as $type => $constraint) {
+      $count = $componentTypeCounts[$type] ?? 0;
+      $typeName = self::COMPONENT_TYPE_NAMES[$type] ?? 'unknown';
+      $label = $labels[$typeName] ?? $typeName;
+      $labelPlural = $labelsPlural[$typeName] ?? $label . 's';
+      if (isset($constraint['min']) && $count < $constraint['min']) {
+        $this->errors[] = $constraint['min'] === 1
+          ? (string) $this->t('A model requires at least one @label.', [
+            '@label' => $label,
+          ])
+          : (string) $this->t('A model requires at least @min @label_plural.', [
+            '@min' => $constraint['min'],
+            '@label_plural' => $labelPlural,
+          ]);
+      }
+      if (isset($constraint['max']) && $count > $constraint['max']) {
+        $this->errors[] = $constraint['max'] === 1
+          ? (string) $this->t('A model allows at most one @label.', [
+            '@label' => $label,
+          ])
+          : (string) $this->t('A model allows at most @max @label_plural.', [
+            '@max' => $constraint['max'],
+            '@label_plural' => $labelPlural,
+          ]);
+      }
+      // Validate successor cardinality per component.
+      if (isset($constraint['successors']) && isset($successorCountsByType[$type])) {
+        $sConstraint = $constraint['successors'];
+        foreach ($successorCountsByType[$type] as $info) {
+          if (isset($sConstraint['min']) && $info['count'] < $sConstraint['min']) {
+            $this->errors[] = (string) $this->t('@label "@name" requires at least @min successor(s).', [
+              '@label' => $label,
+              '@name' => $info['label'],
+              '@min' => $sConstraint['min'],
+            ]);
+          }
+          if (isset($sConstraint['max']) && $info['count'] > $sConstraint['max']) {
+            $this->errors[] = $sConstraint['max'] === 0
+              ? (string) $this->t('@label "@name" must not have any successors.', [
+                '@label' => $label,
+                '@name' => $info['label'],
+              ])
+              : (string) $this->t('@label "@name" allows at most @max successor(s).', [
+                '@label' => $label,
+                '@name' => $info['label'],
+                '@max' => $sConstraint['max'],
+              ]);
+          }
+        }
+      }
+    }
   }
 
   /**
@@ -519,13 +745,87 @@ class Api {
   }
 
   /**
+   * Gets all available contexts.
+   *
+   * @return \Drupal\modeler_api\Context[]
+   *   The list of all contexts, keyed by context ID.
+   */
+  public function getContexts(): array {
+    return $this->contextPluginManager->getAllContexts();
+  }
+
+  /**
+   * Gets a single context by its ID.
+   *
+   * @param string $id
+   *   The context ID.
+   *
+   * @return \Drupal\modeler_api\Context|null
+   *   The context, or NULL if not found.
+   */
+  public function getContext(string $id): ?Context {
+    return $this->contextPluginManager->getContext($id);
+  }
+
+  /**
+   * Gets all contexts for a given model owner.
+   *
+   * @param \Drupal\modeler_api\Plugin\ModelerApiModelOwner\ModelOwnerInterface|string $owner
+   *   The model owner plugin instance or its ID.
+   *
+   * @return \Drupal\modeler_api\Context[]
+   *   The list of contexts for the given model owner, keyed by context ID.
+   */
+  public function getContextsByModelOwner(ModelOwnerInterface|string $owner): array {
+    $ownerId = is_string($owner) ? $owner : $owner->getPluginId();
+    return $this->contextPluginManager->getContextsByModelOwner($ownerId);
+  }
+
+  /**
+   * Gets all dependency definitions.
+   *
+   * @return \Drupal\modeler_api\Dependency[]
+   *   The list of all dependency definitions, keyed by dependency ID.
+   */
+  public function getDependencies(): array {
+    return $this->dependencyPluginManager->getAllDependencies();
+  }
+
+  /**
+   * Gets a single dependency definition by its ID.
+   *
+   * @param string $id
+   *   The dependency ID.
+   *
+   * @return \Drupal\modeler_api\Dependency|null
+   *   The dependency, or NULL if not found.
+   */
+  public function getDependency(string $id): ?Dependency {
+    return $this->dependencyPluginManager->getDependency($id);
+  }
+
+  /**
+   * Gets all dependency definitions for a given model owner.
+   *
+   * @param \Drupal\modeler_api\Plugin\ModelerApiModelOwner\ModelOwnerInterface|string $owner
+   *   The model owner plugin instance or its ID.
+   *
+   * @return \Drupal\modeler_api\Dependency[]
+   *   The list of dependencies for the given model owner, keyed by ID.
+   */
+  public function getDependenciesByModelOwner(ModelOwnerInterface|string $owner): array {
+    $ownerId = is_string($owner) ? $owner : $owner->getPluginId();
+    return $this->dependencyPluginManager->getDependenciesByModelOwner($ownerId);
+  }
+
+  /**
    * Gets error messages that got collected through data preparation.
    *
    * @return string[]
    *   The error messages that got collected through data preparation.
    */
   public function getErrors(): array {
-    return $this->errors ?? [];
+    return $this->errors;
   }
 
   /**
@@ -539,7 +839,7 @@ class Api {
    */
   public function getRouteByName(string $name): ?Route {
     try {
-      return $this->routeProvider->getRouteByName($name);
+      return $this->getRouteProvider()->getRouteByName($name);
     }
     catch (RouteNotFoundException) {
       // If the route can not be found, don't set the configure route.
@@ -589,6 +889,105 @@ class Api {
       }
     }
     return Url::fromRoute($name, [$type => $id]);
+  }
+
+  /**
+   * Prepares the global tokens for the modeler.
+   *
+   * @return array
+   *   The global tokens.
+   */
+  public function prepareGlobalTokens(): array {
+    $treeBuilder = $this->getTokenTreeBuilder();
+    if ($treeBuilder === NULL) {
+      return [];
+    }
+    // If the token tree builder is available, the token service will be the
+    // one from contrib module. But we don't declare the dependency.
+    $tokenService = $this->getTokenService();
+
+    $tokens = [];
+    try {
+      $tokenInfo = $tokenService->getInfo();
+    }
+    catch (\Throwable) {
+      return [];
+    }
+    // @phpstan-ignore-next-line
+    foreach ($tokenService->getGlobalTokenTypes() as $type) {
+      try {
+        $tree = $treeBuilder->buildTree($type);
+      }
+      catch (\Throwable) {
+        // Skip this token type to prevent WSOD.
+        continue;
+      }
+      $tokens[$type] = [
+        'name' => $tokenInfo['types'][$type]['name'] ?? (string) $type,
+        'children' => [],
+      ];
+      foreach ($tree as $token => $def) {
+        try {
+          $tokens[$type]['children'][$token] = $this->prepareTokenDefinition($def, $tokenService);
+        }
+        catch (\Throwable) {
+          // Skip this single token to prevent WSOD.
+          continue;
+        }
+      }
+    }
+    return $tokens;
+  }
+
+  /**
+   * Prepares the template tokens for the modeler.
+   *
+   * @param \Drupal\modeler_api\Plugin\ModelerApiModelOwner\ModelOwnerInterface $owner
+   *   The model owner.
+   *
+   * @return array
+   *   The template tokens.
+   */
+  public function prepareTemplateTokens(ModelOwnerInterface $owner): array {
+    if (!$owner->supportsTemplate()) {
+      return [];
+    }
+    return $this->templateTokenListBuilder->getList($owner->getPluginId());
+  }
+
+  /**
+   * Recursively prepare token definitions by resolving its value and children.
+   *
+   * @param array $def
+   *   The token definitions.
+   * @param \Drupal\Core\Utility\Token $tokenService
+   *   The token service.
+   *
+   * @return array
+   *   The token definitions.
+   */
+  private function prepareTokenDefinition(array $def, BaseToken $tokenService): array {
+    if (empty($def['children'])) {
+      try {
+        $def['value'] = $tokenService->replace($def['raw token'] ?? '', [], ['clear' => TRUE]);
+      }
+      catch (\Throwable) {
+        // Ignore this single token replacement to prevent WSOD.
+        $def['value'] = '';
+      }
+    }
+    else {
+      foreach ($def['children'] as $childToken => $childDef) {
+        try {
+          $def['children'][$childToken] = $this->prepareTokenDefinition($childDef, $tokenService);
+        }
+        catch (\Throwable) {
+          // Skip this single child token to prevent WSOD.
+          unset($def['children'][$childToken]);
+        }
+      }
+    }
+    return $def;
   }
 
 }

@@ -1,0 +1,9 @@
+uuid: 90b6e9a2-17d2-4b7f-a43b-3732dad3cbe7
+langcode: en
+status: true
+dependencies: {  }
+name: Views
+configEntityTypeId: component
+weight: 0
+items:
+  - block.views_exposed_filter_block.jsso_knowledge_hub-block_3

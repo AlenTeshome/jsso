@@ -6,12 +6,14 @@ use Drupal\KernelTests\KernelTestBase;
 use Drupal\eca\Entity\Eca;
 use Drupal\eca_test_array\Plugin\Action\ArrayIncrement;
 use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Routing event tests provided by "eca_misc".
  */
 #[Group('eca')]
 #[Group('eca_misc')]
+#[RunTestsInSeparateProcesses]
 class RoutingEventTest extends KernelTestBase {
 
   /**
@@ -23,6 +25,7 @@ class RoutingEventTest extends KernelTestBase {
     'eca',
     'eca_misc',
     'eca_test_array',
+    'modeler_api',
   ];
 
   /**

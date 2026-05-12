@@ -1,5 +1,6 @@
 // eslint-disable-next-line func-names
 (function ($, Drupal, drupalSettings, Sortable) {
+  // cspell:ignore whitelist
   Drupal.behaviors.tagifyAutocompleteUserList = {
     attach: function attach() {
       // see https://github.com/yairEO/tagify#ajax-whitelist

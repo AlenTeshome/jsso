@@ -1,0 +1,25 @@
+uuid: b84b9abb-e80d-454c-95fb-6222ec5af42d
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.main
+  module:
+    - system
+  theme:
+    - jssotheme
+id: jssotheme_mainnavigation_2
+theme: jssotheme
+region: footer_top
+weight: -9
+provider: null
+plugin: 'system_menu_block:main'
+settings:
+  id: 'system_menu_block:main'
+  label: 'Main navigation'
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 1
+  expand_all_items: false
+visibility: {  }

@@ -6,4 +6,6 @@ name: 'Content block'
 configEntityTypeId: component
 weight: 0
 items:
+  - block.block_content.3ff5d220-ede5-4010-9745-c084784ea38b
   - block.block_content.4bf9812b-4af1-4d2d-972c-f87931262441
+  - block.block_content.e48d18e9-bc1a-43f8-b19c-4a51284b3d97

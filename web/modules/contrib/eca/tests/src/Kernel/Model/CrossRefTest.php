@@ -5,12 +5,14 @@ namespace Drupal\Tests\eca\Kernel\Model;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
 use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Model test for cross references.
  */
 #[Group('eca')]
 #[Group('eca_model')]
+#[RunTestsInSeparateProcesses]
 class CrossRefTest extends Base {
 
   /**
@@ -18,18 +20,25 @@ class CrossRefTest extends Base {
    */
   protected static $modules = [
     'node',
-    'token',
+    'path_alias',
     'eca_base',
     'eca_content',
     'eca_test_model_cross_ref',
+    'modeler_api',
   ];
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function installRequiredEntitySchemas(): void {
+    $this->installEntitySchema('node');
+  }
 
   /**
    * {@inheritdoc}
    */
   public function setUp(): void {
     parent::setUp();
-    $this->installEntitySchema('node');
     $this->installSchema('node', ['node_access']);
     $this->switchUser();
   }
@@ -101,8 +110,9 @@ class CrossRefTest extends Base {
     $this->assertStatusMessages([
       "Node $title1 got updated",
       "Node $title2 got updated",
-      "The title of the referenced node is $title1.",
-      "The title of the referenced node is $title2.",
+      // Removed the test for the real title as that would be the sole reason
+      // for the test-dependency on the token module.
+      "The title of the referenced node is .",
     ]);
     $this->assertNoMessages();
     $this->assertNoError();

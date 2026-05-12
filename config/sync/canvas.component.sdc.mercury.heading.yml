@@ -1,16 +1,15 @@
 uuid: 742dabd9-31ae-4eba-a9d9-a1633b07feee
 langcode: en
-status: true
-dependencies:
-  module:
-    - options
-  theme:
-    - mercury
+status: false
+dependencies: {  }
 _core:
   default_config_hash: oh7u51OTNPeZssxVQnx-5RL3YouWZxvSbdPqjpuewpM
-active_version: d7c6acbc91a60ac1
+active_version: fallback
 versioned_properties:
   active:
+    settings:
+      last_active_version: d7c6acbc91a60ac1
+  d7c6acbc91a60ac1:
     settings:
       prop_field_definitions:
         heading_text:

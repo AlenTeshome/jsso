@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\canvas\Kernel\AutoSave;
 
+use PHPUnit\Framework\Attributes\Group;
 use Drupal\Core\Url;
 use Drupal\canvas\AutoSave\AutoSaveManager;
 use Drupal\canvas\Entity\Page;
@@ -17,10 +18,10 @@ use Symfony\Component\HttpFoundation\Response;
  * Tests auto-save conflict handling for page regions.
  *
  * @see \Drupal\canvas\Entity\PageRegion
- * @covers \Drupal\canvas\Controller\ApiLayoutController::get
- * @group canvas
+ * @legacy-covers \Drupal\canvas\Controller\ApiLayoutController::get
  */
 #[RunTestsInSeparateProcesses]
+#[Group('canvas')]
 final class AutoSaveConflictPageRegionLayoutTest extends ApiLayoutControllerTestBase {
 
   use AutoSaveConflictTestTrait;
@@ -78,10 +79,12 @@ final class AutoSaveConflictPageRegionLayoutTest extends ApiLayoutControllerTest
     // component whose label we updated.
     // @see ::updateJson()
     self::assertSame('block.system_messages_block', $regionTree[0]['component_id']);
-    $decoded_inputs = json_decode($regionTree[0]['inputs'], TRUE, 512, JSON_THROW_ON_ERROR);
-    self::assertIsArray($decoded_inputs);
-    self::assertArrayHasKey('label', $decoded_inputs);
-    self::assertSame($text, $decoded_inputs['label']);
+    self::assertSame([
+      'label' => $text,
+      'label_display' => version_compare(\Drupal::VERSION, '11.3', '<')
+        ? ''
+        : '0',
+    ], $regionTree[0]['inputs']);
   }
 
   public function testRegionPermissionsNeeded(): void {

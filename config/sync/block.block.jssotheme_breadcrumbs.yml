@@ -1,4 +1,4 @@
-uuid: cd0bfbe7-322b-4f8c-bf18-f6cf88dedebd
+uuid: 83a4a0f0-fe28-4754-a20c-9185b78257d0
 langcode: en
 status: true
 dependencies:
@@ -11,7 +11,7 @@ _core:
 id: jssotheme_breadcrumbs
 theme: jssotheme
 region: breadcrumb
-weight: 0
+weight: -6
 provider: null
 plugin: system_breadcrumb_block
 settings:
@@ -19,4 +19,8 @@ settings:
   label: Breadcrumbs
   label_display: '0'
   provider: system
-visibility: {  }
+visibility:
+  request_path:
+    id: request_path
+    negate: true
+    pages: '<front>'

@@ -1,0 +1,26 @@
+uuid: 7dfb8a1a-77dd-4cad-8bc9-ddbfb9aaba6b
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.about_us_page_blocks
+  module:
+    - views
+active_version: e5ae09aa5186e266
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'views_block:about_us_page_blocks-block_2'
+        label: 'About us page Blocks: Leadership About us'
+        label_display: '0'
+        provider: views
+        views_label: ''
+        items_per_page: null
+    fallback_metadata:
+      slot_definitions: null
+label: 'About us page Blocks: Leadership About us'
+id: block.views_block.about_us_page_blocks-block_2
+provider: views
+source: block
+source_local_id: 'views_block:about_us_page_blocks-block_2'

@@ -1,0 +1,38 @@
+uuid: a2addc83-cfd6-4dae-957f-a8529e7b7d48
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.card
+    - field.field.node.initiative.body
+    - field.field.node.initiative.field_featured_image
+    - field.field.node.initiative.field_related_focus_area
+    - field.field.node.initiative.field_subtitle
+    - node.type.initiative
+  module:
+    - user
+id: node.initiative.card
+targetEntityType: node
+bundle: initiative
+mode: card
+content:
+  field_featured_image:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: 16_9_medium
+      link: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  body: true
+  field_related_focus_area: true
+  field_subtitle: true
+  langcode: true
+  search_api_excerpt: true

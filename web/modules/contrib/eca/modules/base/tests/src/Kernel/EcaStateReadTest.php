@@ -4,12 +4,14 @@ namespace Drupal\Tests\eca_base\Kernel;
 
 use Drupal\KernelTests\KernelTestBase;
 use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Kernel tests for the "eca_state_read" action plugin.
  */
 #[Group('eca')]
 #[Group('eca_base')]
+#[RunTestsInSeparateProcesses]
 class EcaStateReadTest extends KernelTestBase {
 
   /**
@@ -23,6 +25,7 @@ class EcaStateReadTest extends KernelTestBase {
     'user',
     'eca',
     'eca_base',
+    'modeler_api',
   ];
 
   /**

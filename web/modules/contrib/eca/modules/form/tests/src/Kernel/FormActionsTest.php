@@ -18,9 +18,10 @@ use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
-use Drupal\Tests\eca\ContentTypeCreationTrait;
+use Drupal\Tests\node\Traits\ContentTypeCreationTrait;
 use Drupal\user\Entity\User;
 use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 
@@ -29,6 +30,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
  */
 #[Group('eca')]
 #[Group('eca_form')]
+#[RunTestsInSeparateProcesses]
 class FormActionsTest extends KernelTestBase {
 
   use ContentTypeCreationTrait;
@@ -46,6 +48,7 @@ class FormActionsTest extends KernelTestBase {
     'node',
     'eca',
     'eca_form',
+    'modeler_api',
   ];
 
   /**
@@ -1013,6 +1016,78 @@ class FormActionsTest extends KernelTestBase {
     $this->assertTrue($access_result);
     $this->assertTrue(isset($form['body']['widget'][0]['#required']));
     $this->assertTrue($form['body']['widget'][0]['#required']);
+  }
+
+  /**
+   * Tests the action plugin "eca_form_field_set_description".
+   */
+  public function testFormFieldSetDescription(): void {
+    /** @var \Drupal\eca_form\Plugin\Action\FormFieldSetDescription $action */
+    $action = $this->actionManager->createInstance('eca_form_field_set_description', [
+      'field_name' => 'body',
+      'description' => 'Custom body description',
+    ]);
+
+    /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface $event_dispatcher */
+    $event_dispatcher = \Drupal::service('event_dispatcher');
+    $form_builder = \Drupal::formBuilder();
+
+    $access_result = NULL;
+    $form = NULL;
+    $listener = function (FormProcess $event) use (&$access_result, &$form, $action) {
+      $action->setEvent($event);
+      $access_result = $access_result ?? $action->access(NULL);
+      if ($action->access(NULL)) {
+        $action->execute();
+      }
+      $form = $event->getForm();
+    };
+    $event_dispatcher->addListener(FormEvents::PROCESS, $listener);
+
+    $form_object = \Drupal::entityTypeManager()->getFormObject('node', 'default');
+    $form_object->setEntity(Node::create([
+      'type' => 'article',
+      'title' => $this->randomMachineName(),
+    ]));
+    $form_state = new FormState();
+    $form_builder->buildForm($form_object, $form_state);
+
+    $this->assertTrue($access_result);
+    $this->assertTrue(isset($form['body']['widget'][0]['#description']));
+    $this->assertEquals('Custom body description', $form['body']['widget'][0]['#description']);
+
+    // Second scenario: #description is empty and therefore will be unset.
+    // Before proceeding, remove event dispatcher internal reference.
+    $event_dispatcher->removeListener(FormEvents::PROCESS, $listener);
+
+    /** @var \Drupal\eca_form\Plugin\Action\FormFieldSetDescription $action */
+    $action = $this->actionManager->createInstance('eca_form_field_set_description', [
+      'field_name' => 'body',
+      'description' => '',
+    ]);
+
+    $access_result = NULL;
+    $form = NULL;
+    $listener = function (FormProcess $event) use (&$access_result, &$form, $action) {
+      $action->setEvent($event);
+      $access_result = $access_result ?? $action->access(NULL);
+      if ($action->access(NULL)) {
+        $action->execute();
+      }
+      $form = $event->getForm();
+    };
+    $event_dispatcher->addListener(FormEvents::PROCESS, $listener);
+
+    $form_object = \Drupal::entityTypeManager()->getFormObject('node', 'default');
+    $form_object->setEntity(Node::create([
+      'type' => 'article',
+      'title' => $this->randomMachineName(),
+    ]));
+    $form_state = new FormState();
+    $form_builder->buildForm($form_object, $form_state);
+
+    $this->assertTrue($access_result);
+    $this->assertFalse(isset($form['body']['widget'][0]['#description']));
   }
 
   /**

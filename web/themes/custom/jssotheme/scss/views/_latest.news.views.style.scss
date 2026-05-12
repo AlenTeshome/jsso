@@ -1,40 +1,39 @@
 @use '../abstracts' as *;
 
 .view-jsso-news {
-
     .view-header {
         padding: 1.5rem 0;
     }
 
     .view-content {
-
-        display: flex;
-        flex-direction: row;
+        display: grid;
+        grid-template-columns: 1fr;
         gap: 2em 1em;
-        justify-content: space-between;
-        flex-wrap: wrap;
+
+        @media screen and (min-width: 768px) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @media screen and (min-width: 1024px) {
+            grid-template-columns: repeat(3, 1fr);
+        }
 
         .views-row {
             display: flex;
-            flex: 1 1 calc(33% - 1em); // 4 per row
-            max-width: calc(33% - 1em);
+            @include focus-row-hover-effect;
 
             .news-detail {
+                width: 100%;
+
                 a {
                     display: flex;
                     flex-direction: column;
                     justify-content: space-between;
                     padding: 1.5em;
                     height: 100%;
-                    //border-radius: 1em;
-                    background-color: var(--clr-bg-300);
-                    transition: all 0.3s ease-in-out;
+                    text-decoration: none;
 
 
-                    &:hover {
-                        background-color: var(--clr-brand-lime);
-                        transform: translateY(-2px);
-                    }
 
                     .wrapper {
                         display: flex;
@@ -47,33 +46,51 @@
                             width: 100%;
                             height: auto;
                             object-fit: cover;
-                            // border-radius: 1em;
                         }
                     }
 
                     .news-date {
-                        font-size: .9rem;
+                        font-size: 0.9rem;
                         text-transform: uppercase;
-                        color: var(--clr-brand-forestgreen);
+                        color: var(--clr-brand-jsso-secondary);
                     }
 
                     .news-title {
                         font-size: 1.2rem;
                         font-weight: 600;
-                        color: var(--clr-brand-forestgreen);
+                        color: var(--clr-brand-jsso-secondary);
                     }
 
                     .news-link {
                         display: flex;
-                        justify-content: end;
+                        justify-content: flex-end;
                         @include after-psudo('\f061');
                         @include svg-fill-with-bg;
                     }
+                }
+            }
+        }
+    }
 
-                    &:hover {
-                        .news-link {
-                            @include svg-link-hover-style(var(--clr-brand-forestgreen), var(--clr-brand-beige));
-                        }
+    &.allnews {
+        .view-content {
+            @media screen and (min-width: 1024px) {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .views-row {
+                a {
+                    padding: 0 !important;
+                }
+
+                .wrapper {
+                    .news-date {
+                        padding: 0 1.5rem;
+                    }
+
+                    .news-title {
+                        padding: 0 1.5rem 1.5rem;
+                        font-size: 1rem;
                     }
                 }
             }
@@ -84,7 +101,7 @@
         padding-top: 2em;
 
         a {
-            @include main-read-more-link-anchor(var(--clr-brand-forestgreen), var(--clr-bg-300), var(--clr-brand-lime), var(--clr-bg-500));
+            @include investflow-button;
         }
     }
 }

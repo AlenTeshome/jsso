@@ -1,0 +1,23 @@
+uuid: 5800bb64-8d43-4003-a662-e329a5c52977
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_show_image_on_page
+    - node.type.page
+id: node.page.field_show_image_on_page
+field_name: field_show_image_on_page
+entity_type: node
+bundle: page
+label: 'Show Image On Page'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: false
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

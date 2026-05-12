@@ -1,0 +1,177 @@
+uuid: 9a0e98a9-ac00-47f1-970b-59e7668c6113
+langcode: en
+status: true
+dependencies:
+  module:
+    - social_media_links
+  theme:
+    - jssotheme
+id: jssotheme_socialmedialinks
+theme: jssotheme
+region: footer
+weight: 0
+provider: null
+plugin: social_media_links_block
+settings:
+  id: social_media_links_block
+  label: 'Social Media Links'
+  label_display: '0'
+  provider: social_media_links
+  platforms:
+    twitter:
+      value: jsso
+      description: ''
+      weight: '-50'
+    facebook:
+      value: jsso
+      description: ''
+      weight: '-49'
+    tiktok:
+      value: jsso
+      description: ''
+      weight: '-48'
+    youtube:
+      value: jsso
+      description: ''
+      weight: '-47'
+    linkedin:
+      value: jsso
+      description: ''
+      weight: '-46'
+    bitbucket:
+      value: ''
+      description: ''
+      weight: '-45'
+    instagram:
+      value: jsso
+      description: ''
+      weight: '-45'
+    rss:
+      value: rss
+      description: ''
+      weight: '-44'
+    contact:
+      value: contact
+      description: ''
+      weight: '-43'
+    slideshare:
+      value: ''
+      description: ''
+      weight: '-43'
+    tumblr:
+      value: ''
+      description: ''
+      weight: '-42'
+    github:
+      value: ''
+      description: ''
+      weight: '-41'
+    vkontakte:
+      value: ''
+      description: ''
+      weight: '-40'
+    patreon:
+      value: ''
+      description: ''
+      weight: '-39'
+    whatsapp:
+      value: ''
+      description: ''
+      weight: '-38'
+    gitlab:
+      value: ''
+      description: ''
+      weight: '-37'
+    yandex_zen:
+      value: ''
+      description: ''
+      weight: '-36'
+    soundcloud:
+      value: ''
+      description: ''
+      weight: '-34'
+    amazon:
+      value: ''
+      description: ''
+      weight: '-32'
+    telegram:
+      value: ''
+      description: ''
+      weight: '-27'
+    meetup:
+      value: ''
+      description: ''
+      weight: '-26'
+    drupal:
+      value: ''
+      description: ''
+      weight: '-25'
+    whatsapp_channel:
+      value: ''
+      description: ''
+      weight: '-24'
+    pinterest:
+      value: ''
+      description: ''
+      weight: '-23'
+    glassdoor:
+      value: ''
+      description: ''
+      weight: '-22'
+    website:
+      value: ''
+      description: ''
+      weight: '-21'
+    behance:
+      value: ''
+      description: ''
+      weight: '-20'
+    flickr:
+      value: jsso
+      description: ''
+      weight: '-46'
+    goodreads:
+      value: ''
+      description: ''
+      weight: '-18'
+    vimeo:
+      value: ''
+      description: ''
+      weight: '-17'
+    email:
+      value: ''
+      description: ''
+      weight: '-16'
+    youtube_channel:
+      value: ''
+      description: ''
+      weight: '-15'
+    googleplay:
+      value: ''
+      description: ''
+      weight: '-14'
+    mastodon:
+      value: ''
+      description: ''
+      weight: '-13'
+    xing:
+      value: ''
+      description: ''
+      weight: '-12'
+    googleplus:
+      value: ''
+      description: ''
+      weight: '-10'
+  appearance:
+    orientation: h
+    show_name: 0
+    suggestion: ''
+  link_attributes:
+    target: '<none>'
+    rel: '<none>'
+  iconset:
+    style: 'fontawesome:2x'
+    installed_iconsets:
+      fontawesome:
+        examples: ''
+visibility: {  }

@@ -28,6 +28,7 @@ node_modules
 # Packages
 /packages/**/dist/
 /packages/**/node_modules/
+/packages/**/package-lock.json
 
 # GitLab CI
 /.gitlab-ci-local/
@@ -61,5 +62,8 @@ lerna-debug.log*
 
 # Playwright
 /playwright/.auth/
+
+# GitLab CI
+.cache
 !/ui/dist
 !/packages/astro-hydration/dist

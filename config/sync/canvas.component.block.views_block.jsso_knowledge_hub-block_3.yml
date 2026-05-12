@@ -1,0 +1,26 @@
+uuid: 0ff013c4-422f-4b85-a294-0755fdff8b07
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.jsso_knowledge_hub
+  module:
+    - views
+active_version: b13388bf6e905931
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'views_block:jsso_knowledge_hub-block_3'
+        label: 'Knowledge Hub: Resources Block 3'
+        label_display: '0'
+        provider: views
+        views_label: ''
+        items_per_page: null
+    fallback_metadata:
+      slot_definitions: null
+label: 'Knowledge Hub: Resources Block 3'
+id: block.views_block.jsso_knowledge_hub-block_3
+provider: views
+source: block
+source_local_id: 'views_block:jsso_knowledge_hub-block_3'

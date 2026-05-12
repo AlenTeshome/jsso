@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\canvas\Hook;
 
+use Drupal\canvas\JsonSchemaInterpreter\JsonSchemaObjectRef;
 use Drupal\canvas\JsonSchemaInterpreter\JsonSchemaStringFormat;
 use Drupal\canvas\PropExpressions\StructuredData\FieldObjectPropsExpression;
 use Drupal\canvas\Plugin\Field\FieldTypeOverride\ListStringItemOverride;
@@ -52,15 +53,15 @@ use Symfony\Component\Validator\Constraints\Ip;
  * Hook implementations that make shape matching work.
  *
  * @see https://www.drupal.org/project/issues/canvas?component=Shape+matching
- * @see docs/shape-matching-into-field-types.md, section 3.1.2.a
+ * @see docs/shape-matching-into-field-types.md, section 3.1.2.b
  */
 class ShapeMatchingHooks {
 
   const SCHEMA_TO_MEDIA_SOURCE = [
     // @see \Drupal\media\Plugin\media\Source\Image
-    'json-schema-definitions://canvas.module/image' => Image::class,
+    JsonSchemaObjectRef::Image->value => Image::class,
     // @see \Drupal\media\Plugin\media\Source\VideoFile
-    'json-schema-definitions://canvas.module/video' => VideoFile::class,
+    JsonSchemaObjectRef::Video->value => VideoFile::class,
   ];
 
   /**
@@ -181,7 +182,7 @@ class ShapeMatchingHooks {
       'canvas_html_inline',
       'canvas_html_block',
     ];
-    if (in_array($format->id(), $protected_formats, TRUE)) {
+    if (\in_array($format->id(), $protected_formats, TRUE)) {
       return match($operation) {
         // It is guaranteed that these text formats/editors are available only
         // for Canvas's component instance form.
@@ -208,7 +209,7 @@ class ShapeMatchingHooks {
       'canvas_html_inline',
       'canvas_html_block',
     ];
-    if (in_array($editor->id(), $protected_editors, TRUE)) {
+    if (\in_array($editor->id(), $protected_editors, TRUE)) {
       return AccessResult::forbidden('Drupal Canvas editors cannot be modified.')
         ->addCacheableDependency($editor);
     }
@@ -232,7 +233,7 @@ class ShapeMatchingHooks {
         'canvas_html_block',
       ];
 
-      if (in_array($entity->id(), $protected_formats, TRUE)) {
+      if (\in_array($entity->id(), $protected_formats, TRUE)) {
         // Remove all operations for these text formats.
         $operations = [];
       }
@@ -245,7 +246,7 @@ class ShapeMatchingHooks {
         'canvas_html_block',
       ];
 
-      if (in_array($entity->id(), $protected_editors, TRUE)) {
+      if (\in_array($entity->id(), $protected_editors, TRUE)) {
         // Remove all operations for these editors.
         $operations = [];
       }
@@ -279,7 +280,7 @@ class ShapeMatchingHooks {
         isset($storable_prop_shape->shape->schema['contentMediaType'])
         && $storable_prop_shape->shape->schema['contentMediaType'] === 'image/*'
         // Stream wrapper URIs can only be `format: uri|iri`.
-        && in_array($storable_prop_shape->shape->schema['format'], [JsonSchemaStringFormat::Uri->value, JsonSchemaStringFormat::Iri->value], TRUE)
+        && JsonSchemaStringFormat::from($storable_prop_shape->shape->schema['format'])->allowsOnlyAbsoluteUri()
         // @see json-schema-definitions://canvas.module/stream-wrapper-image-uri
         && ($storable_prop_shape->shape->schema['x-allowed-schemes'] ?? []) === ['public']
       )
@@ -398,7 +399,6 @@ class ShapeMatchingHooks {
         'to' => new FieldTypePropExpression('daterange', 'end_value'),
       ]);
       $storable_prop_shape->fieldStorageSettings = ['datetime_type' => DateTimeItem::DATETIME_TYPE_DATE];
-      // @todo Make this actually work in component instance forms in https://www.drupal.org/project/canvas/issues/3523379
       $storable_prop_shape->fieldWidget = 'daterange_default';
     }
   }

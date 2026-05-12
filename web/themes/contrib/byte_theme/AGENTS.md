@@ -1,6 +1,6 @@
-# ByteTheme Theme - Agent Rules
+# Byte Theme Theme - Agent Rules
 
-This document contains coding rules and conventions for the ByteTheme theme that AI agents should follow when making changes.
+This document contains coding rules and conventions for the Byte Theme theme that AI agents should follow when making changes.
 
 ## CVA (Class Variant Authority) Usage
 
@@ -270,7 +270,7 @@ Or using CVA (preferred):
 <div {{ attributes }}></div>
 ```
 
-**Note**: Even though Drupal core templates sometimes use `<div{{ attributes }}>`, this pattern is not allowed in ByteTheme theme components.
+**Note**: Even though Drupal core templates sometimes use `<div{{ attributes }}>`, this pattern is not allowed in Byte Theme theme components.
 
 ### No Inline Control Structures in Attributes
 
@@ -501,7 +501,7 @@ Or use a wrapper approach:
 
 ### Run Format and Build After Changes
 
-**Rule**: After completing any changes to the ByteTheme theme, always run `npm run format` and `npm run build` to ensure code is properly formatted and the build artifacts are up to date.
+**Rule**: After completing any changes to the Byte Theme theme, always run `npm run format` and `npm run build` to ensure code is properly formatted and the build artifacts are up to date.
 
 **Required Steps:**
 
@@ -515,7 +515,7 @@ npm run format
 npm run build
 ```
 
-**Note**: These commands should be run from the ByteTheme theme directory (`web/themes/custom/byte_theme/`). Running these commands ensures that:
+**Note**: These commands should be run from the Byte Theme theme directory (`web/themes/custom/byte_theme/`). Running these commands ensures that:
 - Code follows consistent formatting standards
 - Build artifacts (compiled CSS, minified JS, etc.) are regenerated
 - The theme is ready for testing and deployment

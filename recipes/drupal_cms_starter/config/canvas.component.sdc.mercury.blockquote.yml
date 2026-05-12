@@ -3,7 +3,7 @@ status: true
 dependencies:
   theme:
     - mercury
-active_version: f8798ead1e51ce02
+active_version: 5ca7577dd8002c62
 versioned_properties:
   active:
     settings:

@@ -1,84 +1,81 @@
 @use '../abstracts' as *;
 
 // ─────────────────────────────────────────────────────────────────
-// News node detail page — .page-node-type-news .newsdetail
-// Covers:
-//   • Date               (.block-field-blocknodenewsfield-date)
-//   • Callout / Intro    (.block-field-blocknodenewsfield-callout)
-//   • Main Image         (.block-field-blocknodenewsfield-media-image)
-//   • Body               (.block-field-blocknodenewsbody)
-//   • Organization       (.block-field-blocknodenewsfield-organization)
-//   • Tags               (.block-field-blocknodenewsfield-tag)
+// News node detail page — .page-node-type-news
 // ─────────────────────────────────────────────────────────────────
+
 
 .page-node-type-news {
 
-    .view-jsso-news{
-        .view-content{
-            flex-direction: column !important;
 
-             .views-row {
-                display: flex;
-                flex: 1 1 calc(100% - 1em) !important;
-                max-width: calc(100% - 1em) !important;
+    .block-field-blocknodenewsfield-date {
+        margin-bottom: 0.5rem;
+
+        .field--name-field-date {
+            time.datetime {
+                font-size: 0.9rem;
+                font-weight: 700;
+                color: var(--clr-brand-jsso-secondary);
+                @include secondary-font;
             }
         }
     }
 
-    .newsdetail {
+    .news {
         display: flex;
         flex-direction: column;
         gap: 1.5rem;
 
-        // ── Date ─────────────────────────────────────────────────
-        .block-field-blocknodenewsfield-date {
-            .field--name-field-date {
-                time.datetime {
-                    display: inline-block;
-                    border: 1px solid rgba(0, 117, 168, 0.2);
-                    border-radius: var(--radius-pill);
-                    padding: 0.35rem 1.1rem;
-                    font-size: 0.8rem;
-                    text-transform: uppercase;
-                    letter-spacing: 0.06em;
-                    font-weight: 600;
-                    color: var(--clr-brand-forestgreen);
-                    background: var(--clr-brand-lime);
-                }
-            }
+        // ── title and subtitle ─────────────────────────────────────────────────
+        .field--name-title {
+            font-size: clamp(1.5rem, 4vw, 2.35rem);
+            line-height: 1.25;
+            font-weight: 700;
+            color: var(--clr-brand-jsso-secondary);
+            @include secondary-font;
+        }
+
+        .field--name-field-subtitle {
+            font-size: clamp(1.15rem, 4vw, 1.5rem);
+            line-height: 1.25;
+            font-weight: 500;
+            color: var(--clr-brand-jsso-primary);
+            @include secondary-font;
         }
 
         // ── Callout / Pull-quote ──────────────────────────────────
         .block-field-blocknodenewsfield-callout {
+            margin-bottom: 2.5rem;
+
             .field--name-field-callout {
-                .field__item {
-                    position: relative;
-                    padding: 1.25rem 1.5rem 1.25rem 1.75rem;
-                    background: var(--clr-brand-lime);
-                    border-radius: var(--radius-medium);
-                    border-left: 4px solid var(--clr-brand-forestgreen);
-                    font-size: 1.05rem;
-                    font-style: italic;
-                    font-weight: 500;
-                    line-height: 1.6;
-                    color: var(--clr-brand-forestgreen);
-                }
+                font-size: clamp(1rem, 4vw, 1.25rem);
+                line-height: 1.25;
+                font-weight: 700;
+                color: var(--clr-brand-jsso-secondary);
+                @include secondary-font;
+                border-left: 6px solid var(--clr-brand-jsso-primary);
+                padding: 0.5rem 0 0.5rem 2rem;
+                position: relative;
+                font-style: italic;
+                background: linear-gradient(to right, var(--clr-brand-jsso-bluebeige), transparent);
             }
         }
 
         // ── Main Image ────────────────────────────────────────────
         .block-field-blocknodenewsfield-media-image {
-            .field--name-field-media-image {
-                .field__item {
-                    border-radius: var(--radius-medium);
-                    overflow: hidden;
+            margin-bottom: 3rem;
+            overflow: hidden;
 
-                    img {
-                        display: block;
-                        width: 100%;
-                        height: auto;
-                        border-radius: var(--radius-medium);
-                        object-fit: cover;
+            .field__item {
+                img {
+                    display: block;
+                    width: 100%;
+                    height: auto;
+                    object-fit: cover;
+                    transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+
+                    &:hover {
+                        transform: scale(1.03);
                     }
                 }
             }
@@ -87,86 +84,214 @@
         // ── Body ──────────────────────────────────────────────────
         .block-field-blocknodenewsbody {
             .field--name-body {
-                .field__item {
-                    p {
-                        font-size: 1rem;
-                        line-height: 1.8;
-                        color: var(--clr-bg-500);
-                        margin-bottom: 1.1em;
+                font-size: 1.15rem;
+                line-height: 1.8;
+                color: var(--clr-bg-500);
+                @include primary-font;
 
-                        &:last-child {
-                            margin-bottom: 0;
-                        }
+                p {
+                    margin-bottom: 1.8rem;
+
+                    &:last-child {
+                        margin-bottom: 0;
                     }
                 }
-            }
-        }
 
-        // ── Shared label style ────────────────────────────────────
-        .field__label {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            font-weight: 700;
-            color: var(--clr-brand-forestgreen);
-            margin-bottom: 0.6rem;
-            opacity: 0.7;
-        }
-
-        // ── Organization ──────────────────────────────────────────
-        .block-field-blocknodenewsfield-organization {
-            .field--name-field-organization {
-                .field__items {
-                    display: flex;
-                    flex-direction: column;
-                    gap: 0.4rem;
-
-                    .field__item {
-                        display: inline-flex;
-                        align-items: center;
-                        gap: 0.5rem;
-                        font-size: 0.9rem;
-                        color: var(--clr-brand-forestgreen);
-                        font-weight: 500;
-
-                        // Bullet dot
-                        &::before {
-                            content: '';
-                            display: inline-block;
-                            width: 6px;
-                            height: 6px;
-                            border-radius: 50%;
-                            background-color: var(--clr-brand-forestgreen);
-                            flex-shrink: 0;
-                            opacity: 0.5;
-                        }
-                    }
-                }
-            }
-        }
-
-        // ── Tags ──────────────────────────────────────────────────
-        .block-field-blocknodenewsfield-tag {
-            .field--name-field-tag {
-                .field__item {
-                    display: inline-block;
-                    padding: 0.3rem 0.9rem;
-                    background-color: var(--clr-bg-400);
-                    color: var(--clr-brand-forestgreen);
-                    font-size: 0.78rem;
+                // Link styling consistent with Focus node
+                a {
+                    color: var(--clr-brand-jsso-primary);
+                    text-decoration: underline;
+                    text-underline-offset: 4px;
                     font-weight: 600;
-                    text-transform: uppercase;
-                    letter-spacing: 0.06em;
-                    border: 1px solid rgba(0, 117, 168, 0.15);
-                    border-radius: var(--radius-pill);
-                    transition: background-color 0.2s ease, color 0.2s ease;
+                    transition: all 0.3s ease;
 
                     &:hover {
-                        background-color: var(--clr-brand-forestgreen);
-                        color: var(--clr-brand-lime);
+                        color: var(--clr-brand-jsso-secondary);
+                        text-decoration: none;
                     }
                 }
             }
+        }
+
+    }
+
+
+    // ── Shared Sidebar-like Block Style ────────────────────────
+    // Applying the Focus node's block style to Organization and Tags
+    .block-field-blocknodenewsfield-organization,
+    .block-field-blocknodenewsfield-tag,
+    .block-field-blocknodenewsfield-frameworks,
+    .block-field-blocknodenewsfield-related-focus-area {
+        margin-top: 2rem;
+
+        .field__label {
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            color: var(--clr-brand-jsso-secondary);
+            @include secondary-font;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+
+
+        }
+
+        .field__items {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+
+            .field__item {
+                position: relative;
+                padding-left: 1.2rem;
+                line-height: 1.4;
+                font-weight: 500;
+                @include primary-font;
+                color: var(--clr-bg-500);
+                transition: all 0.3s ease;
+                display: flex;
+                align-items: center;
+
+                &::before {
+                    content: ""; // fa-arrow-right
+                    position: absolute;
+                    left: 0;
+                    top: 0.4rem;
+                    font-size: 0.85rem;
+                    width: 8px;
+                    height: 8px;
+                    background-color: var(--clr-brand-jsso-secondary);
+                }
+
+                a {
+                    transition: all 0.3s ease;
+                    color: var(--clr-brand-jsso-secondary);
+
+                    &:hover {
+                        color: var(--clr-brand-jsso-primary);
+                        transform: translateX(5px);
+                    }
+                }
+            }
+        }
+    }
+
+
+
+    // ── Tags ──────────────────────────────────────────────────
+    .block-field-blocknodenewsfield-tag {
+        .field--name-field-tag {
+            .field__items {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.75rem;
+            }
+
+            .field__item {
+                background: var(--clr-brand-jsso-bluebeige);
+                color: var(--clr-brand-jsso-primary);
+                padding: 0.5rem 1.25rem;
+                font-weight: 600;
+                font-size: 0.875rem;
+                border: 1px solid rgba(28, 75, 66, 0.05);
+                transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+                @include primary-font;
+                width: fit-content;
+            }
+        }
+    }
+
+
+    // Handle the outer grids if present (similar to Focus node)
+    .maincontent {
+        margin-bottom: 4rem;
+    }
+
+    .col-md-4.maincontent {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+
+        // Re-apply block styles if they are moved to sidebar via Layout Builder
+        .block-layout-builder {
+            background: white;
+            padding: 2.25rem;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+
+            .field__label {
+                font-size: 1rem;
+                font-weight: 500;
+                margin-bottom: 1.5rem;
+                color: var(--clr-brand-jsso-secondary);
+                @include secondary-font;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+
+                &::after {
+                    content: "";
+                    flex-grow: 1;
+                    height: 2px;
+                    background: var(--clr-brand-jsso-lime);
+                }
+            }
+        }
+    }
+
+
+    .view-jsso-news {
+        .view-content {
+            flex-direction: column;
+
+            .views-row {
+                flex: 1 1 100%;
+                max-width: 100%;
+
+            }
+        }
+    }
+
+    .block-views {
+        h2 span {
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            color: var(--clr-brand-jsso-secondary);
+            @include secondary-font;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0 2.25rem 0 0;
+
+            &::after {
+                content: "";
+                flex-grow: 1;
+                height: 2px;
+                background: var(--clr-brand-jsso-lime);
+            }
+        }
+    }
+}
+
+// Mobile specific tweaks
+@media (max-width: 991px) {
+    .page-node-type-news {
+        .newsdetail {
+            gap: 2rem;
+        }
+
+        .col-md-4.maincontent {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
         }
     }
 }

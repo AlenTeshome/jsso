@@ -3,12 +3,14 @@
 namespace Drupal\Tests\eca_content\Kernel;
 
 use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Kernel tests for the entity diff condition plugin.
  */
 #[Group('eca')]
 #[Group('eca_content')]
+#[RunTestsInSeparateProcesses]
 class EntityDiffConditionTest extends EntityDiffTestBase {
 
   /**
@@ -17,7 +19,7 @@ class EntityDiffConditionTest extends EntityDiffTestBase {
    * @throws \Drupal\Component\Plugin\Exception\PluginException
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function testTwoEntitiesNotEqualIncludeAll() {
+  public function testTwoEntitiesNotEqualIncludeAll(): void {
     $node = $this->createAndGetNode('First', 'The first node.');
     $nodeToCompare = $this->createAndGetNode('Second', 'The second node.');
 
@@ -38,7 +40,7 @@ class EntityDiffConditionTest extends EntityDiffTestBase {
    * @throws \Drupal\Component\Plugin\Exception\PluginException
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function testTwoEntitiesEqualIncludeFields() {
+  public function testTwoEntitiesEqualIncludeFields(): void {
     $node = $this->createAndGetNode('First', 'The first node.');
     $nodeToCompare = $this->createAndGetNode('First', 'The first node.');
 
@@ -59,7 +61,7 @@ class EntityDiffConditionTest extends EntityDiffTestBase {
    * @throws \Drupal\Component\Plugin\Exception\PluginException
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function testTwoEntitiesEqualExcludeFields() {
+  public function testTwoEntitiesEqualExcludeFields(): void {
     $node = $this->createAndGetNode('A test', 'The test node.');
     $nodeToCompare = $this->createAndGetNode('A test', 'The test node.');
 

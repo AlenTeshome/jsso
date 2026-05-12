@@ -33,8 +33,8 @@ component_tree:
     slot: header_slot
     uuid: f08be9dc-e328-4cb7-9499-df6db9bd8900
     component_id: sdc.mercury.heading
-    component_version: 6e6854ead521fa05
-    inputs: '{"heading_text":{"sourceType":"dynamic","expression":"\u2139\ufe0e\u241centity:node:page\u241dtitle\u241e\u241fvalue"},"level":1,"text_size":"default","text_color":"default","align":"left","url":"No URL"}'
+    component_version: bba852857675de5f
+    inputs: '{"heading_text":{"sourceType":"dynamic","expression":"\u2139\ufe0e\u241centity:node:page\u241dtitle\u241e\u241fvalue"},"level":1,"text_size":"default","text_color":"default","align":"left","url":""}'
   '1:main_slot:0':
     parent_uuid: b436211b-95ef-40ea-987a-e7b0f5782e33
     slot: main_slot

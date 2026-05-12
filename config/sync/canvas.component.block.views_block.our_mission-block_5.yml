@@ -1,0 +1,26 @@
+uuid: c9a0b405-a862-4071-87f7-eb583412c171
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.our_mission
+  module:
+    - views
+active_version: bb4513edd6e31c2f
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'views_block:our_mission-block_5'
+        label: 'Our Mission: About us List of Our Vision Block'
+        label_display: '0'
+        provider: views
+        views_label: ''
+        items_per_page: null
+    fallback_metadata:
+      slot_definitions: null
+label: 'Our Mission: About us List of Our Vision Block'
+id: block.views_block.our_mission-block_5
+provider: views
+source: block
+source_local_id: 'views_block:our_mission-block_5'

@@ -2,8 +2,6 @@ uuid: 789c5056-d873-441d-8053-b590ff5b0fdc
 langcode: en
 status: true
 dependencies:
-  config:
-    - node.type.page
   module:
     - content_moderation
 _core:
@@ -51,7 +49,5 @@ type_settings:
         - published
       to: unpublished
       weight: 1
-  entity_types:
-    node:
-      - page
+  entity_types: {  }
   default_moderation_state: draft

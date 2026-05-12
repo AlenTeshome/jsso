@@ -173,10 +173,10 @@ class CanvasPageVariantTest extends FunctionalTestBase {
           'uuid' => self::UUID_INACCESSIBLE,
           'component_id' => 'block.user_login_block',
           'component_version' => Component::load('block.user_login_block')?->getActiveVersion(),
-          // Note how there is no input for the user login block, the main
-          // content block, but there is for all others.
-          // @see \Drupal\canvas\Plugin\Canvas\ComponentSource\BlockComponent::getExplicitInput()
-          'inputs' => [],
+          'inputs' => [
+            'label' => '',
+            'label_display' => '0',
+          ],
         ],
         [
           'uuid' => self::UUID_TITLE,
@@ -611,7 +611,7 @@ class CanvasPageVariantTest extends FunctionalTestBase {
     $optimized_cache_contexts = $this->container->get(CacheContextsManager::class)->optimizeTokens($expected_cache_contexts);
     $this->assertCacheContexts($optimized_cache_contexts, include_default_contexts: FALSE);
     $this->assertSession()->responseHeaderEquals('X-Drupal-Cache-Max-Age', '-1 (Permanent)');
-    $expected_dynamic_page_cache_miss = !in_array('user', $expected_cache_contexts, TRUE)
+    $expected_dynamic_page_cache_miss = !\in_array('user', $expected_cache_contexts, TRUE)
       ? 'MISS'
       : 'UNCACHEABLE (poor cacheability)';
     $this->assertSession()->responseHeaderEquals('X-Drupal-Dynamic-Cache', $expected_dynamic_page_cache_miss);

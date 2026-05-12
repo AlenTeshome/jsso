@@ -1,0 +1,29 @@
+uuid: a3448aec-fcb3-4747-9e5b-beb9a9e484de
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_related_focus_area
+    - node.type.focus
+    - node.type.news
+id: node.news.field_related_focus_area
+field_name: field_related_focus_area
+entity_type: node
+bundle: news
+label: 'Related Focus Area'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      focus: focus
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

@@ -5,11 +5,13 @@
  * Documentation related to Drupal Canvas.
  */
 
+use Drupal\canvas\JsonSchemaInterpreter\JsonSchemaObjectRef;
 use Drupal\canvas\PropExpressions\StructuredData\FieldPropExpression;
 use Drupal\canvas\PropExpressions\StructuredData\FieldTypePropExpression;
 use Drupal\canvas\PropExpressions\StructuredData\ReferenceFieldTypePropExpression;
 use Drupal\canvas\PropExpressions\StructuredData\StructuredDataPropExpression;
 use Drupal\canvas\PropShape\CandidateStorablePropShape;
+use Drupal\canvas\Render\ImportMapResponseAttachmentsProcessor;
 use Drupal\canvas\TypedData\BetterEntityDataDefinition;
 
 /**
@@ -20,7 +22,7 @@ use Drupal\canvas\TypedData\BetterEntityDataDefinition;
 /**
  * Implements hook_canvas_storable_prop_shape_alter().
  *
- * @see docs/shape-matching.md#3.1.2.b
+ * @see docs/shape-matching.md#3.1.2.a
  * @see docs/diagrams/components.md
  */
 function hook_canvas_storable_prop_shape_alter(CandidateStorablePropShape $storable_prop_shape): void {
@@ -50,16 +52,23 @@ function hook_canvas_storable_prop_shape_alter(CandidateStorablePropShape $stora
   // for it.
   // ⚠️ Any field widget that is used must have `canvas.transforms` defined on
   // the field widget's plugin definition. See hook_field_widget_info_alter().
-  if ($storable_prop_shape->fieldTypeProp === NULL && $storable_prop_shape->shape->schema == ['type' => 'string', 'format' => 'duration']) {
+  if (
+    $storable_prop_shape->fieldTypeProp === NULL
+    && $storable_prop_shape->shape->schema == [
+      'type' => 'string',
+      'format' => 'duration',
+    ]
+  ) {
     $storable_prop_shape->fieldTypeProp = new FieldTypePropExpression('contrib_duration_field', 'value');
     $storable_prop_shape->fieldWidget = 'fancy_duration_widget';
   }
 
   // The `type: object, $ref: json-schema-definitions://canvas.module/image`
-  // shape allows picking any media of a media type powered by the "image" media
-  // source by default.
+  // shape allows picking any media of a media type powered by the "image"
+  // media source by default.
   // Some sites may want to exclude certain media types, and/or add other media
   // types that use a different media source (with a different expression).
+  // @see \Drupal\canvas\JsonSchemaInterpreter\JsonSchemaObjectRef::Image
   // @see \Drupal\canvas\PropExpressions\StructuredData\ReferenceFieldTypePropExpression::hasBranch()
   // @see \Drupal\canvas\PropExpressions\StructuredData\ReferenceFieldTypePropExpression::withoutBranch()
   // @see \Drupal\canvas\PropExpressions\StructuredData\ReferenceFieldTypePropExpression::withAdditionalBranch()
@@ -67,7 +76,7 @@ function hook_canvas_storable_prop_shape_alter(CandidateStorablePropShape $stora
     // "image" object shape?
     $storable_prop_shape->shape->schema['type'] === 'object'
     && isset($storable_prop_shape->shape->schema['$ref'])
-    && $storable_prop_shape->shape->schema['$ref'] === 'json-schema-definitions://canvas.module/image'
+    && $storable_prop_shape->shape->schema['$ref'] === JsonSchemaObjectRef::Image->value
     // Currently using media types?
     // @see \Drupal\canvas\Hook\ShapeMatchingHooks::mediaLibraryStorablePropShapeAlter()
     && $storable_prop_shape->fieldTypeProp instanceof ReferenceFieldTypePropExpression
@@ -100,6 +109,35 @@ function hook_canvas_storable_prop_shape_alter(CandidateStorablePropShape $stora
     $storable_prop_shape->fieldTypeProp = $expr;
     $storable_prop_shape->fieldInstanceSettings['handler_settings']['target_bundles'] = $target_bundles;
   }
+}
+
+/**
+ * Alter the Canvas import map.
+ *
+ * This hook allows modules and themes to add, remove, or modify entries in the
+ * import map used by Canvas code components. The import map follows the
+ * standard import map specification structure.
+ *
+ * For global imports cache-busting query strings are appended after this hook
+ * fires.
+ *
+ * @param array $import_maps
+ *   The import map array following the import map spec structure:
+ *   - 'imports': Global import entries (specifier => URL).
+ *   - 'scopes': (optional) Scoped import entries (scope URL => specifier =>
+ *     URL).
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script/type/importmap
+ * @see \Drupal\canvas\GlobalImports::getImportMap()
+ */
+function hook_canvas_importmap_alter(array &$import_maps): void {
+  $module_path = \Drupal::service('extension.path.resolver')->getPath('module', 'my_module');
+
+  // Add a new globally available package for code components.
+  $import_maps[ImportMapResponseAttachmentsProcessor::GLOBAL_IMPORTS]['my-library'] = \base_path() . $module_path . '/js/my-library.js';
+
+  // Replace an existing global import with a custom build.
+  $import_maps[ImportMapResponseAttachmentsProcessor::GLOBAL_IMPORTS]['clsx'] = \base_path() . $module_path . '/js/custom-clsx.js';
 }
 
 /**

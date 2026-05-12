@@ -1,0 +1,25 @@
+uuid: 462ad506-9969-4084-996c-4907d8f8ecc0
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.page_hero_image
+  module:
+    - views
+  theme:
+    - jssotheme
+id: jssotheme_views_block__page_hero_image_block_1
+theme: jssotheme
+region: header
+weight: -8
+provider: null
+plugin: 'views_block:page_hero_image-block_1'
+settings:
+  id: 'views_block:page_hero_image-block_1'
+  label: ''
+  label_display: '0'
+  provider: views
+  context_mapping: {  }
+  views_label: ''
+  items_per_page: null
+visibility: {  }

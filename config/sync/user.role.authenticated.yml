@@ -5,6 +5,7 @@ dependencies:
   config:
     - dashboard.dashboard.welcome
     - filter.format.basic_html
+    - filter.format.webform_default
   module:
     - captcha
     - coffee
@@ -19,7 +20,6 @@ dependencies:
     - media
     - navigation
     - node
-    - search
     - shortcut
     - system
 _core:
@@ -40,11 +40,11 @@ permissions:
   - 'bypass honeypot protection'
   - 'delete own files'
   - 'post comments'
-  - 'search content'
   - 'skip CAPTCHA'
   - 'skip comment approval'
   - 'use klaro'
   - 'use text format basic_html'
+  - 'use text format webform_default'
   - 'view media'
   - 'view own unpublished content'
   - 'view the administration theme'

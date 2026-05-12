@@ -7,7 +7,7 @@ configure: tagify.settings
 dependencies:
   - drupal:taxonomy
 
-# Information added by Drupal.org packaging script on 2026-02-26
-version: '1.2.50'
+# Information added by Drupal.org packaging script on 2026-05-04
+version: '1.2.51'
 project: 'tagify'
-datestamp: 1772100009
+datestamp: 1777904083

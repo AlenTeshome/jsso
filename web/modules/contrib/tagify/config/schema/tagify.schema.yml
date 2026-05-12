@@ -50,6 +50,12 @@ field.widget.settings.tagify_select_widget:
     placeholder:
       type: label
       label: 'Placeholder'
+    show_entity_id:
+      type: integer
+      label: 'Include entity Id'
+    parent_selection:
+      type: integer
+      label: 'Parent selection'
     cardinality:
       type: integer
       label: 'Field cardinality'

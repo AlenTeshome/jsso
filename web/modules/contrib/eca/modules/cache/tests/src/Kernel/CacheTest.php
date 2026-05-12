@@ -6,12 +6,14 @@ use Drupal\Core\Cache\Cache;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\eca\Plugin\DataType\DataTransferObject;
 use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Kernel tests for the eca_cache module.
  */
 #[Group('eca')]
 #[Group('eca_cache')]
+#[RunTestsInSeparateProcesses]
 class CacheTest extends KernelTestBase {
 
   /**
@@ -22,6 +24,7 @@ class CacheTest extends KernelTestBase {
     'user',
     'eca',
     'eca_cache',
+    'modeler_api',
   ];
 
   /**

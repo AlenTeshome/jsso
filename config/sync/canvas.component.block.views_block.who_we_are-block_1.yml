@@ -1,4 +1,4 @@
-uuid: 344421b7-2dda-4d4c-85b7-3bbfcbe9e6b6
+uuid: c324012f-d84f-430f-9cde-a6a8459d77d7
 langcode: en
 status: true
 dependencies:
@@ -6,20 +6,20 @@ dependencies:
     - views.view.who_we_are
   module:
     - views
-active_version: 04575661f2cf7f68
+active_version: 88f91f6594fcdea1
 versioned_properties:
   active:
     settings:
       default_settings:
         id: 'views_block:who_we_are-block_1'
-        label: 'Who we are : Who we are  about us Block'
+        label: 'Who We Are: About us Who We Are Block'
         label_display: '0'
         provider: views
         views_label: ''
         items_per_page: null
     fallback_metadata:
       slot_definitions: null
-label: 'Who we are : Who we are  about us Block'
+label: 'Who We Are: About us Who We Are Block'
 id: block.views_block.who_we_are-block_1
 provider: views
 source: block

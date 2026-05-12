@@ -6,13 +6,16 @@ use Drupal\KernelTests\KernelTestBase;
 use Drupal\eca\Plugin\ECA\Condition\StringComparisonBase;
 use Drupal\eca\PluginManager\Condition;
 use Drupal\eca\Token\TokenInterface;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Kernel tests for the "eca_count" condition plugin.
  */
 #[Group('eca')]
 #[Group('eca_base')]
+#[RunTestsInSeparateProcesses]
 class CompareListCountTest extends KernelTestBase {
 
   /**
@@ -24,6 +27,7 @@ class CompareListCountTest extends KernelTestBase {
     'field',
     'eca',
     'eca_base',
+    'modeler_api',
   ];
 
   /**
@@ -54,10 +58,9 @@ class CompareListCountTest extends KernelTestBase {
   /**
    * Tests list item count comparison.
    *
-   * @dataProvider listDataProvider
-   *
    * @throws \Drupal\Component\Plugin\Exception\PluginException
    */
+  #[DataProvider('listDataProvider')]
   public function testListItemCountValues($list, $right, $operator, $negate, $message, $assertTrue = TRUE): void {
     $this->tokenService->addTokenData('list', $list);
     // Configure default settings for condition.

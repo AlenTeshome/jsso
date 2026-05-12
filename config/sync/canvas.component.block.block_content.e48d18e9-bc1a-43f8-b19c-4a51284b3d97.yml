@@ -1,0 +1,25 @@
+uuid: 9e296a30-d141-4d5a-a5ef-f81bc0553354
+langcode: en
+status: false
+dependencies:
+  content:
+    - 'block_content:basic:e48d18e9-bc1a-43f8-b19c-4a51284b3d97'
+  module:
+    - block_content
+active_version: 3d87704014e487fd
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'block_content:e48d18e9-bc1a-43f8-b19c-4a51284b3d97'
+        label: 'Events Page Tab Block'
+        label_display: '0'
+        provider: block_content
+        view_mode: full
+    fallback_metadata:
+      slot_definitions: null
+label: 'Events Page Tab Block'
+id: block.block_content.e48d18e9-bc1a-43f8-b19c-4a51284b3d97
+provider: block_content
+source: block
+source_local_id: 'block_content:e48d18e9-bc1a-43f8-b19c-4a51284b3d97'

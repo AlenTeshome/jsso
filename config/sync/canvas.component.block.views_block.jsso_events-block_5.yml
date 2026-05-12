@@ -1,0 +1,26 @@
+uuid: 513f8d3f-25e0-4653-9828-9e705911e3c2
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.jsso_events
+  module:
+    - views
+active_version: c046e37e287c6506
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'views_block:jsso_events-block_5'
+        label: 'JSSO Events: J past Events Block 5'
+        label_display: '0'
+        provider: views
+        views_label: ''
+        items_per_page: null
+    fallback_metadata:
+      slot_definitions: null
+label: 'JSSO Events: J past Events Block 5'
+id: block.views_block.jsso_events-block_5
+provider: views
+source: block
+source_local_id: 'views_block:jsso_events-block_5'

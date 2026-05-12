@@ -4,12 +4,14 @@ namespace Drupal\Tests\eca\Kernel\Model;
 
 use Drupal\node\Entity\Node;
 use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Model test for the action set_field_value.
  */
 #[Group('eca')]
 #[Group('eca_model')]
+#[RunTestsInSeparateProcesses]
 class SetFieldValueTest extends Base {
 
   /**
@@ -21,15 +23,22 @@ class SetFieldValueTest extends Base {
     'eca_base',
     'eca_content',
     'eca_test_model_set_field_value',
+    'modeler_api',
   ];
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function installRequiredEntitySchemas(): void {
+    $this->installEntitySchema('node');
+    $this->installEntitySchema('taxonomy_term');
+  }
 
   /**
    * {@inheritdoc}
    */
   public function setUp(): void {
     parent::setUp();
-    $this->installEntitySchema('node');
-    $this->installEntitySchema('taxonomy_term');
     $this->installSchema('node', ['node_access']);
     $this->switchUser(1);
   }

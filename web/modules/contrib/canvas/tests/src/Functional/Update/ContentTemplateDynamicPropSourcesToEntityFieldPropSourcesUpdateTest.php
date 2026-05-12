@@ -4,17 +4,21 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\canvas\Functional\Update;
 
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\IgnoreDeprecations;
 use Drupal\canvas\Entity\ContentTemplate;
 
 /**
- * @covers \canvas_post_update_0013_update_dynamic_prop_sources_to_entity_field_prop_sources
- * @group canvas
- * @group legacy
+ * Tests Content Template Dynamic Prop Sources To Entity Field Prop Sources Update.
+ *
  * @see \Drupal\Tests\canvas\Kernel\Update\RecipeWithContentTemplateDynamicPropSourcesToEntityFieldPropSourcesUpdateTest
  *
  * Note that only ContentTemplate config entities are allowed to use
  * DynamicPropSources.
+ * @legacy-covers \canvas_post_update_0013_update_dynamic_prop_sources_to_entity_field_prop_sources
  */
+#[Group('canvas')]
+#[IgnoreDeprecations]
 final class ContentTemplateDynamicPropSourcesToEntityFieldPropSourcesUpdateTest extends CanvasUpdatePathTestBase {
 
   protected $defaultTheme = 'stark';
@@ -46,7 +50,8 @@ final class ContentTemplateDynamicPropSourcesToEntityFieldPropSourcesUpdateTest 
       ?->getComponentTree()
       // phpcs:ignore Drupal.WhiteSpace.ObjectOperatorIndent.Indent
       ->get(0)
-      ?->getValue()['inputs'];
+      ?->getInput();
+    self::assertIsString($raw_inputs_for_first_component_instance);
     self::assertStringNotContainsString('"sourceType":"dynamic"', $raw_inputs_for_first_component_instance);
     self::assertStringContainsString('"sourceType":"entity-field"', $raw_inputs_for_first_component_instance);
   }

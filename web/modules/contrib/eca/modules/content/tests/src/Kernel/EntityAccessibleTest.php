@@ -4,10 +4,11 @@ namespace Drupal\Tests\eca_content\Kernel;
 
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\node\Entity\Node;
-use Drupal\Tests\eca\ContentTypeCreationTrait;
+use Drupal\Tests\node\Traits\ContentTypeCreationTrait;
 use Drupal\user\Entity\Role;
 use Drupal\user\Entity\User;
 use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Kernel tests for the access condition plugins.
@@ -18,6 +19,7 @@ use PHPUnit\Framework\Attributes\Group;
  */
 #[Group('eca')]
 #[Group('eca_content')]
+#[RunTestsInSeparateProcesses]
 class EntityAccessibleTest extends KernelTestBase {
 
   use ContentTypeCreationTrait;
@@ -37,6 +39,7 @@ class EntityAccessibleTest extends KernelTestBase {
     'node',
     'eca',
     'eca_content',
+    'modeler_api',
   ];
 
   /**
@@ -66,7 +69,7 @@ class EntityAccessibleTest extends KernelTestBase {
   /**
    * Tests EntityIsAccessible.
    */
-  public function testEntityIsAccessible() {
+  public function testEntityIsAccessible(): void {
     /** @var \Drupal\eca\PluginManager\Condition $condition_manager */
     $condition_manager = \Drupal::service('plugin.manager.eca.condition');
     /** @var \Drupal\Core\Session\AccountSwitcherInterface $account_switcher */
@@ -206,7 +209,7 @@ class EntityAccessibleTest extends KernelTestBase {
   /**
    * Tests EntityFieldIsAccessible.
    */
-  public function testEntityFieldIsAccessible() {
+  public function testEntityFieldIsAccessible(): void {
     /** @var \Drupal\eca\PluginManager\Condition $condition_manager */
     $condition_manager = \Drupal::service('plugin.manager.eca.condition');
     /** @var \Drupal\Core\Session\AccountSwitcherInterface $account_switcher */

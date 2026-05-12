@@ -49,6 +49,10 @@ class EntityQueryTest extends TrashKernelTestBase {
       return $entity_storage->getAggregateQuery()->accessCheck(FALSE)->groupBy('id')->execute();
     });
     $this->assertCount(5, $result);
+
+    // Check that we can also manually set the trash context on the query.
+    $result = $entity_storage->getQuery()->accessCheck(FALSE)->addMetaData('trash', 'ignore')->execute();
+    $this->assertCount(5, $result);
   }
 
   /**

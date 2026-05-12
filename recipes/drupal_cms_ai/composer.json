@@ -12,12 +12,13 @@
     "drupal/ai_provider_amazeeio": "^1.2.7",
     "drupal/ai_provider_anthropic": "^1.1",
     "drupal/ai_provider_openai": "^1.1",
-    "drupal/canvas": "^1.1",
+    "drupal/canvas": "^1.2",
     "drupal/drupal_cms_privacy_basic": "^2",
+    "drupal/easy_encryption": "^1",
     "league/commonmark": "^2.4"
   },
   "conflict": {
     "drupal/project_browser": "<2-alpha7"
   },
-  "version": "2.0.1"
+  "version": "2.1.1"
 }

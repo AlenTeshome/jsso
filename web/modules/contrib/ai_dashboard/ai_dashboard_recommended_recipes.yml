@@ -24,16 +24,6 @@ drupal/ai_recipe_image_classification:
     summary: 'AI-powered Image Classification recipe built for image media type.'
   packageName: drupal/ai_recipe_image_classification
 
-drupal/ai_recipe_image_alt_text:
-  title: 'AI Image Alt Text Recipe'
-  type: recipe
-  logo: null
-  core: ^10.4 || ^11
-  machineName: ai_recipe_image_alt_text
-  body:
-    summary: 'AI-powered Image Alternative Text generation.'
-  packageName: drupal/ai_recipe_image_alt_text
-
 drupal/ai_recipe_llm_optimized_content:
   title: 'AI LLM Optimized Content'
   type: recipe
@@ -53,3 +43,13 @@ drupal/ai_recipe_seo_optimizer:
   body:
     summary: 'AI-powered SEO optimization recipe that extends the Drupal CMS SEO Tools recipe with focus keyword support and AI-driven content optimization.'
   packageName: drupal/ai_recipe_seo_optimizer
+
+drupal/drupal_cms_ai_ckeditor:
+  title: 'Drupal CMS AI CKEditor'
+  type: recipe
+  logo: 'https://git.drupalcode.org/project/drupal_cms_ai_ckeditor/-/avatar'
+  core: ^10.4 || ^11
+  machineName: drupal_cms_ai_ckeditor
+  body:
+    summary: 'Adds AI integration to the CKEditor for sites using Drupal CMS.'
+  packageName: drupal/drupal_cms_ai_ckeditor

@@ -55,3 +55,17 @@ function jssotheme_leaflet_map_view_style_alter(array &$map, \Drupal\leaflet_vie
     ];
   }
 }
+
+
+/**
+ * Implements hook_theme_suggestions_page_alter().
+ */
+function jssotheme_theme_suggestions_page_alter(array &$suggestions, array $variables) {
+  // Check if we are viewing a node.
+  if ($node = \Drupal::routeMatch()->getParameter('node')) {
+    // If the node is an object (standard view), add the suggestion.
+    if (is_object($node)) {
+      $suggestions[] = 'page__' . $node->bundle();
+    }
+  }
+}

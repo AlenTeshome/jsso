@@ -1,0 +1,16 @@
+uuid: be05e869-5f74-4bda-85a9-a3b42c852c33
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.focus_type
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+id: taxonomy_term.focus_type
+target_entity_type_id: taxonomy_term
+target_bundle: focus_type
+default_langcode: site_default
+language_alterable: true

@@ -120,6 +120,13 @@ set footer_classes = ' ' ~
 
 </main>
 
+{% if page.footer_top %}
+	<div class="footer-top-region {{ b5_top_container }}">
+		{{ page.footer_top }}
+	</div>
+{% endif %}
+
+
 {% if page.footer %}
 	<footer role="contentinfo" class="mt-auto {{ footer_classes }}">
 		<div class="{{ b5_top_container }}">

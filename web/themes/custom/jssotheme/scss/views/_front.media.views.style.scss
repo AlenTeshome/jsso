@@ -25,7 +25,7 @@
                     }
 
                     .text-detail {
-                        background: var(--clr-brand-lime);
+                        background: var(--clr-brand-jsso-bluebeige);
                         padding: 1.5rem;
                         flex: 1 1 35%;
                         display: flex;
@@ -37,7 +37,7 @@
                                 padding: .5rem 1rem;
                                 font-size: .8rem;
                                 text-transform: uppercase;
-                                color: var(--clr-brand-forestgreen);
+                                color: var(--clr-brand-jsso-secondary);
                             }
                         }
 
@@ -45,14 +45,14 @@
 
                             font-size: 2rem;
                             line-height: 1.2;
-                            color: var(--clr-brand-forestgreen);
+                            color: var(--clr-brand-jsso-secondary);
                         }
 
                         .video-desc {
 
                             font-size: .9rem;
                             font-style: italic;
-                            color: var(--clr-brand-forestgreen);
+                            color: var(--clr-brand-jsso-secondary);
                         }
 
                         .content-link {
@@ -64,8 +64,12 @@
                     }
 
                     &:hover {
+                        .video-title {
+                            color: var(--clr-brand-jsso-primary);
+                        }
+
                         .content-link {
-                            @include svg-link-hover-style(var(--clr-brand-forestgreen), var(--clr-brand-beige));
+                            @include svg-link-hover-style(var(--clr-brand-jsso-primary), var(--clr-brand-jsso-beige));
                         }
                     }
                 }

@@ -9,190 +9,191 @@
 //   • Tags field          (.block-field-blocknodealbumfield-tags)
 //   • Images gallery      (.block-field-blocknodealbumfield-images)
 // ─────────────────────────────────────────────────────────────────
-.page-node-type-album{
-.view-jsso-albums{
-    .view-content{
+.page-node-type-album {
+    .view-jsso-albums {
+        .view-content {
+            flex-direction: column;
+
+            .views-row {
+                display: flex;
+                flex: 1 1 calc(100% - 1em);
+                max-width: calc(100% - 1em);
+            }
+        }
+    }
+
+    .albumdetail {
+        display: flex;
         flex-direction: column;
-        .views-row {
-            display: flex;
-            flex: 1 1 calc(100% - 1em);
-            max-width: calc(100% - 1em);
-        }
-    }
-}
+        gap: 1.5rem;
 
-.albumdetail {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-
-    // ── Date ─────────────────────────────────────────────────────
-    .block-field-blocknodealbumfield-date {
-        .field--name-field-date {
-            time.datetime {
-                display: inline-block;
-                border: 1px solid rgba(0, 117, 168, 0.2);
-                border-radius: var(--radius-pill);
-                padding: 0.35rem 1.1rem;
-                font-size: 0.8rem;
-                text-transform: uppercase;
-                letter-spacing: 0.06em;
-                font-weight: 600;
-                color: var(--clr-brand-forestgreen);
-                background: var(--clr-brand-lime);
-            }
-        }
-    }
-
-    // ── Body / Description ────────────────────────────────────────
-    .block-field-blocknodealbumbody {
-        .field--name-body {
-            .field__item {
-                p {
-                    font-size: 1rem;
-                    line-height: 1.75;
-                    color: var(--clr-bg-500);
-                    margin: 0;
-                }
-            }
-        }
-    }
-
-    // ── Shared label style ────────────────────────────────────────
-    .field__label {
-        font-size: 0.7rem;
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-        font-weight: 700;
-        color: var(--clr-brand-forestgreen);
-        margin-bottom: 0.6rem;
-        opacity: 0.7;
-    }
-
-    // ── Organization ──────────────────────────────────────────────
-    .block-field-blocknodealbumfield-organization {
-        .field--name-field-organization {
-            .field__items {
-                display: flex;
-                flex-direction: column;
-                gap: 0.4rem;
-
-                .field__item {
-                    display: inline-flex;
-                    align-items: center;
-                    gap: 0.5rem;
-                    font-size: 0.9rem;
-                    color: var(--clr-brand-forestgreen);
-                    font-weight: 500;
-
-                    // Bullet dot
-                    &::before {
-                        content: '';
-                        display: inline-block;
-                        width: 6px;
-                        height: 6px;
-                        border-radius: 50%;
-                        background-color: var(--clr-brand-forestgreen);
-                        flex-shrink: 0;
-                        opacity: 0.5;
-                    }
-                }
-            }
-        }
-    }
-
-    // ── Tags ──────────────────────────────────────────────────────
-    .block-field-blocknodealbumfield-tags {
-        .field--name-field-tags {
-            .field__items {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 0.5rem;
-
-                .field__item {
+        // ── Date ─────────────────────────────────────────────────────
+        .block-field-blocknodealbumfield-date {
+            .field--name-field-date {
+                time.datetime {
                     display: inline-block;
-                    padding: 0.3rem 0.9rem;
-                    background-color: var(--clr-bg-400);
-                    color: var(--clr-brand-forestgreen);
-                    font-size: 0.78rem;
-                    font-weight: 600;
+                    border: 1px solid rgba(0, 117, 168, 0.2);
+                    border-radius: var(--radius-pill);
+                    padding: 0.35rem 1.1rem;
+                    font-size: 0.8rem;
                     text-transform: uppercase;
                     letter-spacing: 0.06em;
-                    border: 1px solid rgba(0, 117, 168, 0.15);
-                    transition: background-color 0.2s ease, color 0.2s ease;
-
-                    &:hover {
-                        background-color: var(--clr-brand-forestgreen);
-                        color: var(--clr-brand-lime);
-                    }
+                    font-weight: 600;
+                    color: var(--clr-brand-jsso-primary);
+                    background: var(--clr-brand-jsso-lime);
                 }
             }
         }
-    }
 
-    // ── Images Gallery ────────────────────────────────────────────
-    .block-field-blocknodealbumfield-images {
-        .field--name-field-images {
-            .field__items {
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
-                gap: 0.75rem;
-
-                @media (max-width: 991px) {
-                    grid-template-columns: repeat(2, 1fr);
-                }
-
-                @media (max-width: 575px) {
-                    grid-template-columns: 1fr;
-                }
-
+        // ── Body / Description ────────────────────────────────────────
+        .block-field-blocknodealbumbody {
+            .field--name-body {
                 .field__item {
-                    overflow: hidden;
-                    background-color: var(--clr-bg-400);
+                    p {
+                        font-size: 1rem;
+                        line-height: 1.75;
+                        color: var(--clr-bg-500);
+                        margin: 0;
+                    }
+                }
+            }
+        }
 
-                    a.colorbox {
-                        display: block;
-                        overflow: hidden;
-                        border-radius: inherit;
+        // ── Shared label style ────────────────────────────────────────
+        .field__label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 700;
+            color: var(--clr-brand-jsso-primary);
+            margin-bottom: 0.6rem;
+            opacity: 0.7;
+        }
 
-                        img {
-                            width: 100%;
-                            height: 200px;
-                            object-fit: cover;
-                            display: block;
-                            transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
-                                filter 0.4s ease;
-                            filter: brightness(0.97);
-                        }
+        // ── Organization ──────────────────────────────────────────────
+        .block-field-blocknodealbumfield-organization {
+            .field--name-field-organization {
+                .field__items {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.4rem;
 
-                        &:hover img {
-                            transform: scale(1.06);
-                            filter: brightness(1.05);
-                        }
+                    .field__item {
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                        font-size: 0.9rem;
+                        color: var(--clr-brand-jsso-primary);
+                        font-weight: 500;
 
-                        // Subtle overlay on hover
-                        position: relative;
-
-                        &::after {
+                        // Bullet dot
+                        &::before {
                             content: '';
-                            position: absolute;
-                            inset: 0;
-                            border-radius: inherit;
-                            background: linear-gradient(to bottom,
-                                    transparent 60%,
-                                    rgba(0, 117, 168, 0.25));
-                            opacity: 0;
-                            transition: opacity 0.35s ease;
-                            pointer-events: none;
+                            display: inline-block;
+                            width: 6px;
+                            height: 6px;
+                            border-radius: 50%;
+                            background-color: var(--clr-brand-jsso-primary);
+                            flex-shrink: 0;
+                            opacity: 0.5;
                         }
+                    }
+                }
+            }
+        }
 
-                        &:hover::after {
-                            opacity: 1;
+        // ── Tags ──────────────────────────────────────────────────────
+        .block-field-blocknodealbumfield-tags {
+            .field--name-field-tags {
+                .field__items {
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 0.5rem;
+
+                    .field__item {
+                        display: inline-block;
+                        padding: 0.3rem 0.9rem;
+                        background-color: var(--clr-bg-400);
+                        color: var(--clr-brand-jsso-primary);
+                        font-size: 0.78rem;
+                        font-weight: 600;
+                        text-transform: uppercase;
+                        letter-spacing: 0.06em;
+                        border: 1px solid rgba(0, 117, 168, 0.15);
+                        transition: background-color 0.2s ease, color 0.2s ease;
+
+                        &:hover {
+                            background-color: var(--clr-brand-jsso-primary);
+                            color: var(--clr-brand-jsso-lime);
+                        }
+                    }
+                }
+            }
+        }
+
+        // ── Images Gallery ────────────────────────────────────────────
+        .block-field-blocknodealbumfield-images {
+            .field--name-field-images {
+                .field__items {
+                    display: grid;
+                    grid-template-columns: repeat(3, 1fr);
+                    gap: 0.75rem;
+
+                    @media (max-width: 991px) {
+                        grid-template-columns: repeat(2, 1fr);
+                    }
+
+                    @media (max-width: 575px) {
+                        grid-template-columns: 1fr;
+                    }
+
+                    .field__item {
+                        overflow: hidden;
+                        background-color: var(--clr-bg-400);
+
+                        a.colorbox {
+                            display: block;
+                            overflow: hidden;
+                            border-radius: inherit;
+
+                            img {
+                                width: 100%;
+                                height: 200px;
+                                object-fit: cover;
+                                display: block;
+                                transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+                                    filter 0.4s ease;
+                                filter: brightness(0.97);
+                            }
+
+                            &:hover img {
+                                transform: scale(1.06);
+                                filter: brightness(1.05);
+                            }
+
+                            // Subtle overlay on hover
+                            position: relative;
+
+                            &::after {
+                                content: '';
+                                position: absolute;
+                                inset: 0;
+                                border-radius: inherit;
+                                background: linear-gradient(to bottom,
+                                        transparent 60%,
+                                        rgba(0, 117, 168, 0.25));
+                                opacity: 0;
+                                transition: opacity 0.35s ease;
+                                pointer-events: none;
+                            }
+
+                            &:hover::after {
+                                opacity: 1;
+                            }
                         }
                     }
                 }
             }
         }
     }
-}
 }

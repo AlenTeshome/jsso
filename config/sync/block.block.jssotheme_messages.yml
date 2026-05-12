@@ -1,4 +1,4 @@
-uuid: 28dc6197-c495-4f32-aff9-70f16da52d11
+uuid: 4f11b157-f47e-4aff-9c82-6cbb5532cc59
 langcode: en
 status: true
 dependencies:
@@ -11,7 +11,7 @@ _core:
 id: jssotheme_messages
 theme: jssotheme
 region: content
-weight: -6
+weight: -8
 provider: null
 plugin: system_messages_block
 settings:

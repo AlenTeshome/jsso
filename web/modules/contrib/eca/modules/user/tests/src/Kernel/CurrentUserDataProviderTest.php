@@ -6,12 +6,14 @@ use Drupal\KernelTests\KernelTestBase;
 use Drupal\user\Entity\User;
 use Drupal\user\UserInterface;
 use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Tests for the "eca.token_data.current_user" service.
  */
 #[Group('eca')]
 #[Group('eca_user')]
+#[RunTestsInSeparateProcesses]
 class CurrentUserDataProviderTest extends KernelTestBase {
 
   /**
@@ -23,6 +25,7 @@ class CurrentUserDataProviderTest extends KernelTestBase {
     'field',
     'eca',
     'eca_user',
+    'modeler_api',
   ];
 
   /**

@@ -1,0 +1,29 @@
+uuid: 663071c9-bc08-444a-88a8-42b0a528bf46
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_featured_image
+    - media.type.image
+    - node.type.focus
+id: node.focus.field_featured_image
+field_name: field_featured_image
+entity_type: node
+bundle: focus
+label: 'Featured image'
+description: 'Include an image. This appears as the image in search engine results.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

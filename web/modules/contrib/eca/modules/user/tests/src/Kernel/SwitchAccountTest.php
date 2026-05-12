@@ -5,12 +5,14 @@ namespace Drupal\Tests\eca_user\Kernel;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\user\Entity\User;
 use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Kernel tests for the "eca_switch_account" action plugin.
  */
 #[Group('eca')]
 #[Group('eca_user')]
+#[RunTestsInSeparateProcesses]
 class SwitchAccountTest extends KernelTestBase {
 
   /**
@@ -22,6 +24,7 @@ class SwitchAccountTest extends KernelTestBase {
     'field',
     'eca',
     'eca_user',
+    'modeler_api',
   ];
 
   /**

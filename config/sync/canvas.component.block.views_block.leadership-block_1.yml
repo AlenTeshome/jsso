@@ -1,0 +1,26 @@
+uuid: 72b75f48-3ded-41a0-8c57-822e857b7e6e
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.leadership
+  module:
+    - views
+active_version: 0103d37179ae29ce
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'views_block:leadership-block_1'
+        label: 'Leadership: About us Leadership Block'
+        label_display: '0'
+        provider: views
+        views_label: ''
+        items_per_page: null
+    fallback_metadata:
+      slot_definitions: null
+label: 'Leadership: About us Leadership Block'
+id: block.views_block.leadership-block_1
+provider: views
+source: block
+source_local_id: 'views_block:leadership-block_1'

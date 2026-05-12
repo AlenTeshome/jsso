@@ -1,4 +1,4 @@
-uuid: c46f3b44-a342-464e-bf49-aba99474ae5d
+uuid: 2ed0d9c9-7c30-4896-9cf4-af1f616297d9
 langcode: en
 status: true
 dependencies:
@@ -9,7 +9,7 @@ dependencies:
 id: jssotheme_mainnavigation
 theme: jssotheme
 region: nav_main
-weight: -7
+weight: 0
 provider: null
 plugin: 'tb_megamenu_menu_block:main'
 settings:

@@ -1,0 +1,26 @@
+uuid: ec399d66-591b-4209-a7b9-7b8ebb8f26ee
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.page_hero_image
+  module:
+    - views
+active_version: ddea265077344d77
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'views_block:page_hero_image-block_2'
+        label: 'Page Hero image: Page Hero No image Block'
+        label_display: '0'
+        provider: views
+        views_label: ''
+        items_per_page: null
+    fallback_metadata:
+      slot_definitions: null
+label: 'Page Hero image: Page Hero No image Block'
+id: block.views_block.page_hero_image-block_2
+provider: views
+source: block
+source_local_id: 'views_block:page_hero_image-block_2'

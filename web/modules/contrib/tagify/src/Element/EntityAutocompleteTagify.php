@@ -90,6 +90,7 @@ class EntityAutocompleteTagify extends Textfield {
 
     $info['#maxlength'] = NULL;
     $info['#autocreate'] = NULL;
+    $info['#autocomplete_query_parameters'] = [];
     $info['#cardinality'] = -1;
     $info['#target_type'] = NULL;
     $info['#selection_handler'] = 'default';
@@ -173,6 +174,14 @@ class EntityAutocompleteTagify extends Textfield {
     // Store the selection settings in the key/value store and pass a hashed key
     // in the route parameters.
     $selection_settings = $element['#selection_settings'] ?? [];
+
+    // Don't serialize the entity, it will be added explicitly afterwards.
+    if (isset($selection_settings['entity']) && ($selection_settings['entity'] instanceof EntityInterface)) {
+      $element['#autocomplete_query_parameters']['entity_type'] = $selection_settings['entity']->getEntityTypeId();
+      $element['#autocomplete_query_parameters']['entity_id'] = $selection_settings['entity']->id();
+      unset($selection_settings['entity']);
+    }
+
     $data = serialize($selection_settings) . $element['#target_type'] . $element['#selection_handler'];
     $selection_settings_key = Crypt::hmacBase64($data, Settings::getHashSalt());
 
@@ -181,11 +190,15 @@ class EntityAutocompleteTagify extends Textfield {
       $key_value_storage->set($selection_settings_key, $selection_settings);
     }
 
-    $element['#attributes']['data-autocomplete-url'] = Url::fromRoute('tagify.entity_autocomplete', [
+    $url = Url::fromRoute('tagify.entity_autocomplete', [
       'target_type' => $element['#target_type'],
       'selection_handler' => $element['#selection_handler'],
       'selection_settings_key' => $selection_settings_key,
-    ])->toString();
+    ]);
+    if (!empty($element['#autocomplete_query_parameters'])) {
+      $url->setOption('query', $element['#autocomplete_query_parameters']);
+    }
+    $element['#attributes']['data-autocomplete-url'] = $url->toString();
 
     // Information text.
     $element['#attached']['drupalSettings']['tagify']['information_message'] = [
@@ -207,13 +220,36 @@ class EntityAutocompleteTagify extends Textfield {
       return static::getTagifyDefaultValue($element['#default_value'], $element['#info_label'] ?? '');
     }
 
-    // Potentially the #value is set directly, so it contains the 'target_id'
-    // array structure instead of a string.
     if ($input !== FALSE && is_array($input)) {
-      $entity_ids = array_map(function (array $item) {
-        return $item['target_id'];
-      }, $input);
-      $entities = \Drupal::entityTypeManager()->getStorage($element['#target_type'])->loadMultiple($entity_ids);
+      if (empty($input)) {
+        return NULL;
+      }
+
+      $first = reset($input);
+
+      if (is_array($first)) {
+        // Array of ['target_id' => X] from a programmatic #value assignment.
+        $entity_ids = array_map(fn(array $item) => $item['target_id'], $input);
+      }
+      else {
+        // Flat array of ID strings from URL params (field[]=30&field[]=45).
+        // ctype_digit rejects non-numeric strings strictly; intval would
+        // silently truncate '42abc' to 42 and load an unintended entity.
+        $entity_ids = array_values(array_filter(
+          array_map('intval', $input),
+          static fn(int $id): bool => $id > 0 && ctype_digit((string) $id),
+        ));
+
+        // Cap to field cardinality to prevent mass-entity-load DoS via crafted
+        // URL params. Fall back to 100 when cardinality is unlimited (-1).
+        $cardinality = (int) ($element['#cardinality'] ?? -1);
+        $limit = $cardinality > 0 ? $cardinality : 100;
+        $entity_ids = array_slice($entity_ids, 0, $limit);
+      }
+
+      $entities = \Drupal::entityTypeManager()
+        ->getStorage($element['#target_type'])
+        ->loadMultiple($entity_ids);
 
       return static::getTagifyDefaultValue($entities, $element['#info_label'] ?? '');
     }

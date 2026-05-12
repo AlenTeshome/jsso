@@ -1,0 +1,26 @@
+uuid: 9c17cb2d-e9fe-4a81-93bc-5ba8505459a9
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.get_in_touch
+  module:
+    - views
+active_version: e6d6e3be9f1f790f
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'views_block:get_in_touch-block_1'
+        label: 'Get in Touch: Get in Touch Block'
+        label_display: '0'
+        provider: views
+        views_label: ''
+        items_per_page: null
+    fallback_metadata:
+      slot_definitions: null
+label: 'Get in Touch: Get in Touch Block'
+id: block.views_block.get_in_touch-block_1
+provider: views
+source: block
+source_local_id: 'views_block:get_in_touch-block_1'

@@ -229,7 +229,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: "<div class=\"img\">{{ field_image }}</div>\r\n<span class=\"separator\"></span>\r\n<div class=\"detail\"><div class=\"text-detail\"><div class=\"name\">{{ title }}</div>\r\n<div class=\"position\">{{ field_position }}</div></div>\r\n<div class=\"team-link\"></div></div>"
+            text: "<div class=\"img\">{{ field_image }}</div>\r\n<span class=\"separator\"></span>\r\n<div class=\"detail\"><div class=\"text-detail\"><div class=\"name\">{{ title }}</div>\r\n<div class=\"position\">{{ field_position }}</div></div>\r\n</div>"
             make_link: true
             path: '{{ view_node }}'
             absolute: true
@@ -280,11 +280,64 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+        edit_node:
+          id: edit_node
+          table: node
+          field: edit_node
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          plugin_id: entity_link_edit
+          label: ''
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: div
+          element_wrapper_class: edit-link
+          element_default_classes: false
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          text: Edit
+          output_url_as_text: false
+          absolute: false
       pager:
         type: some
         options:
-          offset: 0
-          items_per_page: 4
+          offset: 1
+          items_per_page: 12
       exposed_form:
         type: basic
         options:
@@ -430,6 +483,33 @@ display:
         - 'config:entityqueue.entity_queue.front_page_featured_team'
         - 'config:field.storage.node.field_image'
         - 'config:field.storage.node.field_position'
+  attachment_1:
+    id: attachment_1
+    display_title: 'JSSO Leader Attachment'
+    display_plugin: attachment
+    position: 3
+    display_options:
+      pager:
+        type: some
+        options:
+          offset: 0
+          items_per_page: 1
+      display_description: ''
+      rendering_language: '***LANGUAGE_language_interface***'
+      display_extenders: {  }
+      displays:
+        block_1: block_1
+      inherit_exposed_filters: true
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_interface'
+        - 'user.node_grants:view'
+        - user.permissions
+      tags:
+        - 'config:entityqueue.entity_queue.front_page_featured_team'
+        - 'config:field.storage.node.field_image'
+        - 'config:field.storage.node.field_position'
   block_1:
     id: block_1
     display_title: 'Featured Our Team Block'
@@ -438,32 +518,20 @@ display:
     display_options:
       defaults:
         css_class: false
+        use_more: false
+        use_more_always: false
+        use_more_text: false
+        link_display: false
+        link_url: false
         header: false
       css_class: featuredourteam
       display_description: ''
-      header:
-        area_text_custom:
-          id: area_text_custom
-          table: views
-          field: area_text_custom
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: text_custom
-          empty: false
-          content: '<h1 class="jsso-heading-title"><span class="color-main">The Right Team for </span><span class="color-accent">Strategic Collaboration</span></h1>'
-          tokenize: false
-        area_text_custom_1:
-          id: area_text_custom_1
-          table: views
-          field: area_text_custom
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: text_custom
-          empty: false
-          content: '<div class="more-link"><a href="/our-team">More Members</a></div>'
-          tokenize: false
+      use_more: true
+      use_more_always: true
+      use_more_text: 'more team members'
+      link_display: page_1
+      link_url: ''
+      header: {  }
       rendering_language: '***LANGUAGE_language_interface***'
       display_extenders: {  }
     cache_metadata:

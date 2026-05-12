@@ -15,6 +15,7 @@ Adds integration with AI services, such as alt text generation and a chat bot to
 - Block (core)
 - Custom Menu Links (core)
 - [Drupal Canvas](https://www.drupal.org/project/canvas)
+- [Easy Encryption](https://www.drupal.org/project/easy_encryption)
 - [Key](https://www.drupal.org/project/key)
 - [OpenAI Provider](https://www.drupal.org/project/ai_provider_openai)
 - Taxonomy (core)

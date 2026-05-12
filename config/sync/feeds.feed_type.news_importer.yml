@@ -1,0 +1,89 @@
+uuid: 591af76a-e843-4f9a-8a57-1d6c5b7341f7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.external_news_item.field_callout
+    - field.field.node.external_news_item.field_date
+    - field.field.node.external_news_item.field_website
+    - node.type.external_news_item
+  module:
+    - feeds_log
+    - node
+third_party_settings:
+  feeds_log:
+    status: true
+    operations:
+      created: created
+      updated: updated
+      deleted: deleted
+      skipped: skipped
+      failed: failed
+      cleaned: cleaned
+    items:
+      created: created
+      updated: updated
+      deleted: deleted
+      skipped: skipped
+      failed: failed
+    source: true
+label: 'News Importer'
+id: news_importer
+description: ''
+help: ''
+import_period: 43200
+import_period_per_feed: false
+fetcher: http
+fetcher_configuration:
+  auto_detect_feeds: false
+  use_pubsubhubbub: false
+  always_download: false
+  fallback_hub: ''
+  request_timeout: 30
+parser: syndication
+parser_configuration: {  }
+processor: 'entity:node'
+processor_configuration:
+  values:
+    type: external_news_item
+  langcode: en
+  insert_new: 1
+  update_existing: 0
+  update_non_existent: _keep
+  skip_hash_check: false
+  skip_validation: false
+  skip_validation_types: {  }
+  authorize: true
+  revision: false
+  expire: -1
+  owner_feed_author: false
+  owner_id: 0
+custom_sources: {  }
+mappings:
+  -
+    target: title
+    map:
+      value: title
+    settings:
+      language: null
+    unique: {  }
+  -
+    target: field_website
+    map:
+      uri: url
+      title: url
+    settings:
+      language: null
+  -
+    target: field_callout
+    map:
+      value: description
+    settings:
+      language: null
+  -
+    target: field_date
+    map:
+      value: timestamp
+    settings:
+      language: null
+      timezone: UTC

@@ -8,12 +8,14 @@ use Drupal\eca_test_array\Plugin\Action\ArrayIncrement;
 use Drupal\migrate\MigrateExecutable;
 use Drupal\user\Entity\User;
 use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Kernel tests for the "eca_migrate" event plugin.
  */
 #[Group('eca')]
 #[Group('eca_migrate')]
+#[RunTestsInSeparateProcesses]
 class MigrateEventTest extends KernelTestBase {
 
   /**
@@ -27,6 +29,7 @@ class MigrateEventTest extends KernelTestBase {
     'eca',
     'eca_migrate',
     'eca_test_array',
+    'modeler_api',
   ];
 
   /**
@@ -35,7 +38,6 @@ class MigrateEventTest extends KernelTestBase {
   public function setUp(): void {
     parent::setUp();
     $this->installConfig(static::$modules);
-    $this->installSchema('system', ['sequences']);
     $this->installSchema('user', ['users_data']);
     $this->installEntitySchema('user');
     User::create(['uid' => 0, 'name' => 'guest'])->save();

@@ -8,7 +8,6 @@ use Composer\InstalledVersions;
 use Composer\Semver\VersionParser;
 use Drupal\Component\Serialization\Json;
 use Drupal\Component\Serialization\Yaml;
-use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Config\ConfigEvents;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Config\ConfigManagerInterface;
@@ -28,6 +27,11 @@ use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Finder\Finder;
+use Symfony\Component\Process\ExecutableFinder;
+use Symfony\Component\Process\PhpExecutableFinder;
+use Symfony\Component\Process\Process;
 
 /**
  * Exports the current site as a recipe.
@@ -42,6 +46,11 @@ final class SiteExporter implements LoggerAwareInterface {
   use LoggerAwareTrait;
   use StorageCopyTrait;
   use StringTranslationTrait;
+
+  /**
+   * The directory where Composer installs recipes, or FALSE if there is none.
+   */
+  private string|false|null $cookbook = NULL;
 
   public function __construct(
     private readonly ModuleExtensionList $moduleList,
@@ -61,12 +70,22 @@ final class SiteExporter implements LoggerAwareInterface {
    *
    * @param string $destination
    *   The path where the recipe should be created.
+   * @param string|null $base
+   *   (optional) The path of a recipe to use as the base for the export, or
+   *   NULL to not use a base recipe at all.
    */
-  public function export(string $destination): void {
-    $this->fileSystem->prepareDirectory($destination, FileSystemInterface::CREATE_DIRECTORY | FileSystemInterface::MODIFY_PERMISSIONS);
-
-    $extensions = $this->getInstalledExtensions();
-    $this->updateComposerJson($destination, $extensions);
+  public function export(string $destination, ?string $base = NULL): void {
+    if ($base && is_dir($base)) {
+      $this->copyBaseRecipe($base, $destination);
+    }
+    else {
+      if ($base) {
+        $this->logger?->warning('Base recipe %path was not found. Exporting the site anyway, but this may produce unintended results.', [
+          '%path' => $base,
+        ]);
+      }
+      $this->fileSystem->prepareDirectory($destination, FileSystemInterface::CREATE_DIRECTORY | FileSystemInterface::MODIFY_PERMISSIONS);
+    }
 
     $listener = $this->classResolver->getInstanceFromDefinition(GenericConfigurationListener::class);
     assert($listener instanceof GenericConfigurationListener);
@@ -98,6 +117,9 @@ final class SiteExporter implements LoggerAwareInterface {
     $storage = $storage->createCollection(StorageInterface::DEFAULT_COLLECTION);
     // The core.extension config should never be included in a recipe.
     $storage->delete('core.extension');
+    // We're exporting a site template, which is meant to be shared, so we don't
+    // need to protect the configuration.
+    $this->fileSystem->delete($destination . '/config/.htaccess');
 
     $actions = [];
     foreach ($storage->listAll() as $name) {
@@ -106,12 +128,81 @@ final class SiteExporter implements LoggerAwareInterface {
         $storage->delete($name);
       }
     }
-    $this->updateRecipe($destination, array_keys($extensions), $actions ?? []);
+    // The site name and mail are almost always collected during the install
+    // process and shouldn't be exported.
+    unset(
+      $actions['system.site']['simpleConfigUpdate']['name'],
+      $actions['system.site']['simpleConfigUpdate']['mail'],
+    );
+
+    $extensions = $this->getInstalledExtensions();
+    $recipe = [
+      'name' => $this->configFactory->get('system.site')->get('name'),
+      // This marks the recipe as a site template.
+      'type' => 'Site',
+      'install' => array_keys($extensions),
+      'config' => [
+        // Do a lenient comparison against extant config. In the early
+        // installer, the active config storage will be an InstallStorage object
+        // that has loaded and enumerated all simple config shipped by modules.
+        // This will likely differ from the simple config from the recipe, so
+        // strict mode will likely fail. If this recipe is a site template being
+        // applied at install time (i.e., the main reason to export a site as a
+        // recipe), lenient mode doesn't make much difference; during the actual
+        // install process, only the config shipped with required modules (e.g.,
+        // System and User) will be present when the recipe is applied, and that
+        // stuff is exported as config actions.
+        'strict' => FALSE,
+        'actions' => $actions,
+      ],
+    ];
+    file_put_contents($destination . '/recipe.yml', Yaml::encode($recipe));
+    $this->writeComposerJson($destination, $extensions);
 
     // Export all content, with its dependencies, as files.
     $loader = $this->classResolver->getInstanceFromDefinition(ContentLoader::class);
     foreach ($loader as $entity) {
       $this->contentExporter->exportWithDependencies($entity, $destination . '/content');
+    }
+  }
+
+  /**
+   * Copies a base recipe into the destination directory.
+   *
+   * Everything from the base recipe will be copied, except for its content.
+   * Any `*.example` files in the base recipe will have the `.example` suffix
+   * stripped.
+   *
+   * @param string $base
+   *   The path of the base recipe.
+   * @param string $destination
+   *   The destination directory.
+   */
+  private function copyBaseRecipe(string $base, string $destination): void {
+    $finder = Finder::create()
+      ->in($base)
+      ->files()
+      ->ignoreVCS(TRUE)
+      ->ignoreDotFiles(FALSE)
+      // Exclude the content, configuration, and `recipe.yml` from the base
+      // recipe, since those will be regenerated.
+      ->notPath(['config', 'content'])
+      ->notName('recipe.yml');
+
+    $file_system = new Filesystem();
+    $file_system->mirror($base, $destination, $finder, ['override' => TRUE]);
+
+    // Rename any `*.example` files to remove the `.example` suffix, so that
+    // the files will actually be used.
+    $finder = Finder::create()
+      ->in($destination)
+      ->files()
+      ->ignoreDotFiles(FALSE)
+      ->name(['*.example', '.*.example']);
+
+    foreach ($finder as $file) {
+      $path = $file->getPathname();
+      $file_system->rename($path, substr($path, 0, -8), TRUE);
     }
   }
 
@@ -152,23 +243,24 @@ final class SiteExporter implements LoggerAwareInterface {
     foreach ($extensions as $name => $extension) {
       $package_name = str_starts_with($extension->getPath(), 'core/')
         ? 'drupal/core'
-        : 'drupal/' . ($extension->info['project'] ?? $name);
+        : $this->getPackageName($extension);
 
       try {
         $version = InstalledVersions::getPrettyVersion($package_name);
+        $stability = VersionParser::parseStability($version);
+        $stability = VersionParser::normalizeStability($stability);
       }
       catch (\OutOfBoundsException) {
-        $message = $this->t('Cannot determine a version constraint for @type @name because the package @package does not appear to be installed.', [
+        $message = $this->t('Cannot determine a version constraint for @type @name because the Composer package @package does not appear to be installed. Falling back to an allow-all (*) constraint for now, but it is strongly recommended that you adjust it. See https://getcomposer.org/doc/articles/versions.md for more information about version constraints.', [
           '@type' => $extension->getType(),
           '@name' => $name,
           '@package' => $package_name,
         ]);
         $this->logger?->warning((string) $message);
-        continue;
-      }
 
-      $stability = VersionParser::parseStability($version);
-      $stability = VersionParser::normalizeStability($stability);
+        $version = '*';
+        $stability = 'dev';
+      }
       $requirements[$package_name] = $stability === 'dev' ? $version : "^$version";
 
       if ($stability !== 'stable') {
@@ -185,35 +277,32 @@ final class SiteExporter implements LoggerAwareInterface {
   /**
    * Alters `composer.json` to match the site being exported.
    *
+   * - The `name` key is automatically generated from the name of the
+   *   destination directory.
    * - The `type` key is always set to `drupal-recipe`.
-   * - Version constraints are generated for all installed extensions and added
-   *   to the `require` section; existing constraints are preserved.
-   * - If not already defined, the `name` key is automatically generated from
-   *   the destination directory name.
-   * - If not already defined, the `version` key is set to `1.0.0`.
+   * - The `require` section is completely overwritten with version constraints
+   *   generated for all installed extensions.
    *
    * @param string $destination
    *   The directory where the site is being exported.
    * @param \Drupal\Core\Extension\Extension[] $extensions
    *   All installed extensions.
    */
-  private function updateComposerJson(string $destination, array $extensions): void {
-    $data = [];
-
+  private function writeComposerJson(string $destination, array $extensions): void {
     $destination .= '/composer.json';
-    if (file_exists($destination)) {
-      $data = file_get_contents($destination);
-      $data = Json::decode($data);
-    }
-    $data['require'] = array_merge(
-      $this->getExtensionRequirements($extensions),
-      $data['require'] ?? [],
-    );
+
+    $data = file_exists($destination)
+      ? Json::decode(file_get_contents($destination))
+      : [];
+
+    // The site template is not installable without a name, so set a sensible
+    // default.
+    $data['name'] = 'drupal/' . basename(dirname($destination));
     $data['type'] = Recipe::COMPOSER_PROJECT_TYPE;
-    // The site template is not installable without these, so set a sensible
-    // default name and version.
-    $data['name'] ??= 'drupal/' . basename(dirname($destination));
-    $data['version'] ??= '1.0.0';
+
+    // Rebuild the list of requirements.
+    $data['require'] = $this->getExtensionRequirements($extensions);
+
     // Remove development-only stuff from drupal_cms_site_template_base (and
     // possibly others).
     unset(
@@ -223,63 +312,6 @@ final class SiteExporter implements LoggerAwareInterface {
 
     $data = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
     file_put_contents($destination, $data);
-  }
-
-  /**
-   * Alters `recipe.yml` to match the site being exported.
-   *
-   * - The `name` key, if defined in recipe.yml, is preserved. Otherwise, it
-   *   defaults to the site name.
-   * - The `type` key is always set to `Site`.
-   * - Any extensions which are not already in the `install` list will be
-   *   appended to it.
-   * - The given config actions will be deep-merged into the config actions
-   *   already in `recipe.yml`, with the given config actions "winning" any
-   *   conflicts.
-   *
-   * @param string $destination
-   *   The directory where the site is being exported.
-   * @param string[] $extensions
-   *   Machine names names of the installed extensions.
-   * @param array $actions
-   *   Config actions to be merged into the recipe.
-   */
-  private function updateRecipe(string $destination, array $extensions, array $actions): void {
-    $recipe = [];
-
-    $destination .= '/recipe.yml';
-    if (file_exists($destination)) {
-      $recipe = file_get_contents($destination);
-      $recipe = Yaml::decode($recipe);
-    }
-    $recipe['name'] ??= $this->configFactory->get('system.site')->get('name');
-    $recipe['type'] = 'Site';
-
-    // Add any new extensions to the recipe's install list, preserving the order
-    // of the extant list (if there is one).
-    $recipe['install'] ??= [];
-    array_push($recipe['install'], ...array_diff($extensions, $recipe['install']));
-
-    // The passed-in config actions overwrite the ones in the recipe.
-    $recipe['config']['actions'] = NestedArray::mergeDeep(
-      $recipe['config']['actions'] ?? [],
-      $actions,
-    );
-    // Do a lenient comparison against extant config. In the early installer,
-    // the active config storage will be an InstallStorage object that has
-    // loaded and enumerated all available simple config as shipped by the
-    // providing modules. This is very likely to differ from the simple config
-    // shipped with the recipe, so strict mode will very likely fail. If this
-    // recipe is a site template being applied at install time (which is the
-    // main to export a site as a recipe), lenient mode doesn't make much
-    // difference; during the actual install process, only the config shipped
-    // with required modules (e.g., System and User) will be present when the
-    // recipe is applied, and that stuff is exported as config actions. We use
-    // the null-coalescing assignment here in case we're updating a recipe that
-    // has, for whatever reason, explicitly opted in to strict mode.
-    $recipe['config']['strict'] ??= FALSE;
-
-    file_put_contents($destination, Yaml::encode($recipe));
   }
 
   /**
@@ -345,6 +377,100 @@ final class SiteExporter implements LoggerAwareInterface {
       }
     }
     return in_array($name, $list, TRUE);
+  }
+
+  /**
+   * Tries to get the Composer package name for a specific extension.
+   *
+   * @param \Drupal\Core\Extension\Extension $extension
+   *   The extension.
+   *
+   * @return string
+   *   The extension's package name, or `drupal/NAME` if it can't be determined.
+   */
+  private function getPackageName(Extension $extension): string {
+    // Statically cache the locations of the PHP interpreter and Composer, since
+    // they're a tad expensive to compute.
+    static $php, $composer;
+
+    $php ??= (new PhpExecutableFinder())->find();
+
+    // Try to determine where Composer is.
+    if ($composer === NULL) {
+      $finder = new ExecutableFinder();
+      $finder->addSuffix('.phar');
+      // If Composer is locally installed in the project, include it in the
+      // search.
+      try {
+        $extra_directories = [
+          InstalledVersions::getInstallPath('composer/composer') . '/bin',
+        ];
+      }
+      catch (\OutOfBoundsException) {
+        $extra_directories = [];
+      }
+      // If we can't find Composer, hope it's just globally available somehow.
+      $composer = $finder->find('composer', 'composer', $extra_directories);
+    }
+
+    $process = new Process([
+      $php,
+      $composer,
+      'config',
+      'name',
+      '--working-dir=' . $this->appRoot . DIRECTORY_SEPARATOR . $extension->getPath(),
+    ]);
+    if ($process->run() === 0) {
+      return trim($process->getOutput());
+    }
+    $fallback = 'drupal/' . ($extension->info['project'] ?? $extension->getName());
+
+    $message = $this->t('Could not determine the Composer package name for @type @name; assuming @fallback.', [
+      '@type' => $extension->getType(),
+      '@name' => basename($fallback),
+      '@fallback' => $fallback,
+    ]);
+    $this->logger?->warning((string) $message);
+    return $fallback;
+  }
+
+  /**
+   * Returns the path to a recipe, or the path where Composer installs them.
+   *
+   * @param string|null $name
+   *   (optional) A recipe package name, or NULL to return the path where
+   *   Composer is configured to install recipes.
+   *
+   * @return string|null
+   *   A path which may or may not exist, or NULL if it cannot be determined.
+   */
+  public function getRecipePath(?string $name = NULL): ?string {
+    if ($this->cookbook === FALSE) {
+      return NULL;
+    }
+    elseif ($this->cookbook) {
+      return rtrim(
+        str_replace(['{$vendor}', '{$name}'], $name ? explode('/', $name, 2) : '', $this->cookbook),
+        '.' . DIRECTORY_SEPARATOR,
+      );
+    }
+
+    ['install_path' => $project_root] = InstalledVersions::getRootPackage();
+    $project_root = realpath($project_root);
+    assert(is_string($project_root));
+
+    $data = Json::decode(
+      file_get_contents($project_root . DIRECTORY_SEPARATOR . 'composer.json'),
+    );
+    $directory = array_find_key(
+      $data['extra']['installer-paths'] ?? [],
+      fn (array $criteria): bool => in_array('type:' . Recipe::COMPOSER_PROJECT_TYPE, $criteria, TRUE),
+    );
+    $this->cookbook = $directory
+      ? $project_root . DIRECTORY_SEPARATOR . ltrim($directory, '.' . DIRECTORY_SEPARATOR)
+      : FALSE;
+
+    return $this->getRecipePath($name);
   }
 
 }

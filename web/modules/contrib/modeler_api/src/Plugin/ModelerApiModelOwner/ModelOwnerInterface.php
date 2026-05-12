@@ -5,6 +5,7 @@ namespace Drupal\modeler_api\Plugin\ModelerApiModelOwner;
 use Drupal\Component\Plugin\PluginInspectionInterface;
 use Drupal\Core\Config\Entity\ConfigEntityInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\modeler_api\Component;
 use Drupal\modeler_api\Plugin\ModelerApiModeler\ModelerInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,6 +32,26 @@ interface ModelOwnerInterface extends PluginInspectionInterface, ContainerFactor
    *   The plugin description.
    */
   public function description(): string;
+
+  /**
+   * A list of component labels for the supported types.
+   *
+   * @return array
+   *   List of component labels key by component types start, element, link,
+   *   gateway, and subprocess.
+   */
+  public function componentLabels(): array;
+
+  /**
+   * A list of plural component labels for the supported types.
+   *
+   * Used for grouping headings in the component panel and quick-add popups.
+   *
+   * @return array
+   *   List of plural component labels keyed by component types start, element,
+   *   link, gateway, and subprocess.
+   */
+  public function componentLabelsPlural(): array;
 
   /**
    * Provides a callback for validating the unique model ID.
@@ -126,11 +147,17 @@ interface ModelOwnerInterface extends PluginInspectionInterface, ContainerFactor
    *
    * @param \Drupal\Core\Config\Entity\ConfigEntityInterface $model
    *   The model.
+   * @param string|null $id
+   *   (optional) The ID for the cloned model. If NULL, a new ID will be
+   *   generated automatically.
+   * @param string|null $label
+   *   (optional) The label for the cloned model. If NULL, the label will be
+   *   derived from the original model with a "(clone)" suffix.
    *
    * @return \Drupal\Core\Config\Entity\ConfigEntityInterface
    *   The cloned model.
    */
-  public function clone(ConfigEntityInterface $model): ConfigEntityInterface;
+  public function clone(ConfigEntityInterface $model, ?string $id = NULL, ?string $label = NULL): ConfigEntityInterface;
 
   /**
    * Exports the model.
@@ -211,6 +238,29 @@ interface ModelOwnerInterface extends PluginInspectionInterface, ContainerFactor
    *   The version.
    */
   public function getVersion(ConfigEntityInterface $model): string;
+
+  /**
+   * Set template setting of the model.
+   *
+   * @param \Drupal\Core\Config\Entity\ConfigEntityInterface $model
+   *   The model.
+   * @param bool $template
+   *   The template setting.
+   *
+   * @return $this
+   */
+  public function setTemplate(ConfigEntityInterface $model, bool $template): ModelOwnerInterface;
+
+  /**
+   * Get template setting from the model.
+   *
+   * @param \Drupal\Core\Config\Entity\ConfigEntityInterface $model
+   *   The model.
+   *
+   * @return bool
+   *   The template setting.
+   */
+  public function getTemplate(ConfigEntityInterface $model): bool;
 
   /**
    * Set storage of the model.
@@ -463,6 +513,31 @@ interface ModelOwnerInterface extends PluginInspectionInterface, ContainerFactor
   public function supportedOwnerComponentTypes(): array;
 
   /**
+   * Returns cardinality constraints for component types.
+   *
+   * Model owners can declare minimum and maximum counts for each component
+   * type. These constraints are enforced both server-side during save and
+   * client-side before the save request is sent.
+   *
+   * Example return value:
+   * @code
+   * [
+   *   Api::COMPONENT_TYPE_START   => ['min' => 1, 'max' => 1, 'successors' => ['min' => 1, 'max' => 1]],
+   *   Api::COMPONENT_TYPE_ELEMENT => ['min' => 1, 'max' => 1, 'successors' => ['max' => 0]],
+   *   Api::COMPONENT_TYPE_GATEWAY => ['successors' => ['min' => 1, 'max' => 1]],
+   * ]
+   * @endcode
+   *
+   * @return array<int, array{min?: int, max?: int, successors?: array{min?: int, max?: int}}>
+   *   An associative array keyed by component type constant. Each value is
+   *   an array with optional 'min' and 'max' keys for component count, and
+   *   an optional 'successors' key with its own 'min'/'max' for the number
+   *   of outgoing connections per component of that type. An empty array
+   *   means no constraints (the default).
+   */
+  public function modelConstraints(): array;
+
+  /**
    * Provides a list of available plugins for a given type.
    *
    * @param int $type
@@ -472,6 +547,14 @@ interface ModelOwnerInterface extends PluginInspectionInterface, ContainerFactor
    *   The list of plugins.
    */
   public function availableOwnerComponents(int $type): array;
+
+  /**
+   * Provides a list of favorite plugin IDs grouped by type.
+   *
+   * @return array|array[]
+   *   The list of favorite plugins grouped by type.
+   */
+  public function favoriteOwnerComponents(): array;
 
   /**
    * Provides an ID of an owner component for a given type.
@@ -565,6 +648,20 @@ interface ModelOwnerInterface extends PluginInspectionInterface, ContainerFactor
    *   otherwise.
    */
   public function skipConfigurationValidation(int $type, string $id): bool;
+
+  /**
+   * Derives the config schema key for a plugin.
+   *
+   * This is used by the modeler for YAML schema discovery on textarea fields.
+   *
+   * @param \Drupal\Component\Plugin\PluginInspectionInterface $plugin
+   *   The plugin instance.
+   *
+   * @return string
+   *   The config schema key prefix (e.g. 'eca.event.plugin.eca_base:eca_tool'),
+   *   or an empty string if no schema key is available.
+   */
+  public function getPluginSchemaKey(PluginInspectionInterface $plugin): string;
 
   /**
    * Provides the optional base URL to the offsite documentation.
@@ -712,5 +809,112 @@ interface ModelOwnerInterface extends PluginInspectionInterface, ContainerFactor
    *   TRUE, if the model supports status, FALSE otherwise.
    */
   public function supportsStatus(): bool;
+
+  /**
+   * Determines if the model supports templates.
+   *
+   * @return bool
+   *   TRUE, if the model supports templates, FALSE otherwise.
+   */
+  public function supportsTemplate(): bool;
+
+  /**
+   * Applies the template to a model, creates a new one if it doesn't exist.
+   *
+   * @param string $templateId
+   *   The ID of the template entity.
+   * @param string $componentId
+   *   The component ID within the template.
+   * @param string $target
+   *   The target element.
+   * @param array $hiddenConfig
+   *   The hidden config.
+   * @param array $config
+   *   The config for the applied template.
+   */
+  public function applyTemplate(string $templateId, string $componentId, string $target, array $hiddenConfig = [], array $config = []): void;
+
+  /**
+   * Determines if the model supports replay data.
+   *
+   * @return bool
+   *   TRUE, if the model supports replay data, FALSE otherwise.
+   */
+  public function supportsReplayData(): bool;
+
+  /**
+   * Provides replay data for a given hash.
+   *
+   * @param string $hash
+   *   The hash representing the replay data.
+   *
+   * @return array
+   *   An array with all the replay data.
+   */
+  public function getReplayData(string $hash): array;
+
+  /**
+   * Provides replay data for a given component in a model.
+   *
+   * @param string $modelId
+   *   The model ID.
+   * @param string $componentId
+   *   The component ID.
+   *
+   * @return array
+   *   An array with all the replay data.
+   */
+  public function getReplayDataByComponent(string $modelId, string $componentId): array;
+
+  /**
+   * Determines if the model supports testing.
+   *
+   * @return bool
+   *   TRUE, if the model supports testing, FALSE otherwise.
+   */
+  public function supportsTesting(): bool;
+
+  /**
+   * Starts a test job for the given model and component.
+   *
+   * @param string $modelId
+   *   The model ID.
+   * @param string $componentId
+   *   The component ID.
+   *
+   * @return string|\Drupal\Core\StringTranslation\TranslatableMarkup
+   *   The job ID as a string, or an error message as a translatable string if
+   *   the job could not be started.
+   */
+  public function startTestJob(string $modelId, string $componentId): string|TranslatableMarkup;
+
+  /**
+   * Polls the status of a test job.
+   *
+   * @param string $jobId
+   *   The job ID.
+   *
+   * @return array|\Drupal\Core\StringTranslation\TranslatableMarkup|null
+   *   Returns NULL if the job is still running, an array with the replay data
+   *   if the job finished successfully, or an error message as a translatable
+   *   string if the job failed.
+   */
+  public function pollTestJob(string $jobId): array|null|TranslatableMarkup;
+
+  /**
+   * Cancels a running test job and cleans up associated resources.
+   *
+   * Called when the user cancels a test in the modeler UI. This allows the
+   * model owner to clean up any state that was set up for the test job (e.g.
+   * reset debug mode if it was automatically enabled).
+   *
+   * @param string $jobId
+   *   The job ID.
+   *
+   * @return \Drupal\Core\StringTranslation\TranslatableMarkup|null
+   *   NULL on success, or an error message as a translatable string if the
+   *   cancellation failed.
+   */
+  public function cancelTestJob(string $jobId): null|TranslatableMarkup;
 
 }

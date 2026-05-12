@@ -1,4 +1,4 @@
-uuid: 11eed77d-a6b6-4895-b247-f8634e9253e4
+uuid: 14e6e0e9-b2c3-414c-806b-b30a8b6c9459
 langcode: en
 status: true
 dependencies:
@@ -9,7 +9,7 @@ _core:
 id: jssotheme_local_actions
 theme: jssotheme
 region: content
-weight: -2
+weight: -4
 provider: null
 plugin: local_actions_block
 settings:

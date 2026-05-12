@@ -9,7 +9,7 @@ body.path-frontpage {
     }
 
     .frontresourcessection {
-        background: var(--clr-brand-bluebeige);
+        background: var(--clr-brand-jsso-bluebeige);
         padding: 2rem 0;
     }
 
@@ -32,15 +32,4 @@ body.path-frontpage {
         width: 100%;
     }
 
-    .block-views {
-        h2 {
-            padding: 2rem 0;
-
-            span {
-                font-size: 1.8rem;
-                //text-transform: uppercase;
-                color: var(--clr-brand-forestgreen);
-            }
-        }
-    }
 }

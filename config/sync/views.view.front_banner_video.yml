@@ -43,7 +43,7 @@ display:
           label: ''
           exclude: false
           alter:
-            alter_text: true
+            alter_text: false
             text: "<video \r\n  autoplay \r\n  muted \r\n  loop \r\n  playsinline \r\n  preload=\"auto\" \r\n  class=\"hero-video\">\r\n  <source src=\"{{ field_video_file }}\" type=\"video/mp4\">\r\n  Your browser does not support the video tag.\r\n</video>"
             make_link: false
             path: ''
@@ -74,16 +74,17 @@ display:
           element_label_type: ''
           element_label_class: ''
           element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
+          element_wrapper_type: div
+          element_wrapper_class: banner-video
+          element_default_classes: false
           empty: ''
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: target_id
-          type: file_url_plain
-          settings: {  }
+          type: file_video
+          settings:
+            use_description_as_link_text: 1
           group_column: ''
           group_columns: {  }
           group_rows: true

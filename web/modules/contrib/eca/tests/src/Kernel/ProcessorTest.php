@@ -13,12 +13,14 @@ use Drupal\eca_test_array\Event\ArrayWriteEvent;
 use Drupal\eca_test_array\Plugin\Action\ArrayWrite;
 use Drupal\user\Entity\User;
 use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Kernel tests for the ECA processor engine.
  */
 #[Group('eca')]
 #[Group('eca_core')]
+#[RunTestsInSeparateProcesses]
 class ProcessorTest extends KernelTestBase {
 
   /**
@@ -30,6 +32,7 @@ class ProcessorTest extends KernelTestBase {
     'field',
     'eca',
     'eca_test_array',
+    'modeler_api',
   ];
 
   /**
