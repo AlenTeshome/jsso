@@ -104,16 +104,21 @@
 
     // Full-pager spacing
     .view-content {
-        display: flex;
-        flex-direction: row;
+        display: grid;
+        grid-template-columns: 1fr;
         gap: 2em 1.25em;
-        justify-content: flex-start;
-        flex-wrap: wrap;
+
+        @media screen and (min-width: 768px) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @media screen and (min-width: 1024px) {
+            grid-template-columns: repeat(3, 1fr);
+        }
 
         .video-row.views-row {
             display: flex;
-            flex: 1 1 calc(33.333% - 1.25em); // 3 per row
-            max-width: calc(33.333% - 1.25em);
+            @include focus-row-hover-effect;
 
             .video-detail {
                 width: 100%;
@@ -124,59 +129,30 @@
                     justify-content: space-between;
                     padding: 1.5em;
                     height: 100%;
-                    background-color: var(--clr-brand-jsso-primary);
                     text-decoration: none;
-                    transition: all 0.3s ease-in-out;
-
-                    &:hover {
-                        background-color: var(--clr-brand-jsso-lime);
-                        transform: translateY(-3px);
-
-                        .video-date {
-                            color: var(--clr-brand-jsso-primary);
-                        }
-
-                        .video-title {
-                            color: var(--clr-brand-jsso-primary);
-                        }
-
-                        .video-link {
-                            @include svg-link-hover-style(var(--clr-brand-jsso-primary), var(--clr-brand-jsso-beige));
-                        }
-                    }
+                    gap: 1em;
 
                     .video-img {
                         img {
                             width: 100%;
-                            height: 210px;
+                            height: auto;
                             object-fit: cover;
                         }
                     }
 
                     .video-date {
-                        margin-top: 1em;
-                        font-size: .8rem;
+                        font-size: 0.9rem;
                         text-transform: uppercase;
-                        letter-spacing: .05em;
-                        color: var(--clr-brand-jsso-beige);
+                        color: var(--clr-brand-jsso-secondary);
                         transition: color 0.3s ease-in-out;
                     }
 
                     .video-title {
-                        margin-top: .5em;
-                        font-size: 1.1rem;
+                        font-size: 1.2rem;
                         font-weight: 600;
                         line-height: 1.35;
-                        color: var(--clr-brand-jsso-beige);
+                        color: var(--clr-brand-jsso-secondary);
                         transition: color 0.3s ease-in-out;
-                    }
-
-                    .video-link {
-                        display: flex;
-                        justify-content: flex-end;
-                        margin-top: 1.25em;
-                        @include after-psudo('\f061');
-                        @include svg-fill-with-bg;
                     }
                 }
             }

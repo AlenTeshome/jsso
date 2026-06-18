@@ -8,20 +8,24 @@
 
     .view-content {
 
-        display: flex;
-        flex-direction: row;
-        gap: 2em 1em;
-        justify-content: space-between;
-        flex-wrap: wrap;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2em 1.25em;
+
+        @media screen and (min-width: 768px) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @media screen and (min-width: 1024px) {
+            grid-template-columns: repeat(3, 1fr);
+        }
 
         .views-row {
             display: flex;
-            flex: 1 1 calc(50% - 1em); // 4 per row
-            max-width: calc(50% - 1em);
+            @include focus-row-hover-effect;
 
             .album-detail {
-
-
+                width: 100%;
 
                 a {
                     display: flex;
@@ -29,18 +33,7 @@
                     justify-content: space-between;
                     padding: 1.5em;
                     height: 100%;
-                    background-color: var(--clr-bg-300);
-                    transition: all 0.3s ease-in-out;
-
-
-                    &:hover {
-                        background-color: var(--clr-brand-jsso-lime);
-                        transform: translateY(-2px);
-
-                        .album-title {
-                            color: var(--clr-brand-jsso-primary);
-                        }
-                    }
+                    text-decoration: none;
 
                     .wrapper {
                         display: flex;
@@ -75,12 +68,6 @@
                         @include after-psudo('\f061');
                         @include svg-fill-with-bg;
                         display: none;
-                    }
-
-                    &:hover {
-                        .album-link {
-                            @include svg-link-hover-style(var(--clr-brand-jsso-primary), var(--clr-brand-jsso-beige));
-                        }
                     }
                 }
             }
