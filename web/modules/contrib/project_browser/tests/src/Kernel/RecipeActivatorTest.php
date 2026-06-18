@@ -19,6 +19,7 @@ use Drupal\project_browser\ProjectRepository;
 use Drupal\project_browser\ProjectType;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Tests the recipe activator. Obviously.
@@ -27,6 +28,7 @@ use PHPUnit\Framework\Attributes\Group;
  */
 #[CoversClass(RecipeActivator::class)]
 #[Group('project_browser')]
+#[RunTestsInSeparateProcesses]
 final class RecipeActivatorTest extends KernelTestBase {
 
   /**
@@ -46,7 +48,7 @@ final class RecipeActivatorTest extends KernelTestBase {
    */
   protected function setUp(): void {
     parent::setUp();
-    $this->activator = $this->container->get(RecipeActivator::class);
+    $this->activator = \Drupal::service(RecipeActivator::class);
     $this->setSetting('extension_discovery_scan_tests', TRUE);
   }
 
@@ -62,14 +64,14 @@ final class RecipeActivatorTest extends KernelTestBase {
    * Tests that Project Browser stores fully resolved paths of applied recipes.
    */
   public function testAbsoluteRecipePathIsStoredOnApply(): void {
-    $base_dir = $this->getDrupalRoot() . '/core/tests/fixtures/recipes';
+    $base_dir = $this->root . '/core/tests/fixtures/recipes';
     if (!is_dir($base_dir)) {
       $this->markTestSkipped('This test requires a version of Drupal that supports recipes.');
     }
     $recipe = Recipe::createFromDirectory($base_dir . '/invalid_config/../no_extensions');
     RecipeRunner::processRecipe($recipe);
 
-    $applied_recipes = $this->container->get(StateInterface::class)
+    $applied_recipes = \Drupal::service(StateInterface::class)
       ->get('project_browser.applied_recipes', []);
     $this->assertContains($base_dir . '/no_extensions', $applied_recipes);
   }
@@ -106,8 +108,8 @@ final class RecipeActivatorTest extends KernelTestBase {
         ],
       ])
       ->save();
-    $this->container->get(QueryManager::class)->getProjects('recipes');
-    $project = $this->container->get(ProjectRepository::class)
+    \Drupal::service(QueryManager::class)->getProjects('recipes');
+    $project = \Drupal::service(ProjectRepository::class)
       ->get('recipes/project-browser-test-recipe-with-tasks-recipe_with_tasks');
     // Tasks are not exposed unless the recipe has been applied.
     $this->assertEmpty($this->activator->getTasks($project));
@@ -142,12 +144,12 @@ final class RecipeActivatorTest extends KernelTestBase {
         ],
       ])
       ->save();
-    $this->container->get(QueryManager::class)->getProjects('recipes');
-    $project = $this->container->get(ProjectRepository::class)
+    \Drupal::service(QueryManager::class)->getProjects('recipes');
+    $project = \Drupal::service(ProjectRepository::class)
       ->get('recipes/project-browser-test-recipe-with-tasks-recipe_with_tasks');
 
     /** @var \Drupal\Core\Config\Checkpoint\CheckpointListInterface $checkpoint_list */
-    $checkpoint_list = $this->container->get(CheckpointListInterface::class);
+    $checkpoint_list = \Drupal::service(CheckpointListInterface::class);
     // There is no checkpoint yet.
     $inactive_checkpoint = $checkpoint_list->getActiveCheckpoint();
     $this->assertNull($inactive_checkpoint);

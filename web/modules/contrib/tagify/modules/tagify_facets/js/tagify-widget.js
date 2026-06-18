@@ -128,7 +128,9 @@
               10,
             ),
             maxItems:
-              settings.tagify.tagify_facets_widget.max_items ?? Infinity,
+              settings.tagify.tagify_facets_widget.max_items === '0'
+                ? Infinity
+                : settings.tagify.tagify_facets_widget.max_items,
           },
           templates: {
             tag: tagTemplate,
@@ -141,17 +143,6 @@
           enforceWhitelist: true,
           editTags: false,
           placeholder: settings.tagify.tagify_facets_widget.placeholder,
-        });
-
-        /**
-         * Binds Sortable to Tagify's main element and specifies draggable items.
-         */
-        Sortable.create(tagify.DOM.scope, {
-          draggable: `.${tagify.settings.classNames.tag}:not(tagify__input)`,
-          forceFallback: true,
-          onEnd() {
-            tagify.updateValueByDOMTags();
-          },
         });
 
         /**

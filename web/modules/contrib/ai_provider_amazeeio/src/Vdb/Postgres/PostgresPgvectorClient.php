@@ -2,8 +2,8 @@
 
 namespace Drupal\ai_provider_amazeeio\Vdb\Postgres;
 
+use Drupal\ai\Enum\EmbeddingStrategyIndexingOptions;
 use Drupal\ai\Enum\VdbSimilarityMetrics;
-use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\ai_provider_amazeeio\Vdb\Postgres\Exception\AddFieldIfNotExistsException;
 use Drupal\ai_provider_amazeeio\Vdb\Postgres\Exception\CreateCollectionException;
 use Drupal\ai_provider_amazeeio\Vdb\Postgres\Exception\DatabaseConnectionException;
@@ -14,7 +14,14 @@ use Drupal\ai_provider_amazeeio\Vdb\Postgres\Exception\GetCollectionsException;
 use Drupal\ai_provider_amazeeio\Vdb\Postgres\Exception\InsertIntoCollectionException;
 use Drupal\ai_provider_amazeeio\Vdb\Postgres\Exception\QuerySearchException;
 use Drupal\ai_provider_amazeeio\Vdb\Postgres\Exception\VectorSearchException;
+use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
+use Drupal\Core\Field\TypedData\FieldItemDataDefinitionInterface;
+use Drupal\search_api\Item\FieldInterface;
+use Drupal\search_api\Utility\FieldsHelperInterface;
+use Drupal\search_api\Utility\Utility;
 use PgSql\Connection;
 
 /**
@@ -22,9 +29,27 @@ use PgSql\Connection;
  */
 class PostgresPgvectorClient {
 
+  /**
+   * Constructs a new object.
+   *
+   * @param \Drupal\search_api\Utility\FieldsHelperInterface|null $fieldHelper
+   *   Search API's field helper. Nullable, since this class is only in use
+   *   when Search API is enabled.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
+   *   The entity type manager.
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
+   *   The config factory, used to read ai_search indexing options.
+   */
+  public function __construct(
+    private readonly ?FieldsHelperInterface $fieldHelper,
+    private readonly EntityTypeManagerInterface $entityTypeManager,
+    private readonly ConfigFactoryInterface $configFactory,
+  ) {}
+
   protected const DATA_TYPE_MAPPING = [
     'integer' => 'INTEGER',
     'text' => 'TEXT',
+    'full_text' => 'TEXT',
     // Use BIGINT instead of TIMESTAMP because at index time, the provider
     // does not know whether the field value is a date or number.
     'date' => 'BIGINT',
@@ -49,11 +74,11 @@ class PostgresPgvectorClient {
     string $default_database,
     ?string $database = NULL,
   ): Connection|FALSE {
-    if (!isset($database)) {
+    if (!isset($database) || $database === 'default') {
       $database = $default_database;
     }
     $connection = pg_connect(
-      connection_string: "host={$host} dbname={$database} port={$port} user={$username} password={$password}"
+      connection_string: "host=" . addcslashes($host, "'\\") . " dbname=" . addcslashes($database, "'\\") . " port=" . (int) $port . " user=" . addcslashes($username, "'\\") . " password=" . addcslashes($password, "'\\")
     );
     if (!$connection) {
       throw new DatabaseConnectionException(
@@ -78,21 +103,13 @@ class PostgresPgvectorClient {
   public function getCollections(Connection $connection): array {
     $result = pg_query_params(
       connection: $connection,
-      query: 'SELECT * FROM pg_catalog.pg_tables WHERE schemaname != $1 AND schemaname != $2;',
-      params: ['pg_catalog', 'information_schema'],
+      query: 'SELECT table_name FROM information_schema.tables WHERE table_schema = current_schema() AND table_type = $1',
+      params: ['BASE TABLE'],
     );
     if (!$result) {
       throw new GetCollectionsException(message: pg_last_error(connection: $connection));
     }
-    $rows = pg_fetch_all(result: $result);
-
-    $tables = array_map(
-      callback: function ($row) {
-        return $row['tablename'];
-      },
-      array: $rows
-    );
-    return $tables;
+    return pg_fetch_all_columns($result);
   }
 
   /**
@@ -111,11 +128,54 @@ class PostgresPgvectorClient {
     );
     $result = pg_query(
       connection: $connection,
-      query: "CREATE TABLE {$escaped_collection_name} (id bigserial PRIMARY KEY, content VARCHAR, drupal_entity_id VARCHAR, drupal_long_id VARCHAR, server_id VARCHAR, index_id VARCHAR, embedding vector({$dimension}));"
+      query: "CREATE TABLE {$escaped_collection_name} (id bigserial PRIMARY KEY, content VARCHAR, drupal_entity_id VARCHAR, drupal_long_id VARCHAR, server_id VARCHAR, index_id VARCHAR, embedding vector(" . (int) $dimension . "));"
     );
     if (!$result) {
       throw new CreateCollectionException(message: pg_last_error(connection: $connection));
     }
+    // Attempt to update the additional fields from the search api indexes.
+    foreach ($this->getSearchApiServers($collection_name, $connection) as $search_api_server) {
+      foreach ($search_api_server->getIndexes() as $index) {
+        // Create the necessary index fields.
+        $this->updateFields($index->getFields(), $collection_name, $connection);
+      }
+    }
+  }
+
+  /**
+   * Returns the search api servers for the current connection.
+   *
+   * @param string $collection_name
+   *   The collection name of the connection.
+   * @param \PgSql\Connection $connection
+   *   The current connection.
+   *
+   * @return \Drupal\search_api\Entity\Server[]
+   *   The Search API servers.
+   */
+  protected function getSearchApiServers(string $collection_name, Connection $connection): array {
+    if (!$this->entityTypeManager->hasDefinition('search_api_server')) {
+      return [];
+    }
+
+    $result = pg_query(
+      $connection,
+      'SELECT current_database()'
+    );
+    $current_database = pg_fetch_result($result, 0, 0);
+
+    $search_api_server_storage = $this->entityTypeManager->getStorage('search_api_server');
+    $query = $search_api_server_storage->getQuery();
+    $query->condition('status', TRUE)
+      ->condition('backend', 'search_api_ai_search')
+      ->condition('backend_config.database', 'amazeeio_vector_db')
+      ->condition('backend_config.database_settings.database_name', $current_database)
+      ->condition('backend_config.database_settings.collection', $collection_name);
+    $ai_servers = $query
+      ->accessCheck(FALSE)
+      ->execute();
+
+    return $search_api_server_storage->loadMultiple($ai_servers);
   }
 
   /**
@@ -137,6 +197,21 @@ class PostgresPgvectorClient {
     );
     if (!$result) {
       throw new DropCollectionException(message: pg_last_error(connection: $connection));
+    }
+
+    $relation_tables = $this->getRelationTables($collection_name, $connection);
+    foreach ($relation_tables as $relation_table) {
+      $escaped_relation_table = $this->escapeIdentifierForSql(
+        $relation_table,
+        $connection,
+      );
+      $result = pg_query(
+        $connection,
+        "DROP TABLE IF EXISTS {$escaped_relation_table} CASCADE;"
+      );
+      if (!$result) {
+        throw new DropCollectionException(message: pg_last_error(connection: $connection));
+      }
     }
   }
 
@@ -180,7 +255,8 @@ class PostgresPgvectorClient {
         }
       }
       else {
-        $extra_fields_columns .= ", {$field_name}";
+        $escaped_field_name = $this->escapeIdentifierForSql($field_name, $connection);
+        $extra_fields_columns .= ", {$escaped_field_name}";
         $extra_fields_values .= ", \${$param_index}";
         $extra_fields_params[] = $field_data['value'];
         $param_index++;
@@ -216,10 +292,30 @@ class PostgresPgvectorClient {
   }
 
   /**
-   * {@inheritdoc}
+   * Delete rows from a collection and its relation tables.
+   *
+   * Matches against the collection's primary key (`id` column), not the
+   * `drupal_entity_id` column. Callers holding Drupal entity IDs must first
+   * resolve them to VDB row IDs (see
+   * \Drupal\ai_provider_amazeeio\Vdb\Postgres\Plugin\VdbProvider\PostgresProvider::getVdbIds()).
+   *
+   * Any relation tables associated with the collection (discovered via the
+   * `{collection}__{field}` naming convention) have their matching `chunk_id`
+   * rows deleted as well.
+   *
+   * @param string $collection_name
+   *   The name of the collection (parent table).
+   * @param array $ids
+   *   VDB row IDs from the collection's `id` column. NOT Drupal entity IDs.
+   * @param \PgSql\Connection $connection
+   *   The Postgres connection.
    *
    * @throws \Drupal\ai_provider_amazeeio\Vdb\Postgres\Exception\DeleteFromCollectionException
+   *   When the DELETE on the collection or one of its relation tables fails.
    * @throws \Drupal\ai_provider_amazeeio\Vdb\Postgres\Exception\EscapeStringException
+   *   When identifier or value escaping fails.
+   * @throws \Drupal\ai_provider_amazeeio\Vdb\Postgres\Exception\GetCollectionsException
+   *   When relation table discovery fails.
    */
   public function deleteFromCollection(
     string $collection_name,
@@ -236,11 +332,89 @@ class PostgresPgvectorClient {
     $prepared_ids = $this->prepareStringArrayForSql(items: $ids, connection: $connection);
     $result = pg_query(
       connection: $connection,
-      query: "DELETE FROM {$escaped_collection_name} WHERE drupal_entity_id IN {$prepared_ids};"
+      query: "DELETE FROM {$escaped_collection_name} WHERE id IN {$prepared_ids}"
     );
     if (!$result) {
       throw new DeleteFromCollectionException(message: pg_last_error(connection: $connection));
     }
+
+    $relation_tables = $this->getRelationTables($collection_name, $connection);
+    foreach ($relation_tables as $relation_table) {
+      $escaped_relation_table = $this->escapeIdentifierForSql(
+        $relation_table,
+        $connection,
+      );
+      $result = pg_query(
+        $connection,
+        "DELETE FROM {$escaped_relation_table} WHERE chunk_id IN {$prepared_ids};"
+      );
+      if (!$result) {
+        throw new DeleteFromCollectionException(message: pg_last_error(connection: $connection));
+      }
+    }
+  }
+
+  /**
+   * Delete all rows from a collection that belong to a specific index.
+   *
+   * @param string $collection_name
+   *   The collection name.
+   * @param string $index_id
+   *   The Search API index ID.
+   * @param \PgSql\Connection $connection
+   *   The Postgres connection.
+   *
+   * @throws \Drupal\ai_provider_amazeeio\Vdb\Postgres\Exception\DeleteFromCollectionException
+   * @throws \Drupal\ai_provider_amazeeio\Vdb\Postgres\Exception\EscapeStringException
+   */
+  public function deleteByIndexId(
+    string $collection_name,
+    string $index_id,
+    Connection $connection,
+  ): void {
+    $escaped_collection_name = $this->escapeIdentifierForSql(
+      identifier_to_escape: $collection_name,
+      connection: $connection,
+    );
+    $result = pg_query_params(
+      connection: $connection,
+      query: "DELETE FROM {$escaped_collection_name} WHERE index_id = $1;",
+      params: [$index_id],
+    );
+    if (!$result) {
+      throw new DeleteFromCollectionException(message: pg_last_error(connection: $connection));
+    }
+  }
+
+  /**
+   * Returns a list of relational tables for the collection.
+   *
+   * It works under the assumption that relation tables use the "__" prefix for
+   * additional fields.
+   *
+   * @param string $collection_name
+   *   The collection name.
+   * @param \PgSql\Connection $connection
+   *   The database connection object.
+   *
+   * @return array
+   *   The list of relational tables.
+   *
+   * @throws \Drupal\ai_provider_amazeeio\Vdb\Postgres\Exception\GetCollectionsException
+   *
+   * @see \Drupal\ai_provider_amazeeio\Vdb\Postgres\PostgresPgvectorClient::getRelationTableName()
+   */
+  protected function getRelationTables(string $collection_name, Connection $connection): array {
+    $like_safe_name = str_replace(['%', '_'], ['\%', '\_'], $collection_name);
+    $result = pg_query_params(
+      $connection,
+      'SELECT table_name FROM information_schema.tables WHERE table_schema = current_schema() AND table_type = $1 AND table_name LIKE $2',
+      ['BASE TABLE', "{$like_safe_name}\\_\\_%"],
+    );
+    if (!$result) {
+      throw new GetCollectionsException(message: pg_last_error(connection: $connection));
+    }
+    return pg_fetch_all_columns($result);
   }
 
   /**
@@ -262,6 +436,8 @@ class PostgresPgvectorClient {
       connection: $connection,
     );
     $prepared_output_fields = $this->prepareFieldArrayForSql(fields: $output_fields, connection: $connection, collection_name: $collection_name);
+    $limit = (int) $limit;
+    $offset = (int) $offset;
     if (empty($filters)) {
       $query = "SELECT {$prepared_output_fields} FROM {$escaped_collection_name} LIMIT {$limit} OFFSET {$offset};";
     }
@@ -302,11 +478,11 @@ class PostgresPgvectorClient {
     );
     $prepared_output_fields = $this->prepareFieldArrayForSql(fields: $output_fields, connection: $connection, collection_name: $collection_name);
     $vectors = $this->prepareVectorArrayForSql(vector: $vector_input, connection: $connection);
+    $limit = (int) $limit;
+    $offset = (int) $offset;
     // Escape the output fields.
     $escaped_outfield_fields = array_map(
-      callback: function ($field) use ($connection) {
-        return $this->escapeIdentifierForSql(identifier_to_escape: $field, connection: $connection);
-      },
+      callback: fn($field) => $this->escapeIdentifierForSql(identifier_to_escape: $field, connection: $connection),
       array: $output_fields
     );
     $outfield_fields = implode(',', $escaped_outfield_fields);
@@ -471,6 +647,34 @@ class PostgresPgvectorClient {
   }
 
   /**
+   * Determine whether a Search API field should have its own DB column.
+   *
+   * Only fields configured as "Filterable attributes" in the ai_search index
+   * configuration receive a per-record value at index time (see
+   * \Drupal\ai_search\Plugin\EmbeddingStrategy\EmbeddingBase::buildBaseMetadata()).
+   * Fields configured as "Main content" or "Contextual content" are folded
+   * into the chunked `content` text, and fields configured as "Ignore" (or
+   * with no indexing option set) are not indexed at all. Creating dedicated
+   * columns for the latter groups leaves permanently-NULL columns behind.
+   *
+   * @param \Drupal\search_api\Item\FieldInterface $field
+   *   The Search API field.
+   *
+   * @return bool
+   *   TRUE if the field is configured as a filterable attribute on its index.
+   */
+  public function shouldHaveColumn(FieldInterface $field): bool {
+    $index = $field->getIndex();
+    if (!$index) {
+      return FALSE;
+    }
+    $config = $this->configFactory->get('ai_search.index.' . $index->id())->getRawData();
+    $indexing_options = $config['indexing_options'] ?? [];
+    $option = $indexing_options[$field->getFieldIdentifier()]['indexing_option'] ?? NULL;
+    return $option === EmbeddingStrategyIndexingOptions::Attributes->getKey();
+  }
+
+  /**
    * {@inheritdoc}
    *
    * @throws \Drupal\ai_provider_amazeeio\Vdb\Postgres\Exception\EscapeStringException
@@ -479,31 +683,52 @@ class PostgresPgvectorClient {
   public function updateFields($fields, string $collection_name, Connection $connection): void {
     /** @var \Drupal\search_api\Item\FieldInterface $field */
     foreach ($fields as $field) {
-      $field_data_definition = $field->getDataDefinition();
-
-      // Make assumption of basic data type if we can't get more info.
-      if (!method_exists($field_data_definition, 'getFieldDefinition')) {
-        $this->addFieldIfNotExists(FALSE, 'string', $field->getFieldIdentifier(), $collection_name, $connection);
+      if (!$this->shouldHaveColumn($field)) {
         continue;
       }
-      $isMultiple = TRUE;
+      $field_data_definition = $field->getDataDefinition();
+      if ($field_data_definition instanceof FieldItemDataDefinitionInterface) {
+        $isMultiple = TRUE;
 
-      $field_definition = $field_data_definition->getFieldDefinition();
-      // Set a default cardinality of 1 in case we can't get more info about it.
-      $field_cardinality = 1;
-      if ($field_definition instanceof BaseFieldDefinition) {
-        $field_cardinality = $field_definition->getCardinality();
+        $field_definition = $field_data_definition->getFieldDefinition();
+        // Set a default cardinality of 1 in case we can't get more info
+        // about it.
+        $field_cardinality = 1;
+        if ($field_definition instanceof BaseFieldDefinition) {
+          $field_cardinality = $field_definition->getCardinality();
+        }
+        else {
+          $field_storage_definition = $field_definition->get('fieldStorage');
+          if ($field_storage_definition instanceof FieldStorageDefinitionInterface) {
+            $field_cardinality = $field_storage_definition->getCardinality();
+          }
+        }
+        if ($field_cardinality === 1) {
+          $isMultiple = FALSE;
+        }
+        $this->addFieldIfNotExists($isMultiple, $field->getType(), $field->getFieldIdentifier(), $collection_name, $connection);
       }
       else {
-        $field_storage_definition = $field_definition->get('fieldStorage');
-        if ($field_storage_definition && $field_storage_definition instanceof FieldStorageDefinitionInterface) {
-          $field_cardinality = $field_storage_definition->getCardinality();
+        [$main_property_name] = Utility::splitPropertyPath($field->getPropertyPath(), FALSE);
+        $main_property = $field->getIndex()->getPropertyDefinitions($field->getDatasourceId())[$main_property_name];
+        // If the main property is a list, its direct data type (e.g., "list")
+        // isn't what we need for the database column. Instead, we need the
+        // data type of the items within that list.
+        if ($main_property->isList()) {
+          $data_type = $this->fieldHelper->retrieveNestedProperty($field->getIndex()->getPropertyDefinitions($field->getDatasourceId()), $field->getPropertyPath())->getDataType();
         }
+        else {
+          // If it's not a list, then the main property's data type is
+          // sufficient.
+          $data_type = $main_property->getDataType();
+        }
+        // The 'search_api_text' type is a Search API internal type, which
+        // for a PostgreSQL database usually corresponds to a 'TEXT' type.
+        if ($data_type === 'search_api_text') {
+          $data_type = 'text';
+        }
+        $this->addFieldIfNotExists($main_property->isList(), $data_type, $field->getFieldIdentifier(), $collection_name, $connection);
       }
-      if ($field_cardinality === 1) {
-        $isMultiple = FALSE;
-      }
-      $this->addFieldIfNotExists($isMultiple, $field->getType(), $field->getFieldIdentifier(), $collection_name, $connection);
     }
   }
 
@@ -518,7 +743,7 @@ class PostgresPgvectorClient {
       identifier_to_escape: $collection_name,
       connection: $connection,
     );
-    $postgres_type = self::DATA_TYPE_MAPPING[$data_type];
+    $postgres_type = self::DATA_TYPE_MAPPING[$data_type] ?? 'TEXT';
     $escaped_field_name = $this->escapeIdentifierForSql($name, $connection);
 
     // If isMultiple is true, create a new relationship table.
@@ -544,13 +769,14 @@ class PostgresPgvectorClient {
    */
   protected function prepareRelationQuery($collection_name, $field_name, $field_data, $connection) {
     $query = '';
-    $escaped_collection_name_id_sequence = $this->escapeIdentifierForSql(
-      identifier_to_escape: "{$collection_name}_id_seq",
-      connection: $connection,
+    $escaped_collection_name_id_sequence = pg_escape_literal(
+      $connection,
+      "{$collection_name}_id_seq",
     );
     // Prepare entries for relation table.
-    $relation_table_fields = [];
     $escaped_relation_table_name = $this->getRelationTableName($collection_name, $field_name, $connection);
+
+    $field_values_to_insert = [];
     if (!is_array($field_data['value'])) {
       $field_data['value'] = [$field_data['value']];
     }
@@ -558,22 +784,14 @@ class PostgresPgvectorClient {
       if (empty($value)) {
         continue;
       }
-      $relation_table_fields[$escaped_relation_table_name][] = $value;
+      $escaped_field_value = $this->escapeStringForSql(string_to_escape: (string) $value, connection: $connection);
+      $field_values_to_insert[] = "({$escaped_field_value}, currval({$escaped_collection_name_id_sequence}))";
     }
 
-    foreach ($relation_table_fields as $escaped_relation_table_name => $field_values) {
-      $query .= "INSERT INTO {$escaped_relation_table_name} (value, chunk_id) values ";
-      $last_value = end($field_values);
-      foreach ($field_values as $field_value) {
-        $query .= "({$field_value}, currval('{$escaped_collection_name_id_sequence}'))";
-        if ($field_value === $last_value) {
-          $query .= ';';
-        }
-        else {
-          $query .= ",";
-        }
-      }
+    if (!empty($field_values_to_insert)) {
+      $query = "INSERT INTO {$escaped_relation_table_name} (value, chunk_id) values " . implode(', ', $field_values_to_insert) . ';';
     }
+
     return $query;
   }
 

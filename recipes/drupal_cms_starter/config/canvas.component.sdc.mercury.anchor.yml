@@ -25,4 +25,3 @@ id: sdc.mercury.anchor
 provider: mercury
 source: sdc
 source_local_id: 'mercury:anchor'
-category: Base

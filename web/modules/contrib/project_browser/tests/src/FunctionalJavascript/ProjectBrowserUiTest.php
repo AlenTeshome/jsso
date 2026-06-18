@@ -10,6 +10,8 @@ use Drupal\Core\Extension\MissingDependencyException;
 use Drupal\FunctionalJavascriptTests\WebDriverTestBase;
 use Drupal\project_browser\ProjectBrowser\Filter\TextFilter;
 use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
+use PHPUnit\Framework\Attributes\TestWith;
 
 // cspell:ignore coverageall doomer eggman quiznos statusactive statusmaintained
 // cspell:ignore vetica
@@ -25,6 +27,7 @@ use PHPUnit\Framework\Attributes\Group;
  * @group project_browser
  */
 #[Group('project_browser')]
+#[RunTestsInSeparateProcesses]
 final class ProjectBrowserUiTest extends WebDriverTestBase {
 
   use ProjectBrowserUiTestTrait;
@@ -51,7 +54,7 @@ final class ProjectBrowserUiTest extends WebDriverTestBase {
       ->set('enabled_sources', [
         'project_browser_test_mock' => [],
       ])
-      ->save(TRUE);
+      ->save();
     $this->drupalLogin($this->drupalCreateUser([
       'administer modules',
       'administer site configuration',
@@ -682,7 +685,7 @@ final class ProjectBrowserUiTest extends WebDriverTestBase {
   public function testTabledrag(): void {
     $page = $this->getSession()->getPage();
     $assert_session = $this->assertSession();
-    $this->container->get('module_installer')->install(['block']);
+    \Drupal::service('module_installer')->install(['block']);
     $this->drupalPlaceBlock('local_tasks_block');
 
     $this->config('project_browser.admin_settings')
@@ -746,10 +749,9 @@ final class ProjectBrowserUiTest extends WebDriverTestBase {
 
   /**
    * Tests the visibility of categories in list and grid view.
-   *
-   * @testWith ["Grid"]
-   *           ["List"]
    */
+  #[TestWith(['Grid'])]
+  #[TestWith(['List'])]
   public function testCategoriesVisibility(string $display_type): void {
     $this->getSession()->resizeWindow(1300, 1300);
     $this->drupalGet('admin/modules/browse/project_browser_test_mock');
@@ -840,7 +842,7 @@ final class ProjectBrowserUiTest extends WebDriverTestBase {
 
     // @todo Remove try/catch in https://www.drupal.org/i/3349193.
     try {
-      $this->container->get('module_installer')->install(['package_manager']);
+      \Drupal::service('module_installer')->install(['package_manager']);
     }
     catch (MissingDependencyException $e) {
       $this->markTestSkipped($e->getMessage());
@@ -918,7 +920,7 @@ final class ProjectBrowserUiTest extends WebDriverTestBase {
     assert(is_string($command));
     // A full path to the PHP executable should be in the command.
     $this->assertMatchesRegularExpression('/[^\s]+\/php /', $command);
-    $drupal_root = $this->getDrupalRoot();
+    $drupal_root = $this->root;
     $this->assertStringStartsWith("cd $drupal_root\n", $command);
     $this->assertStringEndsWith("php $drupal_root/core/scripts/drupal recipe $drupal_root/core/recipes/image_media_type", $command);
   }

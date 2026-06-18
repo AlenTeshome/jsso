@@ -36,7 +36,6 @@ services:
     tags:
       - { name: route_enhancer }
   Drupal\project_browser\Routing\SourceConverter:
-    public: false
     tags:
       - { name: paramconverter }
   Drupal\project_browser\ProjectBrowser\Normalizer: ~

@@ -8,12 +8,6 @@ dependencies:
     - text
   theme:
     - mercury
-label: Text
-id: sdc.mercury.text
-source: sdc
-source_local_id: 'mercury:text'
-provider: mercury
-category: Base
 active_version: 16c79c28a4108f9b
 versioned_properties:
   active:
@@ -56,3 +50,8 @@ versioned_properties:
           expression: ℹ︎list_string␟value
     fallback_metadata:
       slot_definitions: {  }
+label: Text
+id: sdc.mercury.text
+provider: mercury
+source: sdc
+source_local_id: 'mercury:text'

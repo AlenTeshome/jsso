@@ -7,7 +7,7 @@ dependencies:
   - ui_icons:ui_icons
   - ui_icons:ui_icons_field
 
-# Information added by Drupal.org packaging script on 2026-05-04
-version: '1.2.51'
+# Information added by Drupal.org packaging script on 2026-06-17
+version: '1.2.53'
 project: 'tagify'
-datestamp: 1777904083
+datestamp: 1781686804

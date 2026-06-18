@@ -8,6 +8,7 @@ use Drupal\Core\Url;
 use Drupal\project_browser\Plugin\ProjectBrowserSourceManager;
 use Drupal\Tests\BrowserTestBase;
 use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Tests routing of source plugins.
@@ -15,6 +16,7 @@ use PHPUnit\Framework\Attributes\Group;
  * @group project_browser
  */
 #[Group('project_browser')]
+#[RunTestsInSeparateProcesses]
 final class RoutingTest extends BrowserTestBase {
 
   /**
@@ -64,7 +66,7 @@ final class RoutingTest extends BrowserTestBase {
       ])
       ->save();
 
-    $enabled_source_ids = array_keys($this->container->get(ProjectBrowserSourceManager::class)->getAllEnabledSources());
+    $enabled_source_ids = array_keys(\Drupal::service(ProjectBrowserSourceManager::class)->getAllEnabledSources());
     sort($enabled_source_ids);
     $expected = [
       'drupal_core',

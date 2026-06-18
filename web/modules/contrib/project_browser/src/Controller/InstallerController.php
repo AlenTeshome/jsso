@@ -29,8 +29,6 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
  */
 final class InstallerController extends ControllerBase {
 
-  use StatusCheckTrait;
-
   public function __construct(
     private readonly Installer $installer,
     private readonly ProjectRepository $projectRepository,
@@ -394,7 +392,21 @@ final class InstallerController extends ControllerBase {
       'errors' => [],
       'warnings' => [],
     ];
-    foreach ($this->runStatusCheck($this->installer, $this->eventDispatcher) as $result) {
+    // If Package Manager isn't installed, this trait won't exist and there is
+    // nothing for us to do.
+    if (!trait_exists(StatusCheckTrait::class)) {
+      return $results;
+    }
+    // Dynamically expose the functionality of StatusCheckTrait on an anonymous
+    // class.
+    $status_checker = new class () {
+
+      use StatusCheckTrait {
+        runStatusCheck as public;
+      }
+
+    };
+    foreach ($status_checker->runStatusCheck($this->installer, $this->eventDispatcher) as $result) {
       $group = $result->severity === RequirementSeverity::Error->value
         ? 'errors'
         : 'warnings';

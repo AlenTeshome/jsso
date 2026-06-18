@@ -18,4 +18,3 @@ id: sdc.mercury.accordion-container
 provider: mercury
 source: sdc
 source_local_id: 'mercury:accordion-container'
-category: Layout

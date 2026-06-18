@@ -28,6 +28,7 @@ use Drupal\project_browser\InstallProgress;
 use GuzzleHttp\RequestOptions;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -37,6 +38,7 @@ use Psr\Http\Message\ResponseInterface;
  */
 #[CoversClass(InstallerController::class)]
 #[Group('project_browser')]
+#[RunTestsInSeparateProcesses]
 final class InstallerControllerTest extends BrowserTestBase {
 
   use PackageManagerFixtureUtilityTrait;
@@ -77,7 +79,7 @@ final class InstallerControllerTest extends BrowserTestBase {
    */
   protected function setUp(): void {
     parent::setUp();
-    $connection = $this->container->get('database');
+    $connection = \Drupal::service('database');
     $query = $connection->insert('project_browser_projects')->fields([
       'nid',
       'title',
@@ -145,7 +147,7 @@ final class InstallerControllerTest extends BrowserTestBase {
     $query->execute();
     $this->initPackageManager();
     /** @var \Drupal\project_browser\ComposerInstaller\Installer $installer */
-    $installer = $this->container->get(Installer::class);
+    $installer = \Drupal::service(Installer::class);
     $this->installer = $installer;
     $this->drupalLogin($this->drupalCreateUser(['administer modules']));
     $this->config('project_browser.admin_settings')
@@ -157,7 +159,7 @@ final class InstallerControllerTest extends BrowserTestBase {
       ->save();
 
     // Prime the non-volatile cache.
-    $this->container->get(QueryManager::class)->getProjects('project_browser_test_mock');
+    \Drupal::service(QueryManager::class)->getProjects('project_browser_test_mock');
   }
 
   /**
@@ -526,7 +528,7 @@ final class InstallerControllerTest extends BrowserTestBase {
    */
   public function testCanUnlockSandboxWithMissingProjectBrowserLock(): void {
     $this->doStart();
-    $this->container->get(InstallProgress::class)->clear();
+    \Drupal::service(InstallProgress::class)->clear();
     $content = $this->drupalGet('admin/modules/project_browser/install-begin', [
       'query' => [
         'redirect' => Url::fromRoute('project_browser.browse')
@@ -557,7 +559,7 @@ final class InstallerControllerTest extends BrowserTestBase {
   public function testActivate(): void {
     // Data for another source is cached in setUp, so we explicitly pass the
     // query parameter in getProjects() to ensure it uses the correct source.
-    $this->container->get(QueryManager::class)->getProjects('drupal_core', ['source' => 'drupal_core']);
+    \Drupal::service(QueryManager::class)->getProjects('drupal_core', ['source' => 'drupal_core']);
     $assert_session = $this->assertSession();
 
     $this->drupalGet('admin/modules');
@@ -568,7 +570,7 @@ final class InstallerControllerTest extends BrowserTestBase {
       Url::fromRoute('project_browser.activate'),
       [
         'query' => [
-          'projects' => 'drupal_core/views_ui',
+          'projects' => ['drupal_core/views_ui'],
         ],
       ],
     );
@@ -589,7 +591,7 @@ final class InstallerControllerTest extends BrowserTestBase {
    *   The install state.
    */
   protected function assertInstallInProgress(string $project_id, ActivationStatus $expected_status): void {
-    $status = $this->container->get('keyvalue')
+    $status = \Drupal::service('keyvalue')
       ->get('project_browser.install_progress')
       ->get(Project::normalizeId($project_id));
 
@@ -649,7 +651,7 @@ final class InstallerControllerTest extends BrowserTestBase {
 
     // Trying to uninstall a module that is depended upon by other modules
     // should also bounce you off.
-    $this->container->get(ModuleInstallerInterface::class)->install([
+    \Drupal::service(ModuleInstallerInterface::class)->install([
       'field_ui',
       'text',
     ]);

@@ -1,0 +1,1758 @@
+<!DOCTYPE html>
+<!-- THEME DEBUG --><!-- THEME HOOK: 'html' --><!-- FILE NAME SUGGESTIONS:
+   ▪️ html--media--photo-albums.html.twig
+   ▪️ html--media.html.twig
+   ✅ html.html.twig
+--><!-- 💡 BEGIN CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/layout/html.html.twig' --><html lang="en" dir="ltr" class="h-100">
+	<head>
+		<meta charset="utf-8">
+<meta name="Generator" content="Drupal 11 (https://www.drupal.org)">
+<meta name="MobileOptimized" content="width">
+<meta name="HandheldFriendly" content="true">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="/sites/default/files/favicon.ico" type="image/vnd.microsoft.icon">
+
+			<title>Albums gallery | Jsso</title>
+			<link rel="preconnect" href="https://fonts.googleapis.com">
+			<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+			<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&amp;family=Work+Sans:ital,wght@0,100..900;1,100..900&amp;display=swap" rel="stylesheet">
+			<link rel="stylesheet" media="all" href="/libraries/klaro/dist/klaro.min.css?tfqpmk">
+<link rel="stylesheet" media="all" href="/modules/contrib/klaro/css/klaro-extend.css?tfqpmk">
+<link rel="stylesheet" media="all" href="/core/themes/stable9/css/core/components/item-list.module.css?tfqpmk">
+<link rel="stylesheet" media="all" href="/core/themes/stable9/css/system/components/align.module.css?tfqpmk">
+<link rel="stylesheet" media="all" href="/core/themes/stable9/css/system/components/container-inline.module.css?tfqpmk">
+<link rel="stylesheet" media="all" href="/core/themes/stable9/css/system/components/clearfix.module.css?tfqpmk">
+<link rel="stylesheet" media="all" href="/core/themes/stable9/css/system/components/hidden.module.css?tfqpmk">
+<link rel="stylesheet" media="all" href="/core/themes/stable9/css/system/components/js.module.css?tfqpmk">
+<link rel="stylesheet" media="all" href="/core/themes/stable9/css/core/components/progress.module.css?tfqpmk">
+<link rel="stylesheet" media="all" href="/core/themes/stable9/css/core/components/ajax-progress.module.css?tfqpmk">
+<link rel="stylesheet" media="all" href="/modules/contrib/klaro/css/klaro-override.css?tfqpmk">
+<link rel="stylesheet" media="all" href="/core/themes/stable9/css/views/views.module.css?tfqpmk">
+<link rel="stylesheet" media="all" href="/modules/contrib/webform/css/webform.element.details.toggle.css?tfqpmk">
+<link rel="stylesheet" media="all" href="/modules/contrib/webform/css/webform.element.message.css?tfqpmk">
+<link rel="stylesheet" media="all" href="/modules/contrib/webform/css/webform.form.css?tfqpmk">
+<link rel="stylesheet" media="all" href="/modules/contrib/social_media_links/css/social_media_links.theme.css?tfqpmk">
+<link rel="stylesheet" media="all" href="/modules/contrib/tb_megamenu/dist/base.css?tfqpmk">
+<link rel="stylesheet" media="all" href="/modules/contrib/tb_megamenu/dist/styles.css?tfqpmk">
+<link rel="stylesheet" media="all" href="/modules/contrib/webform/css/webform.ajax.css?tfqpmk">
+<link rel="stylesheet" media="all" href="/core/themes/stable9/css/core/assets/vendor/normalize-css/normalize.css?tfqpmk">
+<link rel="stylesheet" media="all" href="/themes/contrib/bootstrap5/css/components/action-links.css?tfqpmk">
+<link rel="stylesheet" media="all" href="/themes/contrib/bootstrap5/css/components/breadcrumb.css?tfqpmk">
+<link rel="stylesheet" media="all" href="/themes/contrib/bootstrap5/css/components/container-inline.css?tfqpmk">
+<link rel="stylesheet" media="all" href="/themes/contrib/bootstrap5/css/components/details.css?tfqpmk">
+<link rel="stylesheet" media="all" href="/themes/contrib/bootstrap5/css/components/exposed-filters.css?tfqpmk">
+<link rel="stylesheet" media="all" href="/themes/contrib/bootstrap5/css/components/field.css?tfqpmk">
+<link rel="stylesheet" media="all" href="/themes/contrib/bootstrap5/css/components/form.css?tfqpmk">
+<link rel="stylesheet" media="all" href="/themes/contrib/bootstrap5/css/components/icons.css?tfqpmk">
+<link rel="stylesheet" media="all" href="/themes/contrib/bootstrap5/css/components/inline-form.css?tfqpmk">
+<link rel="stylesheet" media="all" href="/themes/contrib/bootstrap5/css/components/item-list.css?tfqpmk">
+<link rel="stylesheet" media="all" href="/themes/contrib/bootstrap5/css/components/links.css?tfqpmk">
+<link rel="stylesheet" media="all" href="/themes/contrib/bootstrap5/css/components/menu.css?tfqpmk">
+<link rel="stylesheet" media="all" href="/themes/contrib/bootstrap5/css/components/more-link.css?tfqpmk">
+<link rel="stylesheet" media="all" href="/themes/contrib/bootstrap5/css/components/pager.css?tfqpmk">
+<link rel="stylesheet" media="all" href="/themes/contrib/bootstrap5/css/components/tabledrag.css?tfqpmk">
+<link rel="stylesheet" media="all" href="/themes/contrib/bootstrap5/css/components/tableselect.css?tfqpmk">
+<link rel="stylesheet" media="all" href="/themes/contrib/bootstrap5/css/components/tablesort.css?tfqpmk">
+<link rel="stylesheet" media="all" href="/themes/contrib/bootstrap5/css/components/textarea.css?tfqpmk">
+<link rel="stylesheet" media="all" href="/themes/contrib/bootstrap5/css/components/ui-dialog.css?tfqpmk">
+<link rel="stylesheet" media="all" href="/themes/contrib/bootstrap5/css/components/messages.css?tfqpmk">
+<link rel="stylesheet" media="all" href="/themes/contrib/bootstrap5/css/components/progress.css?tfqpmk">
+<link rel="stylesheet" media="all" href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600&amp;display=swap">
+<link rel="stylesheet" media="all" href="/themes/custom/jssotheme/css/jsso.custom.style.css?tfqpmk">
+<link rel="stylesheet" media="all" href="/themes/contrib/gin/dist/css/components/ajax.css?tfqpmk">
+
+				<script src="https://use.fontawesome.com/releases/v6.4.2/js/all.js" defer crossorigin="anonymous" data-search-pseudo-elements></script>
+<script src="https://use.fontawesome.com/releases/v6.4.2/js/v4-shims.js" defer crossorigin="anonymous" data-search-pseudo-elements></script>
+<script src="/libraries/klaro/dist/klaro-no-translations-no-css.js?tfqpmk" defer id="klaro-js"></script>
+</head>
+				<body class="page-route-view-jsso-albums-page-1 path-media   d-flex flex-column h-100">
+										<div class="visually-hidden-focusable skip-link p-3 container">
+						<a href="#main-content" class="p-2">
+							Skip to main content
+						</a>
+					</div>
+					
+					
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'off_canvas_page_wrapper' -->
+<!-- 💡 BEGIN CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/content/off-canvas-page-wrapper.html.twig' -->
+  <div class="dialog-off-canvas-main-canvas d-flex flex-column h-100" data-off-canvas-main-canvas>
+    
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'page' -->
+<!-- FILE NAME SUGGESTIONS:
+   ▪️ page--media--photo-albums.html.twig
+   ▪️ page--media.html.twig
+   ✅ page.html.twig
+-->
+<!-- 💡 BEGIN CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/layout/page.html.twig' -->
+
+
+<header role="banner">
+	
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'region' -->
+<!-- FILE NAME SUGGESTIONS:
+   ▪️ region--header.html.twig
+   ✅ region.html.twig
+-->
+<!-- 💡 BEGIN CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/layout/region.html.twig' -->
+  <div class="region region-header">
+    
+  </div>
+
+<!-- END CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/layout/region.html.twig' -->
+
+
+
+			<nav class="navbar navbar-expand-lg   ">
+			<div class="container d-flex">
+				
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'region' -->
+<!-- FILE NAME SUGGESTIONS:
+   ▪️ region--nav-branding.html.twig
+   ✅ region.html.twig
+-->
+<!-- 💡 BEGIN CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/layout/region.html.twig' -->
+  <div class="region region-nav-branding">
+    
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'block' -->
+<!-- FILE NAME SUGGESTIONS:
+   ▪️ block--jssotheme-branding.html.twig
+   ✅ block--system-branding-block.html.twig
+   ▪️ block--system.html.twig
+   ▪️ block.html.twig
+-->
+<!-- 💡 BEGIN CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/block/block--system-branding-block.html.twig' -->
+<div id="block-jssotheme-branding" class="block block-system block-system-branding-block">
+	
+		
+	<div class="navbar-brand d-flex align-items-center">
+
+    <a href="/" title="Home" rel="home" class="site-logo d-block">
+    <img src="/themes/custom/jssotheme/logo.svg" alt="Home" fetchpriority="high">
+  </a>
+  
+  <div>
+    
+      </div>
+</div>
+</div>
+
+<!-- END CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/block/block--system-branding-block.html.twig' -->
+
+
+  </div>
+
+<!-- END CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/layout/region.html.twig' -->
+
+
+
+									<button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+
+					<div class="collapse navbar-collapse justify-content-md-end" id="navbarSupportedContent">
+						
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'region' -->
+<!-- FILE NAME SUGGESTIONS:
+   ▪️ region--nav-main.html.twig
+   ✅ region.html.twig
+-->
+<!-- 💡 BEGIN CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/layout/region.html.twig' -->
+  <div class="region region-nav-main">
+    
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'block' -->
+<!-- FILE NAME SUGGESTIONS:
+   ▪️ block--jssotheme-mainnavigation.html.twig
+   ▪️ block--tb-megamenu-menu-block--main.html.twig
+   ▪️ block--tb-megamenu-menu-block.html.twig
+   ▪️ block--tb-megamenu.html.twig
+   ✅ block.html.twig
+-->
+<!-- 💡 BEGIN CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/block/block.html.twig' -->
+<div id="block-jssotheme-mainnavigation" class="block block-tb-megamenu block-tb-megamenu-menu-blockmain">
+	
+		
+			
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'tb_megamenu' -->
+<!-- BEGIN OUTPUT from 'modules/contrib/tb_megamenu/templates/tb-megamenu.html.twig' -->
+<style type="text/css">
+  .tbm.animate .tbm-item > .tbm-submenu, .tbm.animate.slide .tbm-item > .tbm-submenu > div {
+    transition-delay: ms;  -webkit-transition-delay: ms;  -ms-transition-delay: ms;  -o-transition-delay: ms;  transition-duration: 300ms;  -webkit-transition-duration: 300ms;  -ms-transition-duration: 300ms;  -o-transition-duration: 300ms;
+  }
+</style>
+<nav class="tbm tbm-main tbm-no-arrows animate slide" id="5b60a9c1-17d7-4774-8cce-f565d8b4bac1" data-duration="300" aria-label="main navigation">
+      <button class="tbm-button" type="button" aria-label="Toggle Menu Button">
+      <span class="tbm-button-container">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </span>
+    </button>
+    <div class="tbm-collapse  always-show">
+    
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'tb_megamenu_nav' -->
+<!-- BEGIN OUTPUT from 'modules/contrib/tb_megamenu/templates/tb-megamenu-nav.html.twig' -->
+<ul class="tbm-nav level-0 items-5">
+      
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'tb_megamenu_item' -->
+<!-- BEGIN OUTPUT from 'modules/contrib/tb_megamenu/templates/tb-megamenu-item.html.twig' -->
+  <li class="tbm-item level-1 tbm-item--has-dropdown" aria-level="1">
+      <div class="tbm-link-container">
+            <a href="/node/59" class="tbm-link level-1 tbm-toggle" aria-expanded="false">
+                About Us
+          </a>
+                <button class="tbm-submenu-toggle"><span class="visually-hidden">Toggle submenu</span></button>
+          </div>
+    
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'tb_megamenu_submenu' -->
+<!-- BEGIN OUTPUT from 'modules/contrib/tb_megamenu/templates/tb-megamenu-submenu.html.twig' -->
+<div class="tbm-submenu tbm-item-child">
+      
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'tb_megamenu_row' -->
+<!-- BEGIN OUTPUT from 'modules/contrib/tb_megamenu/templates/tb-megamenu-row.html.twig' -->
+<div class="tbm-row">
+      
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'tb_megamenu_column' -->
+<!-- BEGIN OUTPUT from 'modules/contrib/tb_megamenu/templates/tb-megamenu-column.html.twig' -->
+<div class="tbm-column span6">
+  <div class="tbm-column-inner">
+               
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'tb_megamenu_block' -->
+<!-- BEGIN OUTPUT from 'modules/contrib/tb_megamenu/templates/tb-megamenu-block.html.twig' -->
+  <div class="tbm-block">
+    <div class="block-inner">
+      
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'block' -->
+<!-- FILE NAME SUGGESTIONS:
+   ▪️ block--system-menu-block:secretariat.html.twig
+   ▪️ block--system-menu-block--secretariat.html.twig
+   ✅ block--system-menu-block.html.twig
+   ▪️ block--system.html.twig
+   ▪️ block.html.twig
+-->
+<!-- 💡 BEGIN CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/block/block--system-menu-block.html.twig' -->
+<nav role="navigation" aria-labelledby="block-system-menu-blocksecretariat-menu" id="block-system-menu-blocksecretariat" class="block block-menu navigation menu--secretariat">
+      
+  <h5 id="block-system-menu-blocksecretariat-menu">Secretariat</h5>
+  
+
+        
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'menu__secretariat' -->
+<!-- FILE NAME SUGGESTIONS:
+   ▪️ menu--secretariat.html.twig
+   ✅ menu.html.twig
+-->
+<!-- 💡 BEGIN CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/navigation/menu.html.twig' -->
+
+              <ul class="nav navbar-nav">
+                    <li class="nav-item">
+        <a href="/our-mission-and-vision" class="nav-link">Mission and Vision</a>
+              </li>
+                <li class="nav-item">
+        <a href="/who-we-are" class="nav-link" data-drupal-link-system-path="node/69">Who we are</a>
+              </li>
+                <li class="nav-item">
+        <a href="/about-us/leadership" class="nav-link" data-drupal-link-system-path="node/81">Leadership</a>
+              </li>
+        </ul>
+  
+
+
+<!-- END CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/navigation/menu.html.twig' -->
+
+
+  </nav>
+
+<!-- END CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/block/block--system-menu-block.html.twig' -->
+
+
+    </div>
+  </div>
+
+<!-- END OUTPUT from 'modules/contrib/tb_megamenu/templates/tb-megamenu-block.html.twig' -->
+
+
+      </div>
+</div>
+
+<!-- END OUTPUT from 'modules/contrib/tb_megamenu/templates/tb-megamenu-column.html.twig' -->
+
+
+  </div>
+
+<!-- END OUTPUT from 'modules/contrib/tb_megamenu/templates/tb-megamenu-row.html.twig' -->
+
+
+  </div>
+
+<!-- END OUTPUT from 'modules/contrib/tb_megamenu/templates/tb-megamenu-submenu.html.twig' -->
+
+
+</li>
+
+<!-- END OUTPUT from 'modules/contrib/tb_megamenu/templates/tb-megamenu-item.html.twig' -->
+
+
+      
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'tb_megamenu_item' -->
+<!-- BEGIN OUTPUT from 'modules/contrib/tb_megamenu/templates/tb-megamenu-item.html.twig' -->
+  <li class="tbm-item level-1 tbm-item--has-dropdown" aria-level="1">
+      <div class="tbm-link-container">
+            <a href="/our-focus" class="tbm-link level-1 tbm-toggle" aria-expanded="false">
+                Our Focus
+          </a>
+                <button class="tbm-submenu-toggle"><span class="visually-hidden">Toggle submenu</span></button>
+          </div>
+    
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'tb_megamenu_submenu' -->
+<!-- BEGIN OUTPUT from 'modules/contrib/tb_megamenu/templates/tb-megamenu-submenu.html.twig' -->
+<div class="tbm-submenu tbm-item-child">
+      
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'tb_megamenu_row' -->
+<!-- BEGIN OUTPUT from 'modules/contrib/tb_megamenu/templates/tb-megamenu-row.html.twig' -->
+<div class="tbm-row">
+      
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'tb_megamenu_column' -->
+<!-- BEGIN OUTPUT from 'modules/contrib/tb_megamenu/templates/tb-megamenu-column.html.twig' -->
+<div class="tbm-column span12">
+  <div class="tbm-column-inner">
+               
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'tb_megamenu_block' -->
+<!-- BEGIN OUTPUT from 'modules/contrib/tb_megamenu/templates/tb-megamenu-block.html.twig' -->
+  <div class="tbm-block">
+    <div class="block-inner">
+      
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'block' -->
+<!-- FILE NAME SUGGESTIONS:
+   ▪️ block--views-block--focus-block-2.html.twig
+   ▪️ block--views-block.html.twig
+   ▪️ block--views.html.twig
+   ✅ block.html.twig
+-->
+<!-- INVALID FILE NAME SUGGESTIONS:
+   See https://api.drupal.org/api/drupal/core!lib!Drupal!Core!Render!theme.api.php/function/hook_theme_suggestions_alter
+   block__views_block:focus-block_2
+-->
+<!-- 💡 BEGIN CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/block/block.html.twig' -->
+<div id="block-views-blockfocus-block-2" class="block block-views block-views-blockfocus-block-2">
+	
+		
+			
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'container' -->
+<!-- 💡 BEGIN CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/form/container.html.twig' -->
+<div class="views-element-container">
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'views_view' -->
+<!-- 💡 BEGIN CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/views/views-view.html.twig' -->
+<div class="megamenu-block view view-focus view-id-focus view-display-id-block_2 js-view-dom-id-ed655ca6fd91f6eaf5ab5b59f86d18494ea11897ad408a2bfc0fea0cc6e31ded">
+  
+    
+      
+      <div class="view-content">
+      
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'views_view_unformatted' -->
+<!-- 💡 BEGIN CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/views/views-view-unformatted.html.twig' -->
+    <div class="focus-megamenu-row views-row">
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'views_view_fields' -->
+<!-- BEGIN OUTPUT from 'core/themes/stable9/templates/views/views-view-fields.html.twig' -->
+
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'views_view_field' -->
+<!-- BEGIN OUTPUT from 'core/themes/stable9/templates/views/views-view-field.html.twig' -->
+<a href="/facilitating-high-level-dialogue" hreflang="en">Facilitating High-Level Dialogue</a>
+<!-- END OUTPUT from 'core/themes/stable9/templates/views/views-view-field.html.twig' -->
+
+
+<!-- END OUTPUT from 'core/themes/stable9/templates/views/views-view-fields.html.twig' -->
+
+</div>
+    <div class="focus-megamenu-row views-row">
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'views_view_fields' -->
+<!-- BEGIN OUTPUT from 'core/themes/stable9/templates/views/views-view-fields.html.twig' -->
+
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'views_view_field' -->
+<!-- BEGIN OUTPUT from 'core/themes/stable9/templates/views/views-view-field.html.twig' -->
+<a href="/co-ordination-platforms-thematic-working-groups" hreflang="en">Co-ordination Platforms &ndash; Thematic Working Groups</a>
+<!-- END OUTPUT from 'core/themes/stable9/templates/views/views-view-field.html.twig' -->
+
+
+<!-- END OUTPUT from 'core/themes/stable9/templates/views/views-view-fields.html.twig' -->
+
+</div>
+    <div class="focus-megamenu-row views-row">
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'views_view_fields' -->
+<!-- BEGIN OUTPUT from 'core/themes/stable9/templates/views/views-view-fields.html.twig' -->
+
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'views_view_field' -->
+<!-- BEGIN OUTPUT from 'core/themes/stable9/templates/views/views-view-field.html.twig' -->
+<a href="/programme-support-and-strategic-oversight" hreflang="en">Programme Support and Strategic Oversight</a>
+<!-- END OUTPUT from 'core/themes/stable9/templates/views/views-view-field.html.twig' -->
+
+
+<!-- END OUTPUT from 'core/themes/stable9/templates/views/views-view-fields.html.twig' -->
+
+</div>
+
+<!-- END CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/views/views-view-unformatted.html.twig' -->
+
+
+    </div>
+  
+          </div>
+
+<!-- END CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/views/views-view.html.twig' -->
+
+</div>
+
+<!-- END CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/form/container.html.twig' -->
+
+
+	</div>
+
+<!-- END CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/block/block.html.twig' -->
+
+
+    </div>
+  </div>
+
+<!-- END OUTPUT from 'modules/contrib/tb_megamenu/templates/tb-megamenu-block.html.twig' -->
+
+
+      </div>
+</div>
+
+<!-- END OUTPUT from 'modules/contrib/tb_megamenu/templates/tb-megamenu-column.html.twig' -->
+
+
+  </div>
+
+<!-- END OUTPUT from 'modules/contrib/tb_megamenu/templates/tb-megamenu-row.html.twig' -->
+
+
+  </div>
+
+<!-- END OUTPUT from 'modules/contrib/tb_megamenu/templates/tb-megamenu-submenu.html.twig' -->
+
+
+</li>
+
+<!-- END OUTPUT from 'modules/contrib/tb_megamenu/templates/tb-megamenu-item.html.twig' -->
+
+
+      
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'tb_megamenu_item' -->
+<!-- BEGIN OUTPUT from 'modules/contrib/tb_megamenu/templates/tb-megamenu-item.html.twig' -->
+  <li class="tbm-item level-1 tbm-justify tbm-item--has-dropdown" aria-level="1">
+      <div class="tbm-link-container">
+            <a href="/knowledge" class="tbm-link level-1 tbm-toggle" aria-expanded="false">
+                Knowledge
+          </a>
+                <button class="tbm-submenu-toggle"><span class="visually-hidden">Toggle submenu</span></button>
+          </div>
+    
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'tb_megamenu_submenu' -->
+<!-- BEGIN OUTPUT from 'modules/contrib/tb_megamenu/templates/tb-megamenu-submenu.html.twig' -->
+<div class="tbm-submenu tbm-item-child">
+      
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'tb_megamenu_row' -->
+<!-- BEGIN OUTPUT from 'modules/contrib/tb_megamenu/templates/tb-megamenu-row.html.twig' -->
+<div class="tbm-row">
+      
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'tb_megamenu_column' -->
+<!-- BEGIN OUTPUT from 'modules/contrib/tb_megamenu/templates/tb-megamenu-column.html.twig' -->
+<div class="tbm-column span12">
+  <div class="tbm-column-inner">
+               
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'tb_megamenu_block' -->
+<!-- BEGIN OUTPUT from 'modules/contrib/tb_megamenu/templates/tb-megamenu-block.html.twig' -->
+  <div class="tbm-block">
+    <div class="block-inner">
+      
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'block' -->
+<!-- FILE NAME SUGGESTIONS:
+   ▪️ block--views-block--interactive-portals-tools-block-2.html.twig
+   ▪️ block--views-block.html.twig
+   ▪️ block--views.html.twig
+   ✅ block.html.twig
+-->
+<!-- INVALID FILE NAME SUGGESTIONS:
+   See https://api.drupal.org/api/drupal/core!lib!Drupal!Core!Render!theme.api.php/function/hook_theme_suggestions_alter
+   block__views_block:interactive_portals_tools-block_2
+-->
+<!-- 💡 BEGIN CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/block/block.html.twig' -->
+<div id="block-views-blockinteractive-portals-tools-block-2" class="block block-views block-views-blockinteractive-portals-tools-block-2">
+	
+			<h2>
+			<span>Interactive portals &amp; tools</span>
+		</h2>
+		
+			
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'container' -->
+<!-- 💡 BEGIN CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/form/container.html.twig' -->
+<div class="views-element-container">
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'views_view' -->
+<!-- 💡 BEGIN CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/views/views-view.html.twig' -->
+<div class="megamenublock view view-interactive-portals-tools view-id-interactive_portals_tools view-display-id-block_2 js-view-dom-id-0110201de1324a676906330233f6006c7795ce6dfaa30db9226ebe0596cc1818">
+  
+    
+      
+      <div class="view-content">
+      
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'views_view_unformatted' -->
+<!-- 💡 BEGIN CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/views/views-view-unformatted.html.twig' -->
+    <div class="resource-row views-row">
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'views_view_fields' -->
+<!-- BEGIN OUTPUT from 'core/themes/stable9/templates/views/views-view-fields.html.twig' -->
+<div class="resource-menu-details">
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'views_view_field' -->
+<!-- BEGIN OUTPUT from 'core/themes/stable9/templates/views/views-view-field.html.twig' -->
+<a href="https://jsso.ddev.site:8443/_____/knowledge-hub___" target="_blank"><div class="resource-name">Research and Publications</div>
+<div class="resource-desc"><p>Link to explore the Research and Publications page</p></div></a>
+<!-- END OUTPUT from 'core/themes/stable9/templates/views/views-view-field.html.twig' -->
+
+</div>
+<!-- END OUTPUT from 'core/themes/stable9/templates/views/views-view-fields.html.twig' -->
+
+</div>
+    <div class="resource-row views-row">
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'views_view_fields' -->
+<!-- BEGIN OUTPUT from 'core/themes/stable9/templates/views/views-view-fields.html.twig' -->
+<div class="resource-menu-details">
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'views_view_field' -->
+<!-- BEGIN OUTPUT from 'core/themes/stable9/templates/views/views-view-field.html.twig' -->
+<a href="https://jsso.ddev.site:8443/_____/___" target="_blank"><div class="resource-name">Best Practices</div>
+<div class="resource-desc"><p>Link to explore the Best Practices database page</p></div></a>
+<!-- END OUTPUT from 'core/themes/stable9/templates/views/views-view-field.html.twig' -->
+
+</div>
+<!-- END OUTPUT from 'core/themes/stable9/templates/views/views-view-fields.html.twig' -->
+
+</div>
+    <div class="resource-row views-row">
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'views_view_fields' -->
+<!-- BEGIN OUTPUT from 'core/themes/stable9/templates/views/views-view-fields.html.twig' -->
+<div class="resource-menu-details">
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'views_view_field' -->
+<!-- BEGIN OUTPUT from 'core/themes/stable9/templates/views/views-view-field.html.twig' -->
+<a href="https://jsso.ddev.site:8443/_____/___" target="_blank"><div class="resource-name">Data and Analytics</div>
+<div class="resource-desc"><p>Link to explore the Data and Analytics page</p></div></a>
+<!-- END OUTPUT from 'core/themes/stable9/templates/views/views-view-field.html.twig' -->
+
+</div>
+<!-- END OUTPUT from 'core/themes/stable9/templates/views/views-view-fields.html.twig' -->
+
+</div>
+    <div class="resource-row views-row">
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'views_view_fields' -->
+<!-- BEGIN OUTPUT from 'core/themes/stable9/templates/views/views-view-fields.html.twig' -->
+<div class="resource-menu-details">
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'views_view_field' -->
+<!-- BEGIN OUTPUT from 'core/themes/stable9/templates/views/views-view-field.html.twig' -->
+<a href="https://jsso.ddev.site:8443/_____/___" target="_blank"><div class="resource-name">Capacity Building / eLearning</div>
+<div class="resource-desc"><p>Link to explore Capacity Strengthening/eLearning page</p></div></a>
+<!-- END OUTPUT from 'core/themes/stable9/templates/views/views-view-field.html.twig' -->
+
+</div>
+<!-- END OUTPUT from 'core/themes/stable9/templates/views/views-view-fields.html.twig' -->
+
+</div>
+    <div class="resource-row views-row">
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'views_view_fields' -->
+<!-- BEGIN OUTPUT from 'core/themes/stable9/templates/views/views-view-fields.html.twig' -->
+<div class="resource-menu-details">
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'views_view_field' -->
+<!-- BEGIN OUTPUT from 'core/themes/stable9/templates/views/views-view-field.html.twig' -->
+<a href="https://jsso.ddev.site:8443/_____/___" target="_blank"><div class="resource-name">Flagship Programmes and Initiatives</div>
+<div class="resource-desc"><p>Link to explore Flagship programs &amp; initiatives page</p></div></a>
+<!-- END OUTPUT from 'core/themes/stable9/templates/views/views-view-field.html.twig' -->
+
+</div>
+<!-- END OUTPUT from 'core/themes/stable9/templates/views/views-view-fields.html.twig' -->
+
+</div>
+
+<!-- END CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/views/views-view-unformatted.html.twig' -->
+
+
+    </div>
+  
+          </div>
+
+<!-- END CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/views/views-view.html.twig' -->
+
+</div>
+
+<!-- END CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/form/container.html.twig' -->
+
+
+	</div>
+
+<!-- END CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/block/block.html.twig' -->
+
+
+    </div>
+  </div>
+
+<!-- END OUTPUT from 'modules/contrib/tb_megamenu/templates/tb-megamenu-block.html.twig' -->
+
+
+      </div>
+</div>
+
+<!-- END OUTPUT from 'modules/contrib/tb_megamenu/templates/tb-megamenu-column.html.twig' -->
+
+
+  </div>
+
+<!-- END OUTPUT from 'modules/contrib/tb_megamenu/templates/tb-megamenu-row.html.twig' -->
+
+
+  </div>
+
+<!-- END OUTPUT from 'modules/contrib/tb_megamenu/templates/tb-megamenu-submenu.html.twig' -->
+
+
+</li>
+
+<!-- END OUTPUT from 'modules/contrib/tb_megamenu/templates/tb-megamenu-item.html.twig' -->
+
+
+      
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'tb_megamenu_item' -->
+<!-- BEGIN OUTPUT from 'modules/contrib/tb_megamenu/templates/tb-megamenu-item.html.twig' -->
+  <li class="tbm-item level-1" aria-level="1">
+      <div class="tbm-link-container">
+            <a href="/action" class="tbm-link level-1">
+                Action
+          </a>
+            </div>
+    
+</li>
+
+<!-- END OUTPUT from 'modules/contrib/tb_megamenu/templates/tb-megamenu-item.html.twig' -->
+
+
+      
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'tb_megamenu_item' -->
+<!-- BEGIN OUTPUT from 'modules/contrib/tb_megamenu/templates/tb-megamenu-item.html.twig' -->
+  <li class="tbm-item level-1 tbm-item--has-dropdown" aria-level="1">
+      <div class="tbm-link-container">
+            <a href="/media/news" class="tbm-link level-1 tbm-toggle" aria-expanded="false">
+                Media
+          </a>
+                <button class="tbm-submenu-toggle"><span class="visually-hidden">Toggle submenu</span></button>
+          </div>
+    
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'tb_megamenu_submenu' -->
+<!-- BEGIN OUTPUT from 'modules/contrib/tb_megamenu/templates/tb-megamenu-submenu.html.twig' -->
+<div class="tbm-submenu tbm-item-child">
+      
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'tb_megamenu_row' -->
+<!-- BEGIN OUTPUT from 'modules/contrib/tb_megamenu/templates/tb-megamenu-row.html.twig' -->
+<div class="tbm-row">
+      
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'tb_megamenu_column' -->
+<!-- BEGIN OUTPUT from 'modules/contrib/tb_megamenu/templates/tb-megamenu-column.html.twig' -->
+<div class="tbm-column span12">
+  <div class="tbm-column-inner">
+               
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'tb_megamenu_subnav' -->
+<!-- BEGIN OUTPUT from 'modules/contrib/tb_megamenu/templates/tb-megamenu-subnav.html.twig' -->
+<ul class="tbm-subnav level-1 items-6">
+      
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'tb_megamenu_item' -->
+<!-- BEGIN OUTPUT from 'modules/contrib/tb_megamenu/templates/tb-megamenu-item.html.twig' -->
+  <li class="tbm-item level-2" aria-level="2">
+      <div class="tbm-link-container">
+            <a href="/news" class="tbm-link level-2">
+                News
+          </a>
+            </div>
+    
+</li>
+
+<!-- END OUTPUT from 'modules/contrib/tb_megamenu/templates/tb-megamenu-item.html.twig' -->
+
+
+      
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'tb_megamenu_item' -->
+<!-- BEGIN OUTPUT from 'modules/contrib/tb_megamenu/templates/tb-megamenu-item.html.twig' -->
+  <li class="tbm-item level-2" aria-level="2">
+      <div class="tbm-link-container">
+            <a href="/events" class="tbm-link level-2">
+                Events
+          </a>
+            </div>
+    
+</li>
+
+<!-- END OUTPUT from 'modules/contrib/tb_megamenu/templates/tb-megamenu-item.html.twig' -->
+
+
+      
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'tb_megamenu_item' -->
+<!-- BEGIN OUTPUT from 'modules/contrib/tb_megamenu/templates/tb-megamenu-item.html.twig' -->
+  <li class="tbm-item level-2" aria-level="2">
+      <div class="tbm-link-container">
+            <a href="/media/photo-albums" class="tbm-link level-2">
+                Photo Albums
+          </a>
+            </div>
+    
+</li>
+
+<!-- END OUTPUT from 'modules/contrib/tb_megamenu/templates/tb-megamenu-item.html.twig' -->
+
+
+      
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'tb_megamenu_item' -->
+<!-- BEGIN OUTPUT from 'modules/contrib/tb_megamenu/templates/tb-megamenu-item.html.twig' -->
+  <li class="tbm-item level-2" aria-level="2">
+      <div class="tbm-link-container">
+            <a href="/media/videos" class="tbm-link level-2">
+                Videos
+          </a>
+            </div>
+    
+</li>
+
+<!-- END OUTPUT from 'modules/contrib/tb_megamenu/templates/tb-megamenu-item.html.twig' -->
+
+
+      
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'tb_megamenu_item' -->
+<!-- BEGIN OUTPUT from 'modules/contrib/tb_megamenu/templates/tb-megamenu-item.html.twig' -->
+  <li class="tbm-item level-2" aria-level="2">
+      <div class="tbm-link-container">
+            <a href="/media/news-feeds" class="tbm-link level-2">
+                News Feeds
+          </a>
+            </div>
+    
+</li>
+
+<!-- END OUTPUT from 'modules/contrib/tb_megamenu/templates/tb-megamenu-item.html.twig' -->
+
+
+  </ul>
+
+<!-- END OUTPUT from 'modules/contrib/tb_megamenu/templates/tb-megamenu-subnav.html.twig' -->
+
+
+      </div>
+</div>
+
+<!-- END OUTPUT from 'modules/contrib/tb_megamenu/templates/tb-megamenu-column.html.twig' -->
+
+
+  </div>
+
+<!-- END OUTPUT from 'modules/contrib/tb_megamenu/templates/tb-megamenu-row.html.twig' -->
+
+
+  </div>
+
+<!-- END OUTPUT from 'modules/contrib/tb_megamenu/templates/tb-megamenu-submenu.html.twig' -->
+
+
+</li>
+
+<!-- END OUTPUT from 'modules/contrib/tb_megamenu/templates/tb-megamenu-item.html.twig' -->
+
+
+  </ul>
+
+<!-- END OUTPUT from 'modules/contrib/tb_megamenu/templates/tb-megamenu-nav.html.twig' -->
+
+
+      </div>
+  </nav>
+
+<script>
+if (window.matchMedia("(max-width: px)").matches) {
+  document.getElementById("5b60a9c1-17d7-4774-8cce-f565d8b4bac1").classList.add('tbm--mobile');
+}
+
+
+</script>
+
+<!-- END OUTPUT from 'modules/contrib/tb_megamenu/templates/tb-megamenu.html.twig' -->
+
+
+	</div>
+
+<!-- END CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/block/block.html.twig' -->
+
+
+  </div>
+
+<!-- END CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/layout/region.html.twig' -->
+
+
+						
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'region' -->
+<!-- FILE NAME SUGGESTIONS:
+   ▪️ region--nav-additional.html.twig
+   ✅ region.html.twig
+-->
+<!-- 💡 BEGIN CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/layout/region.html.twig' -->
+  <div class="region region-nav-additional">
+    
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'block' -->
+<!-- FILE NAME SUGGESTIONS:
+   ▪️ block--jssotheme-account-menu.html.twig
+   ▪️ block--system-menu-block--account.html.twig
+   ✅ block--system-menu-block.html.twig
+   ▪️ block--system.html.twig
+   ▪️ block.html.twig
+-->
+<!-- 💡 BEGIN CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/block/block--system-menu-block.html.twig' -->
+<nav role="navigation" aria-labelledby="block-jssotheme-account-menu-menu" id="block-jssotheme-account-menu" class="block block-menu navigation menu--account">
+            
+  <h5 class="visually-hidden" id="block-jssotheme-account-menu-menu">User account menu</h5>
+  
+
+        
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'menu__account' -->
+<!-- FILE NAME SUGGESTIONS:
+   ▪️ menu--account.html.twig
+   ▪️ menu--nav-additional.html.twig
+   ▪️ menu--account--nav-additional.html.twig
+   ✅ menu.html.twig
+-->
+<!-- 💡 BEGIN CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/navigation/menu.html.twig' -->
+
+              <ul data-block="nav_additional" class="nav navbar-nav">
+                    <li class="nav-item">
+        <a href="/user/login" class="nav-link" data-drupal-link-system-path="user/login">Log in</a>
+              </li>
+        </ul>
+  
+
+
+<!-- END CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/navigation/menu.html.twig' -->
+
+
+  </nav>
+
+<!-- END CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/block/block--system-menu-block.html.twig' -->
+
+
+  </div>
+
+<!-- END CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/layout/region.html.twig' -->
+
+
+					</div>
+							</div>
+		</nav>
+	
+</header>
+
+<main role="main">
+	<a id="main-content" tabindex="-1"></a>
+	
+	
+	
+	
+
+	<div class="container">
+				<div class="row g-0">
+						<div class="order-1 order-lg-2 col-12">
+				
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'region' -->
+<!-- FILE NAME SUGGESTIONS:
+   ▪️ region--content.html.twig
+   ✅ region.html.twig
+-->
+<!-- 💡 BEGIN CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/layout/region.html.twig' -->
+  <div class="region region-content">
+    
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'block' -->
+<!-- FILE NAME SUGGESTIONS:
+   ▪️ block--jssotheme-messages.html.twig
+   ✅ block--system-messages-block.html.twig
+   ▪️ block--system.html.twig
+   ▪️ block.html.twig
+-->
+<!-- BEGIN OUTPUT from 'core/themes/stable9/templates/block/block--system-messages-block.html.twig' -->
+<div data-drupal-messages-fallback class="hidden"></div>
+
+<!-- END OUTPUT from 'core/themes/stable9/templates/block/block--system-messages-block.html.twig' -->
+
+
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'block' -->
+<!-- FILE NAME SUGGESTIONS:
+   ▪️ block--jssotheme-content.html.twig
+   ▪️ block--system-main-block.html.twig
+   ▪️ block--system.html.twig
+   ✅ block.html.twig
+-->
+<!-- 💡 BEGIN CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/block/block.html.twig' -->
+<div id="block-jssotheme-content" class="block block-system block-system-main-block">
+	
+		
+			
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'container' -->
+<!-- 💡 BEGIN CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/form/container.html.twig' -->
+<div class="views-element-container">
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'views_view' -->
+<!-- 💡 BEGIN CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/views/views-view.html.twig' -->
+<div class="view view-jsso-albums view-id-jsso_albums view-display-id-page_1 js-view-dom-id-2a2559c436bf71f85ad46db91974453bccc2759dcfb53f3c61b1cfc3888990b5">
+  
+    
+      
+      <div class="view-content">
+      
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'views_view_unformatted' -->
+<!-- 💡 BEGIN CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/views/views-view-unformatted.html.twig' -->
+    <div class="album-row views-row">
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'views_view_fields' -->
+<!-- BEGIN OUTPUT from 'core/themes/stable9/templates/views/views-view-fields.html.twig' -->
+<div class="album-detail">
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'views_view_field' -->
+<!-- BEGIN OUTPUT from 'core/themes/stable9/templates/views/views-view-field.html.twig' -->
+<a href="https://jsso.ddev.site:8443/node/29"><div class="wrapper"><div class="album-image">
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+<img loading="lazy" src="/sites/default/files/styles/news_list_style_350_x_290/public/photo-albums/2026-03/1750503493966.jpg.webp?itok=W0l7fTj2" width="350" height="288" alt="" class="img-fluid image-style-news-list-style-350-x-290">
+
+
+
+
+
+
+
+
+
+
+
+</div>
+<div class="album-date">
+
+
+
+
+<time datetime="2025-08-12T12:00:00Z" class="datetime">12 Aug, 2025</time>
+
+
+
+</div>
+<div class="album-title">High-level courtesy call and meeting with H.E Mahamoud Alie Youssouf </div></div>
+<div class="album-link"></div></a>
+<!-- END OUTPUT from 'core/themes/stable9/templates/views/views-view-field.html.twig' -->
+
+</div>
+<!-- END OUTPUT from 'core/themes/stable9/templates/views/views-view-fields.html.twig' -->
+
+</div>
+    <div class="album-row views-row">
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'views_view_fields' -->
+<!-- BEGIN OUTPUT from 'core/themes/stable9/templates/views/views-view-fields.html.twig' -->
+<div class="album-detail">
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'views_view_field' -->
+<!-- BEGIN OUTPUT from 'core/themes/stable9/templates/views/views-view-field.html.twig' -->
+<a href="https://jsso.ddev.site:8443/node/40"><div class="wrapper"><div class="album-image">
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+<img loading="lazy" src="/sites/default/files/styles/news_list_style_350_x_290/public/photo-albums/2026-03/8m6a2465.jpg.webp?itok=bhBqJqOl" width="350" height="288" alt="" class="img-fluid image-style-news-list-style-350-x-290">
+
+
+
+
+
+
+
+
+
+
+
+</div>
+<div class="album-date">
+
+
+
+
+<time datetime="2017-01-28T12:00:00Z" class="datetime">28 Jan, 2017</time>
+
+
+
+</div>
+<div class="album-title">Joint Secretariat Support Office (JSSO) Annual Meeting </div></div>
+<div class="album-link"></div></a>
+<!-- END OUTPUT from 'core/themes/stable9/templates/views/views-view-field.html.twig' -->
+
+</div>
+<!-- END OUTPUT from 'core/themes/stable9/templates/views/views-view-fields.html.twig' -->
+
+</div>
+
+<!-- END CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/views/views-view-unformatted.html.twig' -->
+
+
+    </div>
+  
+      
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'pager' -->
+<!-- 💡 BEGIN CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/navigation/pager.html.twig' -->
+
+<!-- END CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/navigation/pager.html.twig' -->
+
+
+          </div>
+
+<!-- END CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/views/views-view.html.twig' -->
+
+</div>
+
+<!-- END CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/form/container.html.twig' -->
+
+
+	</div>
+
+<!-- END CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/block/block.html.twig' -->
+
+
+  </div>
+
+<!-- END CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/layout/region.html.twig' -->
+
+
+			</div>
+					</div>
+	</div>
+
+</main>
+
+	<div class="footer-top-region">
+		<div class="container">
+			
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'region' -->
+<!-- FILE NAME SUGGESTIONS:
+   ▪️ region--footer-top.html.twig
+   ✅ region.html.twig
+-->
+<!-- 💡 BEGIN CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/layout/region.html.twig' -->
+  <div class="region region-footer-top">
+    
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'block' -->
+<!-- FILE NAME SUGGESTIONS:
+   ▪️ block--jssotheme-sitebranding-2.html.twig
+   ✅ block--system-branding-block.html.twig
+   ▪️ block--system.html.twig
+   ▪️ block.html.twig
+-->
+<!-- 💡 BEGIN CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/block/block--system-branding-block.html.twig' -->
+<div id="block-jssotheme-sitebranding-2" class="block block-system block-system-branding-block">
+	
+		
+	<div class="navbar-brand d-flex align-items-center">
+
+    <a href="/" title="Home" rel="home" class="site-logo d-block">
+    <img src="/themes/custom/jssotheme/logo.svg" alt="Home" fetchpriority="high">
+  </a>
+  
+  <div>
+    
+      </div>
+</div>
+</div>
+
+<!-- END CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/block/block--system-branding-block.html.twig' -->
+
+
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'block' -->
+<!-- FILE NAME SUGGESTIONS:
+   ▪️ block--jssotheme-jssofootersection.html.twig
+   ▪️ block--block-content--3ff5d220-ede5-4010-9745-c084784ea38b.html.twig
+   ▪️ block--block-content--id-view--jssotheme-jssofootersection--full.html.twig
+   ▪️ block--block-content--id--jssotheme-jssofootersection.html.twig
+   ▪️ block--block-content--view-type--basic--full.html.twig
+   ▪️ block--block-content--type--basic.html.twig
+   ▪️ block--block-content--view--full.html.twig
+   ▪️ block--block-content.html.twig
+   ✅ block.html.twig
+-->
+<!-- 💡 BEGIN CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/block/block.html.twig' -->
+<div id="block-jssotheme-jssofootersection" class="block block-block-content block-block-content3ff5d220-ede5-4010-9745-c084784ea38b">
+	
+		
+			
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'field' -->
+<!-- FILE NAME SUGGESTIONS:
+   ▪️ field--block-content--body--basic.html.twig
+   ▪️ field--block-content--body.html.twig
+   ▪️ field--block-content--basic.html.twig
+   ▪️ field--body.html.twig
+   ✅ field--text-with-summary.html.twig
+   ▪️ field.html.twig
+-->
+<!-- 💡 BEGIN CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/field/field--text-with-summary.html.twig' -->
+
+            <div class="clearfix text-formatted field field--name-body field--type-text-with-summary field--label-hidden field__item"><div class="text row-1"><h2>Our vision</h2><p>JSSO, an innovative catalyst for a stable, just and flourishing Arab region.</p></div><div class="text row-2"><h2>Our mission</h2><p>Committed to the 2030 Agenda, JSSO's passionate team produces innovative knowledge, fosters regional consensus and delivers transformational policy advice. Together, we work for a sustainable future for all.</p></div></div>
+      
+<!-- END CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/field/field--text-with-summary.html.twig' -->
+
+
+	</div>
+
+<!-- END CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/block/block.html.twig' -->
+
+
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'block' -->
+<!-- FILE NAME SUGGESTIONS:
+   ▪️ block--jssotheme-mainnavigation-2.html.twig
+   ▪️ block--system-menu-block--main.html.twig
+   ✅ block--system-menu-block.html.twig
+   ▪️ block--system.html.twig
+   ▪️ block.html.twig
+-->
+<!-- 💡 BEGIN CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/block/block--system-menu-block.html.twig' -->
+<nav role="navigation" aria-labelledby="block-jssotheme-mainnavigation-2-menu" id="block-jssotheme-mainnavigation-2" class="block block-menu navigation menu--main">
+            
+  <h5 class="visually-hidden" id="block-jssotheme-mainnavigation-2-menu">Main navigation</h5>
+  
+
+        
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'menu__main' -->
+<!-- FILE NAME SUGGESTIONS:
+   ✅ menu--main.html.twig
+   ▪️ menu--footer-top.html.twig
+   ▪️ menu--main--footer-top.html.twig
+   ✅ menu--main.html.twig
+   ▪️ menu.html.twig
+-->
+<!-- 💡 BEGIN CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/navigation/menu--main.html.twig' -->
+
+            <ul data-block="footer_top" class="navbar-nav justify-content-end flex-wrap nav-level-0">
+                    <li class="nav-item">
+          <a href="/node/59" class="nav-link" data-drupal-link-system-path="node/59">About Us</a>
+      </li>
+
+                    <li class="nav-item">
+          <a href="/our-focus" class="nav-link" data-drupal-link-system-path="node/80">Our Focus</a>
+      </li>
+
+                    <li class="nav-item">
+          <a href="/knowledge" class="nav-link" data-drupal-link-system-path="node/99">Knowledge</a>
+      </li>
+
+                    <li class="nav-item">
+          <a href="/action" class="nav-link" data-drupal-link-system-path="node/100">Action</a>
+      </li>
+
+                    <li class="nav-item">
+          <a href="/media/news" class="nav-link dropdown-toggle" data-drupal-link-system-path="node/75">Media</a>
+      </li>
+
+        </ul>
+  
+
+
+
+<!-- END CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/navigation/menu--main.html.twig' -->
+
+
+  </nav>
+
+<!-- END CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/block/block--system-menu-block.html.twig' -->
+
+
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'block' -->
+<!-- FILE NAME SUGGESTIONS:
+   ▪️ block--jssotheme-webform.html.twig
+   ▪️ block--webform-block.html.twig
+   ▪️ block--webform.html.twig
+   ✅ block.html.twig
+-->
+<!-- 💡 BEGIN CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/block/block.html.twig' -->
+<div id="block-jssotheme-webform" class="block block-webform block-webform-block">
+	
+		
+			<div id="webform-submission-newsletter-subscription-form-ajax-content" tabindex="-1"><div id="webform-submission-newsletter-subscription-form-ajax" class="webform-ajax-form-wrapper" data-effect="fade" data-progress-type="throbber">
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'webform' -->
+<!-- FILE NAME SUGGESTIONS:
+   ✅ webform--newsletter-subscription.html.twig
+   ▪️ webform.html.twig
+-->
+<!-- 💡 BEGIN CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/form/webform--newsletter-subscription.html.twig' -->
+<div class="newsletter-subscribe-block">
+	<form class="webform-submission-form webform-submission-add-form webform-submission-newsletter-subscription-form webform-submission-newsletter-subscription-add-form newsletter-form js-webform-details-toggle webform-details-toggle" data-drupal-selector="webform-submission-newsletter-subscription-add-form" action="/media/photo-albums" method="post" id="webform-submission-newsletter-subscription-add-form" accept-charset="UTF-8">
+		
+		
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'webform_submission_form' -->
+<!-- FILE NAME SUGGESTIONS:
+   ▪️ webform-submission-form--newsletter-subscription.html.twig
+   ✅ webform-submission-form.html.twig
+-->
+<!-- BEGIN OUTPUT from 'modules/contrib/webform/templates/webform-submission-form.html.twig' -->
+
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'form_element' -->
+<!-- FILE NAME SUGGESTIONS:
+   ▪️ form-element--webform-email.html.twig
+   ✅ form-element.html.twig
+-->
+<!-- 💡 BEGIN CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/form/form-element.html.twig' -->
+<div class="js-webform-type-email webform-type-email js-form-item form-item js-form-type-email form-type-email js-form-item-email form-item-email form-no-label">
+      
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'form_element_label' -->
+<!-- 💡 BEGIN CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/form/form-element-label.html.twig' -->
+<label for="edit-email" class="visually-hidden js-form-required form-required">Email</label>
+<!-- END CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/form/form-element-label.html.twig' -->
+
+
+        
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'input__email' -->
+<!-- FILE NAME SUGGESTIONS:
+   ▪️ input--email.html.twig
+   ✅ input.html.twig
+-->
+<!-- 💡 BEGIN CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/form/input.html.twig' -->
+
+  <input class="newsletter-email-field form-email required form-control" data-drupal-selector="edit-email" type="email" id="edit-email" name="email" value="" size="60" maxlength="254" placeholder="Your Email" required="required">
+
+
+<!-- END CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/form/input.html.twig' -->
+
+
+        </div>
+
+<!-- END CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/form/form-element.html.twig' -->
+
+
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'container' -->
+<!-- 💡 BEGIN CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/form/container.html.twig' -->
+<div data-drupal-selector="edit-actions" class="form-actions webform-actions js-form-wrapper form-wrapper" id="edit-actions">
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'webform_actions' -->
+<!-- BEGIN OUTPUT from 'modules/contrib/webform/templates/webform-actions.html.twig' -->
+
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'input__submit' -->
+<!-- FILE NAME SUGGESTIONS:
+   ▪️ input--submit.html.twig
+   ✅ input.html.twig
+-->
+<!-- 💡 BEGIN CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/form/input.html.twig' -->
+
+    <input class="webform-button--submit button button--primary js-form-submit form-submit btn btn-primary" data-drupal-selector="edit-actions-submit" data-disable-refocus="true" type="submit" id="edit-actions-submit" name="op" value="Subscribe">
+
+
+<!-- END CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/form/input.html.twig' -->
+
+
+
+<!-- END OUTPUT from 'modules/contrib/webform/templates/webform-actions.html.twig' -->
+
+</div>
+
+<!-- END CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/form/container.html.twig' -->
+
+
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'form_element_label' -->
+<!-- 💡 BEGIN CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/form/form-element-label.html.twig' -->
+<label data-drupal-selector="edit-get-the-latest-updates-from-jsso-direct-to-your-inbox" for="edit-get-the-latest-updates-from-jsso-direct-to-your-inbox">Get the latest updates from JSSO direct to your inbox.</label>
+<!-- END CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/form/form-element-label.html.twig' -->
+
+
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'input__hidden' -->
+<!-- FILE NAME SUGGESTIONS:
+   ▪️ input--hidden.html.twig
+   ✅ input.html.twig
+-->
+<!-- 💡 BEGIN CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/form/input.html.twig' -->
+
+  <input autocomplete="off" data-drupal-selector="form-mv1m-mng718c-xhhftoadqgo0wu0ts9yuu1zdz4pbvm" type="hidden" name="form_build_id" value="form-mv1M-mng718c_xHHfToaDQGO0WU0Ts9yuU1zdZ4pBvM">
+
+
+<!-- END CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/form/input.html.twig' -->
+
+
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'input__hidden' -->
+<!-- FILE NAME SUGGESTIONS:
+   ▪️ input--hidden.html.twig
+   ✅ input.html.twig
+-->
+<!-- 💡 BEGIN CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/form/input.html.twig' -->
+
+  <input data-drupal-selector="edit-webform-submission-newsletter-subscription-add-form" type="hidden" name="form_id" value="webform_submission_newsletter_subscription_add_form">
+
+
+<!-- END CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/form/input.html.twig' -->
+
+
+
+<!-- END OUTPUT from 'modules/contrib/webform/templates/webform-submission-form.html.twig' -->
+
+
+		
+	</form>
+</div>
+
+<!-- END CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/form/webform--newsletter-subscription.html.twig' -->
+
+</div></div>
+	</div>
+
+<!-- END CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/block/block.html.twig' -->
+
+
+  </div>
+
+<!-- END CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/layout/region.html.twig' -->
+
+
+		</div>
+	</div>
+
+
+	<footer role="contentinfo">
+		<div class="container">
+			
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'region' -->
+<!-- FILE NAME SUGGESTIONS:
+   ▪️ region--footer.html.twig
+   ✅ region.html.twig
+-->
+<!-- 💡 BEGIN CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/layout/region.html.twig' -->
+  <div class="region region-footer">
+    
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'block' -->
+<!-- FILE NAME SUGGESTIONS:
+   ▪️ block--jssotheme-footer.html.twig
+   ▪️ block--system-menu-block--footer.html.twig
+   ✅ block--system-menu-block.html.twig
+   ▪️ block--system.html.twig
+   ▪️ block.html.twig
+-->
+<!-- 💡 BEGIN CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/block/block--system-menu-block.html.twig' -->
+<nav role="navigation" aria-labelledby="block-jssotheme-footer-menu" id="block-jssotheme-footer" class="block block-menu navigation menu--footer">
+            
+  <h5 class="visually-hidden" id="block-jssotheme-footer-menu">Footer</h5>
+  
+
+        
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'menu__footer' -->
+<!-- FILE NAME SUGGESTIONS:
+   ▪️ menu--footer.html.twig
+   ▪️ menu--footer.html.twig
+   ▪️ menu--footer--footer.html.twig
+   ✅ menu.html.twig
+-->
+<!-- 💡 BEGIN CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/navigation/menu.html.twig' -->
+
+              <ul data-block="footer" class="nav navbar-nav">
+                    <li class="nav-item">
+        <a href="/" class="nav-link" data-drupal-link-system-path="&lt;front&gt;">Privacy Policy</a>
+              </li>
+                <li class="nav-item">
+        <a href="/" class="nav-link" data-drupal-link-system-path="&lt;front&gt;">Sitemap</a>
+              </li>
+                <li class="nav-item">
+        <a href="/our-team" class="nav-link" data-drupal-link-system-path="our-team">Team</a>
+              </li>
+                <li class="nav-item">
+        <a href="/" class="nav-link" data-drupal-link-system-path="&lt;front&gt;">Terms &amp; Conditions</a>
+              </li>
+        </ul>
+  
+
+
+<!-- END CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/navigation/menu.html.twig' -->
+
+
+  </nav>
+
+<!-- END CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/block/block--system-menu-block.html.twig' -->
+
+
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'block' -->
+<!-- FILE NAME SUGGESTIONS:
+   ▪️ block--jssotheme-feedback.html.twig
+   ▪️ block--system-menu-block--feedback.html.twig
+   ✅ block--system-menu-block.html.twig
+   ▪️ block--system.html.twig
+   ▪️ block.html.twig
+-->
+<!-- 💡 BEGIN CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/block/block--system-menu-block.html.twig' -->
+<nav role="navigation" aria-labelledby="block-jssotheme-feedback-menu" id="block-jssotheme-feedback" class="block block-menu navigation menu--feedback">
+            
+  <h5 class="visually-hidden" id="block-jssotheme-feedback-menu">Feedback</h5>
+  
+
+        
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'menu__feedback' -->
+<!-- FILE NAME SUGGESTIONS:
+   ▪️ menu--feedback.html.twig
+   ▪️ menu--footer.html.twig
+   ▪️ menu--feedback--footer.html.twig
+   ✅ menu.html.twig
+-->
+<!-- 💡 BEGIN CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/navigation/menu.html.twig' -->
+
+              <ul data-block="footer" class="nav navbar-nav">
+                    <li class="nav-item">
+        <a href="/feedback" class="nav-link" data-drupal-link-system-path="node/101">Feedback</a>
+              </li>
+        </ul>
+  
+
+
+<!-- END CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/navigation/menu.html.twig' -->
+
+
+  </nav>
+
+<!-- END CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/block/block--system-menu-block.html.twig' -->
+
+
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'block' -->
+<!-- FILE NAME SUGGESTIONS:
+   ▪️ block--jssotheme-socialmedialinks.html.twig
+   ▪️ block--social-media-links-block.html.twig
+   ▪️ block--social-media-links.html.twig
+   ✅ block.html.twig
+-->
+<!-- 💡 BEGIN CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/block/block.html.twig' -->
+<div id="block-jssotheme-socialmedialinks" class="block-social-media-links block block-social-media-links-block">
+	
+		
+			
+
+<!-- THEME DEBUG -->
+<!-- THEME HOOK: 'social_media_links_platforms' -->
+<!-- BEGIN OUTPUT from 'modules/contrib/social_media_links/templates/social-media-links-platforms.html.twig' -->
+
+
+<ul class="social-media-links--platforms platforms inline horizontal">
+      <li>
+      <a class="social-media-link-icon--twitter" href="https://x.com/jsso">
+        <span class="fab fa-x-twitter fa-2x"></span>
+      </a>
+
+          </li>
+      <li>
+      <a class="social-media-link-icon--facebook" href="https://www.facebook.com/jsso">
+        <span class="fab fa-facebook fa-2x"></span>
+      </a>
+
+          </li>
+      <li>
+      <a class="social-media-link-icon--tiktok" href="https://www.tiktok.com/jsso">
+        <span class="fab fa-tiktok fa-2x"></span>
+      </a>
+
+          </li>
+      <li>
+      <a class="social-media-link-icon--youtube" href="https://www.youtube.com/jsso">
+        <span class="fab fa-youtube fa-2x"></span>
+      </a>
+
+          </li>
+      <li>
+      <a class="social-media-link-icon--linkedin" href="https://www.linkedin.com/jsso">
+        <span class="fab fa-linkedin fa-2x"></span>
+      </a>
+
+          </li>
+      <li>
+      <a class="social-media-link-icon--flickr" href="https://www.flickr.com/photos/jsso">
+        <span class="fab fa-flickr fa-2x"></span>
+      </a>
+
+          </li>
+      <li>
+      <a class="social-media-link-icon--instagram" href="https://www.instagram.com/jsso">
+        <span class="fab fa-instagram fa-2x"></span>
+      </a>
+
+          </li>
+      <li>
+      <a class="social-media-link-icon--rss" href="/rss">
+        <span class="fa fa-rss fa-2x"></span>
+      </a>
+
+          </li>
+      <li>
+      <a class="social-media-link-icon--contact" href="/contact">
+        <span class="fa fa-envelope fa-2x"></span>
+      </a>
+
+          </li>
+  </ul>
+
+<!-- END OUTPUT from 'modules/contrib/social_media_links/templates/social-media-links-platforms.html.twig' -->
+
+
+	</div>
+
+<!-- END CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/block/block.html.twig' -->
+
+
+  </div>
+
+<!-- END CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/layout/region.html.twig' -->
+
+
+		</div>
+	</footer>
+
+<!-- END CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/layout/page.html.twig' -->
+
+
+  </div>
+
+<!-- END CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/content/off-canvas-page-wrapper.html.twig' -->
+
+
+					
+					<script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"\/","pathPrefix":"","currentPath":"media\/photo-albums","currentPathIsAdmin":false,"isFront":false,"currentLanguage":"en"},"pluralDelimiter":"\u0003","suppressDeprecationErrors":true,"ajaxPageState":{"libraries":"eJx9UdGSwiAM_CEKT_c9nWAjpgbikbSefv1hq07H3txLWHaT7CxEEVOrcPkKERRd3NzfsBu1YzBU2-qJJQJ3ajemkrZKRlVIqO4AZQYNoIrWM8UK9ebXuZfWuDL0Z7I3LxXDUKcLsCfD3DE134WlYlhL48fvCdumo9S8KqUhYLqjO0oxuKJKxrDBXuf0n-b1RNmNqmInbPJHuDNDlbDULe5kxlppQKdyIOA-40DQkpazhj3ll91Ob9pyre9tsTUkyFimPfFwb684E141LNVnGSZGd8X4CB-ep4cRfnYkcnMr5gc0IFavMO8nP5tMUvrD4NX2_Nqd_ii_ZgzkRA","theme":"jssotheme","theme_token":null},"ajaxTrustedUrl":{"form_action_p_pvdeGsVG5zNF_XLGPTvYSKCf43t8qZYSwcfZl2uzM":true,"\/media\/photo-albums?ajax_form=1":true},"klaro":{"config":{"elementId":"klaro","storageMethod":"cookie","cookieName":"klaro","cookieExpiresAfterDays":180,"cookieDomain":"","groupByPurpose":true,"acceptAll":false,"hideDeclineAll":false,"hideLearnMore":false,"learnMoreAsButton":false,"additionalClass":" hide-consent-dialog-title klaro-theme-jssotheme","disablePoweredBy":false,"htmlTexts":false,"autoFocus":true,"privacyPolicy":"\/privacy-policy","lang":"en","services":[{"name":"cms","default":true,"title":"Drupal CMS","description":"Store data (e.g. cookie for user session) in your browser (required to use this website).","purposes":["cms"],"callbackCode":"","cookies":[["^[SESS|SSESS]","",""]],"required":true,"optOut":false,"onlyOnce":false,"contextualConsentOnly":false,"contextualConsentText":"","wrapperIdentifier":[],"translations":{"en":{"title":"Drupal CMS"}}},{"name":"klaro","default":true,"title":"Consent manager","description":"Klaro! Cookie \u0026 Consent manager saves your consent status in the browser.","purposes":["cms"],"callbackCode":"","cookies":[["klaro","",""]],"required":true,"optOut":false,"onlyOnce":false,"contextualConsentOnly":false,"contextualConsentText":"","wrapperIdentifier":[],"translations":{"en":{"title":"Consent manager"}}},{"name":"vimeo","default":false,"title":"Vimeo","description":"Vimeo is a video sharing platform by Vimeo, LLC (USA).","purposes":["external_content"],"callbackCode":"","cookies":[],"required":false,"optOut":false,"onlyOnce":false,"contextualConsentOnly":false,"contextualConsentText":"","wrapperIdentifier":[],"translations":{"en":{"title":"Vimeo"}}},{"name":"youtube","default":false,"title":"YouTube","description":"YouTube is an online video sharing platform owned by Google.","purposes":["external_content"],"callbackCode":"","cookies":[],"required":false,"optOut":false,"onlyOnce":false,"contextualConsentOnly":false,"contextualConsentText":"","wrapperIdentifier":[],"translations":{"en":{"title":"YouTube"}}}],"translations":{"en":{"consentModal":{"title":"Use of personal data and cookies","description":"Please choose the services and 3rd party applications we would like to use.\n","privacyPolicy":{"name":"privacy policy","text":"To learn more, please read our {privacyPolicy}.\n"}},"consentNotice":{"title":"Use of personal data and cookies","changeDescription":"There were changes since your last visit, please update your consent.","description":"We use cookies and process personal data for the following purposes: {purposes}.\n","learnMore":"Customize","privacyPolicy":{"name":"privacy policy"}},"ok":"Accept","save":"Save","decline":"Decline","close":"Close","acceptAll":"Accept all","acceptSelected":"Accept selected","service":{"disableAll":{"title":"Toggle all services","description":"Use this switch to enable\/disable all services."},"optOut":{"title":"(opt-out)","description":"This service is loaded by default (opt-out possible)."},"required":{"title":"(always required)","description":"This service is always required."},"purposes":"Purposes","purpose":"Purpose"},"contextualConsent":{"acceptAlways":"Always","acceptOnce":"Yes (this time)","description":"Load external content supplied by {title}?"},"poweredBy":"Powered by Klaro!","purposeItem":{"service":"Service","services":"Services"},"privacyPolicy":{"name":"privacy policy","text":"To learn more, please read our {privacyPolicy}.\n"},"purposes":{"cms":{"title":"Functional","description":""},"advertising":{"title":"Advertising and Marketing","description":""},"analytics":{"title":"Analytics","description":""},"livechat":{"title":"Live chat","description":""},"security":{"title":"Security","description":""},"styling":{"title":"Styling","description":""},"external_content":{"title":"Embedded external content","description":""}}}},"purposeOrder":["cms","advertising","analytics","livechat","security","styling","external_content"],"showNoticeTitle":true,"styling":{"theme":["light"]}},"dialog_mode":"silent","show_toggle_button":false,"toggle_button_icon":null,"show_close_button":false,"exclude_urls":[],"disable_urls":[]},"TBMegaMenu":{"TBElementsCounter":{"column":null},"theme":"jssotheme","5b60a9c1-17d7-4774-8cce-f565d8b4bac1":{"arrows":"0"}},"ajax":{"edit-actions-submit":{"callback":"::submitAjaxForm","event":"click","effect":"fade","speed":1000,"progress":{"type":"throbber","message":""},"disable-refocus":true,"url":"\/media\/photo-albums?ajax_form=1","httpMethod":"POST","dialogType":"ajax","submit":{"_triggering_element_name":"op","_triggering_element_value":"Subscribe"}}},"user":{"uid":0,"permissionsHash":"4ceb70d59f09218ba192241c8f56c6e69a3eab34f7fff1f979bbcf7d7aae277c"}}</script>
+<script src="/core/assets/vendor/jquery/jquery.min.js?v=4.0.0"></script>
+<script src="/themes/custom/jssotheme/js/jquery-bridge.js?v=1"></script>
+<script src="/core/assets/vendor/once/once.min.js?v=1.0.1"></script>
+<script src="/core/misc/drupalSettingsLoader.js?v=11.3.9"></script>
+<script src="/core/misc/drupal.js?v=11.3.9"></script>
+<script src="/core/misc/drupal.init.js?v=11.3.9"></script>
+<script src="/themes/contrib/bootstrap5/dist/bootstrap/5.3.8/dist/js/bootstrap.bundle.js?v=5.3.8"></script>
+<script src="/core/assets/vendor/tabbable/index.umd.min.js?v=6.3.0"></script>
+<script src="/core/misc/jquery.form.js?v=4.3.0"></script>
+<script src="/themes/custom/jssotheme/js/jsso.scripts.js?v=1"></script>
+<script src="/modules/contrib/klaro/js/klaro.drupal.js?tfqpmk"></script>
+<script src="/modules/contrib/tb_megamenu/dist/js/frontend.js?v=1.x"></script>
+<script src="/core/misc/progress.js?v=11.3.9"></script>
+<script src="/core/assets/vendor/loadjs/loadjs.min.js?v=4.3.0"></script>
+<script src="/core/misc/debounce.js?v=11.3.9"></script>
+<script src="/core/misc/announce.js?v=11.3.9"></script>
+<script src="/core/misc/message.js?v=11.3.9"></script>
+<script src="/core/themes/claro/js/ajax.js?tfqpmk"></script>
+<script src="/core/misc/ajax.js?v=11.3.9"></script>
+<script src="/modules/contrib/webform/js/webform.scroll.js?tfqpmk"></script>
+<script src="/modules/contrib/webform/js/webform.ajax.js?tfqpmk"></script>
+<script src="/modules/contrib/webform/js/webform.element.details.save.js?tfqpmk"></script>
+<script src="/modules/contrib/webform/js/webform.element.details.toggle.js?tfqpmk"></script>
+<script src="/modules/contrib/webform/js/webform.element.message.js?tfqpmk"></script>
+<script src="/core/misc/form.js?v=11.3.9"></script>
+<script src="/modules/contrib/webform/js/webform.behaviors.js?tfqpmk"></script>
+<script src="/core/misc/states.js?v=11.3.9"></script>
+<script src="/modules/contrib/webform/js/webform.states.js?tfqpmk"></script>
+<script src="/modules/contrib/webform/js/webform.form.js?tfqpmk"></script>
+</drupal-big-pipe-scripts-bottom-marker></drupal-big-pipe-scripts-bottom-marker></body>
+				</html><!-- END CUSTOM TEMPLATE OUTPUT from 'themes/custom/jssotheme/templates/layout/html.html.twig' -->

@@ -1,9 +1,11 @@
 langcode: en
 status: true
 dependencies:
+  module:
+    - link
   theme:
     - mercury
-active_version: 5ca7577dd8002c62
+active_version: cc5b33810a04e564
 versioned_properties:
   active:
     settings:
@@ -40,12 +42,14 @@ versioned_properties:
           expression: ℹ︎string␟value
         cite_url:
           required: false
-          field_type: string
+          field_type: link
           field_storage_settings: {  }
-          field_instance_settings: {  }
-          field_widget: string_textfield
+          field_instance_settings:
+            title: 0
+            link_type: 17
+          field_widget: link_default
           default_value: null
-          expression: ℹ︎string␟value
+          expression: ℹ︎link␟url
     fallback_metadata:
       slot_definitions: {  }
 label: Blockquote
@@ -53,4 +57,3 @@ id: sdc.mercury.blockquote
 provider: mercury
 source: sdc
 source_local_id: 'mercury:blockquote'
-category: Base

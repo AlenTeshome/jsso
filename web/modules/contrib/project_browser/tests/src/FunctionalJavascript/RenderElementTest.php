@@ -9,6 +9,7 @@ use Behat\Mink\Element\NodeElement;
 use Drupal\block\BlockInterface;
 use Drupal\FunctionalJavascriptTests\WebDriverTestBase;
 use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Tests the render element for the project browser block.
@@ -16,6 +17,7 @@ use PHPUnit\Framework\Attributes\Group;
  * @group project_browser
  */
 #[Group('project_browser')]
+#[RunTestsInSeparateProcesses]
 final class RenderElementTest extends WebDriverTestBase {
 
   use ProjectBrowserUiTestTrait;

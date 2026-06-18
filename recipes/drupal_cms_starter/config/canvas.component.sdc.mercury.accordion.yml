@@ -51,4 +51,3 @@ id: sdc.mercury.accordion
 provider: mercury
 source: sdc
 source_local_id: 'mercury:accordion'
-category: Layout

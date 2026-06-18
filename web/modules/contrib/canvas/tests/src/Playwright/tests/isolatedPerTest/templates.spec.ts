@@ -2,30 +2,28 @@ import { expect } from '@playwright/test';
 
 import { isolatedPerTest as test } from '../../fixtures/test.js';
 
-// cspell:ignore Bwidth Fitok treehouse
-test.use({ modules: ['canvas_test_sdc'], enableTestExtensions: true });
+// cspell:ignore Bwidth Fitok treehouse Artículo
+test.use({
+  modules: ['canvas_test_sdc'],
+  enableTestExtensions: true,
+});
 
 test.describe('Templates - General', () => {
   test.beforeEach(async ({ drupal, page }) => {
     await drupal.loginAsAdmin();
-
-    await page.goto('/admin/structure/types/add');
-    await page.getByRole('textbox', { name: 'name' }).fill('Article');
-    await page.getByRole('button', { name: 'Save' }).click();
-
-    await page.goto('/node/add/article');
-    await page.getByLabel('Title').fill('Article One');
-    await page.getByRole('link', { name: 'URL alias' }).click();
-    await page
-      .locator('[data-drupal-selector="edit-path-0-alias"]')
-      .fill('/article-one');
-    await page.getByRole('link', { name: 'Promotion options' }).click();
-    await page.getByLabel('Promoted to front page').check();
-    await page.getByRole('button', { name: 'Save' }).click();
-    await expect(
-      page.getByRole('contentinfo', { name: 'Status message' }),
-    ).toContainText('Article Article One has been created.');
-
+    await drupal.applyRecipe(
+      `modules/contrib/canvas/tests/fixtures/recipes/article_translation`,
+    );
+    await drupal.installModules(['canvas_test_article_fields']);
+    await drupal.addPermissions({
+      role: 'editor',
+      permissions: [
+        'use editorial transition create_new_draft',
+        'use editorial transition publish',
+        'use editorial transition archive',
+        'edit any article content',
+      ],
+    });
     await drupal.logout();
   });
 
@@ -109,6 +107,95 @@ test.describe('Templates - General', () => {
         '[data-component-id="canvas_test_sdc:my-hero"] .my-hero__subheading',
       ),
     ).toHaveText('submarine');
+    // Open the full-page preview and verify the template renders correctly.
+    await canvas.openPreview();
+    const previewFrame = page
+      .locator('iframe[class^="_PagePreviewIframe"]')
+      .contentFrame();
+    await expect(
+      previewFrame.locator('[data-component-id="canvas_test_sdc:my-hero"] h1'),
+    ).toHaveText('Article One');
+    await expect(
+      previewFrame.locator(
+        '[data-component-id="canvas_test_sdc:my-hero"] .my-hero__subheading',
+      ),
+    ).toHaveText('submarine');
+
+    // Switch to the Spanish translation via the language selector.
+    const languageButton = page.locator(
+      '[data-testid="canvas-topbar"] [data-testid="language-select-trigger"]',
+    );
+    await expect(languageButton).toBeVisible();
+    await languageButton.click();
+
+    // Verify translation indicators are present for translated languages.
+    await expect(
+      page.locator(
+        '[data-testid="language-option-en"] [data-canvas-has-translation="true"]',
+      ),
+    ).toHaveAttribute('data-canvas-has-translation', 'true');
+    await expect(
+      page.locator(
+        '[data-testid="language-option-es"] [data-canvas-has-translation="true"]',
+      ),
+    ).toHaveAttribute('data-canvas-has-translation', 'true');
+    await expect(
+      page.locator(
+        '[data-testid="language-option-fr"] [data-canvas-has-translation="true"]',
+      ),
+    ).toHaveCount(0);
+
+    const spanishOption = page.locator('[data-testid="language-option-es"]');
+    await expect(spanishOption).toBeVisible();
+    await spanishOption.click();
+
+    await page.waitForURL(
+      /\/preview\/template\/node\/article\/\d+\/full\/full\?language=es/,
+      {
+        timeout: 10000,
+      },
+    );
+    expect(page.url()).toMatch(
+      /\/preview\/template\/node\/article\/\d+\/full\/full\?language=es/,
+    );
+
+    // Verify the Spanish translation title is shown in the preview.
+    await expect(
+      page
+        .locator('iframe[class^="_PagePreviewIframe"]')
+        .contentFrame()
+        .locator('[data-component-id="canvas_test_sdc:my-hero"] h1'),
+    ).toHaveText('Artículo Uno');
+
+    // Verify the template caption is shown in navigation on preview routes.
+    await expect(
+      page.locator('[data-testid="canvas-navigation-button"]'),
+    ).toHaveText('Article - Full content template');
+
+    await page.reload();
+    // Verify the Spanish translation title after reload.
+    await expect(
+      page
+        .locator('iframe[class^="_PagePreviewIframe"]')
+        .contentFrame()
+        .locator('[data-component-id="canvas_test_sdc:my-hero"] h1'),
+    ).toHaveText('Artículo Uno');
+
+    // Verify the template caption is shown in navigation after reload.
+    await expect(
+      page.locator('[data-testid="canvas-navigation-button"]'),
+    ).toHaveText('Article - Full content template');
+
+    // Switch back to English (default) which returns to the editor.
+    await languageButton.click();
+    await page.locator('[data-testid="language-option-en"]').click();
+    await page.waitForURL(/\/canvas\/template\/node\/article\/full\/\d+/, {
+      timeout: 10000,
+    });
+    await expect(
+      page.locator('iframe[title="Page preview"]'),
+    ).not.toBeAttached();
+
     await canvas.publishAllChanges();
 
     await page.goto('/article-one');
@@ -150,5 +237,137 @@ test.describe('Templates - General', () => {
     // Verify the Hero component renders with article title.
     await expect(page.locator('.my-hero__heading')).toBeVisible();
     await expect(page.locator('.my-hero__heading')).toHaveCount(1);
+  });
+});
+
+test.describe('Templates - Preview content updates across entity types', () => {
+  test.beforeEach(async ({ drupal, page }) => {
+    await drupal.loginAsAdmin();
+    // Create a "Page" content type so a content template can be created.
+    await page.goto('/admin/structure/types/add');
+    await page.getByRole('textbox', { name: 'name' }).fill('Page');
+    await page.getByRole('button', { name: 'Save' }).click();
+    await expect(
+      page.getByRole('contentinfo', { name: 'Status message' }),
+    ).toContainText('The content type Page has been added.');
+    // A content template needs a preview entity.
+    await page.goto('/node/add/page');
+    await page.getByLabel('Title').fill('Page One');
+    await page.getByRole('button', { name: 'Save' }).click();
+    await expect(
+      page.getByRole('contentinfo', { name: 'Status message' }),
+    ).toContainText('Page One has been created.');
+  });
+
+  test('Preview updates when navigating from a content template preview to a canvas_page', async ({
+    page,
+    canvas,
+  }) => {
+    // Create a canvas_page with a Hero using a distinct heading.
+    await canvas.createCanvas({ title: 'Test Page' });
+    await canvas.openLibraryPanel();
+    await canvas.addComponent({ name: 'Hero' });
+    await page.locator('.field--name-heading input').fill('Canvas page hero');
+    await expect(
+      (await canvas.getActivePreviewFrame()).locator(
+        '[data-component-id="canvas_test_sdc:my-hero"] h1',
+      ),
+    ).toContainText('Canvas page hero');
+
+    // Set up a Page content template with a Hero using a different heading.
+    await canvas.openCanvasRoot();
+    await canvas.openTemplatesPanel();
+    await canvas.addTemplate('Page', 'Full content');
+    await page.getByTestId('template-list-item-page-Full content').click();
+    await canvas.openLibraryPanel();
+    await canvas.addComponent({ id: 'sdc.canvas_test_sdc.my-hero' });
+    await page
+      .locator('.field--name-heading input')
+      .fill('Content template hero');
+    await expect(
+      (await canvas.getActivePreviewFrame()).locator(
+        '[data-component-id="canvas_test_sdc:my-hero"] h1',
+      ),
+    ).toContainText('Content template hero');
+
+    // Open the content template full-page preview.
+    await canvas.openPreview();
+    const templatePreviewFrame = page
+      .locator('iframe[class^="_PagePreviewIframe"]')
+      .contentFrame();
+    await expect(
+      templatePreviewFrame.locator(
+        '[data-component-id="canvas_test_sdc:my-hero"] h1',
+      ),
+    ).toContainText('Content template hero');
+
+    // While still in the content template preview, navigate to the canvas_page
+    // via the page switcher. This navigates to the canvas_page editor.
+    await page.getByTestId('canvas-navigation-button').click();
+    const navigationResults = page.locator(
+      '[data-testid="canvas-navigation-results"]',
+    );
+    await expect(navigationResults).toBeVisible();
+    await navigationResults.locator('text=Test Page').click();
+    await page.waitForURL(/\/canvas\/editor\/canvas_page\//);
+
+    // The editor's inline preview must show the canvas_page content, not the
+    // stale content template preview.
+    await expect(
+      (await canvas.getActivePreviewFrame()).locator(
+        '[data-component-id="canvas_test_sdc:my-hero"] h1',
+      ),
+    ).toContainText('Canvas page hero');
+  });
+
+  test('Changing preview width in a content template preview keeps the template route and does not lock the editor', async ({
+    page,
+    canvas,
+  }) => {
+    // Set up a Page content template with a Hero component.
+    await canvas.openCanvasRoot();
+    await canvas.openTemplatesPanel();
+    await canvas.addTemplate('Page', 'Full content');
+    await page.getByTestId('template-list-item-page-Full content').click();
+    await canvas.openLibraryPanel();
+    await canvas.addComponent({ id: 'sdc.canvas_test_sdc.my-hero' });
+
+    // Open the content template full-page preview.
+    await canvas.openPreview();
+    const templatePreviewFrame = page
+      .locator('iframe[class^="_PagePreviewIframe"]')
+      .contentFrame();
+    await expect(
+      templatePreviewFrame.locator(
+        '[data-component-id="canvas_test_sdc:my-hero"] h1',
+      ),
+    ).toBeVisible();
+
+    // Change the preview width.
+    await page.getByRole('button', { name: 'Select preview width' }).click();
+    await page.getByRole('menuitemradio', { name: 'Tablet (1024px)' }).click();
+
+    // The width selector must keep the content template preview route rather
+    // than navigating to the generic /preview/{entityType}/{entityId} route.
+    await page.waitForURL(
+      /\/canvas\/preview\/template\/node\/page\/[^/]+\/full\/tablet/,
+    );
+    await expect(page.locator('iframe[title="Page preview"]')).toHaveCSS(
+      'width',
+      '1024px',
+    );
+
+    // Exit preview: the editor must return to the template editor, not lock up.
+    await page
+      .locator('[data-testid="canvas-topbar"]')
+      .getByRole('button', { name: 'Exit Preview' })
+      .click();
+    await page.waitForURL(/\/canvas\/template\/node\/page\/full/);
+    await canvas.waitForCanvasSideMenu();
+    await expect(
+      page.getByText(
+        'For now Canvas only works if the entity is a canvas_page',
+      ),
+    ).toHaveCount(0);
   });
 });

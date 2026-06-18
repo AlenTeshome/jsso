@@ -4,23 +4,24 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\canvas\Kernel\Config;
 
-use PHPUnit\Framework\Attributes\Group;
-use PHPUnit\Framework\Attributes\DataProvider;
-use Drupal\canvas\PropSource\PropSource;
-use Drupal\Core\Entity\Entity\EntityViewMode;
-use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\canvas\Entity\Component;
 use Drupal\canvas\Entity\ContentTemplate;
+use Drupal\canvas\PropSource\PropSource;
+use Drupal\canvas_test_validation\Plugin\Canvas\ComponentSource\InvalidSlots;
+use Drupal\Core\Entity\Entity\EntityViewMode;
+use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\Tests\canvas\Traits\BetterConfigDependencyManagerTrait;
-use Drupal\Tests\canvas\Traits\DataProviderWithComponentTreeTrait;
 use Drupal\Tests\canvas\Traits\ContribStrictConfigSchemaTestTrait;
 use Drupal\Tests\canvas\Traits\CreateTestJsComponentTrait;
+use Drupal\Tests\canvas\Traits\DataProviderWithComponentTreeTrait;
+use Drupal\Tests\canvas\Traits\FallbackComponentTreeConfigValidationTestTrait;
 use Drupal\Tests\canvas\Traits\GenerateComponentConfigTrait;
 use Drupal\Tests\node\Traits\ContentTypeCreationTrait;
 use Drupal\TestTools\Random;
-use Drupal\canvas_test_validation\Plugin\Canvas\ComponentSource\InvalidSlots;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 use PHPUnit\Framework\Attributes\TestWith;
 
@@ -36,6 +37,7 @@ final class ContentTemplateValidationTest extends BetterConfigEntityValidationTe
   use ContentTypeCreationTrait;
   use ContribStrictConfigSchemaTestTrait;
   use CreateTestJsComponentTrait;
+  use FallbackComponentTreeConfigValidationTestTrait;
   use GenerateComponentConfigTrait;
 
   /**

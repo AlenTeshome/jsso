@@ -88,11 +88,17 @@ async function activateProject (projectIds) {
     messenger.remove(messageId);
   }
 
+  const params = new URLSearchParams();
+  projectIds.forEach((id, index) => {
+    params.set(`projects[${index}]`, id);
+  });
+  params.set('destination', window.location.pathname);
+
   await new Drupal.Ajax(
     null,
     document.createElement('div'),
     {
-      url: `${BASE_URL}admin/modules/project_browser/activate?projects=${projectIds.join(',')}&destination=${window.location.pathname}`,
+      url: `${BASE_URL}admin/modules/project_browser/activate?${params.toString()}`,
     },
   ).execute();
 }

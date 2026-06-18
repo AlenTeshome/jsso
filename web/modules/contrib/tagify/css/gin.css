@@ -46,6 +46,7 @@
 }
 
 .tagify__dropdown__item--active {
+  color: var(--gin-color-button-text) !important;
   background: var(--gin-color-primary) !important;
 }
 

@@ -5,6 +5,7 @@ namespace Drupal\ai_provider_amazeeio\Plugin\AiProvider;
 use Drupal\ai_provider_amazeeio\AmazeeIoApi\AmazeeClient;
 use Drupal\ai\Attribute\AiProvider;
 use Drupal\ai\Base\OpenAiBasedProviderClientBase;
+use Drupal\ai\Enum\AiProviderCapability;
 use Drupal\ai\Exception\AiQuotaException;
 use Drupal\ai\Exception\AiSetupFailureException;
 use Drupal\Core\State\StateInterface;
@@ -63,6 +64,7 @@ class AmazeeioAiProvider extends OpenAiBasedProviderClientBase {
       $this->amazeeClient = new AmazeeClient(
         $this->httpClient,
         $this->logger,
+        $this->configFactory,
       );
       $host = $this->amazeeClient->getHost();
       $this->setEndpoint($host);
@@ -216,6 +218,16 @@ class AmazeeioAiProvider extends OpenAiBasedProviderClientBase {
   /**
    * {@inheritdoc}
    */
+  public function getSupportedCapabilities(): array {
+    return [
+      AiProviderCapability::StreamChatOutput,
+      AiProviderCapability::ChatFiberSupport,
+    ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getSupportedOperationTypes(): array {
     return [
       'chat',
@@ -235,7 +247,7 @@ class AmazeeioAiProvider extends OpenAiBasedProviderClientBase {
       $this->loadClient();
       $models = $this->amazeeClient->models();
     }
-    catch (\Exception $e) {
+    catch (\Exception) {
       $models = [];
     }
 
@@ -265,8 +277,8 @@ class AmazeeioAiProvider extends OpenAiBasedProviderClientBase {
   /**
    * {@inheritdoc}
    */
-  public function handleApiException(\Exception $e): void {
-    if (strpos($e->getMessage(), 'Budget has been exceeded!') !== FALSE) {
+  public function handleApiException(\Throwable $e): void {
+    if (str_contains($e->getMessage(), 'Budget has been exceeded!')) {
       $message = 'Your budget has been exceeded!';
 
       if ($this->state->get('ai_provider_amazeeio.trial_account')) {

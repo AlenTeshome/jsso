@@ -5,12 +5,6 @@ dependencies:
     - options
   theme:
     - mercury
-label: Navbar
-id: sdc.mercury.navbar
-source: sdc
-source_local_id: 'mercury:navbar'
-provider: mercury
-category: Layout
 active_version: 3149f199d66bbc29
 versioned_properties:
   active:
@@ -35,3 +29,8 @@ versioned_properties:
           title: 'Navigation menu'
         links:
           title: CTAs
+label: Navbar
+id: sdc.mercury.navbar
+provider: mercury
+source: sdc
+source_local_id: 'mercury:navbar'

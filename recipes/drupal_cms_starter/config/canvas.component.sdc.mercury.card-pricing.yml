@@ -4,11 +4,12 @@ dependencies:
   config:
     - filter.format.canvas_html_block
   module:
+    - link
     - options
     - text
   theme:
     - mercury
-active_version: 830483d3dcfe2f18
+active_version: 8b1a744c877e8029
 versioned_properties:
   active:
     settings:
@@ -89,12 +90,14 @@ versioned_properties:
           expression: ℹ︎text_long␟processed
         button_url:
           required: false
-          field_type: string
+          field_type: link
           field_storage_settings: {  }
-          field_instance_settings: {  }
-          field_widget: string_textfield
+          field_instance_settings:
+            title: 0
+            link_type: 17
+          field_widget: link_default
           default_value: null
-          expression: ℹ︎string␟value
+          expression: ℹ︎link␟url
         button_label:
           required: false
           field_type: string
@@ -122,4 +125,3 @@ id: sdc.mercury.card-pricing
 provider: mercury
 source: sdc
 source_local_id: 'mercury:card-pricing'
-category: Card

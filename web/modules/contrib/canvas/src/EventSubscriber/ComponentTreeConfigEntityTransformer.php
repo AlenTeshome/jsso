@@ -71,7 +71,7 @@ final readonly class ComponentTreeConfigEntityTransformer implements EventSubscr
    * @param \Drupal\Core\Config\StorageTransformEvent $event
    *   The transformation event.
    */
-  public function import(StorageTransformEvent $event): void {
+  public static function import(StorageTransformEvent $event): void {
     $storage = $event->getStorage();
     // @see ::export()
     if ($storage->getCollectionName() !== StorageInterface::DEFAULT_COLLECTION) {
@@ -102,7 +102,7 @@ final readonly class ComponentTreeConfigEntityTransformer implements EventSubscr
           // - `0:4f785025-9bd9-4752-9dd6-068b957b03ee` → `4f785025-9bd9-4752-9dd6-068b957b03ee`
           // - `0:the_body:0:the_body:0:b7e2cf39-d62f-4ee8-99b2-27a89f1ac196` → `b7e2cf39-d62f-4ee8-99b2-27a89f1ac196`
           // @phpcs:enable
-          fn (string $sequence_key): string  => \array_reverse(explode(':', $sequence_key))[0],
+          fn (int|string $sequence_key): string  => \array_reverse(explode(':', (string) $sequence_key))[0],
           \array_keys($raw['component_tree']),
         ),
         \array_values($raw['component_tree']),
@@ -117,7 +117,7 @@ final readonly class ComponentTreeConfigEntityTransformer implements EventSubscr
    * @param \Drupal\Core\Config\StorageTransformEvent $event
    *   The transformation event.
    */
-  public function export(StorageTransformEvent $event): void {
+  public static function export(StorageTransformEvent $event): void {
     $storage = $event->getStorage();
     // Export transformation applies only to the default collection — aka the
     // default translation (English). This is fine as long as only symmetrical

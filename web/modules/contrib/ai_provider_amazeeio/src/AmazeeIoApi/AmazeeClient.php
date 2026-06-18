@@ -2,6 +2,7 @@
 
 namespace Drupal\ai_provider_amazeeio\AmazeeIoApi;
 
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\ai_provider_amazeeio\DTO\Model;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
@@ -14,6 +15,13 @@ use Psr\Log\LoggerInterface;
  * Client for Amazee private key API.
  */
 class AmazeeClient implements ClientInterface {
+
+  /**
+   * Request-scoped cache for model metadata.
+   *
+   * @var array<string, \Drupal\ai_provider_amazeeio\DTO\Model>|null
+   */
+  protected ?array $modelsCache = NULL;
 
   /**
    * The api endpoint host.
@@ -50,12 +58,15 @@ class AmazeeClient implements ClientInterface {
    *   A Guzzle client to use for requests.
    * @param \Psr\Log\LoggerInterface $logger
    *   The logger.
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
+   *   The config factory.
    */
   public function __construct(
     protected Client $client,
     protected LoggerInterface $logger,
+    protected ConfigFactoryInterface $configFactory,
   ) {
-    $config = \Drupal::config('ai_provider_amazeeio.settings');
+    $config = $this->configFactory->get('ai_provider_amazeeio.settings');
     $this->host = $config->get('host') ?? '';
   }
 
@@ -64,6 +75,7 @@ class AmazeeClient implements ClientInterface {
    */
   public function setToken(string $token): void {
     $this->authToken = $token;
+    $this->modelsCache = NULL;
   }
 
   /**
@@ -71,6 +83,7 @@ class AmazeeClient implements ClientInterface {
    */
   public function setHost(string $host): void {
     $this->host = $host;
+    $this->modelsCache = NULL;
   }
 
   /**
@@ -188,7 +201,7 @@ class AmazeeClient implements ClientInterface {
       $this->teamId = (int) $response_body->team_id;
       return TRUE;
     }
-    catch (ClientException | GuzzleException | \Exception $e) {
+    catch (ClientException | GuzzleException | \Exception) {
       return FALSE;
     }
   }
@@ -226,6 +239,10 @@ class AmazeeClient implements ClientInterface {
    *   The available models.
    */
   public function models(): array {
+    if ($this->modelsCache !== NULL) {
+      return $this->modelsCache;
+    }
+
     $response = $this->makeRequest('GET', '/model/info');
     $decoded_response = json_decode($response->getBody());
 
@@ -234,7 +251,9 @@ class AmazeeClient implements ClientInterface {
       $models[$model_info->model_name] = Model::createFromResponse($model_info);
     }
 
-    return $models;
+    $this->modelsCache = $models;
+
+    return $this->modelsCache;
   }
 
   /**
@@ -256,7 +275,11 @@ class AmazeeClient implements ClientInterface {
       }
       $response = $this->makeRequest('POST', '/private-ai-keys', $body);
     }
-    catch (ClientException | GuzzleException | \Exception $e) {
+    catch (ClientException $e) {
+      $this->logger->error('Failed to create private key amazee.ai: @error', ['@error' => $e->getMessage()]);
+      throw $e;
+    }
+    catch (GuzzleException | \Exception $e) {
       $this->logger->error('Failed to create private key amazee.ai: @error', ['@error' => $e->getMessage()]);
       return [];
     }
@@ -310,8 +333,79 @@ class AmazeeClient implements ClientInterface {
       return NULL;
     }
 
-    $this->logger->error('Existing private key @id does not exist.', ['@id' => $api_key]);
+    $this->logger->error('Existing private key @id does not exist.', ['@id' => substr($api_key, 0, 8) . '...']);
     return NULL;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function createManagementToken(string $name): string {
+    try {
+      $response = $this->makeRequest('POST', '/auth/token', ['name' => $name]);
+      $data = json_decode($response->getBody()->getContents());
+      return $data->token ?? '';
+    }
+    catch (ClientException | GuzzleException | \Exception $e) {
+      $this->logger->error('Failed to create management token: @error', ['@error' => $e->getMessage()]);
+      return '';
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function listManagementTokens(): array {
+    try {
+      $response = $this->makeRequest('GET', '/auth/token');
+      return json_decode($response->getBody()->getContents());
+    }
+    catch (ClientException | GuzzleException | \Exception $e) {
+      $this->logger->error('Failed to list management tokens: @error', ['@error' => $e->getMessage()]);
+      return [];
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function deleteManagementToken(int $tokenId): bool {
+    try {
+      $this->makeRequest('DELETE', '/auth/token/' . $tokenId);
+      return TRUE;
+    }
+    catch (ClientException | GuzzleException | \Exception $e) {
+      $this->logger->error('Failed to delete management token: @error', ['@error' => $e->getMessage()]);
+      return FALSE;
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getTeam(int $teamId): ?\stdClass {
+    try {
+      $response = $this->makeRequest('GET', '/teams/' . $teamId);
+      return json_decode($response->getBody()->getContents());
+    }
+    catch (ClientException | GuzzleException | \Exception $e) {
+      $this->logger->error('Failed to get team info: @error', ['@error' => $e->getMessage()]);
+      return NULL;
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getKeySpend(int $keyId): ?\stdClass {
+    try {
+      $response = $this->makeRequest('GET', '/private-ai-keys/' . $keyId . '/spend');
+      return json_decode($response->getBody()->getContents());
+    }
+    catch (ClientException | GuzzleException | \Exception $e) {
+      $this->logger->error('Failed to get spend info for key: @error', ['@error' => $e->getMessage()]);
+      return NULL;
+    }
   }
 
   /**
@@ -348,23 +442,66 @@ class AmazeeClient implements ClientInterface {
       $headers['Authorization'] = 'Bearer ' . $this->authToken;
     }
 
-    $body = $body ? json_encode($body) : NULL;
+    $encodedBody = $body ? json_encode($body) : NULL;
 
-    return match ($type) {
-      'GET' => $this->client->get(
-        $this->host . $endpoint, [
-          'headers' => $headers,
-          'body' => $body,
-        ]
-      ),
-      'POST' => $this->client->post(
-        $this->host . $endpoint, [
-          'headers' => $headers,
-          'body' => $body,
-        ]
-      ),
-      default => throw new \InvalidArgumentException('Only GET and POST request types are supported.'),
-    };
+    $maxRetries = 3;
+    // Base delay in milliseconds.
+    $baseDelay = 1000;
+
+    for ($attempt = 0; $attempt <= $maxRetries; $attempt++) {
+      try {
+        return match ($type) {
+          'GET' => $this->client->get(
+            $this->host . $endpoint, [
+              'headers' => $headers,
+              'body' => $encodedBody,
+            ]
+          ),
+          'POST' => $this->client->post(
+            $this->host . $endpoint, [
+              'headers' => $headers,
+              'body' => $encodedBody,
+            ]
+          ),
+          'DELETE' => $this->client->delete(
+            $this->host . $endpoint, [
+              'headers' => $headers,
+              'body' => $encodedBody,
+            ]
+          ),
+          default => throw new \InvalidArgumentException('Only GET, POST and DELETE request types are supported.'),
+        };
+      }
+      catch (GuzzleException $e) {
+        // Don't retry on 4xx client errors (except 401 which may be transient
+        // when the upstream auth DB is temporarily unreachable).
+        if ($e instanceof ClientException) {
+          $statusCode = $e->getResponse()->getStatusCode();
+          if ($statusCode !== 401 && $statusCode >= 400 && $statusCode < 500) {
+            throw $e;
+          }
+        }
+
+        if ($attempt === $maxRetries) {
+          throw $e;
+        }
+
+        // Exponential backoff with jitter: 1s, 2s, 4s (±25%).
+        $delay = $baseDelay * (2 ** $attempt);
+        $jitter = (int) ($delay * 0.25 * (mt_rand() / mt_getrandmax() * 2 - 1));
+        usleep(($delay + $jitter) * 1000);
+
+        $this->logger->warning('Retrying request to @endpoint (attempt @attempt of @max): @message', [
+          '@endpoint' => $endpoint,
+          '@attempt' => $attempt + 1,
+          '@max' => $maxRetries,
+          '@message' => $e->getMessage(),
+        ]);
+      }
+    }
+
+    // This should never be reached, but satisfies static analysis.
+    throw new \RuntimeException('Unexpected state in makeRequest retry loop.');
   }
 
 }

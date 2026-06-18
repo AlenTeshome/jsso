@@ -15,6 +15,7 @@ use Drupal\Core\Config\FileStorage;
 use Drupal\Core\Config\InstallStorage;
 use Drupal\Core\Config\StorageCopyTrait;
 use Drupal\Core\Config\StorageInterface;
+use Drupal\Core\Config\StorageTransformEvent;
 use Drupal\Core\DefaultContent\Exporter;
 use Drupal\Core\DependencyInjection\ClassResolverInterface;
 use Drupal\Core\Extension\Extension;
@@ -73,8 +74,12 @@ final class SiteExporter implements LoggerAwareInterface {
    * @param string|null $base
    *   (optional) The path of a recipe to use as the base for the export, or
    *   NULL to not use a base recipe at all.
+   * @param bool $dev
+   *   (optional) Whether to export in development mode. If TRUE, theme
+   *   development mode will be enabled via config action. If FALSE, CSS and JS
+   *   aggregation will be explicitly enabled. Defaults to FALSE.
    */
-  public function export(string $destination, ?string $base = NULL): void {
+  public function export(string $destination, ?string $base = NULL, bool $dev = FALSE): void {
     if ($base && is_dir($base)) {
       $this->copyBaseRecipe($base, $destination);
     }
@@ -91,6 +96,18 @@ final class SiteExporter implements LoggerAwareInterface {
     assert($listener instanceof GenericConfigurationListener);
     $listener->convertFrontPagePathToAlias = TRUE;
     $this->eventDispatcher->addListener(ConfigEvents::STORAGE_TRANSFORM_EXPORT, $listener);
+
+    // Until Canvas properly supports content dependencies in its exported configuration,
+    // don't allow it at all because it breaks when the site template is applied.
+    $this->eventDispatcher->addListener(ConfigEvents::STORAGE_TRANSFORM_EXPORT, function (StorageTransformEvent $event): void {
+      $storage = $event->getStorage();
+      foreach ($storage->listAll('canvas.') as $name) {
+        $data = $storage->read($name);
+        if (isset($data['dependencies']['content'])) {
+          throw new \RuntimeException("$name config entity has content dependencies, which is not supported for import. Remove the content items from the referenced config and re-run site:export.");
+        }
+      }
+    });
 
     // Initially, just export all config as files. Then we'll convert certain
     // items to config actions.
@@ -127,6 +144,12 @@ final class SiteExporter implements LoggerAwareInterface {
         $actions[$name] = $this->toAction($name, $storage->read($name));
         $storage->delete($name);
       }
+      // @todo Until Canvas stops mistakenly creating folders during recipe
+      //   apply (i.e., config sync), don't export folders. This can be removed
+      //   when https://www.drupal.org/node/3549854 is fixed.
+      elseif (str_starts_with($name, 'canvas.folder.')) {
+        $storage->delete($name);
+      }
     }
     // The site name and mail are almost always collected during the install
     // process and shouldn't be exported.
@@ -134,6 +157,17 @@ final class SiteExporter implements LoggerAwareInterface {
       $actions['system.site']['simpleConfigUpdate']['name'],
       $actions['system.site']['simpleConfigUpdate']['mail'],
     );
+
+    // If exporting in development mode, leave CSS and JS aggregation as
+    // configured, and explicitly enable theme development. Otherwise, always
+    // enable aggregation for performance.
+    if ($dev) {
+      $actions['system.theme']['themeDevelopmentMode'] = TRUE;
+    }
+    else {
+      $actions['system.performance']['simpleConfigUpdate']['css']['preprocess'] = TRUE;
+      $actions['system.performance']['simpleConfigUpdate']['js']['preprocess'] = TRUE;
+    }
 
     $extensions = $this->getInstalledExtensions();
     $recipe = [
@@ -187,7 +221,20 @@ final class SiteExporter implements LoggerAwareInterface {
       // Exclude the content, configuration, and `recipe.yml` from the base
       // recipe, since those will be regenerated.
       ->notPath(['config', 'content'])
-      ->notName('recipe.yml');
+      ->notName('recipe.yml')
+      // Don't replace the destination screenshot if it's different.
+      ->filter(function (\SplFileInfo $file) use ($destination): bool {
+        if ($file->getFilename() === 'screenshot.webp') {
+          $destination .= '/screenshot.webp';
+          if (file_exists($destination)) {
+            return hash_equals(
+              hash_file('sha256', $file->getPathname()),
+              hash_file('sha256', $destination),
+            );
+          }
+        }
+        return TRUE;
+      });
 
     $file_system = new Filesystem();
     $file_system->mirror($base, $destination, $finder, ['override' => TRUE]);

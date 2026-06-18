@@ -25,22 +25,22 @@ final class TestPageController extends ControllerBase {
    *   A render array.
    */
   public function render(ProjectBrowserSourceInterface $source, Request $request): array {
-    $sort_options = $request->get('sort_options', []);
+    $sort_options = $request->query->all('sort_options') ?: $request->query->get('sort_options');
     if ($sort_options === 'none') {
       $sort_options = array_slice($source->getSortOptions(), 0, 1);
     }
-    else {
+    elseif (is_array($sort_options)) {
       $sort_options = array_merge($source->getSortOptions(), $sort_options);
     }
 
-    $filters = $request->get('filters');
+    $filters = $request->query->all('filters') ?: $request->query->get('filters');
     if ($filters === 'none') {
       $filters = [];
     }
 
     // Pass in the instances where you do not want pagination. Use 1-based
     // counting. So pass [3] if you don't want pagination on the 3rd instance.
-    $no_paginate = array_filter($request->get(key: 'no_paginate', default: []), 'is_numeric');
+    $no_paginate = array_filter($request->query->all('no_paginate'), 'is_numeric');
     $no_paginate = array_map('intval', $no_paginate);
 
     $build = [];

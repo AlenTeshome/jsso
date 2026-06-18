@@ -50,6 +50,12 @@ final class SiteExportCommand extends Command {
       InputOption::VALUE_NONE,
       'Whether to overwrite the destination directory if it already exists.',
     );
+    $this->addOption(
+      'dev',
+      NULL,
+      InputOption::VALUE_NONE,
+      'Export in development mode, enabling theme development settings.',
+    );
 
     $base = $this->exporter->getRecipePath('drupal/drupal_cms_site_template_base');
     $this->addOption(
@@ -74,7 +80,7 @@ final class SiteExportCommand extends Command {
       $io->error("The destination directory $destination already exists.");
       return self::FAILURE;
     }
-    $this->exporter->export($destination, $input->getOption('base'));
+    $this->exporter->export($destination, $input->getOption('base'), $input->getOption('dev'));
 
     $io->success("Recipe created at $destination");
     return self::SUCCESS;

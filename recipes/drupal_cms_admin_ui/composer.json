@@ -6,7 +6,7 @@
     "require": {
         "drupal/automatic_updates": "^4.1",
         "drupal/coffee": "^2",
-        "drupal/core": "^11.3",
+        "drupal/core": "^11.3.10",
         "drupal/dashboard": "^2.2",
         "drupal/drupal_cms_helper": "^2",
         "drupal/drupical": "^1",
@@ -18,5 +18,5 @@
         "drupal/tagify": "^1.2",
         "drupal/view_password": "^6"
     },
-    "version": "2.1.1"
+    "version": "2.1.3"
 }

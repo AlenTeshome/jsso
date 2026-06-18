@@ -83,22 +83,30 @@
          * @return {string} The input string with matching letters wrapped in <strong> tags.
          */
         function highlightMatchingLetters(inputTerm, searchTerm) {
-          inputTerm = Drupal.checkPlain(inputTerm);
-          searchTerm = Drupal.checkPlain(searchTerm);
+          inputTerm = inputTerm == null ? '' : inputTerm.toString();
+          searchTerm = searchTerm == null ? '' : searchTerm.toString();
           // Escape special characters in the search term.
           const escapedSearchTerm = searchTerm.replace(
             /[.*+?^${}()|[\]\\]/g,
             '\\$&',
           );
-          // Create a regular expression to match the search term globally and case insensitively.
-          const regex = new RegExp(`(${escapedSearchTerm})`, 'gi');
-          // Check if there are any matches.
+          // Without a search term there is nothing to highlight: escape and return.
           if (!escapedSearchTerm) {
-            // If no matches found, return the original input string.
-            return inputTerm;
+            return Drupal.checkPlain(inputTerm);
           }
-          // Replace matching letters with the same letters wrapped in <strong> tags.
-          return inputTerm.replace(regex, '<strong>$1</strong>');
+          // Highlight on the RAW term, then escape each piece individually, so
+          // the <strong> wrapping never lands inside an HTML entity produced by
+          // escaping (e.g. the "a" in "&amp;"), which would corrupt it.
+          // String.split with a capturing group yields matches at odd indices.
+          const regex = new RegExp(`(${escapedSearchTerm})`, 'gi');
+          return inputTerm
+            .split(regex)
+            .map((segment, index) =>
+              index % 2 === 1
+                ? `<strong>${Drupal.checkPlain(segment)}</strong>`
+                : Drupal.checkPlain(segment),
+            )
+            .join('');
         }
 
         /**
@@ -331,14 +339,6 @@
           },
         });
 
-        // The below code is printed as escaped, so please copy this function from:
-        // https://github.com/yairEO/tagify/blob/master/src/parts/helpers.js#L89-L97
-        function escapeHTML(s) {
-          return typeof s === 'string'
-            ? s.replace(/&/g, '&').replace(/</g, '<').replace(/>/g, '>')
-            : s;
-        }
-
         // Split the taxonomy terms into groups, when rendering the suggestions list dropdown:
         // (since each term also has a 'parent' property)
         tagify.dropdown.createListHTML = (suggestionsList) => {
@@ -376,10 +376,11 @@
                   suggestion,
                 );
 
-                suggestion.label =
-                  value && typeof value === 'string'
-                    ? escapeHTML(value)
-                    : value;
+                // Keep the raw value on the data model; the dropdown item
+                // template (via highlightMatchingLetters) and the tag template
+                // both escape with Drupal.checkPlain at render time. Escaping
+                // here would corrupt the tag's stored value (double-escaping).
+                suggestion.label = value;
 
                 return tagify.settings.templates.dropdownItem.apply(tagify, [
                   suggestion,
@@ -408,23 +409,21 @@
                     tagify,
                     parentSuggestion,
                   );
-                  parentSuggestion.label =
-                    value && typeof value === 'string'
-                      ? escapeHTML(value)
-                      : value;
+                  // Keep the raw value on the data model; rendering escapes it.
+                  parentSuggestion.label = value;
 
                   parentHeaderHTML = `<div class="tagify__dropdown__item tagify__dropdown__item--parent" ${
                     tagify.getAttributes
                       ? tagify.getAttributes(parentSuggestion)
                       : ''
                   } tabindex="0" role="option">
-                    <div class="tagify__dropdown__item-highlighted dropdown_group">${parentName}</div>
+                    <div class="tagify__dropdown__item-highlighted dropdown_group">${Drupal.checkPlain(parentName)}</div>
                   </div>`;
                 } else {
-                  parentHeaderHTML = `<span class="dropdown_group">${parentName}</span>`;
+                  parentHeaderHTML = `<span class="dropdown_group">${Drupal.checkPlain(parentName)}</span>`;
                 }
 
-                return `<div class="tagify__dropdown__itemsGroup" data-title="${parentName}">
+                return `<div class="tagify__dropdown__itemsGroup" data-title="${Drupal.checkPlain(parentName)}">
                 ${parentHeaderHTML}
                 ${getTermsSuggestionsHTML(childName)}
               </div>`;
@@ -655,22 +654,30 @@
          * @return {string} The input string with matching letters wrapped in <strong> tags.
          */
         function highlightMatchingLetters(inputTerm, searchTerm) {
-          inputTerm = Drupal.checkPlain(inputTerm);
-          searchTerm = Drupal.checkPlain(searchTerm);
+          inputTerm = inputTerm == null ? '' : inputTerm.toString();
+          searchTerm = searchTerm == null ? '' : searchTerm.toString();
           // Escape special characters in the search term.
           const escapedSearchTerm = searchTerm.replace(
             /[.*+?^${}()|[\]\\]/g,
             '\\$&',
           );
-          // Create a regular expression to match the search term globally and case insensitively.
-          const regex = new RegExp(`(${escapedSearchTerm})`, 'gi');
-          // Check if there are any matches.
+          // Without a search term there is nothing to highlight: escape and return.
           if (!escapedSearchTerm) {
-            // If no matches found, return the original input string.
-            return inputTerm;
+            return Drupal.checkPlain(inputTerm);
           }
-          // Replace matching letters with the same letters wrapped in <strong> tags.
-          return inputTerm.replace(regex, '<strong>$1</strong>');
+          // Highlight on the RAW term, then escape each piece individually, so
+          // the <strong> wrapping never lands inside an HTML entity produced by
+          // escaping (e.g. the "a" in "&amp;"), which would corrupt it.
+          // String.split with a capturing group yields matches at odd indices.
+          const regex = new RegExp(`(${escapedSearchTerm})`, 'gi');
+          return inputTerm
+            .split(regex)
+            .map((segment, index) =>
+              index % 2 === 1
+                ? `<strong>${Drupal.checkPlain(segment)}</strong>`
+                : Drupal.checkPlain(segment),
+            )
+            .join('');
         }
 
         /**
@@ -888,16 +895,6 @@
           placeholder,
         });
 
-        // Function to escape HTML special characters
-        function escapeHTML(s) {
-          return typeof s === 'string'
-            ? s
-                .replace(/&/g, '&amp;')
-                .replace(/</g, '&lt;')
-                .replace(/>/g, '&gt;')
-            : s;
-        }
-
         // Custom function to group taxonomy terms in the dropdown
         tagify.dropdown.createListHTML = (suggestionsList) => {
           if (isTagLimitReached() && !mode) {
@@ -947,13 +944,13 @@
                       ? tagify.getAttributes(parentSuggestion)
                       : ''
                   } tabindex="0" role="option">
-                    <div class="tagify__dropdown__item-highlighted dropdown_group">${parentName}</div>
+                    <div class="tagify__dropdown__item-highlighted dropdown_group">${Drupal.checkPlain(parentName)}</div>
                   </div>`;
                 } else {
-                  parentHeaderHTML = `<span class="dropdown_group">${parentName}</span>`;
+                  parentHeaderHTML = `<span class="dropdown_group">${Drupal.checkPlain(parentName)}</span>`;
                 }
 
-                return `<div class="tagify__dropdown__itemsGroup" data-title="${parentName}">
+                return `<div class="tagify__dropdown__itemsGroup" data-title="${Drupal.checkPlain(parentName)}">
           ${parentHeaderHTML}
           ${getTermsSuggestionsHTML(childName)}
         </div>`;

@@ -4,11 +4,12 @@ dependencies:
   config:
     - filter.format.canvas_html_block
   module:
+    - link
     - options
     - text
   theme:
     - mercury
-active_version: 46c246b217db359c
+active_version: 65aac92c6edf2380
 versioned_properties:
   active:
     settings:
@@ -20,9 +21,7 @@ versioned_properties:
             allowed_values_function: canvas_load_allowed_values_for_component_prop
           field_instance_settings: {  }
           field_widget: options_select
-          default_value:
-            -
-              value: square
+          default_value: null
           expression: ℹ︎list_string␟value
         background_color:
           required: false
@@ -76,14 +75,25 @@ versioned_properties:
             -
               value: center
           expression: ℹ︎list_string␟value
+        icon_style:
+          required: false
+          field_type: list_string
+          field_storage_settings:
+            allowed_values_function: canvas_load_allowed_values_for_component_prop
+          field_instance_settings: {  }
+          field_widget: options_select
+          default_value: null
+          expression: ℹ︎list_string␟value
         url:
           required: false
-          field_type: string
+          field_type: link
           field_storage_settings: {  }
-          field_instance_settings: {  }
-          field_widget: string_textfield
+          field_instance_settings:
+            title: 0
+            link_type: 17
+          field_widget: link_default
           default_value: null
-          expression: ℹ︎string␟value
+          expression: ℹ︎link␟url
         text:
           required: false
           field_type: string
@@ -125,4 +135,3 @@ id: sdc.mercury.card-icon
 provider: mercury
 source: sdc
 source_local_id: 'mercury:card-icon'
-category: Card

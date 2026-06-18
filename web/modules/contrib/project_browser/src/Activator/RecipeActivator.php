@@ -171,7 +171,7 @@ final class RecipeActivator implements InstructionsInterface, EventSubscriberInt
       $url = Url::fromRoute('project_browser.activate')
         ->setOption('query', [
           // @see \Drupal\project_browser\Controller\ProjectBrowserEndpointController::activate()
-          'projects' => $source_id . '/' . $project->id,
+          'projects' => [$source_id . '/' . $project->id],
         ])
         // @see \Drupal\project_browser\ProjectBrowser\Normalizer::getActivationInfo()
         ->setOption('project_browser', [

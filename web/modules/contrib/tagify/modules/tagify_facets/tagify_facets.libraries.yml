@@ -5,6 +5,5 @@ drupal.tagify_facets.tagify-widget:
     - core/jquery
     - core/once
     - core/drupal
-    - core/sortable
     - facets/widget
     - tagify/tagify

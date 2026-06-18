@@ -3,12 +3,6 @@ status: true
 dependencies:
   theme:
     - mercury
-label: Footer
-id: sdc.mercury.footer
-source: sdc
-source_local_id: 'mercury:footer'
-provider: mercury
-category: Layout
 active_version: d696cea1796b650e
 versioned_properties:
   active:
@@ -34,3 +28,8 @@ versioned_properties:
           title: 'Utility links'
         footer_utility_last:
           title: 'Copyright text'
+label: Footer
+id: sdc.mercury.footer
+provider: mercury
+source: sdc
+source_local_id: 'mercury:footer'

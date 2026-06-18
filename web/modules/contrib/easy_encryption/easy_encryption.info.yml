@@ -5,7 +5,7 @@ description: Sets up at-rest encryption for sensitive credentials, no configurat
 dependencies:
   - key:key
 
-# Information added by Drupal.org packaging script on 2026-05-04
-version: '1.0.2'
+# Information added by Drupal.org packaging script on 2026-05-26
+version: '1.0.3'
 project: 'easy_encryption'
-datestamp: 1777921782
+datestamp: 1779804222

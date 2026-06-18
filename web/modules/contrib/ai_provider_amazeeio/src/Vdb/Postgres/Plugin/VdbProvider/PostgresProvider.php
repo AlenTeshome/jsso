@@ -2,23 +2,27 @@
 
 namespace Drupal\ai_provider_amazeeio\Vdb\Postgres\Plugin\VdbProvider;
 
-use Drupal\Component\Plugin\DependentPluginInterface;
-use PgSql\Connection;
 use Drupal\ai\Base\AiVdbProviderClientBase;
 use Drupal\ai\Enum\VdbSimilarityMetrics;
-use Drupal\ai_search\EmbeddingStrategyInterface;
-use Drupal\Core\Config\ImmutableConfig;
-use Drupal\Core\Logger\LoggerChannelTrait;
-use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\Core\StringTranslation\StringTranslationTrait;
-use Drupal\search_api\IndexInterface;
-use Drupal\search_api\Query\ConditionGroupInterface;
-use Drupal\search_api\Query\QueryInterface;
 use Drupal\ai_provider_amazeeio\Vdb\Postgres\Exception\CreateCollectionException;
 use Drupal\ai_provider_amazeeio\Vdb\Postgres\Exception\DatabaseNotConfiguredException;
 use Drupal\ai_provider_amazeeio\Vdb\Postgres\Exception\DeleteFromCollectionException;
 use Drupal\ai_provider_amazeeio\Vdb\Postgres\Exception\DropCollectionException;
 use Drupal\ai_provider_amazeeio\Vdb\Postgres\PostgresPgvectorClient;
+use Drupal\ai_search\EmbeddingStrategyInterface;
+use Drupal\Component\Plugin\DependentPluginInterface;
+use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Config\ImmutableConfig;
+use Drupal\Core\Logger\LoggerChannelTrait;
+use Drupal\Core\Messenger\MessengerInterface;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\key\KeyRepositoryInterface;
+use Drupal\search_api\IndexInterface;
+use Drupal\search_api\Query\ConditionGroupInterface;
+use Drupal\search_api\Query\QueryInterface;
+use PgSql\Connection;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Base Plugin implementation of the 'Postgres amazee.ai vector DB' provider.
@@ -42,6 +46,39 @@ class PostgresProvider extends AiVdbProviderClientBase implements ContainerFacto
   ];
 
   /**
+   * The key repository.
+   */
+  protected KeyRepositoryInterface $keyRepository;
+
+  /**
+   * The config factory.
+   */
+  protected ConfigFactoryInterface $configFactory;
+
+  /**
+   * The messenger.
+   */
+  protected MessengerInterface $messenger;
+
+  /**
+   * The configuration.
+   *
+   * @var array
+   */
+  protected array $configuration;
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): AiVdbProviderClientBase|static {
+    $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
+    $instance->keyRepository = $container->get('key.repository');
+    $instance->configFactory = $container->get('config.factory');
+    $instance->messenger = $container->get('messenger');
+    return $instance;
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function getConfig(): ImmutableConfig {
@@ -59,7 +96,7 @@ class PostgresProvider extends AiVdbProviderClientBase implements ContainerFacto
    * @throws \Drupal\ai_provider_amazeeio\Vdb\Postgres\Exception\DatabaseConnectionException
    * @throws \Drupal\ai_provider_amazeeio\Vdb\Postgres\Exception\DatabaseNotConfiguredException
    */
-  public function getConnection(?string $database = NULL): Connection|false {
+  public function getConnection(string $database = 'default'): Connection|false {
     $config = $this->getConnectionData();
     return $this->getClient()->getConnection(
       host: $config['postgres_host'],
@@ -122,7 +159,7 @@ class PostgresProvider extends AiVdbProviderClientBase implements ContainerFacto
    * @throws \Drupal\ai_provider_amazeeio\Vdb\Postgres\Exception\DatabaseConnectionException
    * @throws \Drupal\ai_provider_amazeeio\Vdb\Postgres\Exception\DatabaseNotConfiguredException
    */
-  public function ping(?string $database = NULL): bool {
+  public function ping(string $database = 'default'): bool {
     if ($connection = $this->getConnection(database: $database)) {
       return $this->getClient()->ping(connection: $connection);
     }
@@ -146,7 +183,7 @@ class PostgresProvider extends AiVdbProviderClientBase implements ContainerFacto
    * @throws \Drupal\ai_provider_amazeeio\Vdb\Postgres\Exception\DatabaseNotConfiguredException
    * @throws \Drupal\ai_provider_amazeeio\Vdb\Postgres\Exception\GetCollectionsException
    */
-  public function getCollections(?string $database = NULL): array {
+  public function getCollections(string $database = 'default'): array {
     return $this->getClient()->getCollections(
       connection: $this->getConnection(database: $database)
     );
@@ -163,7 +200,7 @@ class PostgresProvider extends AiVdbProviderClientBase implements ContainerFacto
     string $collection_name,
     int $dimension,
     VdbSimilarityMetrics $metric_type = VdbSimilarityMetrics::CosineSimilarity,
-    ?string $database = NULL,
+    string $database = 'default',
   ): void {
     try {
       $this->getClient()->createCollection(
@@ -190,7 +227,7 @@ class PostgresProvider extends AiVdbProviderClientBase implements ContainerFacto
    */
   public function dropCollection(
     string $collection_name,
-    ?string $database = NULL,
+    string $database = 'default',
   ): void {
     try {
       $this->getClient()->dropCollection(
@@ -219,7 +256,7 @@ class PostgresProvider extends AiVdbProviderClientBase implements ContainerFacto
   public function insertIntoCollection(
     string $collection_name,
     array $data,
-    ?string $database = NULL,
+    string $database = 'default',
   ): void {
     $nativeFieldValues = array_intersect_key($data, array_flip(self::AI_SEARCH_NATIVE_FIELDS));
     $extraFields = array_diff_key($data, array_flip(self::AI_SEARCH_NATIVE_FIELDS));
@@ -246,7 +283,7 @@ class PostgresProvider extends AiVdbProviderClientBase implements ContainerFacto
   public function deleteFromCollection(
     string $collection_name,
     array $ids,
-    ?string $database = NULL,
+    string $database = 'default',
   ): void {
     if (empty($ids)) {
       return;
@@ -356,7 +393,7 @@ class PostgresProvider extends AiVdbProviderClientBase implements ContainerFacto
   public function getVdbIds(
     string $collection_name,
     array $drupalIds,
-    ?string $database = NULL,
+    string $database = 'default',
   ): array {
     if (empty($drupalIds)) {
       return [];
@@ -369,6 +406,7 @@ class PostgresProvider extends AiVdbProviderClientBase implements ContainerFacto
       collection_name: $collection_name,
       output_fields: ['id'],
       filters: "WHERE drupal_entity_id IN $prepared_drupal_ids",
+      limit: PHP_INT_MAX,
       database: $database
     );
     $ids = [];
@@ -394,10 +432,14 @@ class PostgresProvider extends AiVdbProviderClientBase implements ContainerFacto
     $index = $query->getIndex();
     $condition_group = $query->getConditionGroup();
     [$filters, $joins] = $this->processConditionGroup($index, $condition_group);
-    if ($filters) {
-      return implode(' ', $joins) . ' WHERE ' . implode(' AND ', $filters);
+    if (!$filters) {
+      $filters = [];
     }
-    return '';
+
+    $connection = $this->getConnection($query->getIndex()->getServerInstance()->getBackendConfig()['database_settings']['database_name']);
+    $escaped_index_id = pg_escape_literal($connection, $query->getIndex()->id());
+    $filters[] = 'index_id = ' . $escaped_index_id;
+    return implode(' ', $joins) . ' WHERE ' . implode(' AND ', $filters);
   }
 
   /**
@@ -421,7 +463,7 @@ class PostgresProvider extends AiVdbProviderClientBase implements ContainerFacto
       // Check if the current condition is actually a nested ConditionGroup.
       if ($condition instanceof ConditionGroupInterface) {
         // Recursively process the nested ConditionGroup.
-        [$outputFilter, $outputJoins] = $this->processConditionGroup($index, $condition, $collection);
+        [$outputFilter, $outputJoins] = $this->processConditionGroup($index, $condition);
         $filters = array_merge($filters, $outputFilter);
         $joins = array_merge($joins, $outputJoins);
         continue;
@@ -429,6 +471,17 @@ class PostgresProvider extends AiVdbProviderClientBase implements ContainerFacto
 
       $fieldData = $index->getField($condition->getField());
       if ($fieldData) {
+        // Only "Filterable attributes" fields have a backing column or
+        // relation table in the VDB (see PostgresPgvectorClient::updateFields).
+        // Conditions on other fields would target a column or relation table
+        // that does not exist, so skip them with a warning.
+        if (!$this->getClient()->shouldHaveColumn($fieldData)) {
+          $this->messenger->addWarning('Field @field is not configured as a filterable attribute on @index and cannot be used in conditions.', [
+            '@field' => $condition->getField(),
+            '@index' => $index->id(),
+          ]);
+          continue;
+        }
         $fieldType = $fieldData->getType();
         $isMultiple = FALSE;
       }
@@ -484,7 +537,15 @@ class PostgresProvider extends AiVdbProviderClientBase implements ContainerFacto
       }
       else {
         $operator = $condition->getOperator();
-        $filters[] = '(' . $fieldData->getFieldIdentifier() . ' ' . $operator . ' ' . $normalizedValues . ')';
+        $allowed_operators = ['=', '!=', '<>', '>', '<', '>=', '<=', 'IN', 'NOT IN', 'LIKE', 'NOT LIKE', 'BETWEEN'];
+        if (!in_array($operator, $allowed_operators, TRUE)) {
+          $this->messenger->addWarning('Operator @operator is not supported.', [
+            '@operator' => $operator,
+          ]);
+          continue;
+        }
+        $escaped_field = $this->getClient()->escapeIdentifierForSql($fieldData->getFieldIdentifier(), $connection);
+        $filters[] = '(' . $escaped_field . ' ' . $operator . ' ' . $normalizedValues . ')';
       }
     }
     return [$filters, array_unique($joins)];
@@ -563,6 +624,32 @@ class PostgresProvider extends AiVdbProviderClientBase implements ContainerFacto
         'ai_provider_amazeeio.settings',
       ],
     ];
+  }
+
+  /**
+   * {@inheritdoc}
+   *
+   * Overrides the parent to delete only rows belonging to the given index
+   * rather than dropping and recreating the entire collection table, which
+   * would destroy data from other indexes sharing the same collection.
+   *
+   * @throws \Drupal\ai_provider_amazeeio\Vdb\Postgres\Exception\DatabaseConnectionException
+   * @throws \Drupal\ai_provider_amazeeio\Vdb\Postgres\Exception\DatabaseNotConfiguredException
+   * @throws \Drupal\ai_provider_amazeeio\Vdb\Postgres\Exception\EscapeStringException
+   */
+  public function deleteAllIndexItems(array $configuration, IndexInterface $index, $datasource_id = NULL): void {
+    try {
+      $this->getClient()->deleteByIndexId(
+        collection_name: $configuration['database_settings']['collection'],
+        index_id: $index->id(),
+        connection: $this->getConnection($configuration['database_settings']['database_name']),
+      );
+    }
+    catch (DeleteFromCollectionException $e) {
+      $this->getLogger(self::LOGGER_CHANNEL)->warning(
+        message: 'Delete all index items error: ' . $e->getMessage(),
+      );
+    }
   }
 
 }

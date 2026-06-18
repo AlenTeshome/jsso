@@ -6,7 +6,7 @@ import {
   setInitialPageData,
   setPageData,
 } from '@/features/pageData/pageDataSlice';
-import { setHtml } from '@/features/pagePreview/previewSlice';
+import { setHtml, setSnapshotHTML } from '@/features/pagePreview/previewSlice';
 import { baseQueryWithAutoSaves } from '@/services/baseQuery';
 import { pendingChangesApi } from '@/services/pendingChangesApi';
 import { handleAutoSavesHashUpdate } from '@/utils/autoSaves';
@@ -32,6 +32,7 @@ type LayoutApiResponse = RootLayoutModel & {
   hasUnsavedStatusChange?: boolean;
   html: string;
   autoSaves: AutoSavesHash;
+  translations?: Record<string, any>;
 };
 
 export type TemplateViewMode = {
@@ -174,10 +175,14 @@ export const componentAndLayoutApi = createApi({
     }),
     getPageLayout: builder.query<
       LayoutApiResponse,
-      { entityId: string; entityType: string }
+      { entityId: string; entityType: string; language?: string }
     >({
-      query: ({ entityId, entityType }) => {
-        return `canvas/api/v0/layout/${entityType}/${entityId}`;
+      query: ({ entityId, entityType, language }) => {
+        // When a language code is provided, prefix the URL so Drupal serves
+        // the translated content for that language.
+        return language
+          ? `${language}/canvas/api/v0/layout/${entityType}/${entityId}`
+          : `canvas/api/v0/layout/${entityType}/${entityId}`;
       },
       providesTags: () => [{ type: 'Layout' }],
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
@@ -187,6 +192,9 @@ export const componentAndLayoutApi = createApi({
             meta,
           } = await queryFulfilled;
           dispatch(setInitialPageData(entity_form_fields));
+          // Clear any stale snapshot (e.g. from a prior template preview) so
+          // selectPreviewHtml returns the fresh html.
+          dispatch(setSnapshotHTML(''));
           dispatch(setHtml(html));
           handleAutoSavesHashUpdate(dispatch, autoSaves, meta);
         } catch (err) {
@@ -220,6 +228,12 @@ export const componentAndLayoutApi = createApi({
           dispatch(setPageData({}));
         }
       },
+    }),
+    deletePageTranslation: builder.mutation<void, string>({
+      query: (url) => ({
+        url,
+        method: 'DELETE',
+      }),
     }),
     postTemplateLayout: builder.mutation<
       { html: string; autoSaves: AutoSavesHash },
@@ -621,4 +635,5 @@ export const {
   useGetContentTemplatesQuery,
   useGetViewModesQuery,
   useGetPreviewContentEntitiesQuery,
+  useDeletePageTranslationMutation,
 } = componentAndLayoutApi;
