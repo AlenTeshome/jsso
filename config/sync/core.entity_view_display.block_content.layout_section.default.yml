@@ -1,0 +1,352 @@
+uuid: 0973a0f9-19c9-4b9d-87a6-cd0ef42efbb8
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.layout_section
+    - field.field.block_content.layout_section.layout_builder__layout
+    - system.menu.footer
+  content:
+    - 'block_content:about_us_stats:01781a90-1c19-49c5-9404-7839f3f6896d'
+    - 'block_content:about_us_stats:44ffd3e3-d7ae-488c-9c03-25f75ba2e65a'
+    - 'block_content:section_header:5a7d4597-093d-442e-b3ea-8af904d20ba2'
+  module:
+    - block_content
+    - bootstrap_layout_builder
+    - layout_builder
+    - system
+third_party_settings:
+  layout_builder:
+    enabled: true
+    allow_custom: true
+    sections:
+      -
+        layout_id: 'bootstrap_layout_builder:blb_col_3'
+        layout_settings:
+          label: ''
+          container_wrapper_classes: ''
+          container_wrapper_attributes: null
+          container_wrapper:
+            bootstrap_styles:
+              background:
+                background_type: video
+              background_color:
+                class: null
+              background_media:
+                image:
+                  media_id: ''
+                video:
+                  media_id: ''
+                background_options:
+                  background_position: center
+                  background_repeat: no-repeat
+                  background_attachment: not_fixed
+                  background_size: cover
+              text_color:
+                class: null
+              padding:
+                class: _none
+              padding_left:
+                class: _none
+              padding_top:
+                class: _none
+              padding_right:
+                class: _none
+              padding_bottom:
+                class: _none
+              margin:
+                class: _none
+              margin_left:
+                class: _none
+              margin_top:
+                class: _none
+              margin_right:
+                class: _none
+              margin_bottom:
+                class: _none
+              border:
+                border_style:
+                  class: null
+                border_width:
+                  class: _none
+                border_color:
+                  class: null
+                rounded_corners:
+                  class: _none
+                border_left_style:
+                  class: null
+                border_left_width:
+                  class: _none
+                border_left_color:
+                  class: null
+                border_top_style:
+                  class: null
+                border_top_width:
+                  class: _none
+                border_top_color:
+                  class: null
+                border_right_style:
+                  class: null
+                border_right_width:
+                  class: _none
+                border_right_color:
+                  class: null
+                border_bottom_style:
+                  class: null
+                border_bottom_width:
+                  class: _none
+                border_bottom_color:
+                  class: null
+                rounded_corner_top_left:
+                  class: _none
+                rounded_corner_top_right:
+                  class: _none
+                rounded_corner_bottom_left:
+                  class: _none
+                rounded_corner_bottom_right:
+                  class: _none
+              scroll_effects:
+                class: null
+              text_alignment:
+                class: null
+              box_shadow:
+                class: null
+          container_wrapper_bg_color_class: ''
+          container_wrapper_bg_media: null
+          container: container
+          section_classes: ''
+          section_attributes: null
+          regions_classes:
+            blb_region_col_1: 'col-sm-12 col-md-4'
+            blb_region_col_2: 'col-sm-12 col-md-3'
+            blb_region_col_3: 'col-sm-12 col-md-5'
+          regions_attributes:
+            blb_region_col_1: null
+            blb_region_col_2: null
+            blb_region_col_3: null
+          breakpoints:
+            desktop: null
+            tablet: null
+            mobile: null
+          layout_regions_classes:
+            blb_region_col_1:
+              - null
+              - null
+              - null
+            blb_region_col_2:
+              - null
+              - null
+              - null
+            blb_region_col_3:
+              - null
+              - null
+              - null
+          remove_gutters: '0'
+          context_mapping: {  }
+        components:
+          5d0b5b0b-218f-4492-807a-8fae3eed035c:
+            uuid: 5d0b5b0b-218f-4492-807a-8fae3eed035c
+            region: blb_region_col_1
+            configuration:
+              id: system_branding_block
+              label: 'Site branding'
+              label_display: '0'
+              provider: system
+              context_mapping: {  }
+              use_site_logo: true
+              use_site_name: false
+              use_site_slogan: false
+            weight: 0
+            additional: {  }
+          cf6d3fbc-8bbc-462d-93f9-80ab5df3c930:
+            uuid: cf6d3fbc-8bbc-462d-93f9-80ab5df3c930
+            region: blb_region_col_1
+            configuration:
+              id: 'block_content:01781a90-1c19-49c5-9404-7839f3f6896d'
+              label: 'Footer About us section'
+              label_display: '0'
+              provider: block_content
+              context_mapping: {  }
+              view_mode: full
+            weight: 1
+            additional: {  }
+          9ca55a67-e8ae-4bf5-9c25-8153729aaee8:
+            uuid: 9ca55a67-e8ae-4bf5-9c25-8153729aaee8
+            region: blb_region_col_2
+            configuration:
+              id: 'system_menu_block:our-services'
+              label: 'Our Services'
+              label_display: visible
+              provider: system
+              context_mapping: {  }
+              level: 1
+              depth: null
+              expand_all_items: false
+            weight: 0
+            additional: {  }
+          ee0b77f2-f941-413b-b97e-92a2d4850d09:
+            uuid: ee0b77f2-f941-413b-b97e-92a2d4850d09
+            region: blb_region_col_3
+            configuration:
+              id: 'block_content:44ffd3e3-d7ae-488c-9c03-25f75ba2e65a'
+              label: 'Contact us'
+              label_display: visible
+              provider: block_content
+              context_mapping: {  }
+              view_mode: full
+            weight: 0
+            additional: {  }
+        third_party_settings: {  }
+      -
+        layout_id: 'bootstrap_layout_builder:blb_col_2'
+        layout_settings:
+          label: ''
+          container_wrapper_classes: footerseparator
+          container_wrapper_attributes: null
+          container_wrapper:
+            bootstrap_styles:
+              background:
+                background_type: video
+              background_color:
+                class: null
+              background_media:
+                image:
+                  media_id: ''
+                video:
+                  media_id: ''
+                background_options:
+                  background_position: center
+                  background_repeat: no-repeat
+                  background_attachment: not_fixed
+                  background_size: cover
+              text_color:
+                class: null
+              padding:
+                class: _none
+              padding_left:
+                class: _none
+              padding_top:
+                class: _none
+              padding_right:
+                class: _none
+              padding_bottom:
+                class: _none
+              margin:
+                class: _none
+              margin_left:
+                class: _none
+              margin_top:
+                class: _none
+              margin_right:
+                class: _none
+              margin_bottom:
+                class: _none
+              border:
+                border_style:
+                  class: null
+                border_width:
+                  class: _none
+                border_color:
+                  class: null
+                rounded_corners:
+                  class: _none
+                border_left_style:
+                  class: null
+                border_left_width:
+                  class: _none
+                border_left_color:
+                  class: null
+                border_top_style:
+                  class: null
+                border_top_width:
+                  class: _none
+                border_top_color:
+                  class: null
+                border_right_style:
+                  class: null
+                border_right_width:
+                  class: _none
+                border_right_color:
+                  class: null
+                border_bottom_style:
+                  class: null
+                border_bottom_width:
+                  class: _none
+                border_bottom_color:
+                  class: null
+                rounded_corner_top_left:
+                  class: _none
+                rounded_corner_top_right:
+                  class: _none
+                rounded_corner_bottom_left:
+                  class: _none
+                rounded_corner_bottom_right:
+                  class: _none
+              scroll_effects:
+                class: null
+              text_alignment:
+                class: null
+              box_shadow:
+                class: null
+          container_wrapper_bg_color_class: ''
+          container_wrapper_bg_media: null
+          container: container
+          section_classes: ''
+          section_attributes: null
+          regions_classes:
+            blb_region_col_1: 'col-sm-12 col-md-4'
+            blb_region_col_2: 'col-sm-12 col-md-8'
+          regions_attributes:
+            blb_region_col_1: null
+            blb_region_col_2: null
+          breakpoints:
+            desktop: null
+            tablet: null
+            mobile: null
+          layout_regions_classes:
+            blb_region_col_1:
+              - null
+              - null
+              - null
+            blb_region_col_2:
+              - null
+              - null
+              - null
+          remove_gutters: '0'
+          context_mapping: {  }
+        components:
+          b317d4da-ebf8-406c-94bc-5516175f674c:
+            uuid: b317d4da-ebf8-406c-94bc-5516175f674c
+            region: blb_region_col_2
+            configuration:
+              id: 'system_menu_block:footer'
+              label: 'Footer legal menu'
+              label_display: '0'
+              provider: system
+              context_mapping: {  }
+              level: 1
+              depth: null
+              expand_all_items: false
+            weight: 0
+            additional: {  }
+          6b7ec6f0-8d97-426a-ae2a-c29fdf8d3949:
+            uuid: 6b7ec6f0-8d97-426a-ae2a-c29fdf8d3949
+            region: blb_region_col_1
+            configuration:
+              id: 'block_content:5a7d4597-093d-442e-b3ea-8af904d20ba2'
+              label: Copyright
+              label_display: '0'
+              provider: block_content
+              context_mapping: {  }
+              view_mode: full
+            weight: 0
+            additional: {  }
+        third_party_settings: {  }
+id: block_content.layout_section.default
+targetEntityType: block_content
+bundle: layout_section
+mode: default
+content: {  }
+hidden:
+  layout_builder__layout: true
+  search_api_excerpt: true

@@ -1,12 +1,19 @@
-@use '../abstracts' as *;
+.block-views-exposed-filter-blockjsso-knowledge-hub-block-3 {
+    h2 {
+        font-size: 1.3rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: var(--clr-brand-jsso-secondary);
+    }
+}
 
 #views-exposed-form-jsso-knowledge-hub-block-3 {
     margin-bottom: 3rem;
-    background: var(--clr-bg-300, #ffffff);
+    background: var(--clr-bg-300, var(--clr-bg-300));
     border-radius: 0;
     padding: 1.5rem;
     box-shadow: none;
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    border: 1px solid color-mix(in srgb, var(--clr-brand-jsso-secondary) 5%, transparent);
 
     .form--inline {
         display: flex;
@@ -21,7 +28,7 @@
                 display: block;
                 font-size: 0.95rem;
                 font-weight: 700;
-                color: var(--clr-brand-jsso-secondary, #333);
+                color: var(--clr-brand-jsso-secondary, var(--clr-brand-jsso-text));
                 margin-bottom: 0.5rem;
             }
 
@@ -29,10 +36,10 @@
                 width: 100%;
                 padding: 0.65rem 1rem;
                 padding-right: 2.5rem;
-                border: 1px solid rgba(0, 0, 0, 0.1);
+                border: 1px solid color-mix(in srgb, var(--clr-brand-jsso-secondary) 10%, transparent);
                 border-radius: 0;
-                background-color: #fafafa;
-                color: #444;
+                background-color: var(--clr-brand-jsso-bluebeige);
+                color: var(--clr-brand-jsso-text);
                 font-size: 0.95rem;
                 transition: all 0.3s ease;
                 outline: none;
@@ -44,13 +51,13 @@
                 background-size: 0.65rem auto;
 
                 &:hover {
-                    border-color: rgba(0, 0, 0, 0.2);
-                    background-color: #fff;
+                    border-color: color-mix(in srgb, var(--clr-brand-jsso-secondary) 20%, transparent);
+                    background-color: var(--clr-bg-300);
                 }
 
                 &:focus {
-                    border-color: var(--clr-brand-jsso-primary, #1c4b42);
-                    background-color: #fff;
+                    border-color: var(--clr-brand-jsso-primary, var(--clr-brand-jsso-primary));
+                    background-color: var(--clr-bg-300);
                     box-shadow: none;
                 }
             }
@@ -76,26 +83,100 @@
                 justify-content: center;
 
                 &[id^="edit-submit"] {
-                    background-color: var(--clr-brand-jsso-primary, #1c4b42);
-                    color: #fff;
+                    background-color: var(--clr-brand-jsso-primary, var(--clr-brand-jsso-primary));
+                    color: var(--clr-bg-300);
 
                     &:hover {
-                        background-color: var(--clr-brand-jsso-secondary, #2a6f62);
+                        background-color: var(--clr-brand-jsso-secondary, var(--clr-brand-jsso-primary));
                     }
                 }
 
                 &[id^="edit-reset"] {
-                    background-color: #f5f5f5;
-                    color: #555;
-                    border: 1px solid #e0e0e0;
+                    background-color: var(--clr-brand-jsso-bluebeige);
+                    color: var(--clr-brand-jsso-text);
+                    border: 1px solid var(--clr-brand-jsso-bluebeige);
 
                     &:hover {
-                        background-color: #e4e4e4;
+                        background-color: var(--clr-brand-jsso-bluebeige);
                     }
                 }
 
                 &:active {
                     transform: translateY(1px);
+                }
+            }
+        }
+        
+        /* Accordion Styles for Fieldsets */
+        .filter-accordion {
+            margin-bottom: 0.5rem;
+            background-color: var(--clr-brand-jsso-bluebeige, #f4f5f8);
+            border: none;
+            padding: 0;
+
+            .filter-accordion-toggle {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 1rem;
+                cursor: pointer;
+                font-size: 1.1rem;
+                font-weight: 700;
+                color: var(--clr-brand-jsso-secondary, #1c4b42);
+                margin: 0;
+
+                /* The Plus icon */
+                &::after {
+                    content: '+';
+                    font-size: 1.5rem;
+                    line-height: 1;
+                    font-weight: 400;
+                    transition: transform 0.3s ease;
+                }
+            }
+
+            /* When open, show X or - */
+            &.is-open {
+                .filter-accordion-toggle::after {
+                    content: '\00d7'; /* Multiplication sign / 'x' */
+                }
+            }
+
+            /* The wrapper for checkboxes */
+            .fieldset-wrapper {
+                padding: 0 1.5rem 1.5rem 1.5rem; /* Added left padding to pull checkboxes inside */
+                
+                .form-checkboxes {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.5rem;
+                    
+                    .form-check {
+                        margin: 0;
+                        /* Use Bootstrap's native layout, but add some breathing room */
+                        
+                        input[type="checkbox"] {
+                            cursor: pointer;
+                            background-color: #ffffff; /* Make the checkboxes have a white background */
+                            border: 1px solid #c0c0c0; /* Better border visibility */
+                            border-radius: 2px;
+                            
+                            &:checked {
+                                background-color: var(--clr-brand-jsso-primary, #0d6efd);
+                                border-color: var(--clr-brand-jsso-primary, #0d6efd);
+                            }
+                        }
+                        
+                        label {
+                            font-size: 0.95rem;
+                            font-weight: 400; /* Regular weight for options */
+                            color: var(--clr-brand-jsso-text, #333);
+                            margin: 0;
+                            cursor: pointer;
+                            display: inline-block;
+                        }
+                    }
                 }
             }
         }

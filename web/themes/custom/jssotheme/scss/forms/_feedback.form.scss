@@ -12,7 +12,7 @@ form.webform-submission-feedback-form {
         >label {
             font-size: 1.35rem;
             font-weight: normal;
-            color: var(--clr-brand-jsso-secondary, #333);
+            color: var(--clr-brand-jsso-secondary, var(--clr-brand-jsso-text));
             padding: 1rem 0;
         }
 
@@ -38,12 +38,12 @@ form.webform-submission-feedback-form {
             align-items: center;
             justify-content: center;
             background-color: var(--clr-brand-jsso-primary);
-            color: rgb(255, 255, 255);
+            color: var(--clr-bg-300);
             font-weight: 600;
             line-height: 1.25em;
             letter-spacing: -0.02em;
             transform-style: preserve-3d;
-            box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 15px;
+            box-shadow: color-mix(in srgb, var(--clr-brand-jsso-secondary) 10%, transparent) 0px 4px 15px;
             cursor: pointer;
             padding: 10px 24px;
             text-decoration: none;

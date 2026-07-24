@@ -554,27 +554,11 @@ display:
             default_group_multiple: {  }
             group_items: {  }
       style:
-        type: views_bootstrap_carousel
+        type: default
         options:
           grouping: {  }
-          row_class: slider-row
+          row_class: swiper-slide
           default_row_class: true
-          interval: 5000
-          keyboard: false
-          ride: carousel
-          navigation: true
-          indicators: true
-          pause: true
-          use_caption: false
-          caption_breakpoints: 'd-none d-md-block'
-          wrap: true
-          effect: 'slide carousel-fade'
-          columns: 1
-          breakpoints: md
-          display: content
-          image: nothing
-          title: ''
-          description: ''
       row:
         type: fields
         options:

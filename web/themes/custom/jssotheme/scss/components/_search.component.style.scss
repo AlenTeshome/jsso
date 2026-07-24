@@ -21,7 +21,7 @@
 
 .search-icon-btn:hover,
 .search-icon-btn[aria-expanded="true"] {
-    color: #2563eb;
+    color: var(--clr-brand-jsso-secondary);
     /* Active color */
 }
 
@@ -31,8 +31,8 @@
     top: 100%;
     right: 0;
     width: 320px;
-    background-color: #ffffff;
-    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+    background-color: var(--clr-bg-300);
+    box-shadow: 0px 10px 20px color-mix(in srgb, var(--clr-brand-jsso-secondary) 10%, transparent);
     padding: 20px;
     border-radius: 4px;
     margin-top: 10px;
@@ -75,8 +75,8 @@
 /* The submit button */
 .search-dropdown input[type="submit"],
 .search-dropdown button[type="submit"] {
-    background-color: #2563eb;
-    color: #fff;
+    background-color: var(--clr-brand-jsso-secondary);
+    color: var(--clr-bg-300);
     border: none;
     padding: 10px 20px;
     border-radius: 4px;

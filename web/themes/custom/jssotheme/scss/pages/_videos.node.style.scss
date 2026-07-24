@@ -75,7 +75,7 @@
             .field--name-field-date {
                 .field__item {
                     display: inline-block;
-                    border: 1px solid rgba(0, 117, 168, 0.2);
+                    border: 1px solid color-mix(in srgb, var(--clr-brand-jsso-secondary) 20%, transparent);
                     border-radius: var(--radius-pill);
                     padding: 0.35rem 1.1rem;
                     font-size: 0.8rem;
@@ -148,7 +148,7 @@
                         font-weight: 600;
                         text-transform: uppercase;
                         letter-spacing: 0.06em;
-                        border: 1px solid rgba(0, 117, 168, 0.15);
+                        border: 1px solid color-mix(in srgb, var(--clr-brand-jsso-secondary) 15%, transparent);
                         border-radius: var(--radius-pill);
                         transition: background-color 0.2s ease, color 0.2s ease;
 

@@ -10,12 +10,12 @@ $colors: (
     ),
 
     // JSSO Design System Tokens
-    brand: (jsso-primary: #0964fc,
-        jsso-secondary: #0a1642,
-        jsso-text: #5c6e94,
+    brand: (jsso-primary: #72263d,
+        jsso-secondary: #145171,
+        jsso-text: #333333,
         jsso-beige: #F4F4F1,
         jsso-bluebeige: #f0f2f9,
-        jsso-lime: #a3e8ff,
+        jsso-lime: #fefcef,
         jsso-accents: #4276fb,
     )
 );
@@ -27,9 +27,12 @@ $colors: (
         }
     }
 
-    --body-font: "Work Sans",
+    --clr-jsso-primary-accent: var(--clr-brand-jsso-primary);
+    --clr-jsso-secondary-accent: #7396a8;
+
+    --body-font: "Montserrat",
     sans-serif;
-    --secondary-font: "Montserrat",
+    --secondary-font: "Cairo",
     sans-serif;
     --biggest-font-size: 3.625rem; // ~58px
     --h2-font-size: 3rem; // ~48px
@@ -51,7 +54,7 @@ $colors: (
         --small-font-size: .813rem;
     }
 
-    --text-color: var(--clr-bg-500);
+    --text-color: var(--clr-brand-jsso-text);
     --text-color-light: var(--clr-bg-400);
     --body-color: var(--clr-bg-300);
     --drop-shadow: 0px 3px 9px 0px rgba(91, 91, 91, 0.2);

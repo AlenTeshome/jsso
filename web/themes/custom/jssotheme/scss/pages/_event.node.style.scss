@@ -5,6 +5,7 @@
 // ─────────────────────────────────────────────────────────────────
 
 .page-node-type-event {
+    background-color: #ffffff;
 
     // ── Main Content Area (Title, Image, Body) ─────────────────
 
@@ -134,13 +135,13 @@
     // Event Type (styled as a badge/tag)
     .field--name-field-event-type {
         .field__item {
-            background: var(--clr-brand-jsso-bluebeige, #f0f4f8);
+            background: var(--clr-brand-jsso-bluebeige, var(--clr-brand-jsso-bluebeige));
             color: var(--clr-brand-jsso-primary);
             padding: 0.5rem 1.25rem;
             font-weight: 600;
             font-size: 0.875rem;
-            border: 1px solid rgba(28, 75, 66, 0.05);
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+            border: 1px solid color-mix(in srgb, var(--clr-brand-jsso-secondary) 5%, transparent);
+            box-shadow: 0 2px 5px color-mix(in srgb, var(--clr-brand-jsso-secondary) 2%, transparent);
             display: inline-block;
             text-transform: uppercase;
             letter-spacing: 0.05em;

@@ -114,26 +114,149 @@
 
   Drupal.behaviors.navImageLogic = {
     attach: function (context) {
-      // Use querySelectorAll to handle cases where there might be multiple headers 
-      // (though usually there is just one)
       const headers = context.querySelectorAll('header');
+      const hasHeroView = document.querySelector('.view-page-hero-image .with-image') !== null || document.querySelector('.banner-video-row') !== null;
+      const isInitiativeNode = document.body.classList.contains('page-node-type-initiatives') || document.body.classList.contains('page-node-type-initiative');
 
       headers.forEach(header => {
-        // 1. Check if the DIV with .with-image exists inside this header
         const hasImageDiv = header.querySelector('div.with-image');
         const hasVideo = header.querySelector('.full-width-video');
-
-        // 2. Find the navbar
         const navbar = header.querySelector('nav.navbar');
 
-        // 3. Logic: If the image div is NOT found AND the navbar exists
-        if ((!hasImageDiv && navbar) && (!hasVideo && navbar)) {
+        if (!hasImageDiv && !hasVideo && !hasHeroView && !isInitiativeNode && navbar) {
           navbar.classList.add('nav-highlight');
-          // console.log('No .with-image found in header. Added class to .navbar');
+          document.body.classList.add('has-nav-highlight');
         } else if (navbar) {
-          // Optional: Remove it if the div DOES exist (useful for AJAX/Responsive changes)
           navbar.classList.remove('nav-highlight');
+          document.body.classList.remove('has-nav-highlight');
         }
+      });
+    }
+  };
+
+  Drupal.behaviors.bannerSwiper = {
+    attach: function (context) {
+      const swipers = once('bannerSwiperInit', '.swiper-container-banner', context);
+      
+      swipers.forEach(function (el) {
+        new Swiper(el, {
+          slidesPerView: 1,
+          spaceBetween: 16,
+          loop: false,
+          navigation: {
+            nextEl: '.swiper-button-next-banner',
+            prevEl: '.swiper-button-prev-banner',
+          },
+          pagination: {
+            el: '.swiper-pagination-banner',
+            clickable: true,
+          },
+          breakpoints: {
+            576: {
+              slidesPerView: 2,
+              spaceBetween: 20,
+            },
+            768: {
+              slidesPerView: 2,
+              spaceBetween: 24,
+            },
+            1200: {
+              slidesPerView: 3,
+              spaceBetween: 24,
+            }
+          }
+        });
+      });
+    }
+  };
+
+  Drupal.behaviors.scrollReveal = {
+    attach: function (context) {
+      const revealElements = once('scrollRevealInit', '.reveal-on-scroll', context);
+
+      if (revealElements.length === 0) return;
+
+      const revealOptions = {
+        threshold: 0.15,
+        rootMargin: "0px 0px -50px 0px"
+      };
+
+      let revealDelayIndex = 0;
+      let revealTimeout = null;
+
+      const revealObserver = new IntersectionObserver(function (entries, observer) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            // Apply a sequential delay based on the index
+            entry.target.style.transitionDelay = (revealDelayIndex * 0.15) + 's';
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+            revealDelayIndex++;
+          }
+        });
+
+        // Reset the index after a short timeout so the next batch of scroll items starts from 0
+        clearTimeout(revealTimeout);
+        revealTimeout = setTimeout(function() {
+          revealDelayIndex = 0;
+        }, 100);
+
+      }, revealOptions);
+
+      revealElements.forEach(function (el) {
+        revealObserver.observe(el);
+      });
+    }
+  };
+
+  Drupal.behaviors.parallaxBanner = {
+    attach: function (context) {
+      const parallaxElements = once('parallaxInit', '.banner-video .full-width-video', context);
+
+      if (parallaxElements.length === 0) return;
+
+      $(window).on('scroll', function () {
+        const scrolled = $(window).scrollTop();
+        // Move the video down at half the scroll speed
+        $(parallaxElements).css('transform', 'translateY(' + (scrolled * 0.4) + 'px)');
+      });
+    }
+  };
+
+  /**
+   * Behavior for Exposed Filter Accordions.
+   */
+  Drupal.behaviors.exposedFilterAccordion = {
+    attach: function (context) {
+      // Find all fieldsets inside the views exposed form
+      const filterFieldsets = once('exposedFilterAccordionInit', '.views-exposed-form fieldset', context);
+
+      filterFieldsets.forEach(function (fieldset) {
+        const $fieldset = $(fieldset);
+        const $legend = $fieldset.find('legend').first();
+        const $wrapper = $fieldset.find('.fieldset-wrapper').first();
+
+        // Check if there are any checked checkboxes inside to keep it open initially
+        const hasChecked = $wrapper.find('input[type="checkbox"]:checked').length > 0;
+
+        // Add a class to the fieldset for CSS styling
+        $fieldset.addClass('filter-accordion');
+        $legend.addClass('filter-accordion-toggle');
+
+        // Initial state
+        if (!hasChecked) {
+          $wrapper.hide();
+          $fieldset.removeClass('is-open');
+        } else {
+          $fieldset.addClass('is-open');
+        }
+
+        // Toggle on click
+        $legend.on('click', function (e) {
+          e.preventDefault();
+          $fieldset.toggleClass('is-open');
+          $wrapper.slideToggle(200);
+        });
       });
     }
   };

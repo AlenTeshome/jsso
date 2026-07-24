@@ -1,60 +1,75 @@
 @use '../abstracts' as *;
 
 .portalsandtools.view-interactive-portals-tools {
-    margin-top: 2rem;
 
     .view-content {
         display: flex;
         flex-wrap: wrap;
-        gap: 1rem;
-        justify-content: flex-start;
+        gap: 0.5rem;
+        justify-content: space-between;
 
         .resource-row {
-            flex: 1 1 calc(20% - 1rem);
-            max-width: calc(20% - 1rem);
+            flex: 1 1 calc(20% - 0.5rem);
             display: flex;
             flex-direction: column;
             background: var(--clr-bg-300);
-            overflow: hidden;
+            box-shadow: 0 4px 15px color-mix(in srgb, var(--clr-brand-jsso-secondary) 5%, transparent);
+            overflow: visible;
             transition: all 0.3s ease-in-out;
             position: relative;
 
             @media (max-width: 1200px) {
-                flex: 1 1 calc(33.33% - 2rem);
-                max-width: calc(33.33% - 2rem);
+                flex: 1 1 calc(33.33% - 0.5rem);
             }
 
             @media (max-width: 768px) {
-                flex: 1 1 calc(50% - 2rem);
-                max-width: calc(50% - 2rem);
+                flex: 1 1 calc(50% - 0.5rem);
             }
 
             @media (max-width: 576px) {
                 flex: 1 1 100%;
-                max-width: 100%;
+            }
+
+            a {
+                text-decoration: none;
+                display: block;
+                height: 100%;
             }
 
             &:hover {
+                background-color: var(--clr-brand-jsso-lime);
                 transform: translateY(-5px);
-                background: var(--clr-brand-jsso-lime);
+                box-shadow: 0 8px 25px color-mix(in srgb, var(--clr-brand-jsso-secondary) 10%, transparent);
 
                 .resource-image img {
                     transform: scale(1.08);
                 }
 
-                .resource-name {
-                    color: var(--clr-brand-jsso-lime);
+                .resource-image svg {
+                    transform: scale(1.08);
                 }
             }
 
-            .resource-details {
+            .resource-details, .resource-detail {
                 position: relative;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                padding: 2rem 1rem;
+                height: 100%;
             }
 
             .resource-image {
-                height: 300px;
+                height: 70px;
+                width: 70px;
+                border-radius: 50%;
                 overflow: hidden;
                 position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-bottom: 1rem;
 
                 img {
                     width: 100%;
@@ -63,41 +78,60 @@
                     transition: transform 0.6s ease;
                 }
 
-                &::after {
-                    content: '';
-                    position: absolute;
-                    bottom: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 50%;
-                    background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+                svg {
+                    width: 60px;
+                    height: 60px;
+                    transition: transform 0.6s ease;
+
+                    .even, .odd {
+                        transition: fill 0.6s ease;
+                    }
+
+                    .even {
+                        fill: var(--bs-primary, var(--clr-brand-jsso-secondary)); /* Primary color for .even */
+                    }
                 }
             }
 
-            .resource-name {
-                position: absolute;
-                bottom: 0;
-                left: 0;
-                width: 100%;
-                padding: 1rem 1.25rem 0.5rem;
-                font-size: 1.1rem;
-                font-weight: 700;
-                color: var(--clr-bg-300);
-                line-height: 1.3;
-                z-index: 2;
-                min-height: 4.5rem;
-                display: flex;
-                text-align: center;
-                justify-content: center;
-                align-items: center;
+            /* Default colors for .odd based on nth-child */
+            &:nth-child(5n+1) .resource-image svg .odd { fill: #f5be58; }
+            &:nth-child(5n+2) .resource-image svg .odd { fill: #06b27d; }
+            &:nth-child(5n+3) .resource-image svg .odd { fill: #4F57B5; }
+            &:nth-child(5n+4) .resource-image svg .odd { fill: #ffe5b4; }
+            &:nth-child(5n+5) .resource-image svg .odd { fill: #c083d9; }
+
+            /* On Hover: Interchange the colors slowly */
+            &:hover {
+                .resource-image svg .odd {
+                    fill: var(--bs-primary, var(--clr-brand-jsso-secondary)); /* .odd gets .even's default color */
+                }
+                
+                .resource-name {
+                    color: var(--clr-brand-jsso-primary);
+                }
             }
 
-            /*  .resource-links {
+            /* On Hover: .even gets .odd's default color */
+            &:nth-child(5n+1):hover .resource-image svg .even { fill: #f5be58; }
+            &:nth-child(5n+2):hover .resource-image svg .even { fill: #06b27d; }
+            &:nth-child(5n+3):hover .resource-image svg .even { fill: #4F57B5; }
+            &:nth-child(5n+4):hover .resource-image svg .even { fill: #ffe5b4; }
+            &:nth-child(5n+5):hover .resource-image svg .even { fill: #c083d9; }
+
+            .resource-name {
+                @include secondary-font;
+                position: relative;
+                width: 100%;
+                font-size: 1.2rem;
+                font-weight: 600;
+                color: var(--clr-brand-jsso-secondary);
+                line-height: 1.3;
+                text-align: center;
                 display: flex;
-                justify-content: end;
-                @include after-psudo('\f061');
-                @include svg-fill-with-bg;
-            }*/
+                justify-content: center;
+                align-items: center;
+                transition: color 0.3s ease;
+            }
         }
     }
 }
@@ -108,24 +142,20 @@
     .view-content {
         display: flex;
         flex-wrap: wrap;
-        gap: 1rem;
+        gap: 2rem;
         justify-content: flex-start;
 
         .resource-row {
-            flex: 1 1 calc(20% - 1rem);
-            max-width: calc(20% - 1rem);
+            flex: 1 1 calc(33.333% - 2rem);
+            max-width: calc(33.333% - 2rem);
             display: flex;
-            flex-direction: column;
-            overflow: hidden;
+            flex-direction: row;
+            align-items: flex-start;
+            gap: 1.25rem;
             transition: all 0.3s ease-in-out;
             position: relative;
 
-            @media (max-width: 1200px) {
-                flex: 1 1 calc(33.33% - 2rem);
-                max-width: calc(33.33% - 2rem);
-            }
-
-            @media (max-width: 768px) {
+            @media (max-width: 992px) {
                 flex: 1 1 calc(50% - 2rem);
                 max-width: calc(50% - 2rem);
             }
@@ -135,32 +165,79 @@
                 max-width: 100%;
             }
 
-            &:hover {
-                transform: translateY(-5px);
+            > a {
+                flex-shrink: 0;
+                width: 48px;
+                height: 48px;
+                display: flex;
+                align-items: flex-start;
+                justify-content: center;
 
-                .resource-image img {
-                    transform: scale(1.08);
+                svg {
+                    width: 100%;
+                    height: 100%;
+                    
+                    .even, .odd {
+                        transition: fill 0.6s ease;
+                    }
+
+                    .even {
+                        fill: var(--bs-primary, var(--clr-brand-jsso-secondary)); /* Primary color for .even */
+                    }
                 }
             }
 
+            /* Default colors for .odd based on nth-child */
+            &:nth-child(5n+1) > a svg .odd { fill: #f5be58; }
+            &:nth-child(5n+2) > a svg .odd { fill: #06b27d; }
+            &:nth-child(5n+3) > a svg .odd { fill: #4F57B5; }
+            &:nth-child(5n+4) > a svg .odd { fill: #ffe5b4; }
+            &:nth-child(5n+5) > a svg .odd { fill: #c083d9; }
 
-            .resource-name {
-                padding: 0.5rem;
-                font-size: 1.1rem;
-                font-weight: 700;
-                color: var(--clr-bg-300);
-                line-height: 1.3;
-                z-index: 2;
+            /* On Hover: Interchange the colors slowly */
+            &:hover > a svg .odd {
+                fill: var(--bs-primary, var(--clr-brand-jsso-secondary)); /* .odd gets .even's default color */
             }
 
-            .resource-desc {
-                padding: 0.5rem;
-                font-size: .9rem;
-                color: var(--clr-bg-100);
-                line-height: 1.3;
-                z-index: 2;
-            }
+            /* On Hover: .even gets .odd's default color */
+            &:nth-child(5n+1):hover > a svg .even { fill: #f5be58; }
+            &:nth-child(5n+2):hover > a svg .even { fill: #06b27d; }
+            &:nth-child(5n+3):hover > a svg .even { fill: #4F57B5; }
+            &:nth-child(5n+4):hover > a svg .even { fill: #ffe5b4; }
+            &:nth-child(5n+5):hover > a svg .even { fill: #c083d9; }
 
+            .resource-menu-details {
+                flex: 1;
+
+                a {
+                    text-decoration: none;
+                    display: block;
+
+                    &:hover .resource-name {
+                        opacity: 0.8;
+                    }
+                }
+
+                .resource-name {
+                    @include secondary-font;
+                    font-size: 1.15rem;
+                    font-weight: 600;
+                    color: var(--clr-bg-300);
+                    margin-bottom: 0.5rem;
+                    line-height: 1.2;
+                    transition: opacity 0.3s ease;
+                }
+
+                .resource-desc {
+                    font-size: 0.95rem;
+                    color: color-mix(in srgb, var(--clr-brand-jsso-secondary) 80%, transparent);
+                    line-height: 1.5;
+                    
+                    p {
+                        margin: 0;
+                    }
+                }
+            }
         }
     }
 }

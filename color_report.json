@@ -1,0 +1,588 @@
+{
+  "colors": [
+    "#f0f2f9",
+    "#dee2e6",
+    "#f9f9f9",
+    "#1c4b42",
+    "rgba(0,0,0,0.04)",
+    "rgba(28,75,66,0.1)",
+    "rgba(255,255,255,0.2)",
+    "#212529",
+    "rgba(28,75,66,0.2)",
+    "#fff",
+    "rgba(28,75,66,0.05)",
+    "#00104a",
+    "hsl(180,6%,84%)",
+    "hsl(0,3%,69%)",
+    "hsl(0,0%,100%)",
+    "#535151",
+    "hsla(0,3%,23%,0.8)",
+    "#72263d",
+    "#7396a8",
+    "#5c6e94",
+    "#f4f4f1",
+    "#a3e8ff",
+    "#4276fb",
+    "rgba(91,91,91,0.2)",
+    "hsl(168deg,55.56%,7.06%)",
+    "hsl(171.18deg,54.84%,12.16%,45%)",
+    "hsl(211.14deg56.03%27.65%)",
+    "hsl(211.17deg33.62%44.9%)",
+    "hsl(0deg0%12.94%)",
+    "hsl(0deg0%10.2%)",
+    "hsl(0deg0%0%)",
+    "#e5243b",
+    "#dda63a",
+    "#4c9f38",
+    "#c5192d",
+    "#ff3a21",
+    "#26bde2",
+    "#fcc30b",
+    "#a21942",
+    "#fd6925",
+    "#dd1367",
+    "#fd9d24",
+    "#bf8b2e",
+    "#3f7e44",
+    "#0a97d9",
+    "#56c02b",
+    "#00689d",
+    "#19486a",
+    "rgba(0,0,0,0.05)",
+    "#0a3a60",
+    "rgba(0,0,0,0.03)",
+    "#f8f9fa",
+    "#ccc",
+    "#6c757d",
+    "#cddb2b",
+    "#f1f3f5",
+    "#ffffff",
+    "#333333",
+    "#8cc63f",
+    "#666666",
+    "rgba(205,219,43,0.4)",
+    "#000",
+    "rgba(0,0,0,0.7)",
+    "rgba(0,0,0,0.3)",
+    "rgba(0,0,0,0)",
+    "#ffd700",
+    "rgba(0,0,0,0.5)",
+    "rgba(0,0,0,0.1)",
+    "rgba(0,117,168,0.05)",
+    "#0a1642",
+    "#0964fc",
+    "#0056b3",
+    "#ffc107",
+    "#1f2937",
+    "#2563eb",
+    "#e5e7eb",
+    "#333",
+    "#fafafa",
+    "#444",
+    "rgba(0,0,0,0.2)",
+    "#2a6f62",
+    "#f5f5f5",
+    "#555",
+    "#e0e0e0",
+    "#e4e4e4",
+    "rgb(255,255,255)",
+    "#e00000",
+    "#fdfdfd",
+    "#ddd",
+    "rgba(0,0,0,0.02)",
+    "rgba(0,117,168,0.25)",
+    "#f0f4f8",
+    "rgba(255,255,255,0.5)",
+    "rgba(9,100,252,0.2)",
+    "rgba(0,0,0,0.08)",
+    "#f1f1f1",
+    "rgba(0,0,0,0.6)",
+    "rgba(255,255,255,0.95)",
+    "rgba(0,0,0,0.12)",
+    "rgba(0,0,0,0.18)",
+    "rgba(0,0,0,0.15)",
+    "rgba(0,0,0,0.06)",
+    "rgba(0,117,168,0.2)",
+    "rgba(0,117,168,0.15)",
+    "rgba(255,255,255,0.1)",
+    "rgba(0,0,0,0.85)",
+    "#0073e6",
+    "#1a1a1a",
+    "#0d6efd",
+    "#f5be58",
+    "#06b27d",
+    "#4f57b5",
+    "#ffe5b4",
+    "#c083d9",
+    "#2c3e50",
+    "rgba(255,255,255,0.8)"
+  ],
+  "fileMap": {
+    "#f0f2f9": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/_variables_bootstrap.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/abstracts/_bootstrap-variables.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/abstracts/_variables.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/components/_information-card.component.style.scss"
+    ],
+    "#dee2e6": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/_variables_drupal.scss"
+    ],
+    "#f9f9f9": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/_variables_drupal.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/forms/_jsso.action.form.scss"
+    ],
+    "#1c4b42": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/abstracts/_bootstrap-variables.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/forms/_event.filter.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/forms/_knowledge.filter.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/forms/_news.filter.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/pages/_our-work.page.style.scss"
+    ],
+    "rgba(0,0,0,0.04)": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/abstracts/_mixins.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/pages/_our-work.page.style.scss"
+    ],
+    "rgba(28,75,66,0.1)": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/abstracts/_mixins.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/pages/_our-work.page.style.scss"
+    ],
+    "rgba(255,255,255,0.2)": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/abstracts/_mixins.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/pages/old_about.us.page.style.scss"
+    ],
+    "#212529": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/abstracts/_mixins.scss"
+    ],
+    "rgba(28,75,66,0.2)": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/abstracts/_mixins.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/pages/_focus.node.style.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/pages/_our-work.page.style.scss"
+    ],
+    "#fff": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/abstracts/_mixins.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/components/_search.component.style.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/forms/_event.filter.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/forms/_jsso.action.form.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/forms/_knowledge.filter.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/forms/_news.filter.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/pages/_our-work.page.style.scss"
+    ],
+    "rgba(28,75,66,0.05)": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/abstracts/_mixins.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/pages/_albums.page.style.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/pages/_event.node.style.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/pages/_focus.node.style.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/pages/_news.node.style.scss"
+    ],
+    "#00104a": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/abstracts/_mixins.scss"
+    ],
+    "hsl(180,6%,84%)": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/abstracts/_variables.scss"
+    ],
+    "hsl(0,3%,69%)": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/abstracts/_variables.scss"
+    ],
+    "hsl(0,0%,100%)": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/abstracts/_variables.scss"
+    ],
+    "#535151": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/abstracts/_variables.scss"
+    ],
+    "hsla(0,3%,23%,0.8)": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/abstracts/_variables.scss"
+    ],
+    "#72263d": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/abstracts/_variables.scss"
+    ],
+    "#7396a8": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/abstracts/_variables.scss"
+    ],
+    "#5c6e94": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/abstracts/_variables.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/components/_information-card.component.style.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/components/_section-header.component.style.scss"
+    ],
+    "#f4f4f1": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/abstracts/_variables.scss"
+    ],
+    "#a3e8ff": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/abstracts/_variables.scss"
+    ],
+    "#4276fb": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/abstracts/_variables.scss"
+    ],
+    "rgba(91,91,91,0.2)": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/abstracts/_variables.scss"
+    ],
+    "hsl(168deg,55.56%,7.06%)": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/abstracts/_variables.scss"
+    ],
+    "hsl(171.18deg,54.84%,12.16%,45%)": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/abstracts/_variables.scss"
+    ],
+    "hsl(211.14deg56.03%27.65%)": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/abstracts/_variables.scss"
+    ],
+    "hsl(211.17deg33.62%44.9%)": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/abstracts/_variables.scss"
+    ],
+    "hsl(0deg0%12.94%)": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/abstracts/_variables.scss"
+    ],
+    "hsl(0deg0%10.2%)": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/abstracts/_variables.scss"
+    ],
+    "hsl(0deg0%0%)": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/abstracts/_variables.scss"
+    ],
+    "#e5243b": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/abstracts/_variables.scss"
+    ],
+    "#dda63a": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/abstracts/_variables.scss"
+    ],
+    "#4c9f38": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/abstracts/_variables.scss"
+    ],
+    "#c5192d": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/abstracts/_variables.scss"
+    ],
+    "#ff3a21": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/abstracts/_variables.scss"
+    ],
+    "#26bde2": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/abstracts/_variables.scss"
+    ],
+    "#fcc30b": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/abstracts/_variables.scss"
+    ],
+    "#a21942": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/abstracts/_variables.scss"
+    ],
+    "#fd6925": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/abstracts/_variables.scss"
+    ],
+    "#dd1367": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/abstracts/_variables.scss"
+    ],
+    "#fd9d24": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/abstracts/_variables.scss"
+    ],
+    "#bf8b2e": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/abstracts/_variables.scss"
+    ],
+    "#3f7e44": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/abstracts/_variables.scss"
+    ],
+    "#0a97d9": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/abstracts/_variables.scss"
+    ],
+    "#56c02b": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/abstracts/_variables.scss"
+    ],
+    "#00689d": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/abstracts/_variables.scss"
+    ],
+    "#19486a": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/abstracts/_variables.scss"
+    ],
+    "rgba(0,0,0,0.05)": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/components/_banner.component.style.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/components/_news_feeds.style.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/forms/_event.filter.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/forms/_jsso.action.form.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/forms/_knowledge.filter.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/forms/_news.filter.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/pages/_focus.node.style.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/pages/_news.node.style.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/pages/_our-work.page.style.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/pages/_resource.node.style.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/pages/old_about.us.page.style.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/views/_parent.organizations.views.style.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/views/_resources.list.style.scss"
+    ],
+    "#0a3a60": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/components/_banner.component.style.scss"
+    ],
+    "rgba(0,0,0,0.03)": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/components/_banner.component.style.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/components/_information-card.component.style.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/pages/_event.page.style.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/pages/_focus.node.style.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/pages/_news.node.style.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/pages/_resource.node.style.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/views/_top.leadership.style.scss"
+    ],
+    "#f8f9fa": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/components/_banner.component.style.scss"
+    ],
+    "#ccc": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/components/_banner.component.style.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/forms/_jsso.action.form.scss"
+    ],
+    "#6c757d": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/components/_banner.component.style.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/components/_news_feeds.style.scss"
+    ],
+    "#cddb2b": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/components/_banner.component.style.scss"
+    ],
+    "#f1f3f5": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/components/_banner.component.style.scss"
+    ],
+    "#ffffff": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/components/_banner.component.style.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/components/_banner_video.style.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/components/_information-card.component.style.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/components/_news_feeds.style.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/components/_search.component.style.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/components/_section-header.component.style.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/forms/_event.filter.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/forms/_knowledge.filter.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/forms/_news.filter.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/pages/_event.page.style.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/pages/_our-work.page.style.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/pages/_resource.node.style.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/views/_initiatives.block.style.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/views/_parent.organizations.views.style.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/views/_resources.list.style.scss"
+    ],
+    "#333333": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/components/_banner.component.style.scss"
+    ],
+    "#8cc63f": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/components/_banner.component.style.scss"
+    ],
+    "#666666": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/components/_banner.component.style.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/views/_parent.organizations.views.style.scss"
+    ],
+    "rgba(205,219,43,0.4)": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/components/_banner.component.style.scss"
+    ],
+    "#000": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/components/_banner_video.style.scss"
+    ],
+    "rgba(0,0,0,0.7)": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/components/_banner_video.style.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/components/_hero.component.style.scss"
+    ],
+    "rgba(0,0,0,0.3)": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/components/_banner_video.style.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/components/_get.in.touch.style.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/components/_hero.component.style.scss"
+    ],
+    "rgba(0,0,0,0)": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/components/_banner_video.style.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/components/_hero.component.style.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/views/_initiatives.block.style.scss"
+    ],
+    "#ffd700": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/components/_banner_video.style.scss"
+    ],
+    "rgba(0,0,0,0.5)": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/components/_banner_video.style.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/components/_hero.component.style.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/pages/_our-work.page.style.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/views/_initiatives.block.style.scss"
+    ],
+    "rgba(0,0,0,0.1)": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/components/_get.in.touch.style.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/components/_mega.menu.style.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/components/_news_feeds.style.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/components/_search.component.style.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/forms/_event.filter.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/forms/_feedback.form.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/forms/_jsso.action.form.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/forms/_knowledge.filter.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/forms/_news.filter.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/pages/_our-work.page.style.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/views/_initiatives.block.style.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/views/_parent.organizations.views.style.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/views/_resources.list.style.scss"
+    ],
+    "rgba(0,117,168,0.05)": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/components/_get.in.touch.style.scss"
+    ],
+    "#0a1642": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/components/_information-card.component.style.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/components/_section-header.component.style.scss"
+    ],
+    "#0964fc": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/components/_information-card.component.style.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/components/_section-header.component.style.scss"
+    ],
+    "#0056b3": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/components/_news_feeds.style.scss"
+    ],
+    "#ffc107": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/components/_news_feeds.style.scss"
+    ],
+    "#1f2937": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/components/_search.component.style.scss"
+    ],
+    "#2563eb": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/components/_search.component.style.scss"
+    ],
+    "#e5e7eb": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/components/_search.component.style.scss"
+    ],
+    "#333": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/forms/_event.filter.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/forms/_feedback.form.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/forms/_jsso.action.form.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/forms/_knowledge.filter.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/forms/_news.filter.scss"
+    ],
+    "#fafafa": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/forms/_event.filter.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/forms/_knowledge.filter.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/forms/_news.filter.scss"
+    ],
+    "#444": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/forms/_event.filter.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/forms/_knowledge.filter.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/forms/_news.filter.scss"
+    ],
+    "rgba(0,0,0,0.2)": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/forms/_event.filter.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/forms/_knowledge.filter.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/forms/_news.filter.scss"
+    ],
+    "#2a6f62": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/forms/_event.filter.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/forms/_knowledge.filter.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/forms/_news.filter.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/pages/_our-work.page.style.scss"
+    ],
+    "#f5f5f5": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/forms/_event.filter.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/forms/_knowledge.filter.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/forms/_news.filter.scss"
+    ],
+    "#555": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/forms/_event.filter.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/forms/_jsso.action.form.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/forms/_knowledge.filter.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/forms/_news.filter.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/pages/_our-work.page.style.scss"
+    ],
+    "#e0e0e0": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/forms/_event.filter.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/forms/_jsso.action.form.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/forms/_knowledge.filter.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/forms/_news.filter.scss"
+    ],
+    "#e4e4e4": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/forms/_event.filter.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/forms/_knowledge.filter.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/forms/_news.filter.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/pages/_our-work.page.style.scss"
+    ],
+    "rgb(255,255,255)": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/forms/_feedback.form.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/forms/_jsso.action.form.scss"
+    ],
+    "#e00000": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/forms/_jsso.action.form.scss"
+    ],
+    "#fdfdfd": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/forms/_jsso.action.form.scss"
+    ],
+    "#ddd": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/forms/_jsso.action.form.scss"
+    ],
+    "rgba(0,0,0,0.02)": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/pages/_albums.page.style.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/pages/_event.node.style.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/pages/_focus.node.style.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/pages/_news.node.style.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/pages/old_about.us.page.style.scss"
+    ],
+    "rgba(0,117,168,0.25)": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/pages/_albums.page.style.scss"
+    ],
+    "#f0f4f8": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/pages/_event.node.style.scss"
+    ],
+    "rgba(255,255,255,0.5)": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/pages/_event.page.style.scss"
+    ],
+    "rgba(9,100,252,0.2)": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/pages/_event.page.style.scss"
+    ],
+    "rgba(0,0,0,0.08)": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/pages/_focus.node.style.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/pages/old_about.us.page.style.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/views/_top.leadership.style.scss"
+    ],
+    "#f1f1f1": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/pages/_our-work.page.style.scss"
+    ],
+    "rgba(0,0,0,0.6)": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/pages/_our-work.page.style.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/pages/old_about.us.page.style.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/views/_initiatives.block.style.scss"
+    ],
+    "rgba(255,255,255,0.95)": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/pages/_our-work.page.style.scss"
+    ],
+    "rgba(0,0,0,0.12)": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/pages/_resource.node.style.scss"
+    ],
+    "rgba(0,0,0,0.18)": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/pages/_resource.node.style.scss"
+    ],
+    "rgba(0,0,0,0.15)": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/pages/_resource.node.style.scss"
+    ],
+    "rgba(0,0,0,0.06)": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/pages/_resource.node.style.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/pages/old_about.us.page.style.scss",
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/views/_top.leadership.style.scss"
+    ],
+    "rgba(0,117,168,0.2)": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/pages/_videos.node.style.scss"
+    ],
+    "rgba(0,117,168,0.15)": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/pages/_videos.node.style.scss"
+    ],
+    "rgba(255,255,255,0.1)": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/pages/old_about.us.page.style.scss"
+    ],
+    "rgba(0,0,0,0.85)": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/views/_initiatives.block.style.scss"
+    ],
+    "#0073e6": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/views/_parent.organizations.views.style.scss"
+    ],
+    "#1a1a1a": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/views/_parent.organizations.views.style.scss"
+    ],
+    "#0d6efd": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/views/_resources.list.style.scss"
+    ],
+    "#f5be58": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/views/_resources.list.style.scss"
+    ],
+    "#06b27d": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/views/_resources.list.style.scss"
+    ],
+    "#4f57b5": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/views/_resources.list.style.scss"
+    ],
+    "#ffe5b4": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/views/_resources.list.style.scss"
+    ],
+    "#c083d9": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/views/_resources.list.style.scss"
+    ],
+    "#2c3e50": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/views/_resources.list.style.scss"
+    ],
+    "rgba(255,255,255,0.8)": [
+      "/home/alent/projects/jsso/web/themes/custom/jssotheme/scss/views/_resources.list.style.scss"
+    ]
+  }
+}

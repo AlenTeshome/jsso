@@ -1,6 +1,6 @@
 @use "abstracts" as *;
 
-@use "../../../contrib/bootstrap5/dist/bootstrap/5.3.8/scss/bootstrap" with ($primary: $primary);
+@use "../../../contrib/bootstrap5/dist/bootstrap/5.3.8/scss/bootstrap" with ($primary: $primary, $body-bg: $body-bg);
 
 @use "base";
 @use "layout";

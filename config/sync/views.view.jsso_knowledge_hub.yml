@@ -744,7 +744,7 @@ display:
         type: some
         options:
           offset: 0
-          items_per_page: 3
+          items_per_page: 4
       sorts:
         field_date_value:
           id: field_date_value

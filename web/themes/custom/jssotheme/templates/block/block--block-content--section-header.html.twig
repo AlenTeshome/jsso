@@ -1,0 +1,35 @@
+{#
+/**
+ * @file
+ * Theme override for the Section Header custom block.
+ */
+#}
+{% set block_entity = content['#block_content'] %}
+<div{{ attributes.addClass(['block', 'block-section-header']) }}>
+  {{ title_prefix }}
+  {% if label %}
+    <h2{{ title_attributes }}>{{ label }}</h2>
+  {% endif %}
+  {{ title_suffix }}
+  {% block content %}
+    <div class="section-header-wrapper">
+      {% if content.field_pill_badge|render|striptags|trim %}
+        <div class="section-header-pill">
+          {{ content.field_pill_badge }}
+        </div>
+      {% endif %}
+      
+      {% if content.field_title|render|striptags|trim %}
+        <h2 class="section-header-title">
+          {{ content.field_title }}
+        </h2>
+      {% endif %}
+      
+      {% if content.field_subtitle|render|striptags|trim %}
+        <p class="section-header-subtitle">
+          {{ content.field_subtitle }}
+        </p>
+      {% endif %}
+    </div>
+  {% endblock %}
+</div>

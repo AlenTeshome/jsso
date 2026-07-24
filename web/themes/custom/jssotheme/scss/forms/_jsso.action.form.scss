@@ -28,7 +28,7 @@ form[id^="webform-submission-jsso-commitment-form"] {
                 
                 &.is-active .progress-marker {
                     background-color: var(--clr-brand-jsso-primary);
-                    color: #fff;
+                    color: var(--clr-bg-300);
                 }
             }
         }
@@ -77,20 +77,20 @@ form[id^="webform-submission-jsso-commitment-form"] {
             display: block;
             font-size: 1.35rem;
             font-weight: normal;
-            color: var(--clr-brand-jsso-secondary, #333);
+            color: var(--clr-brand-jsso-secondary, var(--clr-brand-jsso-text));
             padding: 0.5rem 0;
             
             &.form-required::after {
                 background-image: none;
                 content: '*';
-                color: #e00000;
+                color: var(--clr-brand-jsso-primary);
                 margin-left: 0.4rem;
             }
         }
         
         .description {
             font-size: 0.95rem;
-            color: #555;
+            color: var(--clr-brand-jsso-text);
             margin-bottom: 0.75rem;
             line-height: 1.5;
         }
@@ -104,9 +104,9 @@ form[id^="webform-submission-jsso-commitment-form"] {
         select {
             width: 100%;
             padding: 0.85rem 1.25rem;
-            border: 1px solid #ccc;
+            border: 1px solid var(--clr-brand-jsso-bluebeige);
             border-radius: 0;
-            background: var(--clr-brand-jsso-bluebeige, #f9f9f9);
+            background: var(--clr-brand-jsso-bluebeige, var(--clr-brand-jsso-bluebeige));
             font-size: 1rem;
             color: var(--clr-brand-jsso-secondary);
             transition: 0.3s ease;
@@ -114,14 +114,14 @@ form[id^="webform-submission-jsso-commitment-form"] {
             &:focus {
                 outline: none;
                 border-color: var(--clr-brand-jsso-primary);
-                box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+                box-shadow: 0 2px 8px color-mix(in srgb, var(--clr-brand-jsso-secondary) 5%, transparent);
             }
         }
 
         .form-textarea-wrapper {
             textarea {
                 width: 100%;
-                border: 1px solid #ccc;
+                border: 1px solid var(--clr-brand-jsso-bluebeige);
                 border-radius: 0;
                 background: var(--clr-brand-jsso-bluebeige);
                 padding: 1rem 1.25rem;
@@ -134,7 +134,7 @@ form[id^="webform-submission-jsso-commitment-form"] {
                 &:focus {
                     outline: none;
                     border-color: var(--clr-brand-jsso-primary);
-                    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+                    box-shadow: 0 2px 8px color-mix(in srgb, var(--clr-brand-jsso-secondary) 5%, transparent);
                 }
             }
         }
@@ -175,7 +175,7 @@ form[id^="webform-submission-jsso-commitment-form"] {
     
     .form-managed-file {
         padding: 2rem;
-        border: 2px dashed #ccc;
+        border: 2px dashed var(--clr-brand-jsso-bluebeige);
         border-radius: 0;
         background: var(--clr-brand-jsso-bluebeige);
         transition: 0.3s ease;
@@ -192,7 +192,7 @@ form[id^="webform-submission-jsso-commitment-form"] {
         gap: 1rem;
         margin-top: 3rem;
         padding-top: 2rem;
-        border-top: 1px solid #ddd;
+        border-top: 1px solid var(--clr-brand-jsso-bluebeige);
 
         input, .button {
             border-radius: 0;
@@ -200,12 +200,12 @@ form[id^="webform-submission-jsso-commitment-form"] {
             align-items: center;
             justify-content: center;
             background-color: var(--clr-brand-jsso-primary);
-            color: rgb(255, 255, 255);
+            color: var(--clr-bg-300);
             font-weight: 600;
             font-size: 1.1rem;
             line-height: 1.25em;
             letter-spacing: -0.02em;
-            box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 15px;
+            box-shadow: color-mix(in srgb, var(--clr-brand-jsso-secondary) 10%, transparent) 0px 4px 15px;
             cursor: pointer;
             padding: 12px 32px;
             text-decoration: none;
@@ -249,9 +249,9 @@ form[id^="webform-submission-jsso-commitment-form"] {
             > tr {
                 display: flex;
                 flex-direction: column;
-                background: #fff;
+                background: var(--clr-bg-300);
                 padding: 2rem;
-                border: 1px solid #e0e0e0;
+                border: 1px solid var(--clr-brand-jsso-bluebeige);
                 gap: 1.5rem;
                 
                 > td {

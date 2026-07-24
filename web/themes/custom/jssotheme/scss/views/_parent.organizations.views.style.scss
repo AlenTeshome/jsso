@@ -1,10 +1,10 @@
 // Variables to match the Finovate/Vamtam aesthetic
-$accent-color: #0073e6; // Adjust to your JSSO brand color
-$dark-text: #1a1a1a;
-$muted-text: #666666;
-$card-bg: #ffffff;
-$shadow-sm: 0 5px 20px rgba(0, 0, 0, 0.05);
-$shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.1);
+$accent-color: var(--clr-brand-jsso-secondary); // Adjust to your JSSO brand color
+$dark-text: var(--clr-brand-jsso-text);
+$muted-text: var(--clr-brand-jsso-text);
+$card-bg: var(--clr-bg-300);
+$shadow-sm: 0 5px 20px color-mix(in srgb, var(--clr-brand-jsso-secondary) 5%, transparent);
+$shadow-hover: 0 15px 40px color-mix(in srgb, var(--clr-brand-jsso-secondary) 10%, transparent);
 
 .parent-organizations-list.view-jsso-parent-organizations {
     padding: 2rem 1rem;

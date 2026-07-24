@@ -1,0 +1,263 @@
+@use '../abstracts' as *;
+
+.view-initiatives {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 1;
+
+  &.view-display-id-block_3 {
+    .view-filters {
+      margin-bottom: 3rem;
+      padding: 1.5rem 2rem;
+      background-color: var(--clr-bg-300);
+
+    .views-exposed-form {
+      .form--inline {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+
+        @media (min-width: 992px) {
+          flex-wrap: nowrap;
+        }
+
+        .form-item-combine {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 2rem;
+          margin: 0;
+          flex-grow: 1;
+
+          @media (max-width: 767px) {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1rem;
+            width: 100%;
+          }
+
+          label {
+            font-family: var(--secondary-font);
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--clr-brand-jsso-secondary);
+            margin-bottom: 0;
+            white-space: nowrap;
+          }
+
+          input.form-text {
+            width: 100%;
+            max-width: 500px;
+            padding: 0.75rem 1.25rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+            font-size: 1rem;
+            background-color: #fff;
+            margin: 0;
+            margin-left: auto; /* Pushes the input to the right, closer to the buttons */
+
+            @media (max-width: 767px) {
+              margin-left: 0;
+              max-width: 100%;
+            }
+
+            &::placeholder {
+              color: #a0aec0;
+            }
+          }
+        }
+
+        .form-actions {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          margin: 0;
+
+          @media (max-width: 767px) {
+            width: 100%;
+            justify-content: flex-start;
+          }
+
+          .btn {
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            white-space: nowrap;
+            border: none;
+            color: var(--clr-bg-300);
+            transition: background-color 0.3s ease;
+
+            &[id^="edit-submit"] {
+              background-color: var(--clr-brand-jsso-primary);
+            }
+
+            &[id^="edit-reset"] {
+              background-color: var(--clr-brand-jsso-secondary);
+            }
+
+            &:hover {
+              background-color: var(--clr-jsso-secondary-accent);
+              color: var(--clr-bg-300);
+            }
+          }
+        }
+      }
+    }
+    }
+  }
+
+  &.initiatives-list {
+    .view-content {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      gap: 1.5rem;
+
+      @media (min-width: 768px) {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      @media (min-width: 992px) {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .initiative-row {
+        position: relative;
+        overflow: hidden;
+        border-radius: 4px;
+        min-height: 380px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        box-shadow: 0 4px 10px color-mix(in srgb, var(--clr-brand-jsso-secondary) 10%, transparent);
+        padding: 1.5rem;
+        
+        /* Style for the bare text (subtitle) and any other inline text */
+        color: var(--clr-bg-300);
+        text-shadow: 1px 1px 2px color-mix(in srgb, var(--clr-brand-jsso-secondary) 50%, transparent);
+        font-size: 0.95rem;
+        line-height: 1.4;
+
+        /* The first anchor tag contains the image */
+        > a:first-child {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          z-index: -1; /* Push the image and gradient behind the text */
+
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+          }
+
+          /* Gradient overlay */
+          &::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 70%;
+            background: linear-gradient(to top, color-mix(in srgb, var(--clr-brand-jsso-secondary) 85%, transparent) 0%, color-mix(in srgb, var(--clr-brand-jsso-secondary) 0%, transparent) 100%);
+            z-index: 1; /* Above the image, but still part of the z-index: -1 context */
+            pointer-events: none;
+          }
+        }
+
+        &:hover > a:first-child img {
+          transform: scale(1.05);
+        }
+
+        /* The second anchor tag is the title */
+        > a:nth-of-type(2) {
+          @include secondary-font;
+          font-size: 1.6rem;
+          font-weight: 700;
+          margin-bottom: 0.75rem;
+          line-height: 1.25;
+          color: var(--clr-bg-300);
+          text-shadow: 1px 1px 3px color-mix(in srgb, var(--clr-brand-jsso-secondary) 60%, transparent);
+          text-decoration: none;
+          display: block;
+
+          &:hover {
+            color: var(--clr-bg-300);
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+
+  &.hero-image {
+    margin-top: 0;
+    margin-bottom: 3rem;
+
+    .view-content {
+      .initiative-hero-row {
+        display: flex;
+        flex-direction: column;
+        background-color: var(--clr-brand-jsso-secondary);
+        overflow: hidden;
+        padding: 3rem;
+
+        @media (min-width: 992px) {
+          flex-direction: row;
+          align-items: stretch; /* To make both sides equal height */
+        }
+
+        .details {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          padding: 3rem 2rem;
+          color: var(--clr-bg-300); // Usually white/light gray
+
+          @media (min-width: 992px) {
+            padding: 4rem 5rem;
+          }
+
+          .title {
+            font-family: var(--secondary-font);
+            font-size: 2rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+
+            @media (min-width: 992px) {
+              font-size: 2.5rem;
+            }
+          }
+
+          .subtitle {
+            font-size: 1.25rem;
+            font-weight: 400;
+            line-height: 1.5;
+          }
+        }
+
+        .hero-image {
+          flex: 1;
+          padding: 3rem;
+
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            min-height: 400px;
+            
+            @media (min-width: 992px) {
+              min-height: auto;
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -11,6 +11,7 @@ module:
   block: 0
   block_content: 0
   bootstrap_layout_builder: 0
+  bootstrap_layouts: 0
   bootstrap_styles: 0
   bpmn_io: 0
   breakpoint: 0
@@ -77,6 +78,7 @@ module:
   language: 0
   layout_builder: 0
   layout_builder_blocks: 0
+  layout_builder_component_attributes: 0
   layout_discovery: 0
   leaflet: 0
   leaflet_more_maps: 0
@@ -155,3 +157,4 @@ theme:
   jssotheme: 0
   gin: 0
 profile: standard
+

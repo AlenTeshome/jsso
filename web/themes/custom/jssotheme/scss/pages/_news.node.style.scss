@@ -6,7 +6,7 @@
 
 
 .page-node-type-news {
-
+    background-color: #ffffff;
 
     .block-field-blocknodenewsfield-date {
         margin-bottom: 0.5rem;
@@ -196,9 +196,9 @@
                 padding: 0.5rem 1.25rem;
                 font-weight: 600;
                 font-size: 0.875rem;
-                border: 1px solid rgba(28, 75, 66, 0.05);
+                border: 1px solid color-mix(in srgb, var(--clr-brand-jsso-secondary) 5%, transparent);
                 transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+                box-shadow: 0 2px 5px color-mix(in srgb, var(--clr-brand-jsso-secondary) 2%, transparent);
                 @include primary-font;
                 width: fit-content;
             }
@@ -220,8 +220,8 @@
         .block-layout-builder {
             background: white;
             padding: 2.25rem;
-            border: 1px solid rgba(0, 0, 0, 0.05);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+            border: 1px solid color-mix(in srgb, var(--clr-brand-jsso-secondary) 5%, transparent);
+            box-shadow: 0 10px 30px color-mix(in srgb, var(--clr-brand-jsso-secondary) 3%, transparent);
 
             .field__label {
                 font-size: 1rem;
@@ -291,7 +291,7 @@
 
         .col-md-4.maincontent {
             padding-top: 2rem;
-            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            border-top: 1px solid color-mix(in srgb, var(--clr-brand-jsso-secondary) 5%, transparent);
         }
     }
 }

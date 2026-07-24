@@ -1,0 +1,141 @@
+@use "../abstracts" as *;
+
+.block-information-card {
+  margin-bottom: 2rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .information-card-main-title {
+    @include secondary-font;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--clr-brand-jsso-secondary, var(--clr-brand-jsso-primary));
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+  }
+
+  .information-card-wrapper {
+    background-color: var(--clr-bg-300);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px color-mix(in srgb, var(--clr-brand-jsso-secondary) 3%, transparent);
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  &.has-image {
+    .information-card-wrapper {
+      @media screen and (min-width: 992px) {
+        flex-direction: row;
+      }
+    }
+    
+    .information-card-image {
+      flex: 0 0 38%;
+      min-height: 250px;
+      
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      
+      /* Target drupal field wrappers just in case */
+      .field--name-field-image,
+      .field__item {
+        height: 100%;
+      }
+    }
+    
+    .information-card-content {
+      flex: 1;
+    }
+  }
+
+  .information-card-content {
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    flex: 1;
+  }
+
+  .information-card-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.25rem;
+    gap: 15px;
+
+    .information-card-icon {
+      width: 60px;
+      height: 60px;
+      background-color: var(--clr-brand-jsso-bluebeige, var(--clr-brand-jsso-bluebeige));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--clr-brand-jsso-primary, var(--clr-brand-jsso-secondary));
+      font-size: 1.5rem;
+      
+      i {
+        line-height: 1;
+      }
+    }
+
+    .information-card-title {
+      @include secondary-font;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--clr-brand-jsso-secondary, var(--clr-brand-jsso-primary));
+      margin: 0;
+      
+      div, p { 
+        margin: 0;
+        display: inline;
+      }
+    }
+  }
+
+  .information-card-subtitle {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--clr-brand-jsso-text, #5c6e94);
+    margin-bottom: 1rem;
+  }
+
+  .information-card-description {
+    color: var(--clr-brand-jsso-text, #5c6e94);
+    margin-bottom: 2rem;
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .information-card-link {
+    text-align: right;
+    margin-top: auto;
+    
+    a {
+      display: inline-flex;
+      align-items: center;
+      font-weight: 600;
+      color: var(--clr-brand-jsso-secondary, var(--clr-brand-jsso-primary));
+      transition: color 0.3s ease;
+      font-size: 0.95rem;
+      
+      i, svg {
+        transition: transform 0.3s ease;
+      }
+      
+      &:hover {
+        color: var(--clr-brand-jsso-primary, var(--clr-brand-jsso-secondary));
+        i, svg {
+          transform: translateX(5px);
+        }
+      }
+    }
+  }
+}

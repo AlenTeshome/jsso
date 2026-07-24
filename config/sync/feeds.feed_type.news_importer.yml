@@ -77,7 +77,7 @@ mappings:
   -
     target: field_callout
     map:
-      value: description
+      value: feed_description
     settings:
       language: null
   -

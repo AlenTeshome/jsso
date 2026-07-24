@@ -1,0 +1,8 @@
+uuid: b4170f27-e5a7-4875-a746-5f31963c077c
+langcode: en
+status: true
+dependencies: {  }
+id: layout_section
+label: 'Layout Section'
+revision: true
+description: null

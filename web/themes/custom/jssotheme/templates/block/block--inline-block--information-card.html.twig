@@ -1,0 +1,57 @@
+{#
+/**
+ * @file
+ * Theme override for the Information Card custom block.
+ */
+#}
+{%
+  set classes = [
+    'block',
+    'block-information-card',
+    content.field_image|render|striptags|trim ? 'has-image' : 'no-image',
+  ]
+%}
+<div{{ attributes.addClass(classes) }}>
+  {{ title_prefix }}
+  {% if label %}
+    <h2{{ title_attributes }}>{{ label }}</h2>
+  {% endif %}
+  {{ title_suffix }}
+  {% block content %}
+    <div class="information-card-wrapper">
+      {% if content.field_image|render|striptags|trim %}
+        <div class="information-card-image">
+          {{ content.field_image }}
+        </div>
+      {% endif %}
+
+      <div class="information-card-content">
+        <div class="information-card-header">
+          {% if content.field_icon|render|striptags|trim %}
+            <div class="information-card-icon">
+              <i class="{{ content.field_icon|render|striptags|trim }}"></i>
+            </div>
+          {% endif %}
+          
+          {% if content.field_title|render|striptags|trim %}
+            <div class="information-card-title">{{ content.field_title }}</div>
+          {% endif %}
+        </div>
+        
+        {% if content.field_subtitle|render|striptags|trim %}
+          <div class="information-card-subtitle">{{ content.field_subtitle }}</div>
+        {% endif %}
+        
+        {% if content.field_description|render|striptags|trim %}
+          <div class="information-card-description">{{ content.field_description }}</div>
+        {% endif %}
+        
+        {% if content.field_link|render|striptags|trim %}
+          <div class="information-card-link">
+            {{ content.field_link }}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  {% endblock %}
+</div>

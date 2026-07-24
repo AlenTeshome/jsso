@@ -158,21 +158,21 @@
                 textarea {
                     width: 100%;
                     padding: 1rem 1.25rem;
-                    border: 1px solid rgba(0, 0, 0, 0.1);
+                    border: 1px solid color-mix(in srgb, var(--clr-brand-jsso-secondary) 10%, transparent);
                     background: var(--clr-brand-jsso-bluebeige);
                     transition: all 0.3s ease;
                     font-size: 1rem;
                     border-radius: 0;
 
                     &::placeholder {
-                        color: rgba(0, 0, 0, 0.3);
+                        color: color-mix(in srgb, var(--clr-brand-jsso-secondary) 30%, transparent);
                     }
 
                     &:focus {
                         outline: none;
                         border-color: var(--clr-brand-jsso-primary);
                         background: var(--clr-bg-300);
-                        box-shadow: 0 0 0 4px rgba(0, 117, 168, 0.05);
+                        box-shadow: 0 0 0 4px color-mix(in srgb, var(--clr-brand-jsso-secondary) 5%, transparent);
                     }
                 }
             }

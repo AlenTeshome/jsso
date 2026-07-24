@@ -1,0 +1,17 @@
+{#
+/**
+ * @file
+ * Custom views fields template for Banner Parallax view.
+ */
+#}
+{% for key, field in fields %}
+  {% if 'image' in key or 'media' in key or 'picture' in key %}
+    <div class="parallax-media">
+      {{ field.content }}
+    </div>
+  {% else %}
+    <div class="parallax-field parallax-field-{{ key|clean_class }}">
+      {{ field.content }}
+    </div>
+  {% endif %}
+{% endfor %}

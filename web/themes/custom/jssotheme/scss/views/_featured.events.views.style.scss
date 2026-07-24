@@ -21,6 +21,7 @@
                     }
 
                     .event-title {
+                        @include secondary-font;
                         padding: 0 1.5rem 1.5rem;
                         font-size: 1rem;
                         @include trim-text(2);
@@ -91,7 +92,7 @@
                     text-decoration: none;
 
                     &:hover {
-                        background-color: var(--clr-brand-jsso-bluebeige);
+                        background-color: var(--clr-brand-jsso-lime);
                         transform: translateY(-4px);
 
                         .event-title {
@@ -118,16 +119,17 @@
                         position: absolute;
                         top: 1.5em;
                         right: 1.5em;
-                        background-color: var(--clr-brand-jsso-beige);
+                        background: var(--clr-brand-jsso-bluebeige);
                         padding: 0.2rem 0.5rem;
-                        font-size: 0.8rem;
-                        font-weight: 700;
+                        font-size: 0.7rem;
+                        font-weight: 600;
                         text-transform: uppercase;
-                        color: var(--clr-brand-jsso-accents);
+                        color: var(--clr-bg-500);
                         letter-spacing: 1px;
                     }
 
                     .event-title {
+                        @include secondary-font;
                         font-size: 1.3rem;
                         font-weight: 500;
                         color: var(--clr-brand-jsso-secondary);
@@ -136,7 +138,7 @@
                     }
 
                     .event-dates {
-                        font-size: 0.95rem;
+                        font-size: 0.8rem;
                         color: var(--text-color);
                         font-weight: 600;
                         margin-bottom: 0.5rem;

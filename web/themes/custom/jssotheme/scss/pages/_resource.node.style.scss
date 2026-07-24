@@ -2,6 +2,17 @@
 
 .page-node-type-resource {
 
+    // ── Title ───────────────────────────────────────────────────────────
+    .block-field-blocknoderesourcetitle,
+    .field--name-title {
+        font-family: var(--secondary-font);
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: var(--clr-brand-jsso-secondary);
+        margin-bottom: 0;
+        display: block; // Since it's a span by default
+    }
+
     // ── Document Cover Image ────────────────────────────────────────────
     .field--name-field-document-cover {
         margin-bottom: 2rem;
@@ -10,19 +21,19 @@
             display: block;
             border-radius: 4px;
             overflow: hidden;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            box-shadow: 0 8px 24px color-mix(in srgb, var(--clr-brand-jsso-secondary) 12%, transparent);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
 
             &:hover {
                 transform: translateY(-5px);
-                box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+                box-shadow: 0 12px 32px color-mix(in srgb, var(--clr-brand-jsso-secondary) 18%, transparent);
             }
 
             img {
                 display: block;
                 width: 100%;
                 height: auto;
-                border: 1px solid rgba(0, 0, 0, 0.05);
+                border: 1px solid color-mix(in srgb, var(--clr-brand-jsso-secondary) 5%, transparent);
             }
         }
     }
@@ -64,20 +75,27 @@
                         font-weight: 900;
                         margin-right: 0.75rem;
                         font-size: 1.1rem; // Ensure icon has size since parent is 0
-                        color: #ffffff;
+                        color: var(--clr-bg-300);
                     }*/
 
                     // Insert "Download" text
                     &::after {
                         content: "Download";
                         font-size: 1.1rem;
-                        color: #ffffff;
+                        color: var(--clr-bg-300);
+                    }
+
+                    svg {
+                        width: 25px;
+                        height: 25px;
+                        color: var(--clr-bg-300);
+                        margin-right: 1rem;
                     }
 
                     &:hover {
                         background-color: var(--clr-brand-jsso-secondary);
                         transform: translateY(-2px);
-                        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                        box-shadow: 0 4px 12px color-mix(in srgb, var(--clr-brand-jsso-secondary) 15%, transparent);
                     }
                 }
             }
@@ -91,7 +109,7 @@
         .field__item {
             display: inline-block;
             padding: 0.4rem 1.25rem;
-            background-color: rgba(0, 0, 0, 0.05);
+            background-color: color-mix(in srgb, var(--clr-brand-jsso-secondary) 5%, transparent);
             color: var(--clr-brand-jsso-primary);
             font-size: 0.85rem;
             font-weight: 700;
@@ -108,7 +126,7 @@
     .field--name-field-frameworks {
         margin-bottom: 1.5rem;
         padding-bottom: 1.5rem;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        border-bottom: 1px solid color-mix(in srgb, var(--clr-brand-jsso-secondary) 6%, transparent);
 
         &:last-child {
             border-bottom: none;
@@ -149,8 +167,8 @@
 
         .field__item {
             font-size: 0.85rem;
-            background: rgba(0, 0, 0, 0.03);
-            border: 1px solid rgba(0, 0, 0, 0.05);
+            background: color-mix(in srgb, var(--clr-brand-jsso-secondary) 3%, transparent);
+            border: 1px solid color-mix(in srgb, var(--clr-brand-jsso-secondary) 5%, transparent);
             padding: 0.35rem 0.85rem;
             border-radius: 4px;
             color: var(--clr-bg-500);
@@ -159,7 +177,7 @@
             &:hover {
                 background: var(--clr-brand-jsso-primary);
                 border-color: var(--clr-brand-jsso-primary);
-                color: #ffffff;
+                color: var(--clr-bg-300);
             }
         }
     }
@@ -169,9 +187,9 @@
         margin-bottom: 1.5rem;
 
         .field__item {
-            font-size: clamp(1.25rem, 3vw, 1.75rem);
+            font-size: clamp(1.25rem, 3vw, 1.35rem);
             font-weight: 400;
-            color: var(--clr-brand-jsso-secondary);
+            color: var(--clr-brand-jsso-primary);
             font-style: italic;
             line-height: 1.4;
             @include primary-font;

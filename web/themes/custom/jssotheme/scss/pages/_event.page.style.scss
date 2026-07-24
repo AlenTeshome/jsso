@@ -10,7 +10,7 @@
     justify-content: center;
     gap: 1.5rem;
     padding: 0.5rem;
-    background: rgba(0, 0, 0, 0.03);
+    background: color-mix(in srgb, var(--clr-brand-jsso-secondary) 3%, transparent);
     border-radius: 100px;
     width: fit-content;
     margin-left: auto;
@@ -41,15 +41,15 @@
 
         &:hover {
             opacity: 1;
-            background: rgba(255, 255, 255, 0.5);
+            background: color-mix(in srgb, var(--clr-brand-jsso-secondary) 50%, transparent);
             transform: translateY(-2px);
         }
 
         &.active {
             background-color: var(--clr-brand-jsso-primary);
-            color: #ffffff;
+            color: var(--clr-bg-300);
             opacity: 1;
-            box-shadow: 0 10px 20px rgba(9, 100, 252, 0.2);
+            box-shadow: 0 10px 20px color-mix(in srgb, var(--clr-brand-jsso-secondary) 20%, transparent);
             transform: translateY(-2px);
         }
     }

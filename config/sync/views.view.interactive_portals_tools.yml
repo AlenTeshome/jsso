@@ -3,9 +3,8 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.taxonomy_term.field_org_logo
+    - field.storage.taxonomy_term.field_image_icon
     - field.storage.taxonomy_term.field_related_link
-    - image.style.4_3_500x375_focal_point_webp
     - taxonomy.vocabulary.knowledge_resources
   module:
     - link
@@ -29,16 +28,16 @@ display:
     display_options:
       title: 'Interactive portals & tools'
       fields:
-        field_org_logo:
-          id: field_org_logo
-          table: taxonomy_term__field_org_logo
-          field: field_org_logo
+        field_image_icon:
+          id: field_image_icon
+          table: taxonomy_term__field_image_icon
+          field: field_image_icon
           relationship: none
           group_type: group
           admin_label: ''
           plugin_id: field
           label: ''
-          exclude: true
+          exclude: false
           alter:
             alter_text: false
             text: ''
@@ -79,12 +78,9 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: target_id
-          type: media_thumbnail
+          type: svg_formatter
           settings:
-            image_link: ''
-            image_style: 4_3_500x375_focal_point_webp
-            image_loading:
-              attribute: lazy
+            inline: true
           group_column: target_id
           group_columns: {  }
           group_rows: true
@@ -104,7 +100,7 @@ display:
           admin_label: ''
           plugin_id: field
           label: ''
-          exclude: true
+          exclude: false
           alter:
             alter_text: false
             text: ''
@@ -175,11 +171,11 @@ display:
           label: ''
           exclude: false
           alter:
-            alter_text: true
-            text: "<div class=\"resource-detail\">\r\n<div class=\"resource-image\">{{ field_org_logo }}</div>\r\n<div class=\"resource-name\">{{ name }}</div>\r\n</div>\r\n\r\n"
-            make_link: true
-            path: '{{ field_related_link }}'
-            absolute: true
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
             external: false
             replace_spaces: false
             path_case: none
@@ -189,11 +185,11 @@ display:
             link_class: ''
             prefix: ''
             suffix: ''
-            target: _blank
+            target: ''
             nl2br: false
             max_length: 0
-            word_boundary: false
-            ellipsis: false
+            word_boundary: true
+            ellipsis: true
             more_link: false
             more_link_text: ''
             more_link_path: ''
@@ -348,7 +344,7 @@ display:
         - 'languages:language_interface'
         - user.permissions
       tags:
-        - 'config:field.storage.taxonomy_term.field_org_logo'
+        - 'config:field.storage.taxonomy_term.field_image_icon'
         - 'config:field.storage.taxonomy_term.field_related_link'
   block_1:
     id: block_1
@@ -368,7 +364,7 @@ display:
         - 'languages:language_interface'
         - user.permissions
       tags:
-        - 'config:field.storage.taxonomy_term.field_org_logo'
+        - 'config:field.storage.taxonomy_term.field_image_icon'
         - 'config:field.storage.taxonomy_term.field_related_link'
   block_2:
     id: block_2

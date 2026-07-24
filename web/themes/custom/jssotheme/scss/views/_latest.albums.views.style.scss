@@ -57,9 +57,10 @@
 
                     .album-title {
                         font-size: 1.2rem;
-                        font-weight: 600;
+                        font-weight: 700;
                         color: var(--clr-brand-jsso-secondary);
                         line-height: 1.4;
+                        @include secondary-font;
                     }
 
                     .album-link {

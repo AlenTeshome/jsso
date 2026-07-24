@@ -10,6 +10,8 @@
 //   • Images gallery      (.block-field-blocknodealbumfield-images)
 // ─────────────────────────────────────────────────────────────────
 .page-node-type-album {
+    background-color: #ffffff;
+
     .view-jsso-albums {
         .view-content {
             flex-direction: column;
@@ -22,36 +24,31 @@
         }
     }
 
+    .field--name-title {
+        font-size: clamp(1.5rem, 4vw, 2.35rem);
+        line-height: 1.25;
+        font-weight: 700;
+        color: var(--clr-brand-jsso-secondary);
+        @include secondary-font;
+        display: block;
+        margin-bottom: 1.5rem;
+    }
+
+    .field--name-field-date {
+        margin-bottom: 0.5rem;
+
+        time.datetime {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--clr-brand-jsso-secondary);
+            @include secondary-font;
+        }
+    }
+
     .albumdetail {
         display: flex;
         flex-direction: column;
         gap: 1.5rem;
-
-        // ── Date ─────────────────────────────────────────────────────
-        .block-field-blocknodealbumfield-date {
-            margin-bottom: 0.5rem;
-
-            .field--name-field-date {
-                time.datetime {
-                    font-size: 0.9rem;
-                    font-weight: 700;
-                    color: var(--clr-brand-jsso-secondary);
-                    @include secondary-font;
-                }
-            }
-        }
-
-        // ── Title ────────────────────────────────────────────────────
-        .block-field-blocknodealbumtitle {
-            .field--name-title {
-                font-size: clamp(1.5rem, 4vw, 2.35rem);
-                line-height: 1.25;
-                font-weight: 700;
-                color: var(--clr-brand-jsso-secondary);
-                @include secondary-font;
-                display: inline-block;
-            }
-        }
 
         // ── Body / Description ────────────────────────────────────────
         .block-field-blocknodealbumbody {
@@ -129,110 +126,144 @@
             }
         }
 
-        // ── Tags ──────────────────────────────────────────────────────
-        .block-field-blocknodealbumfield-tags {
-            margin-top: 2rem;
+    }
 
-            .field__label {
-                font-size: 0.85rem;
-                font-weight: 500;
-                margin-bottom: 1.5rem;
-                color: var(--clr-brand-jsso-secondary);
-                @include secondary-font;
-                text-transform: uppercase;
-                letter-spacing: 0.08em;
-                display: flex;
+    // ── Tags (Global within album) ────────────────────────────────
+    .field--name-field-tags,
+    .block-field-blocknodealbumfield-tags .field--name-field-tags {
+        margin-top: 2rem;
+        
+        .field__label {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--clr-brand-jsso-secondary);
+            @include secondary-font;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 2px solid var(--clr-brand-jsso-lime);
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+
+        &.field--label-above .field__items,
+        .field__items {
+            display: flex !important;
+            flex-direction: row !important;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+
+            .field__item {
+                background: var(--clr-brand-jsso-bluebeige);
+                color: var(--clr-brand-jsso-primary);
+                padding: 0.4rem 1rem;
+                font-weight: 600;
+                font-size: 0.875rem;
+                border: 1px solid color-mix(in srgb, var(--clr-brand-jsso-secondary) 10%, transparent);
+                transition: all 0.3s ease;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+                @include primary-font;
+                display: inline-flex;
                 align-items: center;
-                gap: 0.75rem;
-            }
+                
+                &::before {
+                    content: '#';
+                    margin-right: 4px;
+                    color: var(--clr-brand-jsso-lime);
+                    font-weight: bold;
+                }
 
-            .field--name-field-tags {
-                .field__items {
-                    display: flex;
-                    flex-wrap: wrap;
-                    gap: 0.75rem;
-
-                    .field__item {
-                        background: var(--clr-brand-jsso-bluebeige);
-                        color: var(--clr-brand-jsso-primary);
-                        padding: 0.5rem 1.25rem;
-                        font-weight: 600;
-                        font-size: 0.875rem;
-                        border: 1px solid rgba(28, 75, 66, 0.05);
-                        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-                        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
-                        @include primary-font;
-                        width: fit-content;
-
-                        &:hover {
-                            background-color: var(--clr-brand-jsso-primary);
-                            color: var(--clr-brand-jsso-lime);
-                        }
-                    }
+                &:hover {
+                    background-color: var(--clr-brand-jsso-primary);
+                    color: #ffffff;
+                    transform: translateY(-2px);
+                    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+                    border-color: var(--clr-brand-jsso-primary);
                 }
             }
         }
+    }
 
-        // ── Images Gallery ────────────────────────────────────────────
-        .block-field-blocknodealbumfield-images {
-            .field--name-field-images {
-                .field__items {
-                    display: grid;
-                    grid-template-columns: repeat(3, 1fr);
-                    gap: 0.75rem;
+    // ── Images Gallery (Global within album) ──────────────────────
+    .field--name-field-images,
+    .block-field-blocknodealbumfield-images .field--name-field-images {
+        margin-top: 2rem;
 
-                    @media (max-width: 991px) {
-                        grid-template-columns: repeat(2, 1fr);
+        .field__label {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--clr-brand-jsso-secondary);
+            @include secondary-font;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 2px solid var(--clr-brand-jsso-lime);
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+
+        &.field--label-above .field__items,
+        .field__items {
+            display: grid !important;
+            grid-template-columns: repeat(3, 1fr) !important;
+            flex-direction: unset;
+            gap: 1.25rem;
+
+            @media (max-width: 991px) {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+
+            @media (max-width: 575px) {
+                grid-template-columns: 1fr !important;
+            }
+
+            .field__item {
+                overflow: hidden;
+                background-color: var(--clr-bg-400);
+                border-radius: 12px;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+                &:hover {
+                    transform: translateY(-5px);
+                    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+                }
+
+                a.colorbox {
+                    display: block;
+                    overflow: hidden;
+                    border-radius: inherit;
+                    position: relative;
+
+                    img {
+                        width: 100%;
+                        height: 250px;
+                        object-fit: cover;
+                        display: block;
+                        transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+                            filter 0.5s ease;
                     }
 
-                    @media (max-width: 575px) {
-                        grid-template-columns: 1fr;
+                    &:hover img {
+                        transform: scale(1.08);
+                        filter: brightness(1.05);
                     }
 
-                    .field__item {
-                        overflow: hidden;
-                        background-color: var(--clr-bg-400);
+                    &::after {
+                        content: '';
+                        position: absolute;
+                        inset: 0;
+                        border-radius: inherit;
+                        background: linear-gradient(to top,
+                                rgba(0,0,0,0.3) 0%,
+                                transparent 40%);
+                        opacity: 0;
+                        transition: opacity 0.35s ease;
+                        pointer-events: none;
+                    }
 
-                        a.colorbox {
-                            display: block;
-                            overflow: hidden;
-                            border-radius: inherit;
-
-                            img {
-                                width: 100%;
-                                height: 200px;
-                                object-fit: cover;
-                                display: block;
-                                transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
-                                    filter 0.4s ease;
-                                filter: brightness(0.97);
-                            }
-
-                            &:hover img {
-                                transform: scale(1.06);
-                                filter: brightness(1.05);
-                            }
-
-                            // Subtle overlay on hover
-                            position: relative;
-
-                            &::after {
-                                content: '';
-                                position: absolute;
-                                inset: 0;
-                                border-radius: inherit;
-                                background: linear-gradient(to bottom,
-                                        transparent 60%,
-                                        rgba(0, 117, 168, 0.25));
-                                opacity: 0;
-                                transition: opacity 0.35s ease;
-                                pointer-events: none;
-                            }
-
-                            &:hover::after {
-                                opacity: 1;
-                            }
-                        }
+                    &:hover::after {
+                        opacity: 1;
                     }
                 }
             }

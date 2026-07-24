@@ -121,7 +121,7 @@ nav.navbar {
             width: 100vw !important;
             top: 100%;
             border: none;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 30px color-mix(in srgb, var(--clr-brand-jsso-secondary) 10%, transparent);
 
             .tbm-row {
                 max-width: 1320px; // Match main container width
@@ -155,6 +155,7 @@ nav.navbar.navbar-expand-lg {
             border: none;
 
             a.tbm-link {
+                font-family: var(--secondary-font);
                 font-size: 1.15rem;
                 font-weight: 500;
                 letter-spacing: -0.025rem;
@@ -206,6 +207,7 @@ nav.navbar.navbar-expand-lg {
 
     .nav>li>a,
     .nav>li>span.nolink {
+        font-family: var(--secondary-font);
         background: none !important;
         border: none !important;
         box-shadow: none !important;

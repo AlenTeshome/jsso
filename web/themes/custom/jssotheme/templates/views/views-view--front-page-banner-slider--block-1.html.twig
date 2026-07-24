@@ -1,0 +1,41 @@
+{#
+/**
+ * @file
+ * Theme override for Front Page banner Slider view.
+ */
+#}
+{%
+  set classes = [
+    'view',
+    'view-' ~ id|clean_class,
+    'view-id-' ~ id,
+    'view-display-id-' ~ display_id,
+    dom_id ? 'js-view-dom-id-' ~ dom_id,
+    'swiper-container-banner',
+    'swiper'
+  ]
+%}
+<div{{ attributes.addClass(classes) }}>
+  {{ title_prefix }}
+  
+  <div class="swiper-header-nav">
+    <div class="swiper-nav-buttons">
+      <div class="swiper-button-prev-banner"></div>
+      <div class="swiper-button-next-banner"></div>
+    </div>
+  </div>
+
+  {{ title_suffix }}
+
+  {% if rows %}
+    <div class="swiper-wrapper">
+      {{ rows }}
+    </div>
+  {% elseif empty %}
+    <div class="view-empty">
+      {{ empty }}
+    </div>
+  {% endif %}
+
+  <div class="swiper-pagination-banner"></div>
+</div>

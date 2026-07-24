@@ -37,7 +37,13 @@
                     a {
                         width: 100%;
                         padding: 0;
-                        background-color: var(--clr-bg-300);
+                        background-color: transparent;
+
+                        &:hover {
+                            .res-title {
+                                color: var(--clr-brand-jsso-primary);
+                            }
+                        }
 
                         .wrapper {
                             flex-direction: row;
@@ -45,6 +51,7 @@
 
                             .res-img {
                                 flex: 1 1 20%;
+                                padding: 1rem;
                             }
 
                             .res-detail {
@@ -71,7 +78,6 @@
         flex-direction: row;
         gap: 2em 1em;
         justify-content: space-between;
-        flex-wrap: wrap;
 
         .views-row {
             display: flex;
@@ -86,6 +92,12 @@
                     justify-content: space-between;
                     padding: 1.5em;
                     height: 100%;
+
+                    &:hover {
+                        .res-title {
+                            color: var(--clr-brand-jsso-primary);
+                        }
+                    }
 
                     .wrapper {
                         display: flex;
@@ -103,6 +115,7 @@
                     }
 
                     .res-title {
+                        @include secondary-font;
                         font-size: 1.1rem;
                         font-weight: 600;
                         color: var(--clr-brand-jsso-secondary);
@@ -114,11 +127,11 @@
                     }
 
                     .res-type {
-                        font-size: .8rem;
-                        font-weight: 700;
+                        font-size: 0.7rem;
+                        font-weight: 600;
                         text-transform: uppercase;
-                        color: var(--clr-brand-jsso-accents);
-                        background: var(--clr-brand-jsso-beige);
+                        color: var(--clr-bg-500);
+                        background: var(--clr-brand-jsso-bluebeige);
                         padding: 0.2rem 0.5rem;
                         letter-spacing: 1px;
                         width: fit-content;

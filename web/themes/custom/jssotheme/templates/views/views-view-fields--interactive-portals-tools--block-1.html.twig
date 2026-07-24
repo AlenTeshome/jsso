@@ -1,0 +1,17 @@
+{#
+/**
+ * @file
+ * Theme override for Interactive Portals & Tools Block 1 fields.
+ */
+#}
+{% set raw_url = fields.field_related_link.content|striptags|trim %}
+{% if raw_url is not empty %}
+  <a href="{{ raw_url }}" target="_blank">
+{% endif %}
+  <div class="resource-detail">
+    <div class="resource-image">{{ fields.field_image_icon.content }}</div>
+    <div class="resource-name">{{ fields.name.content|striptags|trim }}</div>
+  </div>
+{% if raw_url is not empty %}
+  </a>
+{% endif %}

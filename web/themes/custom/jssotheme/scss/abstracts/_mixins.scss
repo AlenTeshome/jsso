@@ -2,14 +2,14 @@
 // This file contains all application-wide Sass mixins.
 // -----------------------------------------------------------------------------
 @mixin primary-font {
-    font-family: "Work Sans", sans-serif;
+    font-family: var(--body-font, "Montserrat", sans-serif);
     font-optical-sizing: auto;
     font-weight: normal;
     font-style: normal;
 }
 
 @mixin secondary-font {
-    font-family: "Montserrat", sans-serif;
+    font-family: var(--secondary-font, "Cairo", sans-serif);
     font-optical-sizing: auto;
 }
 
@@ -85,7 +85,7 @@
     position: relative;
     background: var(--clr-bg-300);
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 10px 30px color-mix(in srgb, var(--clr-brand-jsso-secondary) 4%, transparent);
     transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
 
     [class*="image"],
@@ -103,8 +103,8 @@
 
     &:hover {
         transform: translateY(-10px);
-        box-shadow: 0 20px 50px rgba(28, 75, 66, 0.1);
-        background-color: var(--clr-brand-jsso-bluebeige);
+        box-shadow: 0 20px 50px color-mix(in srgb, var(--clr-brand-jsso-secondary) 10%, transparent);
+        background-color: var(--clr-brand-jsso-lime);
 
         img {
             transform: scale(1.08);
@@ -194,7 +194,7 @@
     }
 }
 
-@mixin main-read-more-link-anchor($bgcolor: rgba(255, 255, 255, 0.2), $textcolor: var(--clr-bg-300), $hoverbgcolor: var(--clr-bg-500), $hovertextcolor: var(--bs-body-color)) {
+@mixin main-read-more-link-anchor($bgcolor: color-mix(in srgb, var(--clr-brand-jsso-secondary) 20%, transparent), $textcolor: var(--clr-bg-300), $hoverbgcolor: var(--clr-bg-500), $hovertextcolor: var(--bs-body-color)) {
 
     display: inline-flex; // aligns text + circle
     align-items: center;
@@ -269,7 +269,7 @@
     display: inline-block;
     font-weight: 400;
     line-height: 1.5;
-    color: #212529;
+    color: var(--clr-brand-jsso-text);
     text-align: center;
     text-decoration: none;
     vertical-align: middle;
@@ -660,7 +660,7 @@
 @mixin finovate-pill {
     display: inline-block;
     padding: 6px 16px;
-    border: 1px solid rgba(28, 75, 66, 0.2);
+    border: 1px solid color-mix(in srgb, var(--clr-brand-jsso-secondary) 20%, transparent);
     border-radius: var(--radius-pill);
     color: var(--clr-brand-jsso-primary);
     font-size: 12px;
@@ -670,7 +670,7 @@
 }
 
 @mixin finovate-card($type: 'large') {
-    background-color: #fff;
+    background-color: var(--clr-bg-300);
     padding: 40px;
 
     @if $type =='large' {
@@ -680,7 +680,7 @@
 
     @else {
         border-radius: var(--radius-medium);
-        box-shadow: 0 4px 20px rgba(28, 75, 66, 0.05);
+        box-shadow: 0 4px 20px color-mix(in srgb, var(--clr-brand-jsso-secondary) 5%, transparent);
     }
 }
 
@@ -724,67 +724,38 @@
 @mixin investflow-button {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    padding: 10px 24px; // Initial balanced padding
-    background-color: var(--clr-brand-jsso-primary);
-    color: #ffffff;
-    //border-radius: 500px;
+    color: var(--clr-brand-jsso-primary); /* Dark blue color matching the image */
+    background: transparent;
     font-weight: 600;
+    font-size: 1.1rem;
     line-height: 1.25em;
-    letter-spacing: -0.02em;
     text-decoration: none;
-    transform-style: preserve-3d;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 0;
     border: none;
+    box-shadow: none;
     cursor: pointer;
-    overflow: hidden;
 
     &::after {
-        @include font-awsome-font;
-        content: "\f061";
-        color: transparent;
-        width: 0;
-        padding: 0;
-        margin: 0;
+        content: "\2192"; /* Standard unicode right arrow */
+        font-family: inherit;
+        font-weight: inherit;
+        margin-left: 8px;
+        font-size: 1.2rem;
+        transition: transform 0.3s ease;
     }
 
+    /* Hide any SVG that might be rendered inside the button markup */
     svg {
-        // FontAwesome right arrow
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 0; // Hidden by default
-        height: 25px;
-        background-color: #ffffff;
-        color: var(--clr-brand-jsso-primary);
-        border-radius: 50%;
-        margin-left: 0; // No margin when hidden
-        font-size: 0; // Hide icon text
-        opacity: 0;
-        padding: .2rem 0;
-        transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-        overflow: hidden;
+        display: none !important;
     }
 
     &:hover {
-        transform: scale3d(1.04, 1.04, 1.01);
-        color: #ffffff;
-        background-color: var(--clr-brand-jsso-primary);
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-        padding-right: 8px; // Shift padding to accommodate reveal
-
+        color: var(--clr-brand-jsso-primary);
+        text-decoration: none;
+        
         &::after {
-            width: 0;
-        }
-
-        svg {
-            width: 25px;
-            margin-left: 12px;
-            font-size: 0.9rem;
-            opacity: 1;
-            padding: .2rem;
-
+            transform: translateX(8px); /* Move arrow to the right on hover */
         }
     }
 }

@@ -54,6 +54,7 @@ items:
   - block.views_block.page_hero_image-block_3
   - block.views_block.project_map-block_1
   - block.views_block.recent_pages-block_recent_pages
+  - block.views_block.uneca_news-block_1
   - block.views_block.who_s_online-who_s_online_block
   - block.views_block.who_we_are-block_1
   - block.views_block.who_we_are-block_2

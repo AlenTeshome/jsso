@@ -1,0 +1,37 @@
+uuid: 54ec5f09-f93c-4f29-b5ac-af8cb4aac894
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.uneca_news
+  module:
+    - views
+active_version: 79bdf393868d376c
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'views_block:uneca_news-block_1'
+        label: 'Uneca News: Uneca News Block'
+        label_display: '0'
+        provider: views
+        views_label: ''
+        items_per_page: null
+    fallback_metadata:
+      slot_definitions: null
+  9ad7dc6541374e9c:
+    settings:
+      default_settings:
+        id: 'views_block:uneca_news-block_1'
+        label: 'Uneca News'
+        label_display: '0'
+        provider: views
+        views_label: ''
+        items_per_page: null
+    fallback_metadata:
+      slot_definitions: null
+label: 'Uneca News: Uneca News Block'
+id: block.views_block.uneca_news-block_1
+provider: views
+source: block
+source_local_id: 'views_block:uneca_news-block_1'

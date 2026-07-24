@@ -1,0 +1,184 @@
+@use '../abstracts' as *;
+
+// ---------------------------------------------------------
+// Dynamic Parallax Banner Component Style
+// Matches Drupal views output (.parallax-media, .parallax-field, .title, .subtitle, .link)
+// ---------------------------------------------------------
+
+.block-views-blockbanner-parallax-block-1,
+.view-banner-parallax,
+.view-id-banner_parallax {
+    position: relative;
+    width: 100%;
+    margin: 4rem 0;
+    clear: both;
+
+    .view-content {
+        position: relative;
+        width: 100%;
+
+        .views-row,
+        .parallax-row {
+            position: relative;
+            min-height: 700px; // Min 700px height
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+            clip-path: inset(0); // Native CSS Parallax container clip
+
+            @media (max-width: 992px) {
+                min-height: 550px;
+            }
+
+            // 1. Image Container & Fixed Parallax Image
+            .parallax-media,
+            .paralax-image,
+            .views-field-field-media-image,
+            .field--name-field-media-image {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 1;
+
+                img {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100vh;
+                    object-fit: cover;
+                    z-index: 1;
+                    pointer-events: none;
+
+                    @media (max-width: 992px) {
+                        position: absolute;
+                        height: 100%;
+                    }
+                }
+            }
+
+            // 2. Dark Overlay for Text Readability
+            &::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.55);
+                z-index: 2;
+                pointer-events: none;
+            }
+
+            // 3. Content Details Container (Positioned above overlay)
+            .parallax-field,
+            .paralax-details,
+            .parallax-details {
+                position: relative;
+                z-index: 10 !important;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                padding: 4rem 2rem;
+                max-width: 1000px;
+                width: 100%;
+                margin: 0 auto;
+                color: #ffffff !important;
+
+                // Also target internal Drupal views field wrapper if present
+                .views-field {
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                }
+
+                // Main Title (.title)
+                .title {
+                    @include secondary-font;
+                    font-size: clamp(2.25rem, 6vw, 4rem);
+                    font-weight: 800;
+                    line-height: 1.15;
+                    color: #ffffff !important;
+                    margin-bottom: 1rem;
+                    text-shadow: 0 3px 12px rgba(0, 0, 0, 0.6);
+                    text-align: center;
+                    width: 100%;
+                }
+
+                // Subtitle (.subtitle)
+                .subtitle {
+                    @include primary-font;
+                    font-size: clamp(1.15rem, 3vw, 1.6rem);
+                    font-weight: 400;
+                    line-height: 1.4;
+                    color: rgba(255, 255, 255, 0.95) !important;
+                    margin-bottom: 2rem;
+                    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+                    text-align: center;
+                    max-width: 850px;
+                    width: 100%;
+                }
+
+                // Extra text (.text) if present
+                .text {
+                    font-size: 1.15rem;
+                    line-height: 1.5;
+                    color: rgba(255, 255, 255, 0.9) !important;
+                    margin-bottom: 1.5rem;
+                    max-width: 800px;
+                    width: 100%;
+
+                    &:empty {
+                        display: none;
+                    }
+                }
+
+                // Link / Action (.link a) matching ESCWA UI
+                .link {
+                    margin-top: 0.5rem;
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+
+                    a {
+                        color: #ffffff !important;
+                        font-size: 1.3rem;
+                        font-weight: 700;
+                        text-decoration: none;
+                        display: inline-flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 0.4rem;
+                        transition: all 0.3s ease;
+
+                        &::after {
+                            content: "\2192";
+                            display: inline-block;
+                            margin-left: 0.4rem;
+                            font-size: 1.4rem;
+                            transition: transform 0.3s ease;
+                        }
+
+                        &:hover {
+                            color: var(--clr-brand-jsso-lime) !important;
+
+                            &::after {
+                                transform: translateX(6px);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

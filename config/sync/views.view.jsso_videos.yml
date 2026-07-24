@@ -231,7 +231,7 @@ display:
             alter_text: true
             text: "<div class=\"video-img\">{{ field_media_video }} </div>\r\n<div class=\"video-date\">{{ field_date }}</div>\r\n<div class=\"video-title\">{{ title }}</div>"
             make_link: true
-            path: '{{ view_node }} '
+            path: '{{ view_node }}'
             absolute: true
             external: false
             replace_spaces: false

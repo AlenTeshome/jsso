@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.album.body
+    - field.field.node.album.feeds_item
     - field.field.node.album.field_date
     - field.field.node.album.field_images
     - field.field.node.album.field_organization
@@ -102,6 +103,7 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
+  feeds_item: true
   field_related_event: true
   promote: true
   publish_on: true

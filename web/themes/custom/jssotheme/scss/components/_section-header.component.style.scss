@@ -1,0 +1,56 @@
+@use "../abstracts" as *;
+
+.block-section-header {
+  margin: 2rem 0 0;
+
+  .section-header-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .section-header-pill {
+    display: inline-block;
+    background-color: var(--clr-brand-jsso-primary, var(--clr-brand-jsso-secondary));
+    color: var(--clr-bg-300);
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 0.35em 1em;
+    border-radius: 50px;
+    margin-bottom: 1rem;
+    line-height: 1;
+    
+    /* Remove wrapper div styling from drupal fields */
+    div {
+      display: inline;
+    }
+  }
+
+  .section-header-title {
+    @include secondary-font;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--clr-brand-jsso-secondary);
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 1.2;
+    
+    div {
+      display: inline;
+    }
+  }
+
+  .section-header-subtitle {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--clr-brand-jsso-text, #5c6e94);
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 1.6;
+    
+    div {
+      display: inline;
+    }
+  }
+}

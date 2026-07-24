@@ -5,6 +5,7 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.album.body
+    - field.field.node.album.feeds_item
     - field.field.node.album.field_date
     - field.field.node.album.field_images
     - field.field.node.album.field_organization
@@ -42,6 +43,7 @@ content:
     weight: 100
     region: content
 hidden:
+  feeds_item: true
   field_date: true
   field_images: true
   field_organization: true

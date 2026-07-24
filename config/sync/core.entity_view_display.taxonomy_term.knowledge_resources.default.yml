@@ -3,11 +3,13 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.taxonomy_term.knowledge_resources.field_image_icon
     - field.field.taxonomy_term.knowledge_resources.field_org_logo
     - field.field.taxonomy_term.knowledge_resources.field_related_link
     - taxonomy.vocabulary.knowledge_resources
   module:
     - link
+    - svg_formatter
     - text
 id: taxonomy_term.knowledge_resources.default
 targetEntityType: taxonomy_term
@@ -18,6 +20,22 @@ content:
     type: text_default
     label: hidden
     settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_image_icon:
+    type: svg_formatter
+    label: hidden
+    settings:
+      inline: true
+      sanitize: true
+      apply_dimensions: true
+      width: 100
+      height: 100
+      enable_alt: true
+      alt_string: ''
+      enable_title: true
+      title_string: ''
     third_party_settings: {  }
     weight: 0
     region: content
